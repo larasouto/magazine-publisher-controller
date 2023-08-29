@@ -1,4 +1,4 @@
-import { nextui } from "@nextui-org/react";
+import { nextui } from '@nextui-org/react'
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -10,5 +10,15 @@ export default {
   theme: {
     extend: {}
   },
-  plugins: [nextui()]
+  plugins: [
+    nextui({
+      layout: {
+        radius: {
+          small: '6px',
+          medium: '8px',
+          large: '12px'
+        },
+      },
+    })
+  ]
 }

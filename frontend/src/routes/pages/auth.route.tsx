@@ -1,10 +1,10 @@
-import { RouteObject } from 'react-router-dom'
-import { routes } from '@routes'
-import { AuthGuard } from '@/utils/guard/AuthGuard'
 import { ComponentLayout } from '@/layout/ComponentLayout'
+import { routes } from '@routes'
+import { RouteObject } from 'react-router-dom'
 
-import SignIn from '@/pages/auth/sign-in'
-import SignUp from '@/pages/auth/sign-up'
+import SignIn from '@/pages/auth/sign-in/sign-in'
+import SignUp from '@/pages/auth/sign-up/sign-up'
+import { GuestGuard } from '@/utils/guard'
 
 export const AuthRoutes: RouteObject = {
   path: '/',
@@ -12,9 +12,9 @@ export const AuthRoutes: RouteObject = {
     {
       path: '/',
       element: (
-        <AuthGuard>
+        <GuestGuard>
           <ComponentLayout layout="blank" />
-        </AuthGuard>
+        </GuestGuard>
       ),
       children: [
         {

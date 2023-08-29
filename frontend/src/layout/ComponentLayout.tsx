@@ -8,9 +8,12 @@ export const ComponentLayout = ({ layout = 'blank' }: ComponentLayoutProps) => {
   return (
     <>
       {layout === 'simple' && (
-        <>
-          <Outlet />
-        </>
+        <div className="w-full h-full">
+          <div className="bg-red-600" />
+          <div className="bg-blue-600">
+            <Outlet />
+          </div>
+        </div>
       )}
 
       {layout === 'blank' && <Outlet />}

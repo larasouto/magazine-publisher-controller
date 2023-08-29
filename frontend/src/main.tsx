@@ -2,15 +2,16 @@ import 'react-toastify/dist/ReactToastify.css'
 import './i18n'
 import './index.css'
 
+import { NextUIProvider } from '@nextui-org/react'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { HelmetProvider } from 'react-helmet-async'
 import { QueryClientProvider } from 'react-query'
 import { RouterProvider } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-import { router } from './routes'
+import { ThemeProvider } from './contexts/theme-provider'
 import { queryClient } from './lib/react-query'
-import { NextUIProvider } from '@nextui-org/react'
+import { router } from './routes'
 
 export const App = () => {
   return (
@@ -18,9 +19,11 @@ export const App = () => {
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
           <NextUIProvider>
-            <main>
-              <RouterProvider router={router} />
-            </main>
+            <ThemeProvider defaultTheme="dark">
+              <main>
+                <RouterProvider router={router} />
+              </main>
+            </ThemeProvider>
           </NextUIProvider>
         </QueryClientProvider>
       </HelmetProvider>
