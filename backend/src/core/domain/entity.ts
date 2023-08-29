@@ -1,12 +1,12 @@
 import { v4 as uuid } from 'uuid'
 
 export class Entity<T> {
-  protected readonly _id: string
+  public readonly _id: string
   public readonly props: T
 
   constructor(props: T, id?: string) {
-    this.props = props
     this._id = id || uuid()
+    this.props = props
   }
 
   public equals(object?: Entity<T>): boolean {
