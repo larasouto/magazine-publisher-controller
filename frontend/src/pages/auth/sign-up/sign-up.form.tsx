@@ -20,7 +20,8 @@ import { SignUp, SignUpSchema, defaultValues } from './sign-up.schema'
 
 export const SignUpForm = () => {
   const { t } = useTranslation('auth')
-  const [isVisible, setVisible] = useState(false)
+  const [isPasswordVisible, setPasswordVisible] = useState(false)
+  const [isConfirmPasswordVisible, setConfirmPasswordVisible] = useState(false)
 
   const form = useForm<SignUp>({
     mode: 'all',
@@ -28,8 +29,12 @@ export const SignUpForm = () => {
     defaultValues: defaultValues
   })
 
-  const toggleVisibility = () => {
-    setVisible((previous) => !previous)
+  const togglePasswordVisibility = () => {
+    setPasswordVisible((previous) => !previous)
+  }
+
+  const toggleConfirmPasswordVisibility = () => {
+    setConfirmPasswordVisible((previous) => !previous)
   }
 
   const onSubmit = (data: SignUp) => {
@@ -45,7 +50,7 @@ export const SignUpForm = () => {
     <form onSubmit={form.handleSubmit(onSubmit)}>
       <Card className="w-full m-2 min-[420px]:w-[400px] pb-4">
         <CardHeader className="ml-2 flex gap-4">
-          <div className="flex flex-col gap-0.5">
+          <div className="flex flex-col gap-0.{5}">
             <h1 className="text-2xl font-bold">{t('sign_up.title')}</h1>
             <p className="text-sm">{t('sign_up.description')}</p>
           </div>
@@ -62,17 +67,6 @@ export const SignUpForm = () => {
                 labelPlacement="outside"
                 errorMessage={form.formState.errors.name?.message}
                 autoComplete="name"
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <Input
-                {...form.register('phone')}
-                type="tel"
-                label={t('phone.label')}
-                placeholder={t('phone.placeholder')}
-                labelPlacement="outside"
-                errorMessage={form.formState.errors.phone?.message}
-                autoComplete="phone"
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -96,12 +90,12 @@ export const SignUpForm = () => {
                     id="toggle-password"
                     type="button"
                     className="focus:outline-none focus:text-neutral-300 text-neutral-500 hover:text-neutral-400"
-                    onClick={toggleVisibility}
+                    onClick={togglePasswordVisibility}
                   >
-                    {isVisible ? <Eye size={20} /> : <EyeOff size={20} />}
+                    {isPasswordVisible ? <Eye size={20} /> : <EyeOff size={20} />}
                   </button>
                 }
-                type={isVisible ? 'text' : 'password'}
+                type={isPasswordVisible ? 'text' : 'password'}
                 labelPlacement="outside"
                 errorMessage={form.formState.errors.password?.message}
                 autoComplete="current-password"
@@ -117,32 +111,24 @@ export const SignUpForm = () => {
                     id="toggle-confirm-password"
                     type="button"
                     className="focus:outline-none focus:text-neutral-300 text-neutral-500 hover:text-neutral-400"
-                    onClick={toggleVisibility}
+                    onClick={toggleConfirmPasswordVisibility}
                   >
-                    {isVisible ? <Eye size={20} /> : <EyeOff size={20} />}
+                    {isConfirmPasswordVisible ? <Eye size={20} /> : <EyeOff size={20} />}
                   </button>
                 }
-                type={isVisible ? 'text' : 'password'}
+                type={isConfirmPasswordVisible ? 'text' : 'password'}
                 labelPlacement="outside"
                 errorMessage={form.formState.errors.confirmPassword?.message}
                 autoComplete="current-password"
               />
             </div>
             <Checkbox color="secondary" isRequired checked>
-              <span className="text-sm">
-                {' '}
-                {t('terms_and_conditions.label')}
-              </span>
+              <span className="text-sm"> {t('terms_and_conditions.label')}</span>
             </Checkbox>
           </div>
         </CardBody>
         <CardFooter>
-          <Button
-            type="submit"
-            color="secondary"
-            variant="solid"
-            className="w-full mx-2"
-          >
+          <Button type="submit" color="secondary" variant="solid" className="w-full mx-2">
             {t('sign_up.btn')}
           </Button>
         </CardFooter>
