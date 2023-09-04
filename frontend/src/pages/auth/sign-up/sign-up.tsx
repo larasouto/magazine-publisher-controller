@@ -6,11 +6,7 @@ const SignUp = () => {
   const { t } = useTranslation('auth')
 
   return (
-    <PageLayout
-      title={t('sign_up.title')}
-      className="flex items-center justify-center"
-      isAuth
-    >
+    <PageLayout title={t('sign_up.title')}>
       <SignUpForm />
     </PageLayout>
   )

@@ -11,11 +11,11 @@ import {
   Input,
   Link
 } from '@nextui-org/react'
-import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
+import { ToggleButton } from '../components/ToggleButton'
 import { SignIn, SignInSchema, defaultValues } from './sign-in.schema'
 
 export const SignInForm = () => {
@@ -48,7 +48,7 @@ export const SignInForm = () => {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
-      <Card className="w-full m-2 min-[420px]:w-[400px] pb-4">
+      <Card className="pb-3">
         <CardHeader className="ml-2 flex gap-4">
           <div className="flex flex-col gap-0.5">
             <h1 className="text-2xl font-bold">{t('sign_in.title')}</h1>
@@ -75,14 +75,11 @@ export const SignInForm = () => {
                 label={t('password.label')}
                 placeholder={t('password.placeholder')}
                 endContent={
-                  <button
+                  <ToggleButton
                     id="toggle-password"
-                    type="button"
-                    className="focus:outline-none focus:text-neutral-300 text-neutral-500 hover:text-neutral-400"
+                    isVisible={isVisible}
                     onClick={toggleVisibility}
-                  >
-                    {isVisible ? <Eye size={20} /> : <EyeOff size={20} />}
-                  </button>
+                  />
                 }
                 type={isVisible ? 'text' : 'password'}
                 labelPlacement="outside"
@@ -90,7 +87,7 @@ export const SignInForm = () => {
                 autoComplete="current-password"
               />
             </div>
-            <Checkbox color="secondary" className="text-xs" checked>
+            <Checkbox name="rememberMe" color="primary" className="text-xs">
               <span className="text-sm">{t('keep_me_signed.label')}</span>
             </Checkbox>
           </div>
@@ -98,15 +95,15 @@ export const SignInForm = () => {
         <CardFooter>
           <Button
             type="submit"
-            color="secondary"
+            color="primary"
             variant="solid"
-            className="w-full mx-2 flex"
+            className="w-full mx-2"
           >
             {t('sign_in.btn')}
           </Button>
         </CardFooter>
         <Link
-          color="secondary"
+          color="primary"
           href={routes.auth.sign_up.index}
           as={Link}
           showAnchorIcon

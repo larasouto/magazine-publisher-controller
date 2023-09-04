@@ -11,11 +11,11 @@ import {
   Input,
   Link
 } from '@nextui-org/react'
-import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
+import { ToggleButton } from '../components/ToggleButton'
 import { SignUp, SignUpSchema, defaultValues } from './sign-up.schema'
 
 export const SignUpForm = () => {
@@ -48,7 +48,7 @@ export const SignUpForm = () => {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
-      <Card className="w-full m-2 min-[420px]:w-[400px] pb-4">
+      <Card className="pb-3">
         <CardHeader className="ml-2 flex gap-4">
           <div className="flex flex-col gap-0.{5}">
             <h1 className="text-2xl font-bold">{t('sign_up.title')}</h1>
@@ -86,14 +86,11 @@ export const SignUpForm = () => {
                 label={t('password.label')}
                 placeholder={t('password.placeholder')}
                 endContent={
-                  <button
+                  <ToggleButton
                     id="toggle-password"
-                    type="button"
-                    className="focus:outline-none focus:text-neutral-300 text-neutral-500 hover:text-neutral-400"
+                    isVisible={isPasswordVisible}
                     onClick={togglePasswordVisibility}
-                  >
-                    {isPasswordVisible ? <Eye size={20} /> : <EyeOff size={20} />}
-                  </button>
+                  />
                 }
                 type={isPasswordVisible ? 'text' : 'password'}
                 labelPlacement="outside"
@@ -107,14 +104,11 @@ export const SignUpForm = () => {
                 label={t('password_check.label')}
                 placeholder={t('password_check.placeholder')}
                 endContent={
-                  <button
+                  <ToggleButton
                     id="toggle-confirm-password"
-                    type="button"
-                    className="focus:outline-none focus:text-neutral-300 text-neutral-500 hover:text-neutral-400"
+                    isVisible={isConfirmPasswordVisible}
                     onClick={toggleConfirmPasswordVisibility}
-                  >
-                    {isConfirmPasswordVisible ? <Eye size={20} /> : <EyeOff size={20} />}
-                  </button>
+                  />
                 }
                 type={isConfirmPasswordVisible ? 'text' : 'password'}
                 labelPlacement="outside"
@@ -122,19 +116,27 @@ export const SignUpForm = () => {
                 autoComplete="current-password"
               />
             </div>
-            <Checkbox color="secondary" isRequired checked>
-              <span className="text-sm"> {t('terms_and_conditions.label')}</span>
+            <Checkbox name="terms" color="primary" isRequired>
+              <span className="text-sm">
+                {' '}
+                {t('terms_and_conditions.label')}
+              </span>
             </Checkbox>
           </div>
         </CardBody>
         <CardFooter>
-          <Button type="submit" color="secondary" variant="solid" className="w-full mx-2">
+          <Button
+            type="submit"
+            color="primary"
+            variant="solid"
+            className="w-full mx-2"
+          >
             {t('sign_up.btn')}
           </Button>
         </CardFooter>
         <Link
           href={routes.auth.sign_in.index}
-          color="secondary"
+          color="primary"
           showAnchorIcon
           className="mx-auto text-sm flex my-2"
         >

@@ -13,7 +13,7 @@ export const AuthRoutes: RouteObject = {
       path: '/',
       element: (
         <GuestGuard>
-          <ComponentLayout layout="blank" />
+          <ComponentLayout layout="auth" />
         </GuestGuard>
       ),
       children: [
