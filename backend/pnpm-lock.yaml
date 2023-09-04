@@ -52,6 +52,9 @@ devDependencies:
   '@types/uuid':
     specifier: ^9.0.2
     version: 9.0.2
+  console-log-colors:
+    specifier: ^0.4.0
+    version: 0.4.0
   dotenv-cli:
     specifier: ^7.3.0
     version: 7.3.0
@@ -342,6 +345,11 @@ packages:
 
   /concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
+    dev: true
+
+  /console-log-colors@0.4.0:
+    resolution: {integrity: sha512-XX0qO0MUzbREpPrutavmOLML8h8IokzKTzJqMwvykBcL9D7bMbj5P17+driOjy4RaA99aIAkMDo8holIxYbbpQ==}
+    engines: {node: '>= 4.1.0'}
     dev: true
 
   /content-disposition@0.5.4:
