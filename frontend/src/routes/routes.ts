@@ -9,6 +9,9 @@ export const routes = {
     },
     sign_up: {
       index: '/sign-up'
+    },
+    Add_Edit: {
+      index: '/Add-edit'
     }
   },
   home: {
