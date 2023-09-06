@@ -5,7 +5,8 @@ import { RouteObject } from 'react-router-dom'
 import SignIn from '@/pages/auth/sign-in/sign-in'
 import SignUp from '@/pages/auth/sign-up/sign-up'
 import { GuestGuard } from '@/utils/guard'
-import AddEdit from '@/pages/auth/add-edit/add-edit'
+import AddEdit from '@/pages/magazine/add-edit/add-edit'
+//import AddMagazine from '@/pages/auth/magazine/magazine'
 
 export const AuthRoutes: RouteObject = {
   path: '/',
@@ -30,6 +31,10 @@ export const AuthRoutes: RouteObject = {
           path: routes.auth.Add_Edit.index,
           element: <AddEdit />
         }
+        //{
+        //path: routes.auth.Add_magazine.index,
+        //element: <AddMagazine />
+        //}
       ]
     }
   ]

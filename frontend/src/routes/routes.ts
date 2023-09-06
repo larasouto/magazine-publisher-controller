@@ -11,8 +11,11 @@ export const routes = {
       index: '/sign-up'
     },
     Add_Edit: {
-      index: '/Add-edit'
+      index: '/add-edit'
     }
+    //Add_magazine: {
+    //index: '/add-magazine'
+    //}
   },
   home: {
     index: '/'
