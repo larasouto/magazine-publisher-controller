@@ -47,7 +47,7 @@ export const SignInForm = () => {
   }
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)}>
+    <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
       <Card className="pb-3">
         <CardHeader className="ml-2 flex gap-4">
           <div className="flex flex-col gap-0.5">
@@ -67,6 +67,7 @@ export const SignInForm = () => {
                 labelPlacement="outside"
                 errorMessage={form.formState.errors.email?.message}
                 autoComplete="email"
+                isRequired
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -85,6 +86,7 @@ export const SignInForm = () => {
                 labelPlacement="outside"
                 errorMessage={form.formState.errors.password?.message}
                 autoComplete="current-password"
+                isRequired
               />
             </div>
             <Checkbox name="rememberMe" color="primary" className="text-xs">
