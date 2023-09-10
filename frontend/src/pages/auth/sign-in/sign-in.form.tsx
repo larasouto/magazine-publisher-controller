@@ -1,3 +1,4 @@
+import { useAuth } from '@/hooks/useAuth'
 import { routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -14,12 +15,12 @@ import {
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
 import { ToggleButton } from '../components/ToggleButton'
 import { SignIn, SignInSchema, defaultValues } from './sign-in.schema'
 
 export const SignInForm = () => {
   const { t } = useTranslation('auth')
+  const { login } = useAuth()
   const [isVisible, setVisible] = useState(false)
 
   const form = useForm<SignIn>({
@@ -32,18 +33,8 @@ export const SignInForm = () => {
     setVisible((previous) => !previous)
   }
 
-  const onSubmit = (data: SignIn) => {
-    const mockedEmail = 'test@email.com'
-    const mockedPassword = 'test123'
-
-    if (data.email === mockedEmail && data.password === mockedPassword) {
-      toast.success(t('sign_in.success'))
-      console.log(data)
-      return
-    }
-
-    toast.error(t('sign_in.failed'))
-    console.log(data)
+  const onSubmit = async (data: SignIn) => {
+    await login.mutateAsync(data)
   }
 
   return (

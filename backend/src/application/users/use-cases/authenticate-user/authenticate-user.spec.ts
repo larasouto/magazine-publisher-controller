@@ -16,14 +16,14 @@ describe('Authenticate User', () => {
 
   // test('should be able to authenticate', async () => {
   //   const user = UserFactory.create({
-  //     email: 'test@test.com',
+  //     email: 'testkk@test.com',
   //     password: 'test1234567',
   //   })
 
   //   usersRepository.create(user)
 
   //   const response = await authenticateUser.execute({
-  //     email: 'test@test.com',
+  //     email: 'testkk@test.com',
   //     password: 'test1234567',
   //   })
 
