@@ -25,7 +25,7 @@ export class UserMapper {
   }
 
   static async toPersistence(user: User) {
-    const hashed = Password.create(user.props.password)
+    const hashed = Password.create(user.props.password, true)
 
     if (hashed.isLeft()) {
       throw new Error(t('errors.invalid_hash_password'))
