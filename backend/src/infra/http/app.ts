@@ -1,16 +1,15 @@
-import cors from 'cors'
-import dotenv from 'dotenv'
-import express from 'express'
+import './i18n'
 import 'express-async-errors'
-import path from 'path'
+import express from 'express'
+import cors from 'cors'
 import { router } from './routes'
+import { checkLanguage } from './middlewares/check-language'
+import { interceptErrors } from './middlewares/intercept-errors'
 
-dotenv.config({ path: path.resolve(process.cwd(), '.env.local') })
+export const app = express()
 
-const server = express()
-
-server.use(express.json())
-server.use(cors())
-server.use('/api', router)
-
-export { server }
+app.use(cors())
+app.use(checkLanguage)
+app.use(express.json())
+app.use('/api', router)
+app.use(interceptErrors)

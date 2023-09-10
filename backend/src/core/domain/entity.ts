@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid'
 
-export abstract class Entity<T> {
+export class Entity<T> {
   protected readonly _id: string
   public readonly props: T
 
@@ -9,7 +9,11 @@ export abstract class Entity<T> {
     this.props = props
   }
 
-  public equals(object?: Entity<T>): boolean {
+  get id() {
+    return this._id
+  }
+
+  public equals(object?: Entity<T> | null): boolean {
     if (object == null || object == undefined) {
       return false
     }
@@ -18,6 +22,6 @@ export abstract class Entity<T> {
       return true
     }
 
-    return this._id === object._id
+    return this.id === object.id
   }
 }
