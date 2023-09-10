@@ -8,10 +8,14 @@ export type Response = {
   message: string
 }
 
-export function ok<T>(dto?: T): HttpResponse {
+export function ok<T>(dto?: T, response?: Response): HttpResponse {
   return {
     statusCode: 200,
-    body: dto,
+    body: {
+      type: response?.type ?? 'success',
+      message: response?.message,
+      ...dto,
+    },
   }
 }
 

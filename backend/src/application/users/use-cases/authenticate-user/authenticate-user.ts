@@ -1,7 +1,6 @@
 import { Either, left, right } from '@/core/logic/either'
 import { IUsersRepository } from '../../repositories/IUsersRepository'
 import { InvalidEmailOrPasswordError } from './errors/InvalidEmailOrPasswordError'
-import { Password } from '@/core/domain/password'
 import { JWT } from '../../../../core/domain/jwt'
 import { compare } from 'bcryptjs'
 

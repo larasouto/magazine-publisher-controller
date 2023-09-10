@@ -30,7 +30,7 @@ export class AuthenticateUserController implements Controller {
       return clientError(error)
     } else {
       const { token } = result.value
-      return ok({ token })
+      return ok({ message: 'Logged in succesfully', token })
     }
   }
 }
