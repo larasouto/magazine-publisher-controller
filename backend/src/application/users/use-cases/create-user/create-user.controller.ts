@@ -6,9 +6,9 @@ import {
   created,
 } from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
+import { t } from 'i18next'
 import { CreateUser } from './create-user'
 import { UserAlreadyExists } from './errors/UserAlreadyExists'
-import { t } from 'i18next'
 
 type CreateUserControllerRequest = {
   email: string

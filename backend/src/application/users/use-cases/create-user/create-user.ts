@@ -1,6 +1,6 @@
 import { Either, left, right } from '@/core/logic/either'
-import { IUsersRepository } from '../../repositories/IUsersRepository'
 import { User } from '../../domain/user'
+import { IUsersRepository } from '../../repositories/IUsersRepository'
 import { UserAlreadyExists } from './errors/UserAlreadyExists'
 
 type CreateUserRequest = {

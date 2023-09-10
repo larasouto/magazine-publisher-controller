@@ -1,8 +1,8 @@
-import { afterAll, describe, expect, test } from 'vitest'
-import request from 'supertest'
 import { app } from '@/infra/http/app'
-import { StatusCodes } from 'http-status-codes'
 import { prismaClient } from '@/infra/prisma/client'
+import { StatusCodes } from 'http-status-codes'
+import request from 'supertest'
+import { afterAll, describe, expect, test } from 'vitest'
 
 let userId: string[] = []
 

@@ -1,8 +1,8 @@
+import { UserFactory } from '@/tests/factories/UserFactory'
 import { beforeEach, describe, expect, test } from 'vitest'
 import { IUsersRepository } from '../../repositories/IUsersRepository'
-import { CreateUser } from './create-user'
 import { InMemoryUsersRepository } from '../../repositories/in-memory/InMemoryUsersRepository'
-import { UserFactory } from '@/tests/factories/UserFactory'
+import { CreateUser } from './create-user'
 import { UserAlreadyExists } from './errors/UserAlreadyExists'
 
 let usersRepository: IUsersRepository

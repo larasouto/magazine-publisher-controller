@@ -27,8 +27,11 @@ describe('Authenticate User', () => {
   //     password: 'test1234567',
   //   })
 
+  //   console.log(response.value)
+
   //   expect(response.value).toEqual(
-  //     expect.objectContaining({ token: expect.any(String) }),
+  //     expect.objectContaining(
+  //       { status: expect.any(String), message: expect.any(String), token: expect.any(String) }),
   //   )
   //   expect(response.isRight()).toBeTruthy()
   // })

@@ -3,6 +3,7 @@ import { IUsersRepository } from '../../repositories/IUsersRepository'
 import { InvalidEmailOrPasswordError } from './errors/InvalidEmailOrPasswordError'
 import { JWT } from '../../../../core/domain/jwt'
 import { compare } from 'bcryptjs'
+import { Password } from '@/core/domain/password'
 
 type TokenResponse = {
   token: string

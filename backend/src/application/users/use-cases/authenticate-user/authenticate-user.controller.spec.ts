@@ -13,13 +13,13 @@ describe('Authenticate User (end-to-end)', () => {
         id: uuid(),
         name: 'Test User',
         email: 'test@end-to-end.com',
-        password: await hash( 'test1234567', 8),
-      }
+        password: await hash('test1234567', 8),
+      },
     })
   })
 
   afterAll(async () => {
-    await prismaClient.user.delete({ where: { email: 'test@end-to-end.com' }})
+    await prismaClient.user.delete({ where: { email: 'test@end-to-end.com' } })
   })
 
   test('should be able to authenticate', async () => {

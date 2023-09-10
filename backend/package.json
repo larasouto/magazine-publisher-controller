@@ -10,7 +10,8 @@
     "test": "vitest --config vitest.config.ts",
     "prisma:studio": "prisma studio",
     "prisma:generate": "prisma generate dev",
-    "prisma:migrate": "prisma migrate dev"
+    "prisma:migrate": "prisma migrate dev",
+    "format": "prettier --write ."
   },
   "keywords": [],
   "author": "",
@@ -37,6 +38,7 @@
     "@types/uuid": "^9.0.3",
     "console-log-colors": "^0.4.0",
     "http-status-codes": "^2.2.0",
+    "prettier": "^3.0.3",
     "prisma": "^5.2.0",
     "supertest": "^6.3.3",
     "tsup": "^7.2.0",

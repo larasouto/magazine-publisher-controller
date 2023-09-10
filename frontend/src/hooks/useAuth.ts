@@ -8,6 +8,10 @@ import { useMutation } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
+type HttpSignInResponse = HttpResponse & {
+  token: string
+}
+
 export const useAuth = () => {
   const { t } = useTranslation('auth')
   const navigate = useNavigate()
@@ -20,12 +24,13 @@ export const useAuth = () => {
         .catch((err) => err.response)
     },
     {
-      onSuccess: (data: HttpResponse) => {
-        if (!data.type || !data.message) {
+      onSuccess: (data: HttpSignInResponse) => {
+        if (!data.type || !data.message || !data.token) {
           toast.error(t('error.unspecified'))
           return
         }
         toast[data.type](data.message)
+        localStorage.setItem('token', data.token)
         navigate(routes.home.index)
       },
       onError: () => {
