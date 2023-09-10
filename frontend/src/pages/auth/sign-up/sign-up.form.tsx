@@ -1,3 +1,4 @@
+import { useAuth } from '@/hooks/useAuth'
 import { routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -20,6 +21,7 @@ import { SignUp, SignUpSchema, defaultValues } from './sign-up.schema'
 
 export const SignUpForm = () => {
   const { t } = useTranslation('auth')
+  const { create } = useAuth()
   const [isPasswordVisible, setPasswordVisible] = useState(false)
   const [isConfirmPasswordVisible, setConfirmPasswordVisible] = useState(false)
 
@@ -37,13 +39,12 @@ export const SignUpForm = () => {
     setConfirmPasswordVisible((previous) => !previous)
   }
 
-  const onSubmit = (data: SignUp) => {
-    console.table(data)
+  const onSubmit = async (data: SignUp) => {
     if (data.password !== data.confirmPassword) {
       toast.info(t('sign_up.passwords_dont_match'))
       return
     }
-    toast.success(t('sign_up.success'))
+    await create.mutateAsync(data)
   }
 
   return (
