@@ -20,7 +20,7 @@ import { SignIn, SignInSchema, defaultValues } from './sign-in.schema'
 
 export const SignInForm = () => {
   const { t } = useTranslation('auth')
-  const { login } = useAuth()
+  const { signIn } = useAuth()
   const [isVisible, setVisible] = useState(false)
 
   const form = useForm<SignIn>({
@@ -34,7 +34,7 @@ export const SignInForm = () => {
   }
 
   const onSubmit = async (data: SignIn) => {
-    await login.mutateAsync(data)
+    await signIn.mutateAsync(data)
   }
 
   return (
@@ -88,9 +88,10 @@ export const SignInForm = () => {
         <CardFooter>
           <Button
             type="submit"
-            color="primary"
             variant="solid"
+            color="primary"
             className="w-full mx-2"
+            isLoading={signIn.isLoading}
           >
             {t('sign_in.btn')}
           </Button>

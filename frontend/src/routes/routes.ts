@@ -9,15 +9,9 @@ export const routes = {
     },
     sign_up: {
       index: '/sign-up'
-    },
-    Add_Edit: {
-      index: '/add-edit'
     }
-    //Add_magazine: {
-    //index: '/add-magazine'
-    //}
   },
   home: {
-    index: '/'
+    index: '/home'
   }
 }

@@ -17,7 +17,7 @@ const i18n = i18next
   .use(initReactI18next)
   .init({
     partialBundledLanguages: true,
-    fallbackLng: 'en-US',
+    fallbackLng: 'pt-BR',
     ns: ['common'],
     defaultNS: 'common',
     supportedLngs: langs,

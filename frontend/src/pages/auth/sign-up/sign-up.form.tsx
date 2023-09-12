@@ -21,7 +21,7 @@ import { SignUp, SignUpSchema, defaultValues } from './sign-up.schema'
 
 export const SignUpForm = () => {
   const { t } = useTranslation('auth')
-  const { create } = useAuth()
+  const { signUp } = useAuth()
   const [isPasswordVisible, setPasswordVisible] = useState(false)
   const [isConfirmPasswordVisible, setConfirmPasswordVisible] = useState(false)
 
@@ -44,7 +44,7 @@ export const SignUpForm = () => {
       toast.info(t('sign_up.passwords_dont_match'))
       return
     }
-    await create.mutateAsync(data)
+    await signUp.mutateAsync(data)
   }
 
   return (
@@ -135,6 +135,7 @@ export const SignUpForm = () => {
             color="primary"
             variant="solid"
             className="w-full mx-2"
+            isLoading={signUp.isLoading}
           >
             {t('sign_up.btn')}
           </Button>

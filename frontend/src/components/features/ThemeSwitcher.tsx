@@ -20,7 +20,11 @@ export const ThemeSwitcher = () => {
 
   return (
     <Button onClick={toggleTheme} variant="flat" className="z-50" isIconOnly>
-      {theme === 'dark' ? <Sun /> : <Moon />}
+      {theme === 'dark' ? (
+        <Sun className="w-5 h-5 " />
+      ) : (
+        <Moon className="w-5 h-5" />
+      )}
     </Button>
   )
 }

@@ -51,7 +51,7 @@ export const LocaleSwitcher = () => {
     <div className="flex gap-2 z-50">
       <Dropdown placement="bottom-end">
         <DropdownTrigger>
-          <Button isIconOnly variant="flat">
+          <Button variant="flat" isIconOnly>
             <Languages size={20} />
           </Button>
         </DropdownTrigger>

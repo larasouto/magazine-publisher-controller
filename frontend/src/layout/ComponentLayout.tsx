@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import { AuthHeader } from './auth/AuthHeader'
+import { Header } from './main/header/Header'
 
 type ComponentLayoutProps = {
   layout?: 'blank' | 'simple' | 'auth'
@@ -20,9 +21,9 @@ export const ComponentLayout = ({ layout = 'blank' }: ComponentLayoutProps) => {
       )}
 
       {layout === 'simple' && (
-        <div className="grid grid-rows-[64px_1fr]">
-          <div className="bg-red-600 h-full" />
-          <main className="bg-blue-600 h-full">
+        <div className="flex flex-col">
+          <Header />
+          <main className="h-full container mx-auto">
             <Outlet />
           </main>
         </div>
