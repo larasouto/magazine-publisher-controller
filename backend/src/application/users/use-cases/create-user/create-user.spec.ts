@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, test } from 'vitest'
 import { IUsersRepository } from '../../repositories/IUsersRepository'
 import { InMemoryUsersRepository } from '../../repositories/in-memory/InMemoryUsersRepository'
 import { CreateUser } from './create-user'
-import { UserAlreadyExists } from './errors/UserAlreadyExists'
+import { UserAlreadyExistsError } from './errors/UserAlreadyExistsError'
 
 let usersRepository: IUsersRepository
 let createUser: CreateUser
@@ -52,6 +52,6 @@ describe('Create an user', () => {
     const response = await createUser.execute(data)
 
     expect(response.isLeft()).toBeTruthy()
-    expect(response.value).toEqual(new UserAlreadyExists())
+    expect(response.value).toEqual(new UserAlreadyExistsError())
   })
 })

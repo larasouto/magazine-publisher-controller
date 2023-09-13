@@ -1,3 +1,5 @@
+import { StatusCodes } from 'http-status-codes'
+
 export type HttpResponse = {
   statusCode: number
   body: any
@@ -10,7 +12,7 @@ export type Response = {
 
 export function ok<T>(dto?: T, response?: Response): HttpResponse {
   return {
-    statusCode: 200,
+    statusCode: StatusCodes.OK,
     body: {
       type: response?.type ?? 'success',
       message: response?.message,
@@ -21,7 +23,7 @@ export function ok<T>(dto?: T, response?: Response): HttpResponse {
 
 export function created(response?: Response): HttpResponse {
   return {
-    statusCode: 201,
+    statusCode: StatusCodes.CREATED,
     body: {
       type: response?.type ?? 'success',
       message: response?.message,
@@ -31,7 +33,7 @@ export function created(response?: Response): HttpResponse {
 
 export function clientError(response?: Response): HttpResponse {
   return {
-    statusCode: 400,
+    statusCode: StatusCodes.BAD_REQUEST,
     body: {
       type: response?.type ?? 'error',
       message: response?.message,
@@ -41,7 +43,7 @@ export function clientError(response?: Response): HttpResponse {
 
 export function unauthorized(response?: Response): HttpResponse {
   return {
-    statusCode: 401,
+    statusCode: StatusCodes.UNAUTHORIZED,
     body: {
       type: response?.type ?? 'error',
       message: response?.message,
@@ -51,7 +53,7 @@ export function unauthorized(response?: Response): HttpResponse {
 
 export function forbidden(response?: Response): HttpResponse {
   return {
-    statusCode: 403,
+    statusCode: StatusCodes.FORBIDDEN,
     body: {
       type: response?.type ?? 'error',
       message: response?.message,
@@ -61,7 +63,7 @@ export function forbidden(response?: Response): HttpResponse {
 
 export function notFound(response?: Response): HttpResponse {
   return {
-    statusCode: 404,
+    statusCode: StatusCodes.NOT_FOUND,
     body: {
       type: response?.type ?? 'error',
       message: response?.message,
@@ -71,7 +73,7 @@ export function notFound(response?: Response): HttpResponse {
 
 export function conflict(response?: Response): HttpResponse {
   return {
-    statusCode: 409,
+    statusCode: StatusCodes.CONFLICT,
     body: {
       type: response?.type ?? 'info',
       message: response?.message,
@@ -81,7 +83,7 @@ export function conflict(response?: Response): HttpResponse {
 
 export function tooMany(response?: Response): HttpResponse {
   return {
-    statusCode: 429,
+    statusCode: StatusCodes.TOO_MANY_REQUESTS,
     body: {
       type: response?.type ?? 'error',
       message: response?.message,
@@ -91,7 +93,7 @@ export function tooMany(response?: Response): HttpResponse {
 
 export function fail(response?: Response) {
   return {
-    statusCode: 500,
+    statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
     body: {
       type: response?.type ?? 'error',
       message: response?.message,

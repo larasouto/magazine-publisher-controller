@@ -8,7 +8,7 @@ import {
 import { Validator } from '@/core/infra/validator'
 import { t } from 'i18next'
 import { CreateUser } from './create-user'
-import { UserAlreadyExists } from './errors/UserAlreadyExists'
+import { UserAlreadyExistsError } from './errors/UserAlreadyExistsError'
 
 type CreateUserControllerRequest = {
   email: string
@@ -37,7 +37,7 @@ export class CreateUserController implements Controller {
       const error = result.value
 
       switch (error.constructor) {
-        case UserAlreadyExists:
+        case UserAlreadyExistsError:
           return conflict(error)
         default:
           return clientError(error)

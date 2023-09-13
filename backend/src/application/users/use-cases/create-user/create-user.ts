@@ -1,7 +1,7 @@
 import { Either, left, right } from '@/core/logic/either'
 import { User } from '../../domain/user'
 import { IUsersRepository } from '../../repositories/IUsersRepository'
-import { UserAlreadyExists } from './errors/UserAlreadyExists'
+import { UserAlreadyExistsError } from './errors/UserAlreadyExistsError'
 
 type CreateUserRequest = {
   email: string
@@ -10,7 +10,7 @@ type CreateUserRequest = {
   phone?: string
 }
 
-type CreateUserResponse = Either<UserAlreadyExists, User>
+type CreateUserResponse = Either<UserAlreadyExistsError, User>
 
 export class CreateUser {
   constructor(private usersRepository: IUsersRepository) {}
@@ -39,7 +39,7 @@ export class CreateUser {
     )
 
     if (userAlreadyExists) {
-      return left(new UserAlreadyExists())
+      return left(new UserAlreadyExistsError())
     }
 
     await this.usersRepository.create(user)
