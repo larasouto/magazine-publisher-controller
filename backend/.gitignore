@@ -3,3 +3,5 @@ node_modules
 dist
 src/infra/http/i18n/locales/*
 .DS_STORE
+prisma/dev.db
+prisma/dev.db-*
