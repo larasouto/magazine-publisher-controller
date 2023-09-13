@@ -1,5 +1,5 @@
 import { ComponentLayout } from '@/layout/ComponentLayout'
-import JustForTests from '@/pages/JustForTests'
+import { JustForTestsDoNotUseIt } from '@/pages/home/JustForTestsDoNotUseIt'
 import { AuthGuard } from '@/utils/guard/AuthGuard'
 import { routes } from '@routes'
 import { RouteObject } from 'react-router-dom'
@@ -17,7 +17,7 @@ export const HomeRoutes: RouteObject = {
       children: [
         {
           path: routes.home.index,
-          element: <JustForTests />
+          element: <JustForTestsDoNotUseIt />
         }
       ]
     }
