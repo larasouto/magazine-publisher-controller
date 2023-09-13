@@ -4,7 +4,7 @@ import { Middleware } from '@/core/infra/middleware'
 import { decode } from 'jsonwebtoken'
 
 type EnsureAuthenticationMiddlewareRequest = {
-  token: string
+  jwt: string
 }
 
 type DecodedJwt = {
@@ -18,7 +18,8 @@ export class EnsureAuthenticatedMiddleware implements Middleware {
     request: EnsureAuthenticationMiddlewareRequest,
   ): Promise<HttpResponse> {
     try {
-      const { token } = request
+      const { jwt } = request
+      const [_, token] = jwt.split(' ')
 
       if (token) {
         try {

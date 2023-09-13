@@ -6,7 +6,7 @@ import { t } from 'i18next'
 export const adaptMiddleware = (middleware: Middleware) => {
   return async (request: Request, response: Response, next: NextFunction) => {
     const requestData = {
-      token: request.headers.authorization,
+      jwt: request.headers.authorization,
       ...request.headers,
     }
 
