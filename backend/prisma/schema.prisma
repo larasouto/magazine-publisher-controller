@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -8,29 +9,29 @@ datasource db {
 }
 
 model User {
-  id        String    @id
-  name      String
-  email     String    @unique
-  password  String
-  phone     String?
-  addresses Address[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id         String    @id
+  name       String
+  email      String    @unique
+  password   String
+  phone      String?
+  addresses  Address[]
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
 
   @@map("users")
 }
 
 model Address {
-  id        String   @id
-  street    String
-  number    String
-  city      String
-  state     String
-  zip       String
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id
+  street     String
+  number     String
+  city       String
+  state      String
+  zip        String
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   @@map("addresses")
 }
