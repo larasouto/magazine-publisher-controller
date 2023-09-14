@@ -6,6 +6,7 @@
   "scripts": {
     "start": "tsx /infra/http/server.ts",
     "start:dev": "tsx watch src/infra/http/server.ts",
+    "start:prod": "node dist/infra/http/server.js",
     "build": "tsup src",
     "test": "vitest --config vitest.config.ts",
     "prisma:studio": "prisma studio",
