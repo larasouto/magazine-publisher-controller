@@ -1,7 +1,7 @@
-import './i18n'
 import cors from 'cors'
 import express from 'express'
 import 'express-async-errors'
+import './i18n'
 import { checkLanguage } from './middlewares/check-language'
 import { interceptErrors } from './middlewares/intercept-errors'
 import { router } from './routes'

@@ -19,9 +19,10 @@ export class EnsureAuthenticatedMiddleware implements Middleware {
   ): Promise<HttpResponse> {
     try {
       const { jwt } = request
-      const [_, token] = jwt.split(' ')
 
-      if (token) {
+      if (jwt) {
+        const [_, token] = jwt.split(' ')
+
         try {
           const decoded = decode(token) as DecodedJwt
           return ok({ userId: decoded.sub })

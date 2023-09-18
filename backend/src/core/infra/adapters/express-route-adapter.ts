@@ -9,6 +9,7 @@ export const adaptRoute = (controller: Controller) => {
       ...request.query,
       userId: request.userId,
     }
+
     const httpResponse = await controller.handle(requestData)
 
     return response.status(httpResponse.statusCode).json(httpResponse.body)

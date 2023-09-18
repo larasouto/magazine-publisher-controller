@@ -1,13 +1,14 @@
 import request from 'supertest'
 
-import { v4 as uuid } from 'uuid'
-import { app } from '@infra/http/app'
-import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { prismaClient } from '@/infra/prisma/client'
+import { app } from '@infra/http/app'
 import { hash } from 'bcryptjs'
+import { afterEach, beforeEach } from 'node:test'
+import { v4 as uuid } from 'uuid'
+import { describe, expect, test } from 'vitest'
 
 describe('Authenticate User (end-to-end)', () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await prismaClient.user.create({
       data: {
         id: uuid(),
@@ -18,7 +19,7 @@ describe('Authenticate User (end-to-end)', () => {
     })
   })
 
-  afterAll(async () => {
+  afterEach(async () => {
     await prismaClient.user.delete({ where: { email: 'test@end-to-end.com' } })
   })
 
@@ -34,5 +35,16 @@ describe('Authenticate User (end-to-end)', () => {
         token: expect.any(String),
       }),
     )
+  })
+
+  test('should not be able to authenticate with invalid data', async () => {
+    const superRandomEmail = `r-${Math.random()}-email-${Math.random()}@end-to-end.com`
+
+    const response = await request(app).post('/api/auth/sign-in').send({
+      email: superRandomEmail,
+      password: '2323',
+    })
+
+    expect(response.status).toBe(400)
   })
 })
