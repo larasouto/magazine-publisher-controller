@@ -11,14 +11,14 @@ export const Advertising = () => {
           </span>{' '}
           em uma seleção escolhida de revistas.
         </h1>
-        <span className="font-extralight text-violet-300 text-medium">
+        <span className="font-light dark:font-extralight dark:text-violet-300 text-medium">
           Oferta por tempo limitado.
         </span>
         <Button
           size="lg"
           className="text-xl bg-gradient-to-tr from-indigo-700 to-violet-600 text-white shadow-lg w-fit"
         >
-          Buy now
+          Comprar agora
         </Button>
       </div>
       <Image className="h-48 sm:h-72" src="/mockup-2.png" />

@@ -1,7 +1,8 @@
 import { ThemeSwitcher } from '@/components/features/ThemeSwitcher'
+import { useCartStore } from '@/stores/useCartStore'
 import {
+  Badge,
   Button,
-  Link,
   NavbarContent,
   NavbarItem,
   NavbarMenu
@@ -10,13 +11,20 @@ import { ShoppingCart } from 'lucide-react'
 import { UserDropdown } from './UserDropdown'
 
 export const NavbarEnd = () => {
+  const [toggleOpen, items] = useCartStore((state) => [
+    state.toggleOpen,
+    state.items
+  ])
+
   return (
     <>
       <NavbarContent justify="end" className="gap-2">
         <NavbarItem>
-          <Button variant="flat" isIconOnly>
-            <ShoppingCart className="w-5 h-5" />
-          </Button>
+          <Badge content={items.length} color="danger">
+            <Button variant="flat" onClick={toggleOpen} isIconOnly>
+              <ShoppingCart className="w-5 h-5" />
+            </Button>
+          </Badge>
         </NavbarItem>
         <NavbarItem>
           <ThemeSwitcher />
@@ -27,9 +35,7 @@ export const NavbarEnd = () => {
       </NavbarContent>
       <NavbarMenu>
         <NavbarItem>
-          <Link color="foreground" href="/">
-            Cart
-          </Link>
+          <Button variant="shadow">Cart</Button>
         </NavbarItem>
       </NavbarMenu>
     </>

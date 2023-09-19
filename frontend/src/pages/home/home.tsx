@@ -7,8 +7,10 @@ export const HomePage = () => {
     <>
       <div className="h-80 bg-[#7b75aa] dark:bg-[#18181c] space-y-8 rounded-b-xl">
         <Advertising />
-        <Filters />
-        <Products />
+        <main className="px-16 pb-16 flex flex-col gap-3">
+          <Filters />
+          <Products />
+        </main>
       </div>
     </>
   )

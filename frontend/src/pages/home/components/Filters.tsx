@@ -14,7 +14,7 @@ export const Filters = () => {
         <Dropdown placement="bottom-end">
           <DropdownTrigger>
             <Button
-              className="rounded-full h-7"
+              className="rounded-full h-7 bg-default-200 dark:bg-default-100"
               endContent={<ChevronDown className="w-5 h-5" />}
             >
               Revista
@@ -27,7 +27,7 @@ export const Filters = () => {
         <Dropdown placement="bottom-end">
           <DropdownTrigger>
             <Button
-              className="rounded-full h-7"
+              className="rounded-full h-7 bg-default-200 dark:bg-default-100"
               endContent={<ChevronDown className="w-5 h-5" />}
             >
               Preço
@@ -40,7 +40,7 @@ export const Filters = () => {
         <Dropdown placement="bottom-end">
           <DropdownTrigger>
             <Button
-              className="rounded-full h-7"
+              className="rounded-full h-7 bg-default-200 dark:bg-default-100"
               endContent={<ChevronDown className="w-5 h-5" />}
             >
               Revisões
@@ -53,7 +53,7 @@ export const Filters = () => {
         <Dropdown placement="bottom-end">
           <DropdownTrigger>
             <Button
-              className="rounded-full h-7"
+              className="rounded-full h-7 bg-default-200 dark:bg-default-100"
               endContent={<ChevronDown className="w-5 h-5" />}
             >
               Materiais
@@ -67,7 +67,7 @@ export const Filters = () => {
       <Dropdown placement="bottom-end">
         <DropdownTrigger>
           <Button
-            className="rounded-full h-7"
+            className="rounded-full h-7 bg-default-200 dark:bg-default-100"
             variant="bordered"
             endContent={<ChevronDown className="w-5 h-5" />}
           >
