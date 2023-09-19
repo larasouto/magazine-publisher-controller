@@ -41,7 +41,7 @@ export const Cart = () => {
               transition={{ ease: 'easeInOut', duration: 0.4 }}
               exit={{ x: 450 }}
               className={cn(
-                'z-50 fixed top-0 right-0 h-full w-full sm:w-[420px] rounded-l-lg bg-default-200 dark:bg-default-50 p-5 flex justify-between flex-col'
+                'z-50 fixed top-0 right-0 h-full w-full sm:w-[400px] rounded-l-lg bg-default-200 dark:bg-default-50 p-5 flex justify-between flex-col'
               )}
             >
               <div className="flex items-center justify-between h-12 mb-7 relative">
