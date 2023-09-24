@@ -68,7 +68,7 @@ export const Cart = () => {
                 </Button>
               </div>
               <div className="flex flex-col justify-between gap-3">
-                <div className="h-[calc(100vh-12rem)] space-y-4 pr-4 overflow-y-auto">
+                <div className="h-[calc(100vh-12rem)] space-y-4 pr-4 overflow-y-hidden hover:overflow-y-auto">
                   {items.length === 0 && (
                     <div className="flex flex-col items-center justify-center gap-2 h-full">
                       <Image src="/empty-cart.png" className="w-28" />
