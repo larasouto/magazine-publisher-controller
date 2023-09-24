@@ -28,7 +28,6 @@ export class JWT {
   ): Either<InvalidJWTTokenError, JWTTokenPayload> {
     try {
       const decoded = verify(token, auth.JWT_SECRET_KEY) as JWTTokenPayload
-
       return right(decoded)
     } catch (err) {
       return left(new InvalidJWTTokenError())
@@ -43,7 +42,6 @@ export class JWT {
     }
 
     const jwt = new JWT({ token, userId: jwtPayloadOrError.value.sub })
-
     return right(jwt)
   }
 
@@ -54,7 +52,6 @@ export class JWT {
     })
 
     const jwt = new JWT({ userId: user.id, token })
-
     return jwt
   }
 }
