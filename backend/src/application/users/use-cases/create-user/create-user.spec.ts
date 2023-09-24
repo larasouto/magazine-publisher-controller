@@ -1,6 +1,6 @@
 import { UserFactory } from '@/tests/factories/UserFactory'
 import { beforeEach, describe, expect, test } from 'vitest'
-import { IUsersRepository } from '../../repositories/IUsersRepository'
+import { IUsersRepository } from '../../repositories/interfaces/IUsersRepository'
 import { InMemoryUsersRepository } from '../../repositories/in-memory/InMemoryUsersRepository'
 import { CreateUser } from './create-user'
 import { UserAlreadyExistsError } from './errors/UserAlreadyExistsError'

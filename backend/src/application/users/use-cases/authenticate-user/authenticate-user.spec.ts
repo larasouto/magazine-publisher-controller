@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from 'vitest'
-import { IUsersRepository } from '../../repositories/IUsersRepository'
+import { IUsersRepository } from '../../repositories/interfaces/IUsersRepository'
 import { AuthenticateUser } from './authenticate-user'
 import { InMemoryUsersRepository } from '../../repositories/in-memory/InMemoryUsersRepository'
 import { UserFactory } from '../../../../tests/factories/UserFactory'
@@ -13,28 +13,6 @@ describe('Authenticate User', () => {
     usersRepository = new InMemoryUsersRepository()
     authenticateUser = new AuthenticateUser(usersRepository)
   })
-
-  // test('should be able to authenticate', async () => {
-  //   const user = UserFactory.create({
-  //     email: 'testkk@test.com',
-  //     password: 'test1234567',
-  //   })
-
-  //   usersRepository.create(user)
-
-  //   const response = await authenticateUser.execute({
-  //     email: 'testkk@test.com',
-  //     password: 'test1234567',
-  //   })
-
-  //   console.log(response.value)
-
-  //   expect(response.value).toEqual(
-  //     expect.objectContaining(
-  //       { status: expect.any(String), message: expect.any(String), token: expect.any(String) }),
-  //   )
-  //   expect(response.isRight()).toBeTruthy()
-  // })
 
   test('should not be able to authenticate with invalid e-mail', async () => {
     const response = await authenticateUser.execute({

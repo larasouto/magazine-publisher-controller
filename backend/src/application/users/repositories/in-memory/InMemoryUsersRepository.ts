@@ -1,5 +1,5 @@
 import { User } from '../../domain/user'
-import { IUsersRepository } from '../IUsersRepository'
+import { IUsersRepository } from '../interfaces/IUsersRepository'
 
 export class InMemoryUsersRepository implements IUsersRepository {
   constructor(public users: User[] = []) {}
@@ -16,11 +16,6 @@ export class InMemoryUsersRepository implements IUsersRepository {
   async exists(email: string): Promise<boolean> {
     const user = this.users.some((user) => user.props.email === email)
     return !!user
-  }
-
-  async save(user: User): Promise<void> {
-    const userIndex = this.users.findIndex((user) => user.id === user.id)
-    this.users[userIndex] = user
   }
 
   async create(user: User): Promise<void> {

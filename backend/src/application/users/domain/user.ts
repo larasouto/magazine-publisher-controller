@@ -1,3 +1,4 @@
+import { ZodValidate } from '@/@types/errors/ZodValidate'
 import { UserProps, UserSchema } from './user.schema'
 import { Entity } from '@/core/domain/entity'
 import { ZodValidationError } from '@/core/domain/errors/ZodValidationError'
@@ -9,7 +10,7 @@ export class User extends Entity<UserProps> {
   }
 
   static create(props: UserProps, id?: string): Either<Error, User> {
-    const result = UserSchema.safeParse(props)
+    const result = UserSchema.safeParse(props) as ZodValidate<UserProps>
 
     if (!result.success) {
       return left(new ZodValidationError(result.error))

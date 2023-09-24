@@ -1,7 +1,7 @@
 import { prismaClient } from '@/infra/prisma/client'
 import { User } from '../../domain/user'
-import { UserMapper } from '../../mappers/user-mapper'
-import { IUsersRepository } from '../IUsersRepository'
+import { UserMapper } from '../../mappers/user.mapper'
+import { IUsersRepository } from '../interfaces/IUsersRepository'
 
 export class PrismaUsersRepository implements IUsersRepository {
   async findByEmail(email: string): Promise<User | null> {
@@ -26,10 +26,6 @@ export class PrismaUsersRepository implements IUsersRepository {
     })
 
     return !!userExists
-  }
-
-  async save(user: User): Promise<void> {
-    throw new Error('Method not implemented.')
   }
 
   async create(user: User): Promise<void> {
