@@ -88,12 +88,9 @@ describe('Create a category', () => {
 
     const updatedCategory = await editCategory.execute({
       categoryId: data.id,
-      name: 'Nome da categoria',
+      name: '',
       description: 'Descrição da categoria atualizado',
     })
-    expect(updatedCategory.isRight()).toBeTruthy()
-
-    const category = await categoriesRepository.findById(data.id)
-    expect(category).toEqual(updatedCategory.value)
+    expect(updatedCategory.isLeft()).toBeTruthy()
   })
 })

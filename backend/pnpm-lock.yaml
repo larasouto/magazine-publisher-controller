@@ -14,6 +14,9 @@ dependencies:
   cors:
     specifier: ^2.8.5
     version: 2.8.5
+  cpf:
+    specifier: ^2.0.1
+    version: 2.0.1
   express:
     specifier: ^4.18.2
     version: 4.18.2
@@ -780,6 +783,10 @@ packages:
     dependencies:
       object-assign: 4.1.1
       vary: 1.1.2
+    dev: false
+
+  /cpf@2.0.1:
+    resolution: {integrity: sha512-YpRbrpjQCDkZgMUOLxLfme8wE8X56fHXOGMGDsYA48f7UrjaCHU0TP8d+CKmxvNVjBDVtHiCUiBw8vfstdslbw==}
     dev: false
 
   /cross-spawn@7.0.3:

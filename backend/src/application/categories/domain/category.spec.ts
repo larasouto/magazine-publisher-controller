@@ -4,8 +4,8 @@ import { Category } from './category'
 describe('Entity Category', () => {
   test('should be able to create a category', () => {
     const data: any = {
-      name: 'Nome da categoria',
-      description: 'Descrição da categoria',
+      name: 'test-category',
+      description: 'test-category-description',
     }
 
     const sut = Category.create(data)
@@ -24,7 +24,7 @@ describe('Entity Category', () => {
 
   test('should be able to create a category with only a name', () => {
     const data: any = {
-      name: 'Nome da categoria',
+      name: 'test-category',
     }
 
     const sut = Category.create(data)
