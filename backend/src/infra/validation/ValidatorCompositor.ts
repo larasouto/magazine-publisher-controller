@@ -8,7 +8,7 @@ export class ValidatorCompositor<T = any> implements Validator<T> {
     for (const validator of this.validators) {
       const error = validator.validate(input)
 
-      if (error !== null) {
+      if (!error.isRight()) {
         return error
       }
     }
