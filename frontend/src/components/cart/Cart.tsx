@@ -17,6 +17,30 @@ export const Cart = () => {
   ])
 
   useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === 'c' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault()
+        toggleOpen()
+      }
+    }
+
+    const escape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        close()
+      }
+    }
+
+    document.addEventListener('keydown', down)
+    document.addEventListener('keydown', escape)
+
+    return () => {
+      document.removeEventListener('keydown', escape)
+      document.removeEventListener('keydown', down)
+    }
+  }, [toggleOpen, close])
+
+  useEffect(() => {
     switch (isOpen) {
       case true:
         document.body.classList.add('overflow-hidden')
@@ -59,9 +83,9 @@ export const Cart = () => {
                   )}
                 </div>
                 <Button
-                  variant="solid"
+                  variant="bordered"
                   onClick={toggleOpen}
-                  className="absolute bg-default-200 dark:bg-default-100 -left-[4.5rem]"
+                  className="absolute bg-default-200 dark:bg-default-100 right-0 sm:-left-[4.5rem]"
                   isIconOnly
                 >
                   <X />
