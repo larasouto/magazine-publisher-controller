@@ -32,7 +32,7 @@ export const UserDropdown = () => {
         />
       </DropdownTrigger>
       <DropdownMenu aria-label="Profile Actions" variant="flat">
-        <DropdownItem key="profile" className="h-14 gap-2">
+        <DropdownItem key="profile" className="h-14 gap-2" textValue="profile">
           <p className="font-semibold">Signed in as</p>
           <p className="font-semibold">teste@teste.com</p>
         </DropdownItem>
@@ -40,12 +40,14 @@ export const UserDropdown = () => {
           <DropdownItem
             key="settings"
             endContent={<Settings className="w-5 h-5" />}
+            textValue="settings"
           >
             Settings
           </DropdownItem>
           <DropdownItem
             key="help_and_feedback"
             endContent={<HelpCircle className="w-5 h-5" />}
+            textValue="help_and_feedback"
           >
             Help & Feedback
           </DropdownItem>
@@ -56,6 +58,7 @@ export const UserDropdown = () => {
             color="danger"
             endContent={<LogOut className="w-5 h-5" />}
             onClick={signOut}
+            textValue="logout"
           >
             Log Out
           </DropdownItem>

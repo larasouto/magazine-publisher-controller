@@ -25,7 +25,7 @@ export const ComponentLayout = ({ layout = 'blank' }: ComponentLayoutProps) => {
         <div className="flex flex-col">
           <Header />
           <Cart />
-          <main className="h-full w-full container mx-auto">
+          <main className="h-full w-full container p-3 sm:mx-auto">
             <Outlet />
           </main>
         </div>

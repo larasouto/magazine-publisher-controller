@@ -18,7 +18,7 @@ export const Cart = () => {
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === 'c' && (e.metaKey || e.ctrlKey)) {
+      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault()
         toggleOpen()
       }

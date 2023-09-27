@@ -14,7 +14,9 @@ export const NavbarStart = ({ isMenuOpen }: NavbarStartProps) => {
       />
       <NavbarBrand className="flex gap-2">
         <Logo className="hidden sm:flex" />
-        <p className="font-bold text-inherit text-lg">Editora Galam</p>
+        <p className="hidden sm:inline-flex font-bold text-inherit text-lg">
+          Editora Galam
+        </p>
       </NavbarBrand>
     </NavbarContent>
   )

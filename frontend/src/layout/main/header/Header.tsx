@@ -13,6 +13,7 @@ export const Header = () => {
         isMenuOpen={isMenuOpen}
         onMenuOpenChange={setIsMenuOpen}
         isBlurred={false}
+        className="overflow-y-auto"
         isBordered
       >
         <NavbarStart isMenuOpen={isMenuOpen} />
