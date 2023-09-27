@@ -13,5 +13,11 @@ export const routes = {
   },
   home: {
     index: '/home'
+  },
+  categories: {
+    index: '/categories',
+    new: '/categories/new',
+    edit: '/categories/:id/edit',
+    delete: '/categories/:id/delete'
   }
 }
