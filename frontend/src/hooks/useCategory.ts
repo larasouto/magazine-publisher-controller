@@ -24,7 +24,12 @@ export const useCategory = () => {
 
   const list = async () => {
     return await api.get('/categories').then((res) => ({
-      dto: res.data.dto.map((item) => item.props)
+      dto: res.data.dto.map((item) => {
+        return {
+          id: item._id,
+          ...item.props
+        }
+      })
     }))
   }
 

@@ -3,6 +3,7 @@ import { createColumnHelper } from '@tanstack/react-table'
 import { t } from 'i18next'
 
 export type CategoryColumns = {
+  id: string
   name: string
   description: string
 }
@@ -31,6 +32,16 @@ export const columns = [
     ),
     enableSorting: false,
     enableHiding: false
+  }),
+  /**
+   * Id
+   */
+  helper.accessor((row) => row.id, {
+    id: 'id',
+    header: () => 'ID',
+    cell: ({ row }) => row.getValue('id'),
+    enableSorting: true,
+    enableHiding: true
   }),
   /**
    * Name
