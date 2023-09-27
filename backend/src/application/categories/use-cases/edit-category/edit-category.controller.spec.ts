@@ -1,46 +1,74 @@
-import { Controller } from '@/core/infra/controller'
-import { HttpResponse, clientError, ok } from '@/core/infra/http-response'
-import { Validator } from '@/core/infra/validator'
-import { t } from 'i18next'
-import { EditCategory } from './edit-category'
-import { CategoryNotFoundError } from './errors/CategoryNotFoundError'
+import { app } from '@/infra/http/app'
+import { prismaClient } from '@/infra/prisma/client'
+import { UserFactory } from '@/tests/factories/UserFactory'
+import { StatusCodes } from 'http-status-codes'
+import request from 'supertest'
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
+import { v4 as uuid } from 'uuid'
 
-type EditCategoryControllerRequest = {
-  categoryId: string
-  name: string
-  description?: string
-}
-
-export class EditCategoryController implements Controller {
-  constructor(
-    private readonly validator: Validator<EditCategoryControllerRequest>,
-    private editCategory: EditCategory,
-  ) {}
-
-  async handle(request: EditCategoryControllerRequest): Promise<HttpResponse> {
-    const validated = this.validator.validate(request)
-
-    if (validated.isLeft()) {
-      return clientError(validated.value)
-    }
-
-    const result = await this.editCategory.execute(request)
-
-    if (result.isLeft()) {
-      const error = result.value
-
-      /**
-       * Se não houver um erro específico, deixe apenas o
-       * 'default' no switch case.
-       */
-      switch (error.constructor) {
-        case CategoryNotFoundError:
-          return clientError({ type: 'info', message: error.message })
-        default:
-          return clientError(error)
-      }
-    }
-
-    return ok({ message: t('category.edited') })
+describe('Create category (end-to-end)', () => {
+  const create: any = {
+    id: uuid(),
+    name: 'test-name-category',
+    description: 'test-description-category',
   }
-}
+
+  beforeAll(async () => {
+    await prismaClient.category.create({
+      data: create,
+    })
+  })
+
+  afterAll(async () => {
+    await prismaClient.category.delete({
+      where: { id: create.id },
+    })
+  })
+
+  test('should be able to edit a category', async () => {
+    const { jwt } = UserFactory.createAndAuthenticate()
+
+    const data: any = {
+      name: 'Nome da categoria',
+      description: 'Descrição da categoria',
+    }
+
+    const response = await request(app)
+      .put(`/api/categories/${create.id}/edit`)
+      .auth(jwt.token, { type: 'bearer' })
+      .send(data)
+
+    expect(response.status).toBe(StatusCodes.OK)
+    expect(response.body).toHaveProperty('message')
+  })
+
+  test('shoud be able to edit a category without description', async () => {
+    const { jwt } = UserFactory.createAndAuthenticate()
+
+    const data: any = {
+      name: 'Nome da categoria',
+    }
+
+    const response = await request(app)
+      .put(`/api/categories/${create.id}/edit`)
+      .auth(jwt.token, { type: 'bearer' })
+      .send(data)
+
+    expect(response.status).toBe(StatusCodes.OK)
+    expect(response.body).toHaveProperty('message')
+  })
+
+  test('should not be able to edit a category with empty data', async () => {
+    const { jwt } = UserFactory.createAndAuthenticate()
+
+    const data: any = {}
+
+    const response = await request(app)
+      .put(`/api/categories/${create.id}/edit`)
+      .auth(jwt.token, { type: 'bearer' })
+      .send(data)
+
+    expect(response.status).toBe(StatusCodes.BAD_REQUEST)
+    expect(response.body).toHaveProperty('message')
+  })
+})

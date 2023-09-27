@@ -8,7 +8,7 @@ export class InMemoryCategoriesRepository implements ICategoryRepository {
     const category = this.categories.find((category) => category.id === id)
 
     if (!category) {
-      throw new Error('Category not found')
+      return null
     }
 
     return category
@@ -42,5 +42,9 @@ export class InMemoryCategoriesRepository implements ICategoryRepository {
     )
 
     this.categories[categoryIndex] = category
+  }
+
+  async list(): Promise<Category[]> {
+    return this.categories
   }
 }
