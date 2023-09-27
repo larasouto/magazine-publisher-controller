@@ -1,30 +1,27 @@
 import { Controller } from '@/core/infra/controller'
 import { HttpResponse, clientError, ok } from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
-import { t } from 'i18next'
-import { EditCategory } from './edit-category'
 import { CategoryNotFoundError } from './errors/CategoryNotFoundError'
+import { GetCategory } from './get-category'
 
-type EditCategoryControllerRequest = {
+type GetCategoryControllerRequest = {
   categoryId: string
-  name: string
-  description?: string
 }
 
-export class EditCategoryController implements Controller {
+export class GetCategoryController implements Controller {
   constructor(
-    private readonly validator: Validator<EditCategoryControllerRequest>,
-    private editCategory: EditCategory,
+    private readonly validator: Validator<GetCategoryControllerRequest>,
+    private getCategory: GetCategory,
   ) {}
 
-  async handle(request: EditCategoryControllerRequest): Promise<HttpResponse> {
+  async handle(request: GetCategoryControllerRequest): Promise<HttpResponse> {
     const validated = this.validator.validate(request)
 
     if (validated.isLeft()) {
       return clientError(validated.value)
     }
 
-    const result = await this.editCategory.execute(request)
+    const result = await this.getCategory.execute(request)
 
     if (result.isLeft()) {
       const error = result.value
@@ -41,6 +38,6 @@ export class EditCategoryController implements Controller {
       }
     }
 
-    return ok({ message: t('category.edited') })
+    return ok({ dto: result.value })
   }
 }
