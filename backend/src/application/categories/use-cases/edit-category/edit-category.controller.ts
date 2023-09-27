@@ -41,6 +41,6 @@ export class EditCategoryController implements Controller {
       }
     }
 
-    return ok({ message: t('category.created') })
+    return ok({ message: t('category.edited') })
   }
 }

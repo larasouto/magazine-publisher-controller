@@ -37,7 +37,7 @@ export class PrismaCategoriesRepository implements ICategoryRepository {
   }
 
   async update(category: Category): Promise<void> {
-    const data = CategoryMapper.toPersistence(category)
+    const data = await CategoryMapper.toPersistence(category)
 
     await prismaClient.category.update({
       where: { id: category.id },
