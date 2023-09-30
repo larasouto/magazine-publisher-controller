@@ -1,4 +1,6 @@
-import LanguageDetector, { DetectorOptions } from 'i18next-browser-languagedetector'
+import LanguageDetector, {
+  DetectorOptions
+} from 'i18next-browser-languagedetector'
 
 const options: DetectorOptions = {
   /**

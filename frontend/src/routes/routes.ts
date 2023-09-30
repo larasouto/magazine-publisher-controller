@@ -12,6 +12,12 @@ export const routes = {
     }
   },
   home: {
-    index: '/'
+    index: '/home'
+  },
+  categories: {
+    index: '/categories',
+    new: '/categories/new',
+    edit: '/categories/:id/edit',
+    delete: '/categories/:id/delete'
   }
 }

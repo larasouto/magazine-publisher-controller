@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -7,11 +8,47 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  CUSTOMER
+  EDITOR
+  ADMIN
+}
+
 model User {
-  id       String  @id @default(uuid())
-  email    String  @unique
-  name     String?
-  password String
+  id         String    @id
+  name       String
+  email      String    @unique
+  password   String
+  phone      String?
+  role       Role      @default(CUSTOMER)
+  addresses  Address[]
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
 
   @@map("users")
+}
+
+model Address {
+  id         String   @id
+  street     String
+  number     String
+  city       String
+  state      String
+  zip        String
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("addresses")
+}
+
+model Category {
+  id          String   @id
+  name        String
+  description String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map("categories")
 }

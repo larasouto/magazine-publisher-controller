@@ -6,7 +6,10 @@ import i18next from 'i18next'
  * @param date a data a ser formatada.
  * @returns a data formatada.
  */
-export const formatDate = (date: string | Date, options?: Intl.DateTimeFormatOptions) => {
+export const formatDate = (
+  date: string | Date,
+  options?: Intl.DateTimeFormatOptions
+) => {
   if (!date) return
 
   if (typeof date === 'string') {

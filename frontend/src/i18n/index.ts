@@ -1,12 +1,14 @@
 import i18next from 'i18next'
 import HttpBackend from 'i18next-http-backend'
 import { initReactI18next } from 'react-i18next'
+import { z } from 'zod'
 import { makeZodI18nMap } from 'zod-i18n-map'
 import { languageDetector } from './language-detector'
 import { zod } from './zod'
-import { z } from 'zod'
 
-export const langs = ['en-US', 'pt-BR']
+export type Lang = 'en-US' | 'pt-BR'
+export const langs: Lang[] = ['en-US', 'pt-BR']
+
 const LOAD_PATH = import.meta.env.VITE_LOAD_PATH_LOCALES
 
 const i18n = i18next
@@ -15,7 +17,7 @@ const i18n = i18next
   .use(initReactI18next)
   .init({
     partialBundledLanguages: true,
-    fallbackLng: 'en-US',
+    fallbackLng: 'pt-BR',
     ns: ['common'],
     defaultNS: 'common',
     supportedLngs: langs,

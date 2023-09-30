@@ -1,21 +1,35 @@
+import { Breadcrumb } from '@/components/Breadcrumb'
 import { Helmet } from 'react-helmet-async'
 import { description } from './meta'
-import { cn } from '@/lib/utils'
-import { ComponentProps } from 'react'
 
-export type PageLayoutProps = ComponentProps<'div'> & {
+export type PageLayoutProps = {
   title: string
   children?: React.ReactNode
+  breadcrumb?: Array<{ label: string; link?: string }>
+  imageSrc?: string
 }
 
-export const PageLayout = ({ title, children, ...props }: PageLayoutProps) => {
+export const PageLayout = ({
+  title,
+  breadcrumb,
+  imageSrc,
+  children
+}: PageLayoutProps) => {
   return (
     <>
       <Helmet>
         <title>Revista {title && `| ${title}`}</title>
         <meta name="description" content={description} />
       </Helmet>
-      <div className={cn('min-h-screen', props.className)}>{children}</div>
+      {breadcrumb && (
+        <Breadcrumb
+          title={title}
+          items={breadcrumb}
+          imageSrc={imageSrc ?? false}
+          className="mb-5"
+        />
+      )}
+      <article>{children}</article>
     </>
   )
 }

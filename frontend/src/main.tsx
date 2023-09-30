@@ -8,23 +8,21 @@ import { HelmetProvider } from 'react-helmet-async'
 import { QueryClientProvider } from 'react-query'
 import { RouterProvider } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-import { router } from './routes'
 import { queryClient } from './lib/react-query'
-import { NextUIProvider } from '@nextui-org/react'
+import { router } from './routes'
+import { useThemeStore } from './stores/useThemeStore'
 
 export const App = () => {
+  const theme = useThemeStore((state) => state.theme)
+
   return (
     <React.StrictMode>
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
-          <NextUIProvider>
-            <main>
-              <RouterProvider router={router} />
-            </main>
-          </NextUIProvider>
+          <RouterProvider router={router} />
         </QueryClientProvider>
       </HelmetProvider>
-      <ToastContainer position="bottom-right" autoClose={2250} theme={'dark'} />
+      <ToastContainer position="bottom-right" autoClose={2250} theme={theme} />
     </React.StrictMode>
   )
 }
