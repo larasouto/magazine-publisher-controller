@@ -1,3 +1,4 @@
+import { ZodValidate } from '@/core/@types/ZodValidate'
 import { Entity } from '@/core/domain/entity'
 import { ZodValidationError } from '@/core/domain/errors/ZodValidationError'
 import { Either, left, right } from '@/core/logic/either'
@@ -9,7 +10,7 @@ export class Category extends Entity<CategoryProps> {
   }
 
   static create(props: CategoryProps, id?: string): Either<Error, Category> {
-    const result = CategorySchema.safeParse(props)
+    const result = CategorySchema.safeParse(props) as ZodValidate<CategoryProps>
 
     if (!result.success) {
       return left(new ZodValidationError(result.error))

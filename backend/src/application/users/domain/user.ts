@@ -1,8 +1,8 @@
-import { ZodValidate } from '@/@types/errors/ZodValidate'
-import { UserProps, UserSchema } from './user.schema'
+import { ZodValidate } from '@/core/@types/ZodValidate'
 import { Entity } from '@/core/domain/entity'
 import { ZodValidationError } from '@/core/domain/errors/ZodValidationError'
 import { Either, left, right } from '@/core/logic/either'
+import { UserProps, UserSchema } from './user.schema'
 
 export class User extends Entity<UserProps> {
   private constructor(props: UserProps, id?: string) {
