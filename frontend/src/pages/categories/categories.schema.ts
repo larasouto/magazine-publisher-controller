@@ -6,4 +6,4 @@ export const CategorySchema = z.object({
 })
 
 export type CategoryForm = z.infer<typeof CategorySchema>
-export type CategoryFormEdit = CategoryForm & { id: string }
+export type CategoryFormWithId = CategoryForm & { id: string }

@@ -2,16 +2,17 @@ import { SubmitButton } from '@/components/SubmitButton'
 import { useCategory } from '@/hooks/useCategory'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@nextui-org/react'
+import { InputMask } from '@react-input/mask'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import {
   CategoryForm,
-  CategoryFormEdit,
+  CategoryFormWithId,
   CategorySchema
 } from './categories.schema'
 
 type CategoriesFormProps = {
-  data?: CategoryFormEdit
+  data?: CategoryFormWithId
 }
 
 export const CategoriesForm = ({ data }: CategoriesFormProps) => {
@@ -39,12 +40,14 @@ export const CategoriesForm = ({ data }: CategoriesFormProps) => {
       noValidate
     >
       <fieldset>
-        <Input
+        <InputMask
+          mask="___.___.___-__"
+          replacement={{ _: /\d/ }}
+          component={Input}
           label={t('form.name.label')}
           placeholder={t('form.name.placeholder')}
           errorMessage={form.formState.errors.name?.message}
           labelPlacement="outside"
-          {...form.register('name')}
           isRequired
         />
       </fieldset>
