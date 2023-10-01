@@ -7,4 +7,5 @@ export interface IReporterRepository {
   delete(id: string): Promise<void>
   deleteMany(ids: string[]): Promise<void>
   list(): Promise<Reporter[]>
+  inactivate(id: string): Promise<void>
 }

@@ -12,7 +12,7 @@ describe('Create user (end-to-end)', () => {
   })
 
   test('should create an user', async () => {
-    const randomEmail = `random-email@test-${Math.random()}.com`
+    const randomEmail = `random-email-${Math.random()}@test.com`
 
     const data = {
       name: 'test',
@@ -43,7 +43,7 @@ describe('Create user (end-to-end)', () => {
   })
 
   test('should not be able to create an user with existing email', async () => {
-    const randomEmail = `random-email@test-${Math.random()}.com`
+    const randomEmail = `random-email-${Math.random()}@test.com`
 
     const data = {
       name: 'test',

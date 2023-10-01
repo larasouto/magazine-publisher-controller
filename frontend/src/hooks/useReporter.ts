@@ -1,29 +1,30 @@
 import { HttpResponse } from '@/@types/HttpResponse'
 import { HttpResponseError } from '@/@types/HttpResponseError'
 import {
-  CategoryForm,
-  CategoryFormWithId
-} from '@/pages/categories/categories.schema'
+  ReporterForm,
+  ReporterFormWithId
+} from '@/pages/reporters/reporters.schema'
 import { routes } from '@/routes/routes'
 import { api } from '@/services/api'
 import { toResponseBody } from '@/utils/to-response-body'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAdaptResponse } from './useAdaptResponse'
 
-export const useCategory = () => {
+export const useReporter = () => {
   const { httpResponseHandle, httpResponseError } = useAdaptResponse()
   const { id } = useParams()
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
 
   const getData = async () => {
     return await api
-      .get(`/categories/${id}`)
-      .then((res) => toResponseBody<CategoryFormWithId>(res.data))
+      .get(`/reporters/${id}`)
+      .then((res) => toResponseBody<ReporterFormWithId>(res.data))
   }
 
   const list = async () => {
-    return await api.get('/categories').then((res) => ({
+    return await api.get('/reporters').then((res) => ({
       dto: res.data.dto.map((item) => {
         return {
           id: item._id,
@@ -34,13 +35,13 @@ export const useCategory = () => {
   }
 
   const create = useMutation(
-    async (data: CategoryForm) => {
-      return await api.post('/categories/new', data).then((res) => res.data)
+    async (data: ReporterForm) => {
+      return await api.post('/reporters/new', data).then((res) => res.data)
     },
     {
       onSuccess: (response: HttpResponse) => {
         httpResponseHandle(response)
-        navigate(routes.categories.index)
+        navigate(routes.reporters.index)
       },
       onError: (error: HttpResponseError) => {
         httpResponseError(error)
@@ -49,15 +50,15 @@ export const useCategory = () => {
   )
 
   const update = useMutation(
-    async (data: CategoryFormWithId) => {
+    async (data: ReporterFormWithId) => {
       return await api
-        .put(`/categories/${data.id}/edit`, data)
+        .put(`/reporters/${data.id}/edit`, data)
         .then((res) => res.data)
     },
     {
       onSuccess: (response: HttpResponse) => {
         httpResponseHandle(response)
-        navigate(routes.categories.index)
+        navigate(routes.reporters.index)
       },
       onError: (error: HttpResponseError) => {
         httpResponseError(error)
@@ -65,5 +66,22 @@ export const useCategory = () => {
     }
   )
 
-  return { create, update, id, getData, list }
+  const inactivate = useMutation(
+    async (id: string) => {
+      return await api
+        .put(`/reporters/${id}/inactivate`)
+        .then((res) => res.data)
+    },
+    {
+      onSuccess: async (response: HttpResponse) => {
+        httpResponseHandle(response)
+        await queryClient.invalidateQueries('reporters')
+      },
+      onError: (error: HttpResponseError) => {
+        httpResponseError(error)
+      }
+    }
+  )
+
+  return { create, update, inactivate, id, getData, list }
 }

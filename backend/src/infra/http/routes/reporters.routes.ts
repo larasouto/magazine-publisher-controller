@@ -6,6 +6,7 @@ import { makeCreateReportersController } from '../factories/controllers/reporter
 import { makeEditReportersController } from '../factories/controllers/reporters/makeEditReporterController'
 import { makeGetReporterController } from '../factories/controllers/reporters/makeGetReporterController'
 import { makeListReportersController } from '../factories/controllers/reporters/makeListReportersController'
+import { makeInactivateReportersController } from '../factories/controllers/reporters/makeInactivateReporterController'
 
 export const reporters = Router()
 
@@ -15,3 +16,7 @@ reporters.post('/new', adaptRoute(makeCreateReportersController()))
 reporters.put('/:reporterId/edit', adaptRoute(makeEditReportersController()))
 reporters.get('/:reporterId', adaptRoute(makeGetReporterController()))
 reporters.get('/', adaptRoute(makeListReportersController()))
+reporters.put(
+  '/:reporterId/inactivate',
+  adaptRoute(makeInactivateReportersController()),
+)
