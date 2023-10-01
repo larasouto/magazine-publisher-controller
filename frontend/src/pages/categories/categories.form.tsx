@@ -2,7 +2,6 @@ import { SubmitButton } from '@/components/SubmitButton'
 import { useCategory } from '@/hooks/useCategory'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@nextui-org/react'
-import { InputMask } from '@react-input/mask'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import {
@@ -26,11 +25,12 @@ export const CategoriesForm = ({ data }: CategoriesFormProps) => {
   })
 
   const onSubmit = async (form: CategoryForm) => {
-    if (data) {
-      await update.mutateAsync({ id: data.id, ...form })
-      return
-    }
-    await create.mutateAsync(form)
+    console.table(form)
+    // if (data) {
+    //   await update.mutateAsync({ id: data.id, ...form })
+    //   return
+    // }
+    // await create.mutateAsync(form)
   }
 
   return (
@@ -40,14 +40,12 @@ export const CategoriesForm = ({ data }: CategoriesFormProps) => {
       noValidate
     >
       <fieldset>
-        <InputMask
-          mask="___.___.___-__"
-          replacement={{ _: /\d/ }}
-          component={Input}
+        <Input
           label={t('form.name.label')}
           placeholder={t('form.name.placeholder')}
           errorMessage={form.formState.errors.name?.message}
           labelPlacement="outside"
+          {...form.register('name')}
           isRequired
         />
       </fieldset>

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { CategoriesForm } from './categories.form'
-import { CategoryFormEdit } from './categories.schema'
+import { CategoryFormWithId } from './categories.schema'
 
 export const CategoriesPage = () => {
   const { t } = useTranslation('categories')
@@ -19,7 +19,7 @@ export const CategoriesPage = () => {
     { label: title }
   ]
 
-  const { data, isLoading, isError } = useQuery<CategoryFormEdit>(
+  const { data, isLoading, isError } = useQuery<CategoryFormWithId>(
     ['category', 'id'],
     getData,
     { enabled: !!id }
