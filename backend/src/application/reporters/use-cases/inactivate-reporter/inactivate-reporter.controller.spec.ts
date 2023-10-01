@@ -5,8 +5,12 @@ import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
 import { v4 as uuid } from 'uuid'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
+import { IReporterRepository } from '../../repositories/interfaces/IReporterRepository'
+import { PrismaReportersRepository } from '../../repositories/prisma/PrismaReportersRepository'
 
-describe('Get a reporter (end-to-end)', () => {
+let reporterRepository: IReporterRepository
+
+describe('Inactivate a reporter (end-to-end)', () => {
   const create = {
     id: uuid(),
     name: 'test-name-photographer',
@@ -20,6 +24,7 @@ describe('Get a reporter (end-to-end)', () => {
   }
 
   beforeAll(async () => {
+    reporterRepository = new PrismaReportersRepository()
     await prismaClient.reporter.create({
       data: create,
     })
@@ -31,41 +36,36 @@ describe('Get a reporter (end-to-end)', () => {
     })
   })
 
-  test('should be able to get a reporter', async () => {
+  test('should be able to inactivate a reporter', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .get(`/api/reporters/${create.id}`)
+      .put(`/api/reporters/${create.id}/inactivate`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
     expect(response.status).toBe(StatusCodes.OK)
+
+    const reporter = await reporterRepository.findById(create.id)
+    expect(reporter.props.status).toBe('INACTIVE')
   })
 
-  test('should not be able to get a non existing reporter', async () => {
+  test('should not be able to inactivate a non existing reporter', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .get(`/api/reporters/${create.id}-complement`)
+      .put(`/api/reporters/${create.id}-complement/inactivate`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
     expect(response.status).toBe(StatusCodes.BAD_REQUEST)
   })
 
-  test('should not be able to get a reporter with no authentication', async () => {
-    const response = await request(app)
-      .get(`/api/reporters/${create.id}`)
-      .send()
-
-    expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
-  })
-
-  test('should not be able to get a reporter with invalid reporterId', async () => {
+  test('should not be able to inactivate a reporter with invalid reporterId', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .get(`/api/reporters/${null}`)
+      .put(`/api/reporters/${null}/inactivate`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 

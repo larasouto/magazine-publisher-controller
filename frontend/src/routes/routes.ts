@@ -19,5 +19,11 @@ export const routes = {
     new: '/categories/new',
     edit: '/categories/:id/edit',
     delete: '/categories/:id/delete'
+  },
+  reporters: {
+    index: '/reporters',
+    new: '/reporters/new',
+    edit: '/reporters/:id/edit',
+    delete: '/reporters/:id/delete'
   }
 }

@@ -6,7 +6,7 @@ import request from 'supertest'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { v4 as uuid } from 'uuid'
 
-describe('Create category (end-to-end)', () => {
+describe('Edit category (end-to-end)', () => {
   const create: any = {
     id: uuid(),
     name: 'test-name-category',

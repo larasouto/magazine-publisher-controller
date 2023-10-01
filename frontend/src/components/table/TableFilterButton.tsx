@@ -24,7 +24,7 @@ export const TableFilterButton = ({
     <>
       <Dropdown>
         <DropdownTrigger>
-          <Button color="primary" isIconOnly>
+          <Button className="bg-default-100" isIconOnly>
             <Filter className="w-5 h-5" />
           </Button>
         </DropdownTrigger>

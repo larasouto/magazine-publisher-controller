@@ -73,6 +73,33 @@ describe('Edit reporter (end-to-end)', () => {
     expect(response.body).toHaveProperty('message')
   })
 
+  test('shoud be able to edit a reporter passing a departure date', async () => {
+    const { jwt } = UserFactory.createAndAuthenticate()
+
+    const data: any = {
+      name: 'test-reporter-edited-2',
+      email: 'test-reporter-edited@email.com',
+      cpf: '744.098.640-76',
+      status: 'ACTIVE',
+      specialty: 'test-reporter-specialty-edited',
+      entryDate: new Date(),
+      departureDate: new Date('2021-01-01'),
+    }
+
+    const response = await request(app)
+      .put(`/api/reporters/${create.id}/edit`)
+      .auth(jwt.token, { type: 'bearer' })
+      .send(data)
+
+    expect(response.status).toBe(StatusCodes.OK)
+    expect(response.body).toHaveProperty('message')
+
+    const edited = await prismaClient.reporter.findFirst({
+      where: { id: create.id },
+    })
+    expect(edited.departure_date).toStrictEqual(data.departureDate)
+  })
+
   test('should not be able to edit a reporter with empty data', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
