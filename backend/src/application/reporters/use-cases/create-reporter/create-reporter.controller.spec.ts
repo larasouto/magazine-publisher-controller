@@ -7,7 +7,9 @@ import { afterEach, describe, expect, test } from 'vitest'
 
 describe('Create reporter (end-to-end)', () => {
   afterEach(async () => {
-    await prismaClient.$queryRaw`DELETE FROM "reporters" WHERE email LIKE "testphotographer%"`
+    await prismaClient.reporter.deleteMany({
+      where: { email: { contains: 'testphotographer' } },
+    })
   })
 
   test('should be able to create a reporter', async () => {
