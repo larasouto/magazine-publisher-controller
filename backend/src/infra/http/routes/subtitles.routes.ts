@@ -6,6 +6,7 @@ import { makeCreateSubtitlesController } from '../factories/controllers/subtitle
 import { makeDeleteSubtitlesController } from '../factories/controllers/subtitles/makeDeleteSubtitleController'
 import { makeEditSubtitlesController } from '../factories/controllers/subtitles/makeEditSubtitleController'
 import { makeGetSubtitleController } from '../factories/controllers/subtitles/makeGetSubtitleController'
+import { makeListSubtitlesController } from '../factories/controllers/subtitles/makeListSubtitleController'
 
 export const subtitles = Router()
 
@@ -15,3 +16,4 @@ subtitles.post('/new', adaptRoute(makeCreateSubtitlesController()))
 subtitles.put('/:subtitleId/edit', adaptRoute(makeEditSubtitlesController()))
 subtitles.get('/:subtitleId', adaptRoute(makeGetSubtitleController()))
 subtitles.delete('/:subtitleId', adaptRoute(makeDeleteSubtitlesController()))
+subtitles.get('/', adaptRoute(makeListSubtitlesController()))
