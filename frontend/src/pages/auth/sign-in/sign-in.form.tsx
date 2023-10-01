@@ -1,3 +1,5 @@
+import { useAuth } from '@/hooks/useAuth'
+import { routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Button,
@@ -7,16 +9,18 @@ import {
   CardHeader,
   Checkbox,
   Divider,
-  Input
+  Input,
+  Link
 } from '@nextui-org/react'
-import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { ToggleButton } from '../components/ToggleButton'
 import { SignIn, SignInSchema, defaultValues } from './sign-in.schema'
 
 export const SignInForm = () => {
   const { t } = useTranslation('auth')
+  const { signIn } = useAuth()
   const [isVisible, setVisible] = useState(false)
 
   const form = useForm<SignIn>({
@@ -29,13 +33,13 @@ export const SignInForm = () => {
     setVisible((previous) => !previous)
   }
 
-  const onSubmit = (data: SignIn) => {
-    console.table(data)
+  const onSubmit = async (data: SignIn) => {
+    await signIn.mutateAsync(data)
   }
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)}>
-      <Card className="w-full m-2 min-[420px]:w-[400px] pb-2">
+    <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
+      <Card className="pb-3">
         <CardHeader className="ml-2 flex gap-4">
           <div className="flex flex-col gap-0.5">
             <h1 className="text-2xl font-bold">{t('sign_in.title')}</h1>
@@ -54,6 +58,7 @@ export const SignInForm = () => {
                 labelPlacement="outside"
                 errorMessage={form.formState.errors.email?.message}
                 autoComplete="email"
+                isRequired
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -62,36 +67,44 @@ export const SignInForm = () => {
                 label={t('password.label')}
                 placeholder={t('password.placeholder')}
                 endContent={
-                  <button
+                  <ToggleButton
                     id="toggle-password"
-                    type="button"
-                    className="focus:outline-none focus:text-neutral-300 text-neutral-500 hover:text-neutral-400"
+                    isVisible={isVisible}
                     onClick={toggleVisibility}
-                  >
-                    {isVisible ? <Eye size={20} /> : <EyeOff size={20} />}
-                  </button>
+                  />
                 }
                 type={isVisible ? 'text' : 'password'}
                 labelPlacement="outside"
                 errorMessage={form.formState.errors.password?.message}
                 autoComplete="current-password"
+                isRequired
               />
             </div>
-            <Checkbox color="secondary" checked>
-              {t('keep_me_signed.label')}
+            <Checkbox name="rememberMe" color="primary" className="text-xs">
+              <span className="text-sm">{t('keep_me_signed.label')}</span>
             </Checkbox>
           </div>
         </CardBody>
         <CardFooter>
           <Button
             type="submit"
-            color="secondary"
             variant="solid"
+            color="primary"
             className="w-full mx-2"
+            isLoading={signIn.isLoading}
           >
             {t('sign_in.btn')}
           </Button>
         </CardFooter>
+        <Link
+          color="primary"
+          href={routes.auth.sign_up.index}
+          as={Link}
+          showAnchorIcon
+          className="mx-auto text-sm flex my-2"
+        >
+          {t('dont_have_an_account.label')}
+        </Link>
       </Card>
     </form>
   )

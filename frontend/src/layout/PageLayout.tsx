@@ -1,21 +1,19 @@
-import { LocaleSwitcher } from '@/components/features/LocaleSwitcher'
-import { ThemeSwitcher } from '@/components/features/ThemeSwitcher'
-import { cn } from '@/lib/utils'
-import { ComponentProps } from 'react'
+import { Breadcrumb } from '@/components/Breadcrumb'
 import { Helmet } from 'react-helmet-async'
 import { description } from './meta'
 
-export type PageLayoutProps = ComponentProps<'div'> & {
+export type PageLayoutProps = {
   title: string
   children?: React.ReactNode
-  isAuth?: boolean
+  breadcrumb?: Array<{ label: string; link?: string }>
+  imageSrc?: string
 }
 
 export const PageLayout = ({
   title,
-  children,
-  isAuth,
-  ...props
+  breadcrumb,
+  imageSrc,
+  children
 }: PageLayoutProps) => {
   return (
     <>
@@ -23,17 +21,15 @@ export const PageLayout = ({
         <title>Revista {title && `| ${title}`}</title>
         <meta name="description" content={description} />
       </Helmet>
-      <div className={cn('relative min-h-screen', props.className)}>
-        {isAuth && (
-          <div className="absolute top-5 right-5">
-            <div className="flex gap-2">
-              <LocaleSwitcher />
-              <ThemeSwitcher />
-            </div>
-          </div>
-        )}
-        <section>{children}</section>
-      </div>
+      {breadcrumb && (
+        <Breadcrumb
+          title={title}
+          items={breadcrumb}
+          imageSrc={imageSrc ?? false}
+          className="mb-5"
+        />
+      )}
+      <article>{children}</article>
     </>
   )
 }

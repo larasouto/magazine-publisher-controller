@@ -1,4 +1,6 @@
+.env
 node_modules
-# Keep environment variables out of version control
-.env.local
-tmp
+dist
+src/infra/http/i18n/locales/*
+.DS_*
+prisma/dev.*

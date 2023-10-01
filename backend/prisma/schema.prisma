@@ -1,17 +1,74 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id       String  @id @default(uuid())
-  email    String  @unique
-  name     String?
-  password String
+  id         String    @id
+  name       String
+  email      String    @unique
+  password   String
+  phone      String?
+  addresses  Address[]
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
 
   @@map("users")
+}
+
+model Address {
+  id         String   @id
+  street     String
+  number     String
+  city       String
+  state      String
+  zip        String
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("addresses")
+}
+
+model Category {
+  id          String   @id
+  name        String
+  description String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map("categories")
+}
+
+model Theme {
+  id          String   @id
+  name        String
+  description String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map("themes")
+}
+
+model Reporter {
+  id             String    @id
+  name           String
+  email          String
+  phone          String?
+  cpf            String
+  specialty      String
+  status         String
+  entry_date     DateTime
+  departure_date DateTime?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("reporters")
 }
