@@ -9,3 +9,7 @@ export const photographers = Router()
 photographers.use(adaptMiddleware(makeEnsureAuthenticated()))
 
 photographers.post('/new', adaptRoute(makeCreatePhotographerController()))
+photographers.put(
+  '/:photographerId/edit',
+  adaptRoute(makeCreatePhotographerController()),
+)
