@@ -47,11 +47,12 @@ model Category {
 }
 
 model Theme {
-  id          String   @id
+  id          String     @id
   name        String
   description String?
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  magazines   Magazine[]
+  created_at  DateTime   @default(now())
+  updated_at  DateTime   @updatedAt
 
   @@map("themes")
 }
@@ -88,4 +89,18 @@ model Photographer {
   updated_at DateTime @updatedAt
 
   @@map("photographers")
+}
+
+model Magazine {
+  id                 String   @id
+  name               String
+  description        String?
+  year_founded       Int
+  publication_period String
+  theme              Theme    @relation(fields: [theme_id], references: [id])
+  theme_id           String
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+
+  @@map("magazines")
 }
