@@ -20,10 +20,7 @@ export class PrismaReportersRepository implements IReporterRepository {
     const data = await ReporterMapper.toPersistence(reporter)
 
     await prismaClient.reporter.create({
-      data: {
-        ...data,
-        status: 'ACTIVE',
-      },
+      data,
     })
   }
 
@@ -51,5 +48,12 @@ export class PrismaReportersRepository implements IReporterRepository {
   async list(): Promise<Reporter[]> {
     const reporters = await prismaClient.reporter.findMany()
     return reporters.map(ReporterMapper.toDomain)
+  }
+
+  async inactivate(id: string): Promise<void> {
+    await prismaClient.reporter.update({
+      where: { id },
+      data: { status: 'INACTIVE', departure_date: new Date() },
+    })
   }
 }

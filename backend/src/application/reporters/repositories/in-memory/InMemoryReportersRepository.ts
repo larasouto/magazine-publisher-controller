@@ -1,4 +1,5 @@
 import { Reporter } from '../../domain/reporter'
+import { ReporterStatus } from '../../domain/reporter.schema'
 import { IReporterRepository } from '../interfaces/IReporterRepository'
 
 export class InMemoryReportersRepository implements IReporterRepository {
@@ -46,5 +47,22 @@ export class InMemoryReportersRepository implements IReporterRepository {
 
   async list(): Promise<Reporter[]> {
     return this.reporters
+  }
+
+  async inactivate(id: string): Promise<void> {
+    const reporterIndex = this.reporters.findIndex(
+      (reporter) => reporter.id === id,
+    )
+
+    if (!this.reporters[reporterIndex]) {
+      return null
+    }
+
+    const reporter = Reporter.create({
+      ...this.reporters[reporterIndex],
+      status: ReporterStatus.INACTIVE,
+    }).value as Reporter
+
+    this.reporters[reporterIndex] = reporter
   }
 }
