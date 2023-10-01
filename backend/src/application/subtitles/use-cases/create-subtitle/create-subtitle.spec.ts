@@ -17,7 +17,7 @@ describe('Create a subtitle', () => {
     const data: any = {
       name: 'subtitle-name',
       description: 'subtitle-description',
-      type: 'CONTENT SUMMARY',
+      type: 'CONTENT_SUMMARY',
     }
 
     const response = await createSubtitle.execute(data)
@@ -30,7 +30,7 @@ describe('Create a subtitle', () => {
   test('should be able to create a subtitle without description', async () => {
     const data: any = {
       name: 'subtitle-name',
-      type: 'CONTENT SUMMARY',
+      type: 'CONTENT_SUMMARY',
     }
 
     const response = await createSubtitle.execute(data)
@@ -50,7 +50,7 @@ describe('Create a subtitle', () => {
   test('should not be able to create a subtitle without name', async () => {
     const data: any = {
       description: 'subtitle-description',
-      type: 'CONTENT SUMMARY',
+      type: 'CONTENT_SUMMARY',
     }
 
     const response = await createSubtitle.execute(data)

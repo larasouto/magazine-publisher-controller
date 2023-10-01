@@ -16,7 +16,7 @@ describe('Create subtitle (end-to-end)', () => {
     const data: any = {
       name: 'subtitle-name',
       description: 'subtitle-description',
-      type: 'CONTENT SUMMARY',
+      type: 'CONTENT_SUMMARY',
     }
 
     const response = await request(app)
@@ -33,7 +33,7 @@ describe('Create subtitle (end-to-end)', () => {
 
     const data: any = {
       name: 'subtitle-name',
-      type: 'CONTENT SUMMARY',
+      type: 'CONTENT_SUMMARY',
     }
 
     const response = await request(app)

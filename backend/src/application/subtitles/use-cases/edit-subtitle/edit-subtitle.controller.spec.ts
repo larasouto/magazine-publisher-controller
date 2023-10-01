@@ -32,7 +32,7 @@ describe('Edit subtitle (end-to-end)', () => {
     const data: any = {
       name: 'subtitle-name-updated',
       description: 'subtitle-description-edited',
-      type: 'CONTENT SUMMARY',
+      type: 'CONTENT_SUMMARY',
     }
 
     const response = await request(app)
@@ -44,12 +44,12 @@ describe('Edit subtitle (end-to-end)', () => {
     expect(response.body).toHaveProperty('message')
   })
 
-  test('should be able to updated a subtitle without description (remove description)', async () => {
+  test('should be able to update a subtitle without description (remove description)', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const data: any = {
       name: 'subtitle-name-updated-2',
-      type: 'CONTENT SUMMARY',
+      type: 'CONTENT_SUMMARY',
     }
 
     const response = await request(app)

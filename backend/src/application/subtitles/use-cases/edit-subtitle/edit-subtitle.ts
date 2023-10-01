@@ -2,6 +2,7 @@ import { Either, left, right } from '@/core/logic/either'
 import { Subtitle } from '../../domain/subtitle'
 import { ISubtitleRepository } from '../../repositories/interfaces/ISubtitleRepository'
 import { SubtitleNotFoundError } from './errors/SubtitleNotFoundError'
+import { SubtitleType } from '../../domain/subtitle.schema'
 
 type EditSubtitleRequest = {
   subtitleId: string
@@ -19,7 +20,10 @@ export class EditSubtitle {
     subtitleId,
     ...request
   }: EditSubtitleRequest): Promise<EditSubtitleResponse> {
-    const subtitleOrError = Subtitle.create(request, subtitleId)
+    const subtitleOrError = Subtitle.create(
+      { ...request, type: request.type as unknown as SubtitleType },
+      subtitleId,
+    )
 
     if (subtitleOrError.isLeft()) {
       return left(subtitleOrError.value)

@@ -20,7 +20,7 @@ describe('List subtitles', () => {
     const data1 = {
       name: 'subtitle-name',
       description: 'subtitle-description',
-      type: 'CONTENT SUMMARY',
+      type: 'CONTENT_SUMMARY',
     }
 
     const data2 = {

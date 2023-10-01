@@ -11,7 +11,7 @@ describe('Get a subtitle (end-to-end)', () => {
     id: uuid(),
     name: 'test-subtitle-create',
     description: 'test-subtitle-description-create',
-    type: 'CONTENT SUMMARY',
+    type: 'CONTENT_SUMMARY',
   }
 
   beforeAll(async () => {
