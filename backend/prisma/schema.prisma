@@ -104,3 +104,14 @@ model Magazine {
 
   @@map("magazines")
 }
+
+model Subtitle {
+  id          String   @id
+  name        String
+  description String?
+  type        String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map("subtitles")
+}
