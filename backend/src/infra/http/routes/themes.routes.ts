@@ -6,7 +6,6 @@ import { makeCreateThemesController } from '../factories/controllers/themes/make
 import { makeDeleteThemesController } from '../factories/controllers/themes/makeDeleteThemeController'
 import { makeEditThemesController } from '../factories/controllers/themes/makeEditThemeController'
 import { makeGetThemeController } from '../factories/controllers/themes/makeGetThemeController'
-import { makeListThemesController } from '../factories/controllers/themes/makeListThemeController'
 
 export const themes = Router()
 
@@ -16,4 +15,4 @@ themes.post('/new', adaptRoute(makeCreateThemesController()))
 themes.put('/:themeId/edit', adaptRoute(makeEditThemesController()))
 themes.get('/:themeId', adaptRoute(makeGetThemeController()))
 themes.delete('/:themeId', adaptRoute(makeDeleteThemesController()))
-themes.get('/', adaptRoute(makeListThemesController()))
+themes.get('/', adaptRoute(makeGetThemeController()))

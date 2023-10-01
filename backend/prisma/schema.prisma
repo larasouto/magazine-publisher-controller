@@ -55,3 +55,20 @@ model Theme {
 
   @@map("themes")
 }
+
+model Reporter {
+  id             String    @id
+  name           String
+  email          String
+  phone          String?
+  cpf            String
+  specialty      String
+  status         String
+  entry_date     DateTime
+  departure_date DateTime?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("reporters")
+}
