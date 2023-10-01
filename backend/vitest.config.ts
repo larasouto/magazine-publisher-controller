@@ -2,6 +2,7 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
+    threads: false,
     alias: {
       '@': './src',
       '@application': './src/application',

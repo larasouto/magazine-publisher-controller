@@ -10,7 +10,7 @@ export enum SubtitleType {
 export const SubtitleSchema = z.object({
   name: z.string().min(2).max(64),
   description: z.string().max(64).nullish(),
-  type: z.nativeEnum(SubtitleType),
+  type: z.nativeEnum(SubtitleType).default(SubtitleType.CONTENT),
 })
 
 export type SubtitleProps = z.infer<typeof SubtitleSchema>

@@ -5,7 +5,7 @@ describe('Entity Subtitle', () => {
   test('should be able to create a subtitle', () => {
     const data: any = {
       name: 'sub-name',
-      type: 'CONTENT SUMMARY',
+      type: 'CONTENT_SUMMARY',
     }
 
     const sut = Subtitle.create(data)

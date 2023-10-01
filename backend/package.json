@@ -8,7 +8,7 @@
     "start:dev": "tsx watch src/infra/http/server.ts",
     "start:prod": "node dist/infra/http/server.js",
     "build": "tsup src",
-    "test": "vitest --config vitest.config.ts",
+    "test": "vitest --config vitest.config.ts --single-thread",
     "prisma:studio": "prisma studio",
     "prisma:generate": "prisma generate dev",
     "prisma:migrate": "prisma migrate dev",

@@ -7,7 +7,9 @@ import { afterEach, describe, expect, test } from 'vitest'
 
 describe('Create photographer (end-to-end)', () => {
   afterEach(async () => {
-    await prismaClient.$queryRaw`DELETE FROM "photographers" WHERE email LIKE "testphotographer%"`
+    await prismaClient.photographer.deleteMany({
+      where: { email: { contains: 'testphotographer' } },
+    })
   })
 
   test('should be able to create a photographer', async () => {
