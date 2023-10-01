@@ -7,7 +7,7 @@ import { languageDetector } from './language-detector'
 import { zod } from './zod'
 
 export type Lang = 'en-US' | 'pt-BR'
-export const langs: Lang[] = ['en-US', 'pt-BR']
+export const langs: Array<Lang> = ['en-US', 'pt-BR']
 
 const LOAD_PATH = import.meta.env.VITE_LOAD_PATH_LOCALES
 
