@@ -20,3 +20,4 @@ photographers.get(
   '/:photographerId',
   adaptRoute(makeGetPhotographerController()),
 )
+photographers.get('/', adaptRoute(makeListPhotographersController()))
