@@ -7,7 +7,7 @@ export const ReportersToolbar = () => {
   const { t } = useTranslation('reporters')
 
   return (
-    <Link href={routes.categories.new}>
+    <Link href={routes.reporters.new}>
       <Button color="primary" endContent={<PlusIcon />}>
         {t('page.new')}
       </Button>

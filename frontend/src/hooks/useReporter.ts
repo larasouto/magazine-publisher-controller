@@ -7,13 +7,14 @@ import {
 import { routes } from '@/routes/routes'
 import { api } from '@/services/api'
 import { toResponseBody } from '@/utils/to-response-body'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAdaptResponse } from './useAdaptResponse'
 
 export const useReporter = () => {
   const { httpResponseHandle, httpResponseError } = useAdaptResponse()
   const { id } = useParams()
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
 
   const getData = async () => {
@@ -65,5 +66,22 @@ export const useReporter = () => {
     }
   )
 
-  return { create, update, id, getData, list }
+  const inactivate = useMutation(
+    async (id: string) => {
+      return await api
+        .put(`/reporters/${id}/inactivate`)
+        .then((res) => res.data)
+    },
+    {
+      onSuccess: async (response: HttpResponse) => {
+        httpResponseHandle(response)
+        await queryClient.invalidateQueries('reporters')
+      },
+      onError: (error: HttpResponseError) => {
+        httpResponseError(error)
+      }
+    }
+  )
+
+  return { create, update, inactivate, id, getData, list }
 }

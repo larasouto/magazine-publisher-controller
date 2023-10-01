@@ -1,6 +1,7 @@
 import { Checkbox, Chip, User } from '@nextui-org/react'
 import { createColumnHelper } from '@tanstack/react-table'
 import i18next, { t } from 'i18next'
+import { ReporterActions } from './reporters.actions'
 
 export type ReporterColumns = {
   id: string
@@ -88,7 +89,9 @@ export const columns = [
     header: () => t('reporters:form.departure_date.label'),
     cell: ({ row }) => {
       const date = new Intl.DateTimeFormat(i18next.language)
-      return date.format(new Date(row.getValue('departureDate')))
+      const rowDate = row.getValue('departureDate')
+
+      return rowDate && date.format(new Date(row.getValue('departureDate')))
     },
     enableSorting: true,
     enableHiding: true
@@ -117,5 +120,14 @@ export const columns = [
     },
     enableSorting: true,
     enableHiding: true
+  }),
+  /**
+   * Actions
+   */
+  helper.display({
+    id: 'actions',
+    cell: ({ row }) => <ReporterActions row={row.original} />,
+    enableSorting: false,
+    enableHiding: false
   })
 ]

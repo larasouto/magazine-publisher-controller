@@ -123,9 +123,10 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
           <Controller
             control={form.control}
             name="entryDate"
-            render={({ field: { value, onChange, onBlur } }) => (
+            render={({ field: { value, ref, onChange, onBlur } }) => (
               <Input
                 type="date"
+                ref={ref}
                 label={t('form.entry_date.label')}
                 placeholder={t('form.entry_date.placeholder')}
                 errorMessage={form.formState.errors.entryDate?.message}
@@ -144,9 +145,10 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
             <Controller
               control={form.control}
               name="departureDate"
-              render={({ field: { value, onChange, onBlur } }) => (
+              render={({ field: { value, ref, onChange, onBlur } }) => (
                 <Input
                   type="date"
+                  ref={ref}
                   label={t('form.departure_date.label')}
                   placeholder={t('form.departure_date.placeholder')}
                   errorMessage={form.formState.errors.departureDate?.message}
