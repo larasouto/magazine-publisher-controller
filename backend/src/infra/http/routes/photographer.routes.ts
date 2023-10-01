@@ -3,6 +3,9 @@ import { adaptRoute } from '@/core/infra/adapters/express-route-adapter'
 import { Router } from 'express'
 import { makeEnsureAuthenticated } from '../factories/controllers/auth/makeEnsureAuthenticated'
 import { makeCreatePhotographerController } from '../factories/controllers/photographers/makeCreatePhotographerController'
+import { makeEditPhotographerController } from '../factories/controllers/photographers/makeEditPhotographerController'
+import { makeGetPhotographerController } from '../factories/controllers/photographers/makeGetPhotographerController'
+import { makeListPhotographersController } from '../factories/controllers/photographers/makeListPhotographersController'
 
 export const photographers = Router()
 
@@ -11,9 +14,9 @@ photographers.use(adaptMiddleware(makeEnsureAuthenticated()))
 photographers.post('/new', adaptRoute(makeCreatePhotographerController()))
 photographers.put(
   '/:photographerId/edit',
-  adaptRoute(makeCreatePhotographerController()),
+  adaptRoute(makeEditPhotographerController()),
 )
 photographers.get(
   '/:photographerId',
-  adaptRoute(makeCreatePhotographerController()),
+  adaptRoute(makeGetPhotographerController()),
 )
