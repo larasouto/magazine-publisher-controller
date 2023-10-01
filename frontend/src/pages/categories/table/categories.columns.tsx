@@ -1,6 +1,7 @@
 import { Checkbox } from '@nextui-org/react'
 import { createColumnHelper } from '@tanstack/react-table'
 import { t } from 'i18next'
+import { CategoriesActions } from './categories.actions'
 
 export type CategoryColumns = {
   id: string
@@ -52,5 +53,14 @@ export const columns = [
     cell: ({ row }) => row.getValue('description'),
     enableSorting: true,
     enableHiding: true
+  }),
+  /**
+   * Actions
+   */
+  helper.display({
+    id: 'actions',
+    cell: ({ row }) => <CategoriesActions row={row.original} />,
+    enableSorting: false,
+    enableHiding: false
   })
 ]
