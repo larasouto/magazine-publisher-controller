@@ -2,7 +2,7 @@ import { HttpResponse } from '@/@types/HttpResponse'
 import { HttpResponseError } from '@/@types/HttpResponseError'
 import {
   CategoryForm,
-  CategoryFormEdit
+  CategoryFormWithId
 } from '@/pages/categories/categories.schema'
 import { routes } from '@/routes/routes'
 import { api } from '@/services/api'
@@ -19,7 +19,7 @@ export const useCategory = () => {
   const getData = async () => {
     return await api
       .get(`/categories/${id}`)
-      .then((res) => toResponseBody<CategoryFormEdit>(res.data))
+      .then((res) => toResponseBody<CategoryFormWithId>(res.data))
   }
 
   const list = async () => {
@@ -49,7 +49,7 @@ export const useCategory = () => {
   )
 
   const update = useMutation(
-    async (data: CategoryForm & { id: string }) => {
+    async (data: CategoryFormWithId) => {
       return await api
         .put(`/categories/${data.id}/edit`, data)
         .then((res) => res.data)
@@ -57,7 +57,6 @@ export const useCategory = () => {
     {
       onSuccess: (response: HttpResponse) => {
         httpResponseHandle(response)
-        console.log(response)
         navigate(routes.categories.index)
       },
       onError: (error: HttpResponseError) => {

@@ -1,4 +1,5 @@
 import { SubmitButton } from '@/components/SubmitButton'
+import { GridLayout } from '@/components/layout/Grid'
 import { useCategory } from '@/hooks/useCategory'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@nextui-org/react'
@@ -25,12 +26,11 @@ export const CategoriesForm = ({ data }: CategoriesFormProps) => {
   })
 
   const onSubmit = async (form: CategoryForm) => {
-    console.table(form)
-    // if (data) {
-    //   await update.mutateAsync({ id: data.id, ...form })
-    //   return
-    // }
-    // await create.mutateAsync(form)
+    if (data) {
+      await update.mutateAsync({ id: data.id, ...form })
+      return
+    }
+    await create.mutateAsync(form)
   }
 
   return (
@@ -39,25 +39,29 @@ export const CategoriesForm = ({ data }: CategoriesFormProps) => {
       className="flex flex-col gap-3"
       noValidate
     >
-      <fieldset>
-        <Input
-          label={t('form.name.label')}
-          placeholder={t('form.name.placeholder')}
-          errorMessage={form.formState.errors.name?.message}
-          labelPlacement="outside"
-          {...form.register('name')}
-          isRequired
-        />
-      </fieldset>
-      <fieldset>
-        <Input
-          label={t('form.description.label')}
-          placeholder={t('form.description.placeholder')}
-          errorMessage={form.formState.errors.description?.message}
-          labelPlacement="outside"
-          {...form.register('description')}
-        />
-      </fieldset>
+      <GridLayout cols="1">
+        <fieldset>
+          <Input
+            label={t('form.name.label')}
+            placeholder={t('form.name.placeholder')}
+            errorMessage={form.formState.errors.name?.message}
+            labelPlacement="outside"
+            {...form.register('name')}
+            isRequired
+            isClearable
+          />
+        </fieldset>
+        <fieldset>
+          <Input
+            label={t('form.description.label')}
+            placeholder={t('form.description.placeholder')}
+            errorMessage={form.formState.errors.description?.message}
+            labelPlacement="outside"
+            {...form.register('description')}
+            isClearable
+          />
+        </fieldset>
+      </GridLayout>
       <SubmitButton
         isEdit={!!data}
         fnResetButton={form.reset}

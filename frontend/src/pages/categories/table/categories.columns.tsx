@@ -34,21 +34,11 @@ export const columns = [
     enableHiding: false
   }),
   /**
-   * Id
-   */
-  helper.accessor((row) => row.id, {
-    id: 'id',
-    header: () => 'ID',
-    cell: ({ row }) => row.getValue('id'),
-    enableSorting: true,
-    enableHiding: true
-  }),
-  /**
    * Name
    */
   helper.accessor((row) => row.name, {
     id: 'name',
-    header: () => 'Nome',
+    header: () => t('categories:form.name.label'),
     cell: ({ row }) => row.getValue('name'),
     enableSorting: true,
     enableHiding: true
@@ -58,7 +48,7 @@ export const columns = [
    */
   helper.accessor((row) => row.description, {
     id: 'description',
-    header: () => 'Descrição',
+    header: () => t('categories:form.description.label'),
     cell: ({ row }) => row.getValue('description'),
     enableSorting: true,
     enableHiding: true
