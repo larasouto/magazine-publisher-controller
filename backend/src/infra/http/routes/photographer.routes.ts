@@ -13,3 +13,7 @@ photographers.put(
   '/:photographerId/edit',
   adaptRoute(makeCreatePhotographerController()),
 )
+photographers.get(
+  '/:photographerId',
+  adaptRoute(makeCreatePhotographerController()),
+)
