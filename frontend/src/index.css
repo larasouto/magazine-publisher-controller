@@ -4,7 +4,7 @@
 
 @layer {
   body {
-    @apply min-h-screen text-foreground bg-background;
+    @apply w-full h-full min-h-screen text-foreground bg-background;
   }
 
   /* Firefox */
