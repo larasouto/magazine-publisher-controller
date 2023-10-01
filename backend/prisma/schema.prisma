@@ -4,14 +4,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
-}
-
-enum Role {
-  CUSTOMER
-  EDITOR
-  ADMIN
 }
 
 model User {
@@ -20,7 +14,6 @@ model User {
   email      String    @unique
   password   String
   phone      String?
-  role       Role      @default(CUSTOMER)
   addresses  Address[]
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
@@ -51,4 +44,14 @@ model Category {
   updated_at  DateTime @updatedAt
 
   @@map("categories")
+}
+
+model Theme {
+  id          String   @id
+  name        String
+  description String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map("themes")
 }
