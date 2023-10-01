@@ -16,6 +16,7 @@ describe('Get a reporter (end-to-end)', () => {
     specialty: 'test-specialty-photographer',
     status: 'ACTIVE',
     entry_date: new Date(),
+    departure_date: null,
   }
 
   beforeAll(async () => {

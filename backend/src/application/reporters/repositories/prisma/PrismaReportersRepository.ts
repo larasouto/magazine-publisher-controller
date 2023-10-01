@@ -40,7 +40,7 @@ export class PrismaReportersRepository implements IReporterRepository {
   }
 
   async update(reporter: Reporter): Promise<void> {
-    const data = ReporterMapper.toPersistence(reporter)
+    const data = await ReporterMapper.toPersistence(reporter)
 
     await prismaClient.reporter.update({
       where: { id: reporter.id },
