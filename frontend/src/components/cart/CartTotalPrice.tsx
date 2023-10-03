@@ -1,15 +1,10 @@
+import { Item } from '@/stores/useCartStore'
 import i18next from 'i18next'
-type Item = {
-  items: {
-    id: number
-    name: string
-    description: string
-    price: number
-    quantity?: number
-  }[]
+type Items = {
+  items: Item[]
 }
 
-export const CartTotalPrice = ({ items }: Item) => {
+export const CartTotalPrice = ({ items }: Items) => {
   const currencyType = i18next.language === 'pt-BR' ? 'BRL' : 'USD'
 
   return (

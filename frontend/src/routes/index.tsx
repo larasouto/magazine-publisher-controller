@@ -1,7 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { AuthRoutes } from './pages/auth.routes'
 import { CategoriesRoutes } from './pages/categories.routes'
+import { EditionsRoutes } from './pages/editions.routes'
 import { HomeRoutes } from './pages/home.routes'
+import { MagazineRoutes } from './pages/magazine.routes'
 import { PhotographersRoutes } from './pages/photographers.routes'
 import { ReportersRoutes } from './pages/reporters.routes'
 import { ThemesRoutes } from './pages/themes.routes'
@@ -16,5 +18,7 @@ export const router = createBrowserRouter([
   CategoriesRoutes,
   ReportersRoutes,
   PhotographersRoutes,
-  ThemesRoutes
+  ThemesRoutes,
+  MagazineRoutes,
+  EditionsRoutes
 ])

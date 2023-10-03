@@ -1,14 +1,8 @@
-import { useCartStore } from '@/stores/useCartStore'
+import { Item, useCartStore } from '@/stores/useCartStore'
 import { Button, Image } from '@nextui-org/react'
 import { Minus, Plus, Trash } from 'lucide-react'
 
-type CartItemProps = {
-  id: number
-  name: string
-  description: string
-  price: number
-  quantity?: number
-}
+type CartItemProps = Item
 
 export const CartItem = (item: CartItemProps) => {
   const [add, remove, removeItem] = useCartStore((state) => [
@@ -20,9 +14,9 @@ export const CartItem = (item: CartItemProps) => {
   return (
     <>
       <div key={item.id} className="flex gap-4">
-        <Image src="/magazine-1.png" className="max-w-fit w-[100px]" />
+        <Image src={item.coverPath} className="max-w-fit w-[100px]" />
         <div className="flex flex-col justify-center gap-2">
-          <h1 className="text-lg">{item.name}</h1>
+          <h1 className="text-lg">{item.title}</h1>
           <span className="line-clamp-2 text-sm">{item.description}</span>
           <div className="flex justify-between">
             <div className="flex items-center gap-2">

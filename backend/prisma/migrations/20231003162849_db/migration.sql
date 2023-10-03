@@ -67,6 +67,7 @@ CREATE TABLE "reporters" (
 
 -- CreateTable
 CREATE TABLE "photographers" (
+    "avatar" TEXT,
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,

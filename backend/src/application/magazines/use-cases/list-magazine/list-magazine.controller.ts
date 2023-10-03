@@ -8,6 +8,6 @@ export class ListMagazineController implements Controller {
   async handle(): Promise<HttpResponse> {
     const result = await this.listMagazines.execute()
 
-    return ok({ magazines: result })
+    return ok({ dto: result })
   }
 }
