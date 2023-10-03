@@ -16,8 +16,6 @@ export const PhotographersPage = () => {
     { label: title }
   ]
 
-  console.log('hi')
-
   const { data, isLoading } = useQuery(['photographer', 'id'], getData, {
     enabled: !!id
   })

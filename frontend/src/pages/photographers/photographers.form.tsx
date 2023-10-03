@@ -1,11 +1,14 @@
 import { SubmitButton } from '@/components/SubmitButton'
 import { GridLayout } from '@/components/layout/Grid'
 import { usePhotographer } from '@/hooks/usePhotographers'
+import { supabase } from '@/lib/supabase'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input, Select, SelectItem } from '@nextui-org/react'
 import { InputMask } from '@react-input/mask'
+import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { PhotographerAvatar } from './avatar/photograpers.file'
 import {
   PhotographerForm,
   PhotographerFormWithId,
@@ -20,6 +23,8 @@ type PhotographerFormProps = {
 export const PhotographersForm = ({ data }: PhotographerFormProps) => {
   const { t } = useTranslation('photographers')
   const { create, update } = usePhotographer()
+  const [avatar, setAvatar] = useState<File | null>(null)
+  const [publicUrl, setPublicUrl] = useState('')
 
   const form = useForm<PhotographerForm>({
     mode: 'all',
@@ -27,7 +32,25 @@ export const PhotographersForm = ({ data }: PhotographerFormProps) => {
     defaultValues: data
   })
 
+  useEffect(() => {
+    const getAvatar = async () => {
+      if (data?.avatar) {
+        const { data: file } = supabase.storage
+          .from('photographer')
+          .getPublicUrl(data.avatar)
+
+        setPublicUrl(file.publicUrl)
+      }
+    }
+
+    getAvatar()
+  }, [data?.avatar])
+
   const onSubmit = async (form: PhotographerForm) => {
+    if (form.avatar && avatar) {
+      await supabase.storage.from('photographer').upload(form.avatar, avatar)
+    }
+
     if (data) {
       await update.mutateAsync({ id: data.id, ...form })
       return
@@ -41,57 +64,68 @@ export const PhotographersForm = ({ data }: PhotographerFormProps) => {
       className="flex flex-col gap-3"
       noValidate
     >
+      <GridLayout className="grid-cols-1 gap-3 sm:grid-cols-[8rem_1fr]">
+        <PhotographerAvatar
+          form={form}
+          avatar={publicUrl}
+          setAvatar={setAvatar}
+        />
+        <div className="flex flex-col gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <fieldset>
+              <Input
+                label={t('form.name.label')}
+                placeholder={t('form.name.placeholder')}
+                errorMessage={form.formState.errors.name?.message}
+                labelPlacement="outside"
+                {...form.register('name')}
+                isRequired
+                isClearable
+              />
+            </fieldset>
+            <fieldset>
+              <Input
+                type="email"
+                label={t('form.email.label')}
+                placeholder={t('form.email.placeholder')}
+                errorMessage={form.formState.errors.email?.message}
+                labelPlacement="outside"
+                {...form.register('email')}
+                isRequired
+                isClearable
+              />
+            </fieldset>
+            <fieldset>
+              <InputMask
+                mask="___.___.___-__"
+                replacement={{ _: /\d/ }}
+                component={Input}
+                label={t('form.cpf.label')}
+                placeholder={t('form.cpf.placeholder')}
+                errorMessage={form.formState.errors.cpf?.message}
+                labelPlacement="outside"
+                {...form.register('cpf')}
+                isRequired
+                isClearable
+              />
+            </fieldset>
+            <fieldset>
+              <InputMask
+                mask="(__) _.____-____"
+                replacement={{ _: /\d/ }}
+                component={Input}
+                label={t('form.phone.label')}
+                placeholder={t('form.phone.placeholder')}
+                errorMessage={form.formState.errors.phone?.message}
+                labelPlacement="outside"
+                {...form.register('phone')}
+                isClearable
+              />
+            </fieldset>
+          </div>
+        </div>
+      </GridLayout>
       <GridLayout cols="3">
-        <fieldset>
-          <Input
-            label={t('form.name.label')}
-            placeholder={t('form.name.placeholder')}
-            errorMessage={form.formState.errors.name?.message}
-            labelPlacement="outside"
-            {...form.register('name')}
-            isRequired
-            isClearable
-          />
-        </fieldset>
-        <fieldset>
-          <Input
-            type="email"
-            label={t('form.email.label')}
-            placeholder={t('form.email.placeholder')}
-            errorMessage={form.formState.errors.email?.message}
-            labelPlacement="outside"
-            {...form.register('email')}
-            isRequired
-            isClearable
-          />
-        </fieldset>
-        <fieldset>
-          <InputMask
-            mask="(__) _.____-____"
-            replacement={{ _: /\d/ }}
-            component={Input}
-            label={t('form.phone.label')}
-            placeholder={t('form.phone.placeholder')}
-            errorMessage={form.formState.errors.phone?.message}
-            labelPlacement="outside"
-            {...form.register('phone')}
-            isClearable
-          />
-        </fieldset>
-        <fieldset>
-          <InputMask
-            mask="___.___.___-__"
-            replacement={{ _: /\d/ }}
-            component={Input}
-            label={t('form.cpf.label')}
-            placeholder={t('form.cpf.placeholder')}
-            errorMessage={form.formState.errors.cpf?.message}
-            labelPlacement="outside"
-            {...form.register('cpf')}
-            isRequired
-            isClearable
-          />
-        </fieldset>
         <fieldset>
           <Input
             label={t('form.specialty.label')}
