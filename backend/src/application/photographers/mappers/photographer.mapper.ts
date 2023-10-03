@@ -13,6 +13,7 @@ export class PhotographerMapper {
         specialty: raw.specialty,
         status: raw.status as unknown as PhotographerStatus,
         entryDate: raw.entry_date,
+        departureDate: raw.departure_date,
       },
       raw.id,
     )
@@ -27,15 +28,16 @@ export class PhotographerMapper {
     return null
   }
 
-  static async toPersistence(Photographer: Photographer) {
+  static async toPersistence(photographer: Photographer) {
     return {
-      id: Photographer.id,
-      name: Photographer.props.name,
-      email: Photographer.props.email,
-      cpf: Photographer.props.cpf,
-      specialty: Photographer.props.specialty,
-      status: Photographer.props.status,
-      entry_date: Photographer.props.entryDate,
+      id: photographer.id,
+      name: photographer.props.name,
+      email: photographer.props.email,
+      cpf: photographer.props.cpf,
+      specialty: photographer.props.specialty,
+      status: photographer.props.status,
+      entry_date: photographer.props.entryDate,
+      departure_date: photographer.props.departureDate,
     }
   }
 }
