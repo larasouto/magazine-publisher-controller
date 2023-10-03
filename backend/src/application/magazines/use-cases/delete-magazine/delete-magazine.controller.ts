@@ -31,7 +31,7 @@ export class DeleteMagazineController implements Controller {
 
       switch (error.constructor) {
         case MagazineNotFoundError:
-          return clientError({ type: 'info', message: error.message })
+          return clientError(error)
         default:
           return clientError(error)
       }
