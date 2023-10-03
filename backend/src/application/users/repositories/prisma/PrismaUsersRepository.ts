@@ -1,14 +1,27 @@
 import { prismaClient } from '@/infra/prisma/client'
+import { Role } from '@prisma/client'
 import { User } from '../../domain/user'
 import { UserMapper } from '../../mappers/user.mapper'
 import { IUsersRepository } from '../interfaces/IUsersRepository'
 
 export class PrismaUsersRepository implements IUsersRepository {
+  async findById(id: string): Promise<User> {
+    const user = await prismaClient.user.findFirst({
+      where: { id },
+    })
+
+    console.log(user)
+
+    if (!user) {
+      return null
+    }
+
+    return UserMapper.toDomain(user)
+  }
+
   async findByEmail(email: string): Promise<User | null> {
     const user = await prismaClient.user.findUnique({
-      where: {
-        email,
-      },
+      where: { email },
     })
 
     if (!user) {
@@ -20,9 +33,7 @@ export class PrismaUsersRepository implements IUsersRepository {
 
   async exists(email: string): Promise<boolean> {
     const userExists = await prismaClient.user.findUnique({
-      where: {
-        email,
-      },
+      where: { email },
     })
 
     return !!userExists
@@ -32,7 +43,10 @@ export class PrismaUsersRepository implements IUsersRepository {
     const data = await UserMapper.toPersistence(user)
 
     await prismaClient.user.create({
-      data,
+      data: {
+        ...data,
+        role: data.role as Role,
+      },
     })
   }
 }

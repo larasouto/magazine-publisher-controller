@@ -2,6 +2,7 @@ import { Controller } from '@/core/infra/controller'
 import { Validator } from '@/core/infra/validator'
 import { AuthenticateUser } from './authenticate-user'
 import { HttpResponse, clientError, ok } from '@/core/infra/http-response'
+import { t } from 'i18next'
 
 type AuthenticateUserControllerRequest = {
   email: string
@@ -30,7 +31,7 @@ export class AuthenticateUserController implements Controller {
       return clientError(error)
     } else {
       const { token } = result.value
-      return ok({ message: 'Logged in succesfully', token })
+      return ok({ message: t('logged_in'), token })
     }
   }
 }
