@@ -75,6 +75,7 @@ model Reporter {
 }
 
 model Photographer {
+  avatar         String?
   id             String    @id
   name           String
   email          String
@@ -84,23 +85,22 @@ model Photographer {
   status         String
   entry_date     DateTime
   departure_date DateTime?
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @updatedAt
 
   @@map("photographers")
 }
 
 model Magazine {
-  id                 String   @id
+  id                 String    @id
   name               String
   description        String?
   year_founded       Int
   publication_period String
-  theme              Theme    @relation(fields: [theme_id], references: [id])
+  theme              Theme     @relation(fields: [theme_id], references: [id])
   theme_id           String
-  created_at         DateTime @default(now())
-  updated_at         DateTime @updatedAt
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
   editions           Edition[]
 
   @@map("magazines")
