@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^3.3.1",
     "@nextui-org/react": "^2.1.10",
     "@react-input/mask": "^1.0.20",
+    "@supabase/supabase-js": "^2.37.0",
     "@tanstack/react-table": "^8.10.3",
     "axios": "^1.5.1",
     "cpf": "^2.0.1",

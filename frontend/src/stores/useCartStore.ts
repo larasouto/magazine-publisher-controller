@@ -2,11 +2,12 @@ import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 
-type Item = {
+export type Item = {
   id: number
-  name: string
+  title: string
   description: string
   price: number
+  number: number
   quantity?: number
 }
 

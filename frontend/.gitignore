@@ -27,4 +27,6 @@ dist-ssr
 *.sw?
 .vercel
 
+.env
+
 /src/locales/*

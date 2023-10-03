@@ -100,7 +100,7 @@ export const DataTable = <TData, TValue>({
               ))
             )}
         </TableHeader>
-        <TableBody emptyContent={'No content.'}>
+        <TableBody emptyContent={'Sem conteúdo.'}>
           {table.getRowModel().rows?.map((row) => (
             <TableRow
               key={row.id}

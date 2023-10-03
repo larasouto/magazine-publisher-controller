@@ -31,5 +31,11 @@ export const routes = {
     new: '/photographers/new',
     edit: '/photographers/:id/edit',
     delete: '/photographers/:id/delete'
+  },
+  news_reports: {
+    index: '/magazine/reports',
+    new: '/magazine/reports/new',
+    edit: '/magazine/reports/:id/edit',
+    delete: '/magazine/reports/:id/delete'
   }
 }
