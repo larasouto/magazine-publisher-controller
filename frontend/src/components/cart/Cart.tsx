@@ -95,7 +95,11 @@ export const Cart = () => {
                 <div className="h-[calc(100vh-12rem)] space-y-4 pr-4 overflow-y-hidden hover:overflow-y-auto">
                   {items.length === 0 && (
                     <div className="flex flex-col items-center justify-center gap-2 h-full">
-                      <Image src="/empty-cart.png" className="w-28" />
+                      <Image
+                        src="/empty-cart.png"
+                        className="w-28 h-28"
+                        removeWrapper
+                      />
                       <div className="flex flex-col items-center justify-center">
                         <h1 className="text-3xl">Carrinho vazio</h1>
                         <span className="text-sm">

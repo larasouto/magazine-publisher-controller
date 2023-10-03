@@ -34,7 +34,7 @@ export const MagazinesForm = ({ data }: EditionsFormProps) => {
   useEffect(() => {
     form.setValue(
       'coverPath',
-      `/revista${Math.floor(Math.random() * 4 + 1)}.jpg`
+      `/revista${Math.floor(Math.random() * 7 + 1)}.jpg`
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
