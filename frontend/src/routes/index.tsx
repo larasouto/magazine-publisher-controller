@@ -15,6 +15,6 @@ export const router = createBrowserRouter([
   HomeRoutes,
   CategoriesRoutes,
   ReportersRoutes,
-  PhotographersRoutes
+  PhotographersRoutes,
   ThemesRoutes
 ])
