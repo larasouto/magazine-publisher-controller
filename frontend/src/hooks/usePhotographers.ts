@@ -60,7 +60,7 @@ export const usePhotographer = () => {
     {
       onSuccess: (response: HttpResponse) => {
         httpResponseHandle(response)
-        navigate(routes.photographers.index)
+        navigate(routes?.[route].index)
       },
       onError: (error: HttpResponseError) => {
         httpResponseError(error)

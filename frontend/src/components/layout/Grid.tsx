@@ -8,7 +8,7 @@ type GridProps = ComponentProps<'div'> & {
 
 export const GridLayout = ({
   children,
-  cols = '3',
+  cols,
   className,
   ...props
 }: GridProps) => {
@@ -30,6 +30,9 @@ export const GridLayout = ({
         'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4',
         className
       )
+      break
+    default:
+      className = cn(className)
   }
 
   return (
