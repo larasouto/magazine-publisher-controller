@@ -4,14 +4,12 @@ import { PageLayout } from '@/layout/PageLayout'
 import { routes } from '@/routes/routes'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
-import { useNavigate } from 'react-router-dom'
 import { CategoriesForm } from './categories.form'
 import { CategoryFormWithId } from './categories.schema'
 
 export const CategoriesPage = () => {
   const { t } = useTranslation('categories')
   const { id, getData } = useCategory()
-  const navigate = useNavigate()
 
   const title = id ? t('page.edit') : t('page.new')
   const breadcrumb = [
@@ -19,7 +17,7 @@ export const CategoriesPage = () => {
     { label: title }
   ]
 
-  const { data, isLoading, isError } = useQuery<CategoryFormWithId>(
+  const { data, isLoading } = useQuery<CategoryFormWithId>(
     ['category', 'id'],
     getData,
     { enabled: !!id }
@@ -27,10 +25,6 @@ export const CategoriesPage = () => {
 
   if (isLoading) {
     return <Loading />
-  }
-
-  if (isError) {
-    navigate(routes.categories.index)
   }
 
   return (
