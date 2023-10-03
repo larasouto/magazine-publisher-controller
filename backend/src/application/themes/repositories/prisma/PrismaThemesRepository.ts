@@ -37,7 +37,7 @@ export class PrismaThemesRepository implements IThemeRepository {
   }
 
   async update(theme: Theme): Promise<void> {
-    const data = ThemeMapper.toPersistence(theme)
+    const data = await ThemeMapper.toPersistence(theme)
 
     await prismaClient.theme.update({
       where: { id: theme.id },
