@@ -10,6 +10,7 @@ export class PhotographerMapper {
         name: raw.name,
         email: raw.email,
         cpf: raw.cpf,
+        phone: raw.phone,
         specialty: raw.specialty,
         status: raw.status as unknown as PhotographerStatus,
         entryDate: raw.entry_date,
@@ -32,6 +33,7 @@ export class PhotographerMapper {
     return {
       id: photographer.id,
       name: photographer.props.name,
+      phone: photographer.props.phone,
       email: photographer.props.email,
       cpf: photographer.props.cpf,
       specialty: photographer.props.specialty,

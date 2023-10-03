@@ -12,12 +12,7 @@ export enum PhotographerStatus {
 export const PhotographerSchema = z.object({
   name: z.string().min(2).max(64),
   email: z.string().email(),
-  phone: z
-    .string()
-    .refine((phone) => Phone.validate(phone), {
-      message: 'Invalid phone number',
-    })
-    .nullish(),
+  phone: z.string().nullish(),
   cpf: z.string().refine((value) => CPF.isValid(value), {
     message: 'Invalid CPF',
   }),
