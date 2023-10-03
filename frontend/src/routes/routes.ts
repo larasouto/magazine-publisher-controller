@@ -30,6 +30,12 @@ export const routes = {
     index: '/photographers',
     new: '/photographers/new',
     edit: '/photographers/:id/edit',
-    delete: '/photographers/:id/delete'
+    delete: '/photographers/:id/delete',
+  },
+  themes: {
+    index: '/themes',
+    new: '/themes/new',
+    edit: '/themes/:id/edit',
+    delete: '/themes/:id/delete'
   }
 }

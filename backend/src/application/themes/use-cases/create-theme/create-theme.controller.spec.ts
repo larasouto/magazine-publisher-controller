@@ -22,7 +22,7 @@ describe('Create theme (end-to-end)', () => {
       .post('/api/magazines/themes/new')
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
-
+    console.log(response.body)
     expect(response.status).toBe(StatusCodes.CREATED)
     expect(response.body).toHaveProperty('message')
   })
