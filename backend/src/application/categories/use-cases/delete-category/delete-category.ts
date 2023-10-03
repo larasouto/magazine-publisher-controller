@@ -21,10 +21,7 @@ export class DeleteCategory {
       return left(new CategoryNotFoundError())
     }
 
-    await prismaClient.category.delete({
-      where: { id: categoryId },
-    })
-    // await this.categoriesRepository.delete(categoryId)
+    await this.categoriesRepository.delete(categoryId)
 
     return right(null)
   }
