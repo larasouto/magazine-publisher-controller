@@ -5,6 +5,7 @@ import { t } from 'i18next'
 import { CreatePhotographer } from './create-photographer'
 
 type CreatePhotographerControllerRequest = {
+  avatar?: string
   name: string
   email: string
   phone?: string

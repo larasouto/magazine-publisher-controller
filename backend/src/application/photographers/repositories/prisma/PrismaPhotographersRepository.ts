@@ -40,7 +40,7 @@ export class PrismaPhotographersRepository implements IPhotographerRepository {
   }
 
   async update(photographer: Photographer): Promise<void> {
-    const data = PhotographerMapper.toPersistence(photographer)
+    const data = await PhotographerMapper.toPersistence(photographer)
 
     await prismaClient.photographer.update({
       where: { id: photographer.id },
