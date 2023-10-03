@@ -3,8 +3,8 @@ import { prismaClient } from '@/infra/prisma/client'
 import { UserFactory } from '@/tests/factories/UserFactory'
 import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
-import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { v4 as uuid } from 'uuid'
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 
 describe('Edit category (end-to-end)', () => {
   const create: any = {
@@ -20,8 +20,8 @@ describe('Edit category (end-to-end)', () => {
   })
 
   afterAll(async () => {
-    await prismaClient.category.delete({
-      where: { id: create.id },
+    await prismaClient.category.deleteMany({
+      where: { name: { contains: 'test-edit' } },
     })
   })
 
@@ -29,8 +29,8 @@ describe('Edit category (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const data: any = {
-      name: 'Nome da categoria',
-      description: 'Descrição da categoria',
+      name: 'test-edit-name-category',
+      description: 'test-edit-description-category',
     }
 
     const response = await request(app)
@@ -46,7 +46,7 @@ describe('Edit category (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const data: any = {
-      name: 'Nome da categoria',
+      name: 'test-edit-name-category',
     }
 
     const response = await request(app)
