@@ -101,6 +101,7 @@ model Magazine {
   theme_id           String
   created_at         DateTime @default(now())
   updated_at         DateTime @updatedAt
+  editions           Edition[]
 
   @@map("magazines")
 }
@@ -114,4 +115,23 @@ model Subtitle {
   updated_at  DateTime @updatedAt
 
   @@map("subtitles")
+}
+
+model Edition {
+  id               String   @id
+  number           Int
+  title            String
+  cover_path       String
+  price            Float
+  year             Int
+  number_of_pages  Int
+  description      String?
+  publication_date DateTime
+  number_of_copies Int
+  magazine         Magazine @relation(fields: [magazine_id], references: [id])
+  magazine_id      String
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+
+  @@map("editions")
 }
