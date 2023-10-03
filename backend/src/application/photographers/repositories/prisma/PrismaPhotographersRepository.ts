@@ -52,4 +52,11 @@ export class PrismaPhotographersRepository implements IPhotographerRepository {
     const photographers = await prismaClient.photographer.findMany()
     return photographers.map(PhotographerMapper.toDomain)
   }
+
+  async inactivate(id: string): Promise<void> {
+    await prismaClient.photographer.update({
+      where: { id },
+      data: { status: 'INACTIVE', departure_date: new Date() },
+    })
+  }
 }

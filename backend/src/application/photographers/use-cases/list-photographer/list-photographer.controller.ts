@@ -8,6 +8,6 @@ export class ListPhotographersController implements Controller {
   async handle(): Promise<HttpResponse> {
     const result = await this.listPhotographers.execute()
 
-    return ok({ photographers: result })
+    return ok({ dto: result })
   }
 }

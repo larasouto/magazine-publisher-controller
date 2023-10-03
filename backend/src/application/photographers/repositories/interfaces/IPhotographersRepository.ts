@@ -7,4 +7,5 @@ export interface IPhotographerRepository {
   delete(id: string): Promise<void>
   deleteMany(ids: string[]): Promise<void>
   list(): Promise<Photographer[]>
+  inactivate(id: string): Promise<void>
 }
