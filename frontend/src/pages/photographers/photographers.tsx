@@ -1,22 +1,24 @@
 import { Loading } from '@/components/Loading'
-import { useReporter } from '@/hooks/useReporter'
+import { usePhotographer } from '@/hooks/usePhotographers'
 import { PageLayout } from '@/layout/PageLayout'
 import { routes } from '@/routes/routes'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
-import { ReportersForm } from './reporters.form'
+import { PhotographersForm } from './photographers.form'
 
-export const ReportersPage = () => {
-  const { t } = useTranslation('reporters')
-  const { id, getData } = useReporter()
+export const PhotographersPage = () => {
+  const { t } = useTranslation('photographers')
+  const { id, getData } = usePhotographer()
 
   const title = id ? t('page.edit') : t('page.new')
   const breadcrumb = [
-    { label: t('page.title'), link: routes.reporters.index },
+    { label: t('page.title'), link: routes.photographers.index },
     { label: title }
   ]
 
-  const { data, isLoading } = useQuery(['reporter', 'id'], getData, {
+  console.log('hi')
+
+  const { data, isLoading } = useQuery(['photographer', 'id'], getData, {
     enabled: !!id
   })
 
@@ -30,7 +32,7 @@ export const ReportersPage = () => {
       breadcrumb={breadcrumb}
       imageSrc="/banner-categories.jpg"
     >
-      <ReportersForm data={data} />
+      <PhotographersForm data={data} />
     </PageLayout>
   )
 }

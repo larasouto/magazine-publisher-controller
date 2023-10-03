@@ -1,9 +1,9 @@
 import { HttpResponse } from '@/@types/HttpResponse'
 import { HttpResponseError } from '@/@types/HttpResponseError'
 import {
-  ReporterForm,
-  ReporterFormWithId
-} from '@/pages/reporters/reporters.schema'
+  PhotographerForm,
+  PhotographerFormWithId
+} from '@/pages/photographers/photographers.schema'
 import { routes } from '@/routes/routes'
 import { api } from '@/services/api'
 import { toResponseBody } from '@/utils/to-response-body'
@@ -11,9 +11,9 @@ import { useMutation, useQueryClient } from 'react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAdaptResponse } from './useAdaptResponse'
 
-const route = 'reporters'
+const route = 'photographers'
 
-export const useReporter = () => {
+export const usePhotographer = () => {
   const { httpResponseHandle, httpResponseError } = useAdaptResponse()
   const { id } = useParams()
   const queryClient = useQueryClient()
@@ -22,7 +22,7 @@ export const useReporter = () => {
   const getData = async () => {
     return await api
       .get(`/${route}/${id}`)
-      .then((res) => toResponseBody<ReporterFormWithId>(res.data))
+      .then((res) => toResponseBody<PhotographerFormWithId>(res.data))
   }
 
   const list = async () => {
@@ -37,13 +37,13 @@ export const useReporter = () => {
   }
 
   const create = useMutation(
-    async (data: ReporterForm) => {
+    async (data: PhotographerForm) => {
       return await api.post(`/${route}/new`, data).then((res) => res.data)
     },
     {
       onSuccess: (response: HttpResponse) => {
         httpResponseHandle(response)
-        navigate(routes.reporters.index)
+        navigate(routes?.[route].index)
       },
       onError: (error: HttpResponseError) => {
         httpResponseError(error)
@@ -52,7 +52,7 @@ export const useReporter = () => {
   )
 
   const update = useMutation(
-    async (data: ReporterFormWithId) => {
+    async (data: PhotographerFormWithId) => {
       return await api
         .put(`/${route}/${data.id}/edit`, data)
         .then((res) => res.data)
@@ -60,7 +60,7 @@ export const useReporter = () => {
     {
       onSuccess: (response: HttpResponse) => {
         httpResponseHandle(response)
-        navigate(routes.reporters.index)
+        navigate(routes.photographers.index)
       },
       onError: (error: HttpResponseError) => {
         httpResponseError(error)

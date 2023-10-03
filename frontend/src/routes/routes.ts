@@ -26,10 +26,10 @@ export const routes = {
     edit: '/reporters/:id/edit',
     delete: '/reporters/:id/delete'
   },
-  news_reports: {
-    index: '/editions/reports',
-    new: '/editions/reports/new',
-    edit: '/editions/reports/:id/edit',
-    delete: '/editions/reports/:id/delete'
+  photographers: {
+    index: '/photographers',
+    new: '/photographers/new',
+    edit: '/photographers/:id/edit',
+    delete: '/photographers/:id/delete'
   }
 }
