@@ -17,7 +17,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import { ToggleButton } from '../components/ToggleButton'
-import { SignUp, SignUpSchema, defaultValues } from './sign-up.schema'
+import { SignUp, SignUpSchema } from './sign-up.schema'
 
 export const SignUpForm = () => {
   const { t } = useTranslation('auth')
@@ -27,8 +27,7 @@ export const SignUpForm = () => {
 
   const form = useForm<SignUp>({
     mode: 'all',
-    resolver: zodResolver(SignUpSchema),
-    defaultValues: defaultValues
+    resolver: zodResolver(SignUpSchema)
   })
 
   const togglePasswordVisibility = () => {

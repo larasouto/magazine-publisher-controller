@@ -1,3 +1,5 @@
+import { params } from '@/utils/custom-message'
+import CPF from 'cpf'
 import { z } from 'zod'
 
 export enum ReporterStatus {
@@ -11,7 +13,9 @@ export const ReporterSchema = z.object({
   name: z.string().min(2).max(64),
   email: z.string().email(),
   phone: z.string().nullish(),
-  cpf: z.string().min(14).max(14),
+  cpf: z
+    .string()
+    .refine((value) => CPF.isValid(value), params({ key: 'invalid_cpf' })),
   specialty: z.string().min(2).max(64),
   status: z.nativeEnum(ReporterStatus).default(ReporterStatus.ACTIVE).nullish(),
   entryDate: z.coerce

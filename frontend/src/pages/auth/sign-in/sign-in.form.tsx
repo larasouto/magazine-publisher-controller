@@ -16,7 +16,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { ToggleButton } from '../components/ToggleButton'
-import { SignIn, SignInSchema, defaultValues } from './sign-in.schema'
+import { SignIn, SignInSchema } from './sign-in.schema'
 
 export const SignInForm = () => {
   const { t } = useTranslation('auth')
@@ -25,8 +25,7 @@ export const SignInForm = () => {
 
   const form = useForm<SignIn>({
     mode: 'all',
-    resolver: zodResolver(SignInSchema),
-    defaultValues: defaultValues
+    resolver: zodResolver(SignInSchema)
   })
 
   const toggleVisibility = () => {

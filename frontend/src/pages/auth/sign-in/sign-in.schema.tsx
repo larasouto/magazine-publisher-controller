@@ -5,9 +5,4 @@ export const SignInSchema = z.object({
   password: z.string().min(6).max(64)
 })
 
-export const defaultValues: SignIn = {
-  email: '',
-  password: ''
-}
-
 export type SignIn = z.infer<typeof SignInSchema>

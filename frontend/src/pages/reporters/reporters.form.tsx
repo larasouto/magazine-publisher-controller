@@ -110,6 +110,7 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
             labelPlacement="outside"
             defaultSelectedKeys={[data?.status ?? 'ACTIVE']}
             {...form.register('status')}
+            disallowEmptySelection
             isRequired
           >
             {Object.keys(ReporterStatus).map((key) => (
@@ -135,7 +136,6 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
                 onChange={onChange}
                 onBlur={onBlur}
                 isRequired
-                isClearable
               />
             )}
           />
