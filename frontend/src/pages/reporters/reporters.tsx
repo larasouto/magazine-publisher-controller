@@ -4,13 +4,11 @@ import { PageLayout } from '@/layout/PageLayout'
 import { routes } from '@/routes/routes'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
-import { useNavigate } from 'react-router-dom'
 import { ReportersForm } from './reporters.form'
 
 export const ReportersPage = () => {
   const { t } = useTranslation('reporters')
   const { id, getData } = useReporter()
-  const navigate = useNavigate()
 
   const title = id ? t('page.edit') : t('page.new')
   const breadcrumb = [
@@ -18,16 +16,12 @@ export const ReportersPage = () => {
     { label: title }
   ]
 
-  const { data, isLoading, isError } = useQuery(['reporter', 'id'], getData, {
+  const { data, isLoading } = useQuery(['reporter', 'id'], getData, {
     enabled: !!id
   })
 
   if (isLoading) {
     return <Loading />
-  }
-
-  if (isError) {
-    navigate(routes.categories.index)
   }
 
   return (

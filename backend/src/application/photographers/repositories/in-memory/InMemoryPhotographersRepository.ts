@@ -1,4 +1,5 @@
 import { Photographer } from '../../domain/photographer'
+import { PhotographerStatus } from '../../domain/photographer.schema'
 import { IPhotographerRepository } from '../interfaces/IPhotographersRepository'
 
 export class InMemoryPhotographersRepository
@@ -50,5 +51,22 @@ export class InMemoryPhotographersRepository
 
   async list(): Promise<Photographer[]> {
     return this.photographers
+  }
+
+  async inactivate(id: string): Promise<void> {
+    const photographerIndex = this.photographers.findIndex(
+      (reporter) => reporter.id === id,
+    )
+
+    if (!this.photographers[photographerIndex]) {
+      return null
+    }
+
+    const reporter = Photographer.create({
+      ...this.photographers[photographerIndex],
+      status: PhotographerStatus.INACTIVE,
+    }).value as Photographer
+
+    this.photographers[photographerIndex] = reporter
   }
 }

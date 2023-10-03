@@ -7,11 +7,4 @@ export const SignUpSchema = z.object({
   confirmPassword: z.string().min(5).max(64)
 })
 
-export const defaultValues: SignUp = {
-  name: '',
-  email: '',
-  password: '',
-  confirmPassword: ''
-}
-
 export type SignUp = z.infer<typeof SignUpSchema>

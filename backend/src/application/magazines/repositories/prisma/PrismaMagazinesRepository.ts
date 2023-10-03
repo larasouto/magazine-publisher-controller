@@ -37,7 +37,7 @@ export class PrismaMagazinesRepository implements IMagazineRepository {
   }
 
   async update(magazine: Magazine): Promise<void> {
-    const data = MagazineMapper.toPersistence(magazine)
+    const data = await MagazineMapper.toPersistence(magazine)
 
     await prismaClient.magazine.update({
       where: { id: magazine.id },

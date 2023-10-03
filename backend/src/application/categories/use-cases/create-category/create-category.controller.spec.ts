@@ -7,15 +7,17 @@ import { afterAll, describe, expect, test } from 'vitest'
 
 describe('Create category (end-to-end)', () => {
   afterAll(async () => {
-    await prismaClient.category.deleteMany()
+    await prismaClient.category.deleteMany({
+      where: { name: { contains: 'test-create' } },
+    })
   })
 
   test('should be able to create a category', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const data: any = {
-      name: 'Nome da categoria',
-      description: 'Descrição da categoria',
+      name: 'test-create-category',
+      description: 'test-create-description-category',
     }
 
     const response = await request(app)
@@ -31,7 +33,7 @@ describe('Create category (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const data: any = {
-      name: 'Nome da categoria',
+      name: 'test-create-category',
     }
 
     const response = await request(app)

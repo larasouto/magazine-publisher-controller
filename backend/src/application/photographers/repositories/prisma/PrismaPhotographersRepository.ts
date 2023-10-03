@@ -40,7 +40,7 @@ export class PrismaPhotographersRepository implements IPhotographerRepository {
   }
 
   async update(photographer: Photographer): Promise<void> {
-    const data = PhotographerMapper.toPersistence(photographer)
+    const data = await PhotographerMapper.toPersistence(photographer)
 
     await prismaClient.photographer.update({
       where: { id: photographer.id },
@@ -51,5 +51,12 @@ export class PrismaPhotographersRepository implements IPhotographerRepository {
   async list(): Promise<Photographer[]> {
     const photographers = await prismaClient.photographer.findMany()
     return photographers.map(PhotographerMapper.toDomain)
+  }
+
+  async inactivate(id: string): Promise<void> {
+    await prismaClient.photographer.update({
+      where: { id },
+      data: { status: 'INACTIVE', departure_date: new Date() },
+    })
   }
 }

@@ -3,12 +3,12 @@ import request from 'supertest'
 import { prismaClient } from '@/infra/prisma/client'
 import { app } from '@infra/http/app'
 import { hash } from 'bcryptjs'
-import { v4 as uuid } from 'uuid'
-import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 import { StatusCodes } from 'http-status-codes'
+import { v4 as uuid } from 'uuid'
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 
 describe('Authenticate User (end-to-end)', () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     await prismaClient.user.create({
       data: {
         id: uuid(),
@@ -19,7 +19,7 @@ describe('Authenticate User (end-to-end)', () => {
     })
   })
 
-  afterEach(async () => {
+  afterAll(async () => {
     await prismaClient.user.delete({ where: { email: 'test@end-to-end.com' } })
   })
 
@@ -30,6 +30,7 @@ describe('Authenticate User (end-to-end)', () => {
     })
 
     expect(response.status).toBe(StatusCodes.OK)
+
     expect(response.body).toEqual(
       expect.objectContaining({
         token: expect.any(String),

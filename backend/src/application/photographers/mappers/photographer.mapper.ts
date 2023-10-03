@@ -7,12 +7,15 @@ export class PhotographerMapper {
   static toDomain(raw: PersistencePhotographer) {
     const PhotographerOrError = Photographer.create(
       {
+        avatar: raw.avatar,
         name: raw.name,
         email: raw.email,
         cpf: raw.cpf,
+        phone: raw.phone,
         specialty: raw.specialty,
-        status: raw.status as unknown as PhotographerStatus,
+        status: raw.status as PhotographerStatus,
         entryDate: raw.entry_date,
+        departureDate: raw.departure_date,
       },
       raw.id,
     )
@@ -27,15 +30,18 @@ export class PhotographerMapper {
     return null
   }
 
-  static async toPersistence(Photographer: Photographer) {
+  static async toPersistence(photographer: Photographer) {
     return {
-      id: Photographer.id,
-      name: Photographer.props.name,
-      email: Photographer.props.email,
-      cpf: Photographer.props.cpf,
-      specialty: Photographer.props.specialty,
-      status: Photographer.props.status,
-      entry_date: Photographer.props.entryDate,
+      id: photographer.id,
+      avatar: photographer.props.avatar,
+      name: photographer.props.name,
+      phone: photographer.props.phone,
+      email: photographer.props.email,
+      cpf: photographer.props.cpf,
+      specialty: photographer.props.specialty,
+      status: photographer.props.status,
+      entry_date: photographer.props.entryDate,
+      departure_date: photographer.props.departureDate,
     }
   }
 }

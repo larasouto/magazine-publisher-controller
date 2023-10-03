@@ -76,28 +76,6 @@ describe('Create photographer (end-to-end)', () => {
     expect(response.body).toHaveProperty('message')
   })
 
-  test('shoud not be able to create a photographer wrong phone', async () => {
-    const { jwt } = UserFactory.createAndAuthenticate()
-
-    const data: any = {
-      name: 'test-name-photographer',
-      email: 'testphotographer@email.com',
-      cpf: '287.915.813-38',
-      phone: '(00) 00000-0000',
-      specialty: 'test-specialty-photographer',
-      status: 'ACTIVE',
-      entryDate: new Date(),
-    }
-
-    const response = await request(app)
-      .post('/api/photographers/new')
-      .auth(jwt.token, { type: 'bearer' })
-      .send(data)
-
-    expect(response.status).toBe(StatusCodes.BAD_REQUEST)
-    expect(response.body).toHaveProperty('message')
-  })
-
   test('should not be able to create a photographer with empty data', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 

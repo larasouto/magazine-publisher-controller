@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import { AuthRoutes } from './pages/auth.routes'
 import { CategoriesRoutes } from './pages/categories.routes'
 import { HomeRoutes } from './pages/home.routes'
+import { PhotographersRoutes } from './pages/photographers.routes'
 import { ReportersRoutes } from './pages/reporters.routes'
 import { ThemesRoutes } from './pages/themes.routes'
 
@@ -14,5 +15,6 @@ export const router = createBrowserRouter([
   HomeRoutes,
   CategoriesRoutes,
   ReportersRoutes,
+  PhotographersRoutes
   ThemesRoutes
 ])

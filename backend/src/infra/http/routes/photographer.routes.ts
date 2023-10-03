@@ -6,6 +6,7 @@ import { makeCreatePhotographerController } from '../factories/controllers/photo
 import { makeEditPhotographerController } from '../factories/controllers/photographers/makeEditPhotographerController'
 import { makeGetPhotographerController } from '../factories/controllers/photographers/makeGetPhotographerController'
 import { makeListPhotographersController } from '../factories/controllers/photographers/makeListPhotographersController'
+import { makeInactivatePhotographersController } from '../factories/controllers/photographers/makeInactivateReporterController'
 
 export const photographers = Router()
 
@@ -21,3 +22,7 @@ photographers.get(
   adaptRoute(makeGetPhotographerController()),
 )
 photographers.get('/', adaptRoute(makeListPhotographersController()))
+photographers.put(
+  '/:photographerId/inactivate',
+  adaptRoute(makeInactivatePhotographersController()),
+)

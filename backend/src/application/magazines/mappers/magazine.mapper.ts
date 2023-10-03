@@ -1,8 +1,8 @@
 import { Magazine } from '@/application/magazines/domain/magazine'
-import { Periods } from '@/application/magazines/domain/magazine.schema'
 import { MapperError } from '@/core/errors/MapperErrors'
 
 import { Magazine as PersistenceMagazine } from '@prisma/client'
+import { PublicationPeriod } from '../domain/magazine.schema'
 
 export class MagazineMapper {
   static toDomain(raw: PersistenceMagazine) {
@@ -11,7 +11,7 @@ export class MagazineMapper {
         name: raw.name,
         description: raw.description,
         yearFounded: raw.year_founded,
-        publicationPeriod: raw.publication_period as unknown as Periods,
+        publicationPeriod: raw.publication_period as PublicationPeriod,
         themeId: raw.theme_id,
       },
       raw.id,

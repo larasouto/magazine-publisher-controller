@@ -4,6 +4,15 @@ import { IUsersRepository } from '../interfaces/IUsersRepository'
 export class InMemoryUsersRepository implements IUsersRepository {
   constructor(public users: User[] = []) {}
 
+  async findById(id: string): Promise<User> {
+    const user = this.users.find((user) => user.id === id)
+
+    if (!user) {
+      return null
+    }
+    return user
+  }
+
   async findByEmail(email: string): Promise<User | null> {
     const user = this.users.find((user) => user.props.email === email)
 

@@ -29,10 +29,6 @@ export class CreateCategoryController implements Controller {
     if (result.isLeft()) {
       const error = result.value
 
-      /**
-       * Se não houver um erro específico, deixe apenas o
-       * 'default' no switch case.
-       */
       switch (error.constructor) {
         default:
           return clientError(error)

@@ -4,6 +4,7 @@ import { PhotographerStatus } from '../../domain/photographer.schema'
 import { IPhotographerRepository } from '../../repositories/interfaces/IPhotographersRepository'
 
 type CreatePhotographerRequest = {
+  avatar?: string
   name: string
   email: string
   phone?: string

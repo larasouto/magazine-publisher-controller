@@ -11,6 +11,8 @@ import { useMutation, useQueryClient } from 'react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAdaptResponse } from './useAdaptResponse'
 
+const route = 'reporters'
+
 export const useReporter = () => {
   const { httpResponseHandle, httpResponseError } = useAdaptResponse()
   const { id } = useParams()
@@ -19,12 +21,12 @@ export const useReporter = () => {
 
   const getData = async () => {
     return await api
-      .get(`/reporters/${id}`)
+      .get(`/${route}/${id}`)
       .then((res) => toResponseBody<ReporterFormWithId>(res.data))
   }
 
   const list = async () => {
-    return await api.get('/reporters').then((res) => ({
+    return await api.get(`/${route}`).then((res) => ({
       dto: res.data.dto.map((item) => {
         return {
           id: item._id,
@@ -36,7 +38,7 @@ export const useReporter = () => {
 
   const create = useMutation(
     async (data: ReporterForm) => {
-      return await api.post('/reporters/new', data).then((res) => res.data)
+      return await api.post(`/${route}/new`, data).then((res) => res.data)
     },
     {
       onSuccess: (response: HttpResponse) => {
@@ -52,7 +54,7 @@ export const useReporter = () => {
   const update = useMutation(
     async (data: ReporterFormWithId) => {
       return await api
-        .put(`/reporters/${data.id}/edit`, data)
+        .put(`/${route}/${data.id}/edit`, data)
         .then((res) => res.data)
     },
     {
@@ -68,14 +70,12 @@ export const useReporter = () => {
 
   const inactivate = useMutation(
     async (id: string) => {
-      return await api
-        .put(`/reporters/${id}/inactivate`)
-        .then((res) => res.data)
+      return await api.put(`/${route}/${id}/inactivate`).then((res) => res.data)
     },
     {
       onSuccess: async (response: HttpResponse) => {
         httpResponseHandle(response)
-        await queryClient.invalidateQueries('reporters')
+        await queryClient.invalidateQueries(route)
       },
       onError: (error: HttpResponseError) => {
         httpResponseError(error)

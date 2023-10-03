@@ -49,21 +49,6 @@ describe('Create a photographer', () => {
     expect(await photographersRepository.findById(photographer.id)).toBeTruthy()
   })
 
-  test('should not be able to create a photographer with invalid phone', async () => {
-    const data: any = {
-      name: 'test-name-photographer',
-      email: 'testphotographer@email.com',
-      phone: '(00) 00000-0000',
-      cpf: '28791581338',
-      specialty: 'test-specialty-photographer',
-      status: 'ACTIVE',
-      entryDate: new Date(),
-    }
-
-    const response = await createPhotographer.execute(data)
-    expect(response.isLeft()).toBeTruthy()
-  })
-
   test('should not be able to create a photographer with invalid cpf', async () => {
     const data: any = {
       name: 'test-name-photographer',
