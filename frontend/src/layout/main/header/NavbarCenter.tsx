@@ -1,21 +1,22 @@
+import { routes } from '@/routes/routes'
 import { Link, NavbarContent, NavbarItem } from '@nextui-org/react'
 
 export const NavbarCenter = () => {
   return (
     <NavbarContent className="hidden sm:flex gap-4 center" justify="center">
       <NavbarItem>
-        <Link color="foreground" href="/">
-          Categories
+        <Link color="foreground" href={routes.categories.index}>
+          Categorias
         </Link>
       </NavbarItem>
       <NavbarItem>
         <Link color="foreground" href="/">
-          What's new
+          Novidades
         </Link>
       </NavbarItem>
       <NavbarItem>
         <Link color="foreground" href="/">
-          Subscribe
+          Assinatura
         </Link>
       </NavbarItem>
     </NavbarContent>

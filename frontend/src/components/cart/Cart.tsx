@@ -13,7 +13,7 @@ export const Cart = () => {
     state.close,
     state.toggleOpen,
     state.items,
-    state.reset
+    state.removeAll
   ])
 
   useEffect(() => {
@@ -60,10 +60,10 @@ export const Cart = () => {
               onClick={close}
             />
             <motion.aside
-              initial={{ x: 450, opacity: 0.8 }}
+              initial={{ x: 768, opacity: 0.8 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ ease: 'easeInOut', duration: 0.4 }}
-              exit={{ x: 450 }}
+              transition={{ ease: 'easeInOut', duration: 0.6 }}
+              exit={{ x: 768 }}
               className={cn(
                 'z-50 fixed top-0 right-0 h-full w-full sm:w-[400px] rounded-l-lg bg-default-200 dark:bg-default-50 p-5 flex justify-between flex-col'
               )}

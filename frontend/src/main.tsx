@@ -8,6 +8,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import { QueryClientProvider } from 'react-query'
 import { RouterProvider } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
+import { ToasterContainer } from './components/toast/Toaster'
 import { queryClient } from './lib/react-query'
 import { router } from './routes'
 import { useThemeStore } from './stores/useThemeStore'
@@ -23,6 +24,7 @@ export const App = () => {
         </QueryClientProvider>
       </HelmetProvider>
       <ToastContainer position="bottom-right" autoClose={2250} theme={theme} />
+      <ToasterContainer />
     </React.StrictMode>
   )
 }

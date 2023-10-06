@@ -1,7 +1,8 @@
 import { HttpResponse } from '@/@types/HttpResponse'
 import { HttpResponseError } from '@/@types/HttpResponseError'
+import { ToastInfo } from '@/components/toast/ToastInfo'
+import { toast } from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
 
 export const useAdaptResponse = () => {
   const { t } = useTranslation('responses')
@@ -11,7 +12,24 @@ export const useAdaptResponse = () => {
       toast.error(t('success.unspecified'))
       return
     }
-    toast[response.type](response.message)
+
+    switch (response.type) {
+      case 'success': {
+        toast.success(response.message)
+        break
+      }
+      case 'info': {
+        toast.custom(response.message, {
+          icon: <ToastInfo />
+        })
+        break
+      }
+
+      case 'error': {
+        toast.error(response.message)
+        break
+      }
+    }
   }
 
   const httpResponseError = (error: HttpResponseError, noMessage?: boolean) => {
