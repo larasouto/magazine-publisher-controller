@@ -2,6 +2,7 @@ import { Loading } from '@/components/Loading'
 import { useEdition } from '@/hooks/useEditions'
 import { CartStore, Item } from '@/stores/useCartStore'
 import { Button, Image } from '@nextui-org/react'
+import i18next from 'i18next'
 import { ShoppingCart } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
@@ -44,7 +45,10 @@ export const Products = () => {
                   }}
                 >
                   <ShoppingCart className="hidden group-hover:inline-flex w-5 h-5" />
-                  R$ {product.price}
+                  {new Intl.NumberFormat(i18next.language, {
+                    style: 'currency',
+                    currency: i18next.language === 'en-US' ? 'USD' : 'BRL'
+                  }).format(product.price)}
                 </Button>
               </div>
             </div>
