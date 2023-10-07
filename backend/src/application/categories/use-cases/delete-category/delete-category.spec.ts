@@ -16,9 +16,8 @@ describe('Delete category', () => {
 
   test('should delete a category', async () => {
     const data: any = {
-      id: uuid(),
-      name: 'any_name',
-      description: 'any_description',
+      name: 'test-name-category',
+      description: 'test-description-category',
     }
 
     const category = Category.create(data).value as Category
@@ -31,7 +30,7 @@ describe('Delete category', () => {
   })
 
   test('should not delete a category if it does not exist', async () => {
-    const categoryId = uuid()
+    const categoryId = 'invalid-category-id'
 
     await deleteCategory.execute({ categoryId })
     expect(await categoriesRepository.findById(categoryId)).toBeFalsy()

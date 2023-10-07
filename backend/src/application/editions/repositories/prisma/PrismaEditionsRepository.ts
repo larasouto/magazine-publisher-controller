@@ -47,7 +47,7 @@ export class PrismaEditionsRepository implements IEditionRepository {
     })
   }
 
-  async list(): Promise<Edition[]> {
+  async list(): Promise<(Edition | null)[]> {
     const editions = await prismaClient.edition.findMany()
     return editions.map(EditionMapper.toDomain)
   }

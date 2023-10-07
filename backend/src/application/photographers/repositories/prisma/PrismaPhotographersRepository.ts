@@ -22,7 +22,7 @@ export class PrismaPhotographersRepository implements IPhotographerRepository {
     await prismaClient.photographer.create({
       data: {
         ...data,
-        status: 'ACTIVE',
+        status: data.status ?? 'ACTIVE',
       },
     })
   }

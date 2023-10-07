@@ -6,7 +6,7 @@ export type HttpResponse = {
 }
 
 export type Response = {
-  type?: 'info' | 'success' | 'warn' | 'error'
+  type?: 'info' | 'success' | 'error'
   message: string
 }
 

@@ -15,8 +15,8 @@ describe('Create a category', () => {
 
   test('should be able to create a category', async () => {
     const data: any = {
-      name: 'Nome da categoria',
-      description: 'Descrição da categoria',
+      name: 'test-name-category',
+      description: 'test-description-category',
     }
 
     const response = await createCategory.execute(data)
@@ -28,7 +28,7 @@ describe('Create a category', () => {
 
   test('should be able to create a category without description', async () => {
     const data: any = {
-      name: 'Nome da categoria',
+      name: 'test-name-category',
     }
 
     const response = await createCategory.execute(data)
@@ -47,7 +47,7 @@ describe('Create a category', () => {
 
   test('should not be able to create a category without name', async () => {
     const data: any = {
-      description: 'Descrição da categoria',
+      description: 'test-description-category',
     }
 
     const response = await createCategory.execute(data)

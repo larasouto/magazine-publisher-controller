@@ -15,9 +15,8 @@ describe('Get a category', () => {
 
   test('should be able to get a category', async () => {
     const data: any = {
-      id: uuid(),
-      name: 'Nome da categoria',
-      description: 'Descrição da categoria',
+      name: 'test-get-name-category',
+      description: 'test-get-description-category',
     }
 
     await categoriesRepository.create(data)
@@ -28,9 +27,8 @@ describe('Get a category', () => {
 
   test('should not be able to get a non existing category', async () => {
     const data: any = {
-      id: uuid(),
-      name: 'Nome da categoria',
-      description: 'Descrição da categoria',
+      name: 'test-get-name-category',
+      description: 'test-get-description-category',
     }
 
     await categoriesRepository.create(data)

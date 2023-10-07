@@ -9,19 +9,13 @@ import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 describe('Delete theme (end-to-end)', () => {
   const create = {
     id: uuid(),
-    name: 'theme-name-delete',
-    description: 'theme-description-delete',
+    name: 'theme-delete-name-delete',
+    description: 'theme-delete-description-delete',
   }
 
   beforeAll(async () => {
     await prismaClient.theme.create({
       data: create,
-    })
-  })
-
-  afterAll(async () => {
-    await prismaClient.theme.deleteMany({
-      where: { id: create.id },
     })
   })
 

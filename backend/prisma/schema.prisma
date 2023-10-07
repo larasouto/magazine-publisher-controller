@@ -8,15 +8,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  ADMIN
+  CUSTOMER
+}
+
 model User {
   id         String    @id
   name       String
   email      String    @unique
   password   String
   phone      String?
-  addresses  Address[]
+  role       UserRole  @default(CUSTOMER)
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
+  addresses  Address[]
 
   @@map("users")
 }
@@ -28,10 +34,10 @@ model Address {
   city       String
   state      String
   zip        String
-  user       User     @relation(fields: [user_id], references: [id])
-  user_id    String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    String
 
   @@map("addresses")
 }
@@ -67,9 +73,8 @@ model Reporter {
   status         String
   entry_date     DateTime
   departure_date DateTime?
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @updatedAt
 
   @@map("reporters")
 }
@@ -91,16 +96,24 @@ model Photographer {
   @@map("photographers")
 }
 
+enum MagazinePublicationPeriod {
+  ANNUALLY
+  BIANNUAL
+  MONTHLY
+  BIMONTHLY
+  WEEKLY
+}
+
 model Magazine {
-  id                 String    @id
+  id                 String                    @id
   name               String
   description        String?
   year_founded       Int
-  publication_period String
-  theme              Theme     @relation(fields: [theme_id], references: [id])
+  publication_period MagazinePublicationPeriod @default(MONTHLY)
+  theme              Theme                     @relation(fields: [theme_id], references: [id])
   theme_id           String
-  created_at         DateTime  @default(now())
-  updated_at         DateTime  @updatedAt
+  created_at         DateTime                  @default(now())
+  updated_at         DateTime                  @updatedAt
   editions           Edition[]
 
   @@map("magazines")

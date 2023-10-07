@@ -16,7 +16,7 @@ describe('Create category (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const data: any = {
-      name: 'test-create-category',
+      name: 'test-create-name-category',
       description: 'test-create-description-category',
     }
 
@@ -33,7 +33,7 @@ describe('Create category (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const data: any = {
-      name: 'test-create-category',
+      name: 'test-create-name-category',
     }
 
     const response = await request(app)
@@ -56,6 +56,18 @@ describe('Create category (end-to-end)', () => {
       .send(data)
 
     expect(response.status).toBe(StatusCodes.BAD_REQUEST)
+    expect(response.body).toHaveProperty('message')
+  })
+
+  test('should not be able to create a category without authentication', async () => {
+    const data: any = {
+      name: 'test-create-name-category',
+      description: 'test-create-description-category',
+    }
+
+    const response = await request(app).post('/api/categories/new').send(data)
+
+    expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
     expect(response.body).toHaveProperty('message')
   })
 })

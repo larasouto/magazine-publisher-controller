@@ -7,17 +7,17 @@ import { EditCategory } from './edit-category'
 let categoriesRepository: ICategoryRepository
 let editCategory: EditCategory
 
-describe('Create a category', () => {
+describe('Edit a category', () => {
   beforeEach(() => {
     categoriesRepository = new InMemoryCategoriesRepository()
     editCategory = new EditCategory(categoriesRepository)
   })
 
-  test('should be able to update an entire category', async () => {
+  test('should be able to update a category', async () => {
     const data: any = {
       id: uuid(),
-      name: 'Nome da categoria',
-      description: 'Descrição da categoria',
+      name: 'test-edit-name-category',
+      description: 'test-edit-description-category',
     }
 
     await categoriesRepository.create(data)
@@ -25,8 +25,8 @@ describe('Create a category', () => {
 
     const updatedCategory = await editCategory.execute({
       categoryId: data.id,
-      name: 'Nome da categoria atualizado',
-      description: 'Descrição da categoria atualizado',
+      name: 'test-edit-name-category-updated',
+      description: 'test-edit-description-category-updated',
     })
     expect(updatedCategory.isRight()).toBeTruthy()
 
@@ -37,8 +37,8 @@ describe('Create a category', () => {
   test('should be able to update only the name in a category', async () => {
     const data: any = {
       id: uuid(),
-      name: 'Nome da categoria',
-      description: 'Descrição da categoria',
+      name: 'test-edit-name-category',
+      description: 'test-edit-description-category',
     }
 
     await categoriesRepository.create(data)
@@ -46,8 +46,8 @@ describe('Create a category', () => {
 
     const updatedCategory = await editCategory.execute({
       categoryId: data.id,
-      name: 'Nome da categoria atualizado',
-      description: 'Descrição da categoria',
+      name: 'test-edit-name-category-updated',
+      description: 'test-edit-description-category',
     })
     expect(updatedCategory.isRight()).toBeTruthy()
 
@@ -58,8 +58,8 @@ describe('Create a category', () => {
   test('should be able to update only the description in a category', async () => {
     const data: any = {
       id: uuid(),
-      name: 'Nome da categoria',
-      description: 'Descrição da categoria',
+      name: 'test-edit-name-category',
+      description: 'test-edit-description-category',
     }
 
     await categoriesRepository.create(data)
@@ -67,8 +67,8 @@ describe('Create a category', () => {
 
     const updatedCategory = await editCategory.execute({
       categoryId: data.id,
-      name: 'Nome da categoria',
-      description: 'Descrição da categoria atualizado',
+      name: 'test-edit-name-category',
+      description: 'test-edit-description-category-updated',
     })
     expect(updatedCategory.isRight()).toBeTruthy()
 
@@ -79,8 +79,8 @@ describe('Create a category', () => {
   test('should not be able to update a category with invalid data', async () => {
     const data: any = {
       id: uuid(),
-      name: 'Nome da categoria',
-      description: 'Descrição da categoria',
+      name: 'test-edit-name-category',
+      description: 'test-edit-description-category',
     }
 
     await categoriesRepository.create(data)

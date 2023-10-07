@@ -5,8 +5,8 @@ import { ReporterStatus } from '../domain/reporter.schema'
 
 export class ReporterMapper {
   static toDomain(raw: PersistenceReporter) {
-    const reporterOrError = Reporter.create(
-      {
+    const reporter: Pick<Reporter, 'props'> = {
+      props: {
         name: raw.name,
         email: raw.email,
         phone: raw.phone,
@@ -16,8 +16,9 @@ export class ReporterMapper {
         entryDate: raw.entry_date,
         departureDate: raw.departure_date,
       },
-      raw.id,
-    )
+    }
+
+    const reporterOrError = Reporter.create(reporter.props, raw.id)
 
     if (reporterOrError.isLeft()) {
       throw new MapperError(reporterOrError.value.message)

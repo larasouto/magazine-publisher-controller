@@ -4,13 +4,14 @@ import { Theme } from '../domain/theme'
 
 export class ThemeMapper {
   static toDomain(raw: PersistenceTheme) {
-    const themeOrError = Theme.create(
-      {
+    const theme: Pick<Theme, 'props'> = {
+      props: {
         name: raw.name,
         description: raw.description,
       },
-      raw.id,
-    )
+    }
+
+    const themeOrError = Theme.create(theme.props, raw.id)
 
     if (themeOrError.isLeft()) {
       throw new MapperError(themeOrError.value.message)

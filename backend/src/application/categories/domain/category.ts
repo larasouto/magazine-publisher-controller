@@ -10,7 +10,7 @@ export class Category extends Entity<CategoryProps> {
   }
 
   static create(props: CategoryProps, id?: string): Either<Error, Category> {
-    const result = CategorySchema.safeParse(props) as ZodValidate<CategoryProps>
+    const result = CategorySchema.safeParse(props)
 
     if (!result.success) {
       return left(new ZodValidationError(result.error))

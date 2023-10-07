@@ -1,16 +1,13 @@
 import { prismaClient } from '@/infra/prisma/client'
-import { Role } from '@prisma/client'
 import { User } from '../../domain/user'
 import { UserMapper } from '../../mappers/user.mapper'
 import { IUsersRepository } from '../interfaces/IUsersRepository'
 
 export class PrismaUsersRepository implements IUsersRepository {
-  async findById(id: string): Promise<User> {
+  async findById(id: string): Promise<User | null> {
     const user = await prismaClient.user.findFirst({
       where: { id },
     })
-
-    console.log(user)
 
     if (!user) {
       return null
@@ -45,7 +42,6 @@ export class PrismaUsersRepository implements IUsersRepository {
     await prismaClient.user.create({
       data: {
         ...data,
-        role: data.role as Role,
       },
     })
   }

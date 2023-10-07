@@ -10,7 +10,7 @@ export class Theme extends Entity<ThemeProps> {
   }
 
   static create(props: ThemeProps, id?: string): Either<Error, Theme> {
-    const result = ThemeSchema.safeParse(props) as ZodValidate<ThemeProps>
+    const result = ThemeSchema.safeParse(props)
 
     if (!result.success) {
       return left(new ZodValidationError(result.error))

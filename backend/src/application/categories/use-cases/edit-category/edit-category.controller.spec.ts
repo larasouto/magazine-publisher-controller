@@ -9,8 +9,8 @@ import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 describe('Edit category (end-to-end)', () => {
   const create: any = {
     id: uuid(),
-    name: 'test-name-category',
-    description: 'test-description-category',
+    name: 'test-edit-name-category',
+    description: 'test-edit-description-category',
   }
 
   beforeAll(async () => {

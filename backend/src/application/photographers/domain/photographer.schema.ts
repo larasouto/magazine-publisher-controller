@@ -10,7 +10,6 @@ export enum PhotographerStatus {
 }
 
 export const PhotographerSchema = z.object({
-  avatar: z.string().nullish(),
   name: z.string().min(2).max(64),
   email: z.string().email(),
   phone: z.string().nullish(),
