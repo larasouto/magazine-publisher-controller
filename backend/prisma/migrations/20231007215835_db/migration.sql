@@ -1,3 +1,9 @@
+-- CreateEnum
+CREATE TYPE "UserRole" AS ENUM ('ADMIN', 'CUSTOMER');
+
+-- CreateEnum
+CREATE TYPE "MagazinePublicationPeriod" AS ENUM ('ANNUALLY', 'BIANNUAL', 'MONTHLY', 'BIMONTHLY', 'WEEKLY');
+
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
@@ -5,6 +11,7 @@ CREATE TABLE "users" (
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "phone" TEXT,
+    "role" "UserRole" NOT NULL DEFAULT 'CUSTOMER',
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
@@ -19,9 +26,9 @@ CREATE TABLE "addresses" (
     "city" TEXT NOT NULL,
     "state" TEXT NOT NULL,
     "zip" TEXT NOT NULL,
-    "user_id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
+    "user_id" TEXT NOT NULL,
 
     CONSTRAINT "addresses_pkey" PRIMARY KEY ("id")
 );
@@ -89,7 +96,7 @@ CREATE TABLE "magazines" (
     "name" TEXT NOT NULL,
     "description" TEXT,
     "year_founded" INTEGER NOT NULL,
-    "publication_period" TEXT NOT NULL,
+    "publication_period" "MagazinePublicationPeriod" NOT NULL DEFAULT 'MONTHLY',
     "theme_id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
