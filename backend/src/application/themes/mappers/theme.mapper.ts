@@ -17,11 +17,7 @@ export class ThemeMapper {
       throw new MapperError(themeOrError.value.message)
     }
 
-    if (themeOrError.isRight()) {
-      return themeOrError.value
-    }
-
-    return null
+    return themeOrError.value
   }
 
   static async toPersistence(theme: Theme) {

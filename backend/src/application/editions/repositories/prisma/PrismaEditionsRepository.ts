@@ -20,9 +20,7 @@ export class PrismaEditionsRepository implements IEditionRepository {
     const data = await EditionMapper.toPersistence(edition)
 
     await prismaClient.edition.create({
-      data: {
-        ...data,
-      },
+      data,
     })
   }
 
@@ -47,7 +45,7 @@ export class PrismaEditionsRepository implements IEditionRepository {
     })
   }
 
-  async list(): Promise<(Edition | null)[]> {
+  async list(): Promise<Edition[]> {
     const editions = await prismaClient.edition.findMany()
     return editions.map(EditionMapper.toDomain)
   }

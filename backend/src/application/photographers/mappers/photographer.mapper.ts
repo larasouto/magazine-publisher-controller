@@ -24,10 +24,7 @@ export class PhotographerMapper {
       throw new Error(t('errors.invalid_Photographer'))
     }
 
-    if (photographerOrError.isRight()) {
-      return photographerOrError.value
-    }
-    return null
+    return photographerOrError.value
   }
 
   static async toPersistence(photographer: Photographer) {
@@ -38,7 +35,7 @@ export class PhotographerMapper {
       email: photographer.props.email,
       cpf: photographer.props.cpf,
       specialty: photographer.props.specialty,
-      status: photographer.props.status,
+      status: photographer.props.status as PhotographerStatus,
       entry_date: photographer.props.entryDate,
       departure_date: photographer.props.departureDate,
     }

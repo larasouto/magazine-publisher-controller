@@ -19,11 +19,7 @@ export class SubtitleMapper {
       throw new MapperError(subtitleOrError.value.message)
     }
 
-    if (subtitleOrError.isRight()) {
-      return subtitleOrError.value
-    }
-
-    return null
+    return subtitleOrError.value
   }
 
   static async toPersistence(subtitle: Subtitle) {
@@ -31,7 +27,7 @@ export class SubtitleMapper {
       id: subtitle.id,
       name: subtitle.props.name,
       description: subtitle.props.description,
-      type: subtitle.props.type,
+      type: subtitle.props.type as SubtitleType,
     }
   }
 }

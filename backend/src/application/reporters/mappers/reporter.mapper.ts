@@ -24,11 +24,7 @@ export class ReporterMapper {
       throw new MapperError(reporterOrError.value.message)
     }
 
-    if (reporterOrError.isRight()) {
-      return reporterOrError.value
-    }
-
-    return null
+    return reporterOrError.value
   }
 
   static async toPersistence(reporter: Reporter) {
@@ -39,7 +35,7 @@ export class ReporterMapper {
       phone: reporter.props.phone,
       cpf: reporter.props.cpf,
       specialty: reporter.props.specialty,
-      status: reporter.props.status,
+      status: reporter.props.status as ReporterStatus,
       entry_date: reporter.props.entryDate,
       departure_date: reporter.props.departureDate,
     }

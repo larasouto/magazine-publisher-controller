@@ -25,11 +25,7 @@ export class EditionMapper {
       throw new MapperError(editionOrError.value.message)
     }
 
-    if (editionOrError.isRight()) {
-      return editionOrError.value
-    }
-
-    return null
+    return editionOrError.value
   }
 
   static async toPersistence(edition: Edition) {

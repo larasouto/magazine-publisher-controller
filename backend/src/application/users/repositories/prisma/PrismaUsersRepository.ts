@@ -40,9 +40,7 @@ export class PrismaUsersRepository implements IUsersRepository {
     const data = await UserMapper.toPersistence(user)
 
     await prismaClient.user.create({
-      data: {
-        ...data,
-      },
+      data,
     })
   }
 }

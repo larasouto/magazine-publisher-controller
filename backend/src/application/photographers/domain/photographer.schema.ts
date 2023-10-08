@@ -1,4 +1,3 @@
-import { Phone } from '@/core/domain/phone'
 import CPF from 'cpf'
 import { z } from 'zod'
 

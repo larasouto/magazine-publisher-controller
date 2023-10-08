@@ -21,10 +21,7 @@ export class UserMapper {
       throw new Error(t('errors.invalid_user'))
     }
 
-    if (userOrError.isRight()) {
-      return userOrError.value
-    }
-    return null
+    return userOrError.value
   }
 
   static async toPersistence(user: User) {

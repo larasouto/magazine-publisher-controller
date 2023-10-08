@@ -7,7 +7,7 @@ export class InMemoryPhotographersRepository
 {
   constructor(public photographers: Photographer[] = []) {}
 
-  async findById(id: string): Promise<Photographer> {
+  async findById(id: string): Promise<Photographer | null> {
     const photographer = this.photographers.find(
       (photographer) => photographer.id === id,
     )
@@ -55,18 +55,16 @@ export class InMemoryPhotographersRepository
 
   async inactivate(id: string): Promise<void> {
     const photographerIndex = this.photographers.findIndex(
-      (reporter) => reporter.id === id,
+      (photographer) => photographer.id === id,
     )
 
-    if (!this.photographers[photographerIndex]) {
-      return null
-    }
-
-    const reporter = Photographer.create({
+    const photographer = {
       ...this.photographers[photographerIndex],
       status: PhotographerStatus.INACTIVE,
-    }).value as Photographer
+    }
 
-    this.photographers[photographerIndex] = reporter
+    this.photographers[photographerIndex] = Photographer.create({
+      ...photographer.props,
+    }).value as Photographer
   }
 }

@@ -45,8 +45,8 @@ export class PrismaThemesRepository implements IThemeRepository {
     })
   }
 
-  async list(): Promise<any[]> {
+  async list(): Promise<Theme[]> {
     const themes = await prismaClient.theme.findMany()
-    return themes?.map(ThemeMapper.toDomain) ?? []
+    return themes.map(ThemeMapper.toDomain)
   }
 }

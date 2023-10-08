@@ -16,17 +16,13 @@ export class MagazineMapper {
       },
     }
 
-    const MagazineOrError = Magazine.create(magazine.props, raw.id)
+    const magazineOrError = Magazine.create(magazine.props, raw.id)
 
-    if (MagazineOrError.isLeft()) {
-      throw new MapperError(MagazineOrError.value.message)
+    if (magazineOrError.isLeft()) {
+      throw new MapperError(magazineOrError.value.message)
     }
 
-    if (MagazineOrError.isRight()) {
-      return MagazineOrError.value
-    }
-
-    return null
+    return magazineOrError.value
   }
 
   static async toPersistence(magazine: Magazine) {
@@ -35,7 +31,7 @@ export class MagazineMapper {
       name: magazine.props.name,
       description: magazine.props.description,
       year_founded: magazine.props.yearFounded,
-      publication_period: magazine.props.publicationPeriod.toString(),
+      publication_period: magazine.props.publicationPeriod as PublicationPeriod,
       theme_id: magazine.props.themeId,
     }
   }

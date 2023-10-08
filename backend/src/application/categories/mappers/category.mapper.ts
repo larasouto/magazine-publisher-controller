@@ -17,11 +17,7 @@ export class CategoryMapper {
       throw new MapperError(categoryOrError.value.message)
     }
 
-    if (categoryOrError.isRight()) {
-      return categoryOrError.value
-    }
-
-    return null
+    return categoryOrError.value
   }
 
   static async toPersistence(category: Category) {
