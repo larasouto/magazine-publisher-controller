@@ -1,7 +1,7 @@
 import { Category } from '../../domain/category'
 import { ICategoryRepository } from '../../repositories/interfaces/ICategoryRepository'
 
-type ListCategoryResponse = Category[]
+type ListCategoryResponse = (Category | null)[]
 
 export class ListCategory {
   constructor(private categoriesRepository: ICategoryRepository) {}

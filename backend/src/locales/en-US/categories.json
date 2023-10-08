@@ -1,0 +1,1 @@
+{"form":{"description":{"label":"Description","placeholder":"Inform the description of the category"},"name":{"label":"Name","placeholder":"Inform the name of the category"}},"page":{"edit":"Edit Category","new":"New Category","title":"Categories"},"table":{"total_of":"Total of {{ value }} categories"}}

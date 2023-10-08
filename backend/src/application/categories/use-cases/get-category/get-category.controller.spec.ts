@@ -9,8 +9,8 @@ import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 describe('Get a category (end-to-end)', () => {
   const create = {
     id: uuid(),
-    name: 'test-category-create',
-    description: 'test-category-description-create',
+    name: 'test-get-category-create',
+    description: 'test-get-category-description-create',
   }
 
   beforeAll(async () => {
@@ -40,7 +40,7 @@ describe('Get a category (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .get(`/api/categories/${create.id}-complement`)
+      .get(`/api/categories/invalid-id`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
@@ -53,16 +53,5 @@ describe('Get a category (end-to-end)', () => {
       .send()
 
     expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
-  })
-
-  test('should not be able to get a category with invalid categoryId', async () => {
-    const { jwt } = UserFactory.createAndAuthenticate()
-
-    const response = await request(app)
-      .get(`/api/categories/${null}`)
-      .auth(jwt.token, { type: 'bearer' })
-      .send()
-
-    expect(response.status).toBe(StatusCodes.BAD_REQUEST)
   })
 })

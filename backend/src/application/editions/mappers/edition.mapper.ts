@@ -4,8 +4,8 @@ import { MapperError } from '@/core/errors/MapperErrors'
 
 export class EditionMapper {
   static toDomain(raw: PersistenceEdition) {
-    const editionOrError = Edition.create(
-      {
+    const edition: Pick<Edition, 'props'> = {
+      props: {
         number: raw.number,
         title: raw.title,
         description: raw.description,
@@ -17,18 +17,15 @@ export class EditionMapper {
         numberOfPages: raw.number_of_pages,
         magazineId: raw.magazine_id,
       },
-      raw.id,
-    )
+    }
+
+    const editionOrError = Edition.create(edition.props, raw.id)
 
     if (editionOrError.isLeft()) {
       throw new MapperError(editionOrError.value.message)
     }
 
-    if (editionOrError.isRight()) {
-      return editionOrError.value
-    }
-
-    return null
+    return editionOrError.value
   }
 
   static async toPersistence(edition: Edition) {

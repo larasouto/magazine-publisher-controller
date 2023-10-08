@@ -5,7 +5,7 @@ import { IReporterRepository } from '../interfaces/IReporterRepository'
 export class InMemoryReportersRepository implements IReporterRepository {
   constructor(public reporters: Reporter[] = []) {}
 
-  async findById(id: string): Promise<Reporter> {
+  async findById(id: string): Promise<Reporter | null> {
     const reporter = this.reporters.find((reporter) => reporter.id === id)
 
     if (!reporter) {
@@ -54,15 +54,12 @@ export class InMemoryReportersRepository implements IReporterRepository {
       (reporter) => reporter.id === id,
     )
 
-    if (!this.reporters[reporterIndex]) {
-      return null
-    }
-
-    const reporter = Reporter.create({
+    const reporter = {
       ...this.reporters[reporterIndex],
       status: ReporterStatus.INACTIVE,
-    }).value as Reporter
+    }
 
-    this.reporters[reporterIndex] = reporter
+    this.reporters[reporterIndex] = Reporter.create({ ...reporter.props })
+      .value as Reporter
   }
 }

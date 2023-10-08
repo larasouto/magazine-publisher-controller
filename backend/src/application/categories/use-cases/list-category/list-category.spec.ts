@@ -16,8 +16,8 @@ describe('List categories', () => {
   test('should be able to get categories', async () => {
     const data: any = {
       id: uuid(),
-      name: 'category-name',
-      description: 'category-description',
+      name: 'test-list-category-name',
+      description: 'test-list-category-description',
     }
 
     const data2: any = {

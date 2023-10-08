@@ -26,6 +26,7 @@ export class CreateUser {
       name,
       password,
       phone,
+      role: 'CUSTOMER',
     })
 
     if (userOrError.isLeft()) {

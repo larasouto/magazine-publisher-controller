@@ -54,6 +54,10 @@ describe('Edit magazine (end-to-end)', () => {
 
     expect(response.status).toBe(StatusCodes.OK)
     expect(response.body).toHaveProperty('message')
+
+    const updated = await prismaClient.magazine.findFirst({
+      where: { id: create.id },
+    })
   })
 
   test('should be able to update a magazine without description (remove description)', async () => {

@@ -13,7 +13,7 @@ export const Cart = () => {
     state.close,
     state.toggleOpen,
     state.items,
-    state.reset
+    state.removeAll
   ])
 
   useEffect(() => {
@@ -60,15 +60,15 @@ export const Cart = () => {
               onClick={close}
             />
             <motion.aside
-              initial={{ x: 450, opacity: 0.8 }}
+              initial={{ x: 768, opacity: 0.8 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ ease: 'easeInOut', duration: 0.4 }}
-              exit={{ x: 450 }}
+              transition={{ ease: 'easeInOut', duration: 0.6 }}
+              exit={{ x: 768 }}
               className={cn(
                 'z-50 fixed top-0 right-0 h-full w-full sm:w-[400px] rounded-l-lg bg-default-200 dark:bg-default-50 p-5 flex justify-between flex-col'
               )}
             >
-              <div className="flex items-center justify-between h-12 mb-7 relative">
+              <div className="flex items-center sm:justify-between h-12 mb-7 relative">
                 <div className="flex flex-grow items-center justify-between">
                   <h1 className="text-2xl">Itens do carrinho</h1>
                   {items.length > 0 && (
@@ -95,7 +95,11 @@ export const Cart = () => {
                 <div className="h-[calc(100vh-12rem)] space-y-4 pr-4 overflow-y-hidden hover:overflow-y-auto">
                   {items.length === 0 && (
                     <div className="flex flex-col items-center justify-center gap-2 h-full">
-                      <Image src="/empty-cart.png" className="w-28" />
+                      <Image
+                        src="/empty-cart.png"
+                        className="w-28 h-28"
+                        removeWrapper
+                      />
                       <div className="flex flex-col items-center justify-center">
                         <h1 className="text-3xl">Carrinho vazio</h1>
                         <span className="text-sm">

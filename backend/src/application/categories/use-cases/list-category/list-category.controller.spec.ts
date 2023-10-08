@@ -6,12 +6,10 @@ import request from 'supertest'
 import { v4 as uuid } from 'uuid'
 import { afterAll, describe, expect, test } from 'vitest'
 
-let ids: string[] = []
-
 describe('List categories (end-to-end)', () => {
   afterAll(async () => {
     await prismaClient.category.deleteMany({
-      where: { id: { in: ids } },
+      where: { name: { contains: 'test-list' } },
     })
   })
 
@@ -20,8 +18,8 @@ describe('List categories (end-to-end)', () => {
 
     const create = {
       id: uuid(),
-      name: 'test-category-create',
-      description: 'test-category-description-create',
+      name: 'test-list-category-create',
+      description: 'test-list-category-description-create',
     }
 
     await prismaClient.category.create({
@@ -32,8 +30,6 @@ describe('List categories (end-to-end)', () => {
       .get(`/api/categories`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
-
-    ids.push(create.id)
 
     expect(response.status).toBe(StatusCodes.OK)
     expect(response.body.dto.length > 0).toBeTruthy()

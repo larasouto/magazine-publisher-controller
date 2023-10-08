@@ -9,6 +9,7 @@ describe('JWT model', () => {
       name: 'test',
       email: 'email@test.com',
       password: '123456789',
+      role: 'CUSTOMER',
     })
 
     const user = userOrError.value as User
@@ -23,6 +24,7 @@ describe('JWT model', () => {
       name: 'test',
       email: 'email@test.com',
       password: '123456789',
+      role: 'CUSTOMER',
     })
 
     const user = userOrError.value as User
@@ -48,6 +50,7 @@ describe('JWT model', () => {
       name: 'test',
       email: 'email@test.com',
       password: '123456789',
+      role: 'CUSTOMER',
     })
 
     const user = userOrError.value as User

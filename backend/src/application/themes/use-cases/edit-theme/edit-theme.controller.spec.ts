@@ -20,7 +20,7 @@ describe('Edit theme (end-to-end)', () => {
   })
 
   afterAll(async () => {
-    await prismaClient.theme.deleteMany({
+    await prismaClient.theme.delete({
       where: { id: create.id },
     })
   })

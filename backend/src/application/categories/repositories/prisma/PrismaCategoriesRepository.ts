@@ -30,12 +30,6 @@ export class PrismaCategoriesRepository implements ICategoryRepository {
     })
   }
 
-  async deleteMany(ids: string[]): Promise<void> {
-    await prismaClient.category.deleteMany({
-      where: { id: { in: ids } },
-    })
-  }
-
   async update(category: Category): Promise<void> {
     const data = await CategoryMapper.toPersistence(category)
 

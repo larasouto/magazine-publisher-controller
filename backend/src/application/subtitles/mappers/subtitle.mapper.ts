@@ -1,27 +1,25 @@
 import { Subtitle as PersistenceSubtitle } from '@prisma/client'
 import { Subtitle } from '../domain/subtitle'
 import { MapperError } from '@/core/errors/MapperErrors'
+import { SubtitleType } from '../domain/subtitle.schema'
 
 export class SubtitleMapper {
   static toDomain(raw: PersistenceSubtitle) {
-    const subtitleOrError = Subtitle.create(
-      {
+    const subtitle: Pick<Subtitle, 'props'> = {
+      props: {
         name: raw.name,
         description: raw.description,
-        type: raw.type,
+        type: raw.type as SubtitleType,
       },
-      raw.id,
-    )
+    }
+
+    const subtitleOrError = Subtitle.create(subtitle.props, raw.id)
 
     if (subtitleOrError.isLeft()) {
       throw new MapperError(subtitleOrError.value.message)
     }
 
-    if (subtitleOrError.isRight()) {
-      return subtitleOrError.value
-    }
-
-    return null
+    return subtitleOrError.value
   }
 
   static async toPersistence(subtitle: Subtitle) {
@@ -29,7 +27,7 @@ export class SubtitleMapper {
       id: subtitle.id,
       name: subtitle.props.name,
       description: subtitle.props.description,
-      type: subtitle.props.type,
+      type: subtitle.props.type as SubtitleType,
     }
   }
 }

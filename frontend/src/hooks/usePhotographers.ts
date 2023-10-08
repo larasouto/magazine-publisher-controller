@@ -7,6 +7,8 @@ import {
 import { routes } from '@/routes/routes'
 import { api } from '@/services/api'
 import { toResponseBody } from '@/utils/to-response-body'
+import { toast } from 'react-hot-toast'
+import { useTranslation } from 'react-i18next'
 import { useMutation, useQueryClient } from 'react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAdaptResponse } from './useAdaptResponse'
@@ -18,6 +20,7 @@ export const usePhotographer = () => {
   const { id } = useParams()
   const queryClient = useQueryClient()
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const getData = async () => {
     return await api
@@ -38,7 +41,14 @@ export const usePhotographer = () => {
 
   const create = useMutation(
     async (data: PhotographerForm) => {
-      return await api.post(`/${route}/new`, data).then((res) => res.data)
+      return toast.promise(
+        api.post(`/${route}/new`, data).then((res) => res.data),
+        {
+          loading: t('common:pending'),
+          success: (data) => data.message,
+          error: (data) => data.message
+        }
+      )
     },
     {
       onSuccess: (response: HttpResponse) => {

@@ -1,7 +1,7 @@
 import { Edition } from '../../domain/edition'
 import { IEditionRepository } from '../../repositories/interfaces/IEditionRepository'
 
-type ListEditionsResponse = Edition[]
+type ListEditionsResponse = (Edition | null)[]
 
 export class ListEditions {
   constructor(private editionsRepository: IEditionRepository) {}

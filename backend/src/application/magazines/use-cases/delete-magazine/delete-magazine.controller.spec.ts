@@ -9,16 +9,15 @@ import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 describe('Delete magazine (end-to-end)', () => {
   const theme: any = {
     id: uuid(),
-    name: 'theme-name-delete',
-    description: 'theme-description-delete',
+    name: 'test-theme-name-delete',
+    description: 'test-theme-description-delete',
   }
 
   const create = {
     id: uuid(),
-    name: 'magazine-name-delete',
-    description: 'magazine-description-delete',
+    name: 'test-magazine-name-delete',
+    description: 'test-magazine-description-delete',
     year_founded: 2021,
-    publication_period: 'ANNUALLY',
     theme_id: theme.id,
   }
 
@@ -27,13 +26,16 @@ describe('Delete magazine (end-to-end)', () => {
       data: theme,
     })
     await prismaClient.magazine.create({
-      data: create,
+      data: {
+        ...create,
+        publication_period: 'ANNUALLY',
+      },
     })
   })
 
   afterAll(async () => {
-    await prismaClient.magazine.deleteMany({
-      where: { id: create.id },
+    await prismaClient.theme.delete({
+      where: { id: theme.id },
     })
   })
 

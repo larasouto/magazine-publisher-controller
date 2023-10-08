@@ -5,8 +5,8 @@ import { ReporterStatus } from '../domain/reporter.schema'
 
 export class ReporterMapper {
   static toDomain(raw: PersistenceReporter) {
-    const reporterOrError = Reporter.create(
-      {
+    const reporter: Pick<Reporter, 'props'> = {
+      props: {
         name: raw.name,
         email: raw.email,
         phone: raw.phone,
@@ -16,18 +16,15 @@ export class ReporterMapper {
         entryDate: raw.entry_date,
         departureDate: raw.departure_date,
       },
-      raw.id,
-    )
+    }
+
+    const reporterOrError = Reporter.create(reporter.props, raw.id)
 
     if (reporterOrError.isLeft()) {
       throw new MapperError(reporterOrError.value.message)
     }
 
-    if (reporterOrError.isRight()) {
-      return reporterOrError.value
-    }
-
-    return null
+    return reporterOrError.value
   }
 
   static async toPersistence(reporter: Reporter) {
@@ -38,7 +35,7 @@ export class ReporterMapper {
       phone: reporter.props.phone,
       cpf: reporter.props.cpf,
       specialty: reporter.props.specialty,
-      status: reporter.props.status,
+      status: reporter.props.status as ReporterStatus,
       entry_date: reporter.props.entryDate,
       departure_date: reporter.props.departureDate,
     }

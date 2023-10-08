@@ -4,7 +4,7 @@ import { ReporterMapper } from '../../mappers/reporter.mapper'
 import { IReporterRepository } from '../interfaces/IReporterRepository'
 
 export class PrismaReportersRepository implements IReporterRepository {
-  async findById(id: string): Promise<Reporter> {
+  async findById(id: string): Promise<Reporter | null> {
     const reporter = await prismaClient.reporter.findUnique({
       where: { id },
     })

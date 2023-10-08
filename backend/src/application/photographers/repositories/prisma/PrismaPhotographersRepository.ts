@@ -4,7 +4,7 @@ import { PhotographerMapper } from '../../mappers/photographer.mapper'
 import { IPhotographerRepository } from '../interfaces/IPhotographersRepository'
 
 export class PrismaPhotographersRepository implements IPhotographerRepository {
-  async findById(id: string): Promise<Photographer> {
+  async findById(id: string): Promise<Photographer | null> {
     const photographer = await prismaClient.photographer.findUnique({
       where: { id },
     })
@@ -22,7 +22,7 @@ export class PrismaPhotographersRepository implements IPhotographerRepository {
     await prismaClient.photographer.create({
       data: {
         ...data,
-        status: 'ACTIVE',
+        status: data.status,
       },
     })
   }
