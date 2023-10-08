@@ -10,7 +10,7 @@ export class Magazine extends Entity<MagazineProps> {
   }
 
   static create(props: MagazineProps, id?: string): Either<Error, Magazine> {
-    const result = MagazineSchema.safeParse(props) as ZodValidate<MagazineProps>
+    const result = MagazineSchema.safeParse(props)
 
     if (!result.success) {
       return left(new ZodValidationError(result.error))

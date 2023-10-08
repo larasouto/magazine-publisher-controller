@@ -4,22 +4,16 @@ import { IUsersRepository } from '../interfaces/IUsersRepository'
 export class InMemoryUsersRepository implements IUsersRepository {
   constructor(public users: User[] = []) {}
 
-  async findById(id: string): Promise<User> {
+  async findById(id: string): Promise<User | null> {
     const user = this.users.find((user) => user.id === id)
 
-    if (!user) {
-      return null
-    }
-    return user
+    return user ?? null
   }
 
   async findByEmail(email: string): Promise<User | null> {
     const user = this.users.find((user) => user.props.email === email)
 
-    if (!user) {
-      return null
-    }
-    return user
+    return user ?? null
   }
 
   async exists(email: string): Promise<boolean> {

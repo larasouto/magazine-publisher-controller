@@ -8,8 +8,12 @@ import { afterAll, describe, expect, test } from 'vitest'
 
 describe('Create magazine (end-to-end)', () => {
   afterAll(async () => {
-    await prismaClient.magazine.deleteMany()
-    await prismaClient.theme.deleteMany()
+    await prismaClient.magazine.deleteMany({
+      where: { name: { contains: 'test' } },
+    })
+    await prismaClient.theme.deleteMany({
+      where: { name: { contains: 'test' } },
+    })
   })
 
   test('should be able to create a magazine', async () => {
@@ -17,15 +21,15 @@ describe('Create magazine (end-to-end)', () => {
 
     const theme: any = {
       id: uuid(),
-      name: 'theme-name',
-      description: 'theme-description',
+      name: 'test-theme-name',
+      description: 'test-theme-description',
     }
 
     await prismaClient.theme.create({ data: theme })
 
     const data: any = {
-      name: 'magazine-name',
-      description: 'magazine-description',
+      name: 'test-magazine-name',
+      description: 'test-magazine-description',
       yearFounded: 2021,
       publicationPeriod: 'ANNUALLY',
       themeId: theme.id,
@@ -45,14 +49,14 @@ describe('Create magazine (end-to-end)', () => {
 
     const theme: any = {
       id: uuid(),
-      name: 'theme-name',
-      description: 'theme-description',
+      name: 'test-theme-name',
+      description: 'test-theme-description',
     }
 
     await prismaClient.theme.create({ data: theme })
 
     const data: any = {
-      name: 'magazine-name',
+      name: 'test-magazine-name',
       yearFounded: 2021,
       publicationPeriod: 'ANNUALLY',
       themeId: theme.id,

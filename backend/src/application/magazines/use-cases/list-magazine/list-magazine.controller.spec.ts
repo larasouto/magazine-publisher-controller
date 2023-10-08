@@ -16,7 +16,6 @@ describe('List magazines (end-to-end)', () => {
     await prismaClient.magazine.deleteMany({
       where: { id: { in: magazineId } },
     })
-    await prismaClient.theme.deleteMany()
   })
 
   test('should list all magazines', async () => {

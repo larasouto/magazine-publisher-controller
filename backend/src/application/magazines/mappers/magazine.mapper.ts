@@ -6,26 +6,23 @@ import { PublicationPeriod } from '../domain/magazine.schema'
 
 export class MagazineMapper {
   static toDomain(raw: PersistenceMagazine) {
-    const MagazineOrError = Magazine.create(
-      {
+    const magazine: Pick<Magazine, 'props'> = {
+      props: {
         name: raw.name,
         description: raw.description,
         yearFounded: raw.year_founded,
         publicationPeriod: raw.publication_period as PublicationPeriod,
         themeId: raw.theme_id,
       },
-      raw.id,
-    )
+    }
+
+    const MagazineOrError = Magazine.create(magazine.props, raw.id)
 
     if (MagazineOrError.isLeft()) {
       throw new MapperError(MagazineOrError.value.message)
     }
 
-    if (MagazineOrError.isRight()) {
-      return MagazineOrError.value
-    }
-
-    return null
+    return MagazineOrError.value
   }
 
   static async toPersistence(magazine: Magazine) {
@@ -34,7 +31,7 @@ export class MagazineMapper {
       name: magazine.props.name,
       description: magazine.props.description,
       year_founded: magazine.props.yearFounded,
-      publication_period: magazine.props.publicationPeriod.toString(),
+      publication_period: magazine.props.publicationPeriod as PublicationPeriod,
       theme_id: magazine.props.themeId,
     }
   }

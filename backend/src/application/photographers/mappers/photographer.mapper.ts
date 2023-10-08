@@ -5,8 +5,8 @@ import { PhotographerStatus } from '../domain/photographer.schema'
 
 export class PhotographerMapper {
   static toDomain(raw: PersistencePhotographer) {
-    const PhotographerOrError = Photographer.create(
-      {
+    const photographer: Pick<Photographer, 'props'> = {
+      props: {
         avatar: raw.avatar,
         name: raw.name,
         email: raw.email,
@@ -17,17 +17,14 @@ export class PhotographerMapper {
         entryDate: raw.entry_date,
         departureDate: raw.departure_date,
       },
-      raw.id,
-    )
+    }
+    const PhotographerOrError = Photographer.create(photographer.props, raw.id)
 
     if (PhotographerOrError.isLeft()) {
       throw new Error(t('errors.invalid_Photographer'))
     }
 
-    if (PhotographerOrError.isRight()) {
-      return PhotographerOrError.value
-    }
-    return null
+    return PhotographerOrError.value
   }
 
   static async toPersistence(photographer: Photographer) {
@@ -39,7 +36,7 @@ export class PhotographerMapper {
       email: photographer.props.email,
       cpf: photographer.props.cpf,
       specialty: photographer.props.specialty,
-      status: photographer.props.status,
+      status: photographer.props.status as PhotographerStatus,
       entry_date: photographer.props.entryDate,
       departure_date: photographer.props.departureDate,
     }

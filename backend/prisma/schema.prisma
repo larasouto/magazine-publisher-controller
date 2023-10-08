@@ -8,12 +8,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  ADMIN
+  CUSTOMER
+}
+
 model User {
   id         String    @id
   name       String
   email      String    @unique
   password   String
   phone      String?
+  role       UserRole  @default(CUSTOMER)
   addresses  Address[]
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
@@ -57,14 +63,21 @@ model Theme {
   @@map("themes")
 }
 
+enum ReporterStatus {
+  ACTIVE
+  INACTIVE
+  VACATION
+  PAUSED
+}
+
 model Reporter {
-  id             String    @id
+  id             String         @id
   name           String
   email          String
   phone          String?
   cpf            String
   specialty      String
-  status         String
+  status         ReporterStatus @default(ACTIVE)
   entry_date     DateTime
   departure_date DateTime?
 
@@ -74,19 +87,26 @@ model Reporter {
   @@map("reporters")
 }
 
+enum PhotographerStatus {
+  ACTIVE
+  INACTIVE
+  VACATION
+  PAUSED
+}
+
 model Photographer {
   avatar         String?
-  id             String    @id
+  id             String             @id
   name           String
   email          String
   phone          String?
   cpf            String
   specialty      String
-  status         String
+  status         PhotographerStatus @default(ACTIVE)
   entry_date     DateTime
   departure_date DateTime?
-  created_at     DateTime  @default(now())
-  updated_at     DateTime  @updatedAt
+  created_at     DateTime           @default(now())
+  updated_at     DateTime           @updatedAt
 
   @@map("photographers")
 }

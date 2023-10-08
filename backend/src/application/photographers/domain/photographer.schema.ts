@@ -1,4 +1,3 @@
-import { Phone } from '@/core/domain/phone'
 import CPF from 'cpf'
 import { z } from 'zod'
 
@@ -18,7 +17,10 @@ export const PhotographerSchema = z.object({
     message: 'Invalid CPF',
   }),
   specialty: z.string().min(2).max(64),
-  status: z.nativeEnum(PhotographerStatus).nullish(),
+  status: z
+    .nativeEnum(PhotographerStatus)
+    .default(PhotographerStatus.ACTIVE)
+    .nullish(),
   entryDate: z.coerce.date(),
   departureDate: z.coerce.date().nullish(),
 })

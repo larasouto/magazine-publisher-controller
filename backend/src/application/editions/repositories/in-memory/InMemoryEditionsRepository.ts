@@ -4,7 +4,7 @@ import { IEditionRepository } from '../interfaces/IEditionRepository'
 export class InMemoryEditionsRepository implements IEditionRepository {
   constructor(public editions: Edition[] = []) {}
 
-  async findById(id: string): Promise<Edition> {
+  async findById(id: string): Promise<Edition | null> {
     const edition = this.editions.find((edition) => edition.id === id)
 
     if (!edition) {

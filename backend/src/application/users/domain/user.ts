@@ -10,7 +10,7 @@ export class User extends Entity<UserProps> {
   }
 
   static create(props: UserProps, id?: string): Either<Error, User> {
-    const result = UserSchema.safeParse(props) as ZodValidate<UserProps>
+    const result = UserSchema.safeParse(props)
 
     if (!result.success) {
       return left(new ZodValidationError(result.error))

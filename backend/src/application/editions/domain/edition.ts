@@ -10,7 +10,7 @@ export class Edition extends Entity<EditionProps> {
   }
 
   static create(props: EditionProps, id?: string): Either<Error, Edition> {
-    const result = EditionSchema.safeParse(props) as ZodValidate<EditionProps>
+    const result = EditionSchema.safeParse(props)
 
     if (!result.success) {
       return left(new ZodValidationError(result.error))

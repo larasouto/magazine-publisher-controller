@@ -6,10 +6,8 @@ export class InMemoryMagazinesRepository implements IMagazineRepository {
 
   async findById(id: string): Promise<Magazine | null> {
     const magazine = this.magazines.find((magazine) => magazine.id === id)
-    if (!magazine) {
-      return null
-    }
-    return magazine
+
+    return magazine ?? null
   }
 
   async create(magazine: Magazine): Promise<void> {

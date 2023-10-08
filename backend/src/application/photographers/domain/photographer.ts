@@ -13,9 +13,7 @@ export class Photographer extends Entity<PhotographerProps> {
     props: PhotographerProps,
     id?: string,
   ): Either<Error, Photographer> {
-    const result = PhotographerSchema.safeParse(
-      props,
-    ) as ZodValidate<PhotographerProps>
+    const result = PhotographerSchema.safeParse(props)
 
     if (!result.success) {
       return left(new ZodValidationError(result.error))

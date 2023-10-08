@@ -4,23 +4,20 @@ import { MapperError } from '@/core/errors/MapperErrors'
 
 export class CategoryMapper {
   static toDomain(raw: PersistenceCategory) {
-    const categoryOrError = Category.create(
-      {
+    const category: Pick<Category, 'props'> = {
+      props: {
         name: raw.name,
         description: raw.description,
       },
-      raw.id,
-    )
+    }
+
+    const categoryOrError = Category.create(category.props, raw.id)
 
     if (categoryOrError.isLeft()) {
       throw new MapperError(categoryOrError.value.message)
     }
 
-    if (categoryOrError.isRight()) {
-      return categoryOrError.value
-    }
-
-    return null
+    return categoryOrError.value
   }
 
   static async toPersistence(category: Category) {

@@ -4,7 +4,7 @@ import { ICategoryRepository } from '../interfaces/ICategoryRepository'
 export class InMemoryCategoriesRepository implements ICategoryRepository {
   constructor(public categories: Category[] = []) {}
 
-  async findById(id: string): Promise<Category> {
+  async findById(id: string): Promise<Category | null> {
     const category = this.categories.find((category) => category.id === id)
 
     if (!category) {

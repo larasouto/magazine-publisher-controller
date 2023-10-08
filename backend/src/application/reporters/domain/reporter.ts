@@ -10,7 +10,7 @@ export class Reporter extends Entity<ReporterProps> {
   }
 
   static create(props: ReporterProps, id?: string): Either<Error, Reporter> {
-    const result = ReporterSchema.safeParse(props) as ZodValidate<ReporterProps>
+    const result = ReporterSchema.safeParse(props)
 
     if (!result.success) {
       return left(new ZodValidationError(result.error))

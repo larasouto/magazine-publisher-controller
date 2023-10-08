@@ -45,11 +45,11 @@ export class PrismaMagazinesRepository implements IMagazineRepository {
     })
   }
 
-  async list(): Promise<any[]> {
+  async list(): Promise<Magazine[]> {
     const magazines = await prismaClient.magazine.findMany()
     if (!magazines) {
       return []
     }
-    return magazines?.map((magazine) => MagazineMapper.toDomain(magazine))
+    return magazines.map((magazine) => MagazineMapper.toDomain(magazine))
   }
 }

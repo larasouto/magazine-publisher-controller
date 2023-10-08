@@ -7,22 +7,24 @@ import { afterAll, describe, expect, test } from 'vitest'
 
 describe('Create theme (end-to-end)', () => {
   afterAll(async () => {
-    await prismaClient.theme.deleteMany()
+    await prismaClient.theme.deleteMany({
+      where: { name: 'test' },
+    })
   })
 
   test('should be able to create a theme', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const data: any = {
-      name: 'theme-name',
-      description: 'theme-description',
+      name: 'test-theme-name',
+      description: 'test-theme-description',
     }
 
     const response = await request(app)
       .post('/api/magazines/themes/new')
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
-    console.log(response.body)
+
     expect(response.status).toBe(StatusCodes.CREATED)
     expect(response.body).toHaveProperty('message')
   })
@@ -31,7 +33,7 @@ describe('Create theme (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const data: any = {
-      name: 'theme-name',
+      name: 'test-theme-name',
     }
 
     const response = await request(app)

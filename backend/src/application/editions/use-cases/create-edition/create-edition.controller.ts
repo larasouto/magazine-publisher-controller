@@ -3,6 +3,7 @@ import { HttpResponse, clientError, created } from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
 import { t } from 'i18next'
 import { CreateEdition } from './create-edition'
+import { Subtitle } from '@/application/subtitles/domain/subtitle'
 
 type CreateEditionControllerRequest = {
   number: number
@@ -13,8 +14,8 @@ type CreateEditionControllerRequest = {
   year: number
   publicationDate: Date
   numberOfCopies: number
+  numberOfPages: number
   magazineId: string
-  subtitles: string[]
 }
 
 export class CreateEditionController implements Controller {
@@ -29,8 +30,6 @@ export class CreateEditionController implements Controller {
     if (validated.isLeft()) {
       return clientError(validated.value)
     }
-
-    console.log(request)
 
     const result = await this.createEdition.execute(request)
 

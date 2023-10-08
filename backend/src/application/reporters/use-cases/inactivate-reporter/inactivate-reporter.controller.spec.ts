@@ -7,6 +7,7 @@ import { v4 as uuid } from 'uuid'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { IReporterRepository } from '../../repositories/interfaces/IReporterRepository'
 import { PrismaReportersRepository } from '../../repositories/prisma/PrismaReportersRepository'
+import { ReporterStatus } from '@prisma/client'
 
 let reporterRepository: IReporterRepository
 
@@ -18,7 +19,7 @@ describe('Inactivate a reporter (end-to-end)', () => {
     phone: '(54) 93280-4744',
     cpf: '28791581338',
     specialty: 'test-specialty-photographer',
-    status: 'ACTIVE',
+    status: ReporterStatus.ACTIVE,
     entry_date: new Date(),
     departure_date: null,
   }
@@ -47,7 +48,7 @@ describe('Inactivate a reporter (end-to-end)', () => {
     expect(response.status).toBe(StatusCodes.OK)
 
     const reporter = await reporterRepository.findById(create.id)
-    expect(reporter.props.status).toBe('INACTIVE')
+    expect(reporter?.props.status).toBe('INACTIVE')
   })
 
   test('should not be able to inactivate a non existing reporter', async () => {

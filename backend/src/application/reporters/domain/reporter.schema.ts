@@ -22,7 +22,7 @@ export const ReporterSchema = z.object({
     message: 'Invalid CPF',
   }),
   specialty: z.string().min(2).max(64),
-  status: z.nativeEnum(ReporterStatus).nullish(),
+  status: z.nativeEnum(ReporterStatus).default(ReporterStatus.ACTIVE),
   entryDate: z.coerce.date(),
   departureDate: z.coerce.date().nullish(),
 })

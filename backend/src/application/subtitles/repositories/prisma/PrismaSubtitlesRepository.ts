@@ -45,11 +45,8 @@ export class PrismaSubtitlesRepository implements ISubtitleRepository {
     })
   }
 
-  async list(): Promise<any[]> {
+  async list(): Promise<Subtitle[]> {
     const subtitles = await prismaClient.subtitle.findMany()
-    if (!subtitles) {
-      return []
-    }
     return subtitles?.map((subtitle) => SubtitleMapper.toDomain(subtitle))
   }
 }

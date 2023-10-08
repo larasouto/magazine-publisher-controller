@@ -20,9 +20,7 @@ export class PrismaEditionsRepository implements IEditionRepository {
     const data = await EditionMapper.toPersistence(edition)
 
     await prismaClient.edition.create({
-      data: {
-        ...data,
-      },
+      data,
     })
   }
 

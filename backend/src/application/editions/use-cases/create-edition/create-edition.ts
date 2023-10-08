@@ -11,6 +11,7 @@ type CreateEditionRequest = {
   year: number
   publicationDate: Date
   numberOfCopies: number
+  numberOfPages: number
   magazineId: string
 }
 
