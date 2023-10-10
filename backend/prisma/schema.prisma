@@ -148,3 +148,11 @@ model Edition {
 
   @@map("editions")
 }
+
+model Graphics {
+  id      String @id
+  name    String
+  address String
+
+  @@map("graphics")
+}
