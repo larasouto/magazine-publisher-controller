@@ -1,5 +1,5 @@
 import { prismaClient } from '@/infra/prisma/client'
-import { Graphics } from '@prisma/client'
+import { Graphics } from '../../domain/graphics'
 import { IGraphicsRepository } from '../Interfaces/IGraphicsRepository'
 import { GraphicsMapper } from '../../mappers/graphics.mapper'
 
@@ -16,25 +16,16 @@ export class PrismaGraphicsRepository implements IGraphicsRepository {
     return GraphicsMapper.toDomain(graphics)
   }
 
-  async create(graphics: Edition): Promise<void> {
+  async create(graphics: Graphics): Promise<void> {
     const data = await GraphicsMapper.toPersistence(graphics)
-
     await prismaClient.graphics.create({
-      data: {
-        ...data,
-      },
+      data,
     })
   }
 
   async delete(id: string): Promise<void> {
     await prismaClient.graphics.delete({
       where: { id },
-    })
-  }
-
-  async deleteMany(ids: string[]): Promise<void> {
-    await prismaClient.graphics.deleteMany({
-      where: { id: { in: ids } },
     })
   }
 
@@ -47,8 +38,14 @@ export class PrismaGraphicsRepository implements IGraphicsRepository {
     })
   }
 
-  async list(): Promise<(Graphics | null)[]> {
+  async list(): Promise<any[]> {
     const graphicss = await prismaClient.graphics.findMany()
-    return graphicss.map(GraphicsMapper.toDomain)
+    return graphicss?.map(GraphicsMapper.toDomain) ?? []
+  }
+
+  async deleteMany(ids: string[]): Promise<void> {
+    await prismaClient.graphics.deleteMany({
+      where: { id: { in: ids } },
+    })
   }
 }

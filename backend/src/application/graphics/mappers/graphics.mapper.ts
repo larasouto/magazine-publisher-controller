@@ -7,7 +7,7 @@ export class GraphicsMapper {
     const graphics: Pick<Graphics, 'props'> = {
       props: {
         name: raw.name,
-        addrees: raw.address,
+        address: raw.address,
       },
     }
 
@@ -17,18 +17,14 @@ export class GraphicsMapper {
       throw new MapperError(graphicsOrError.value.message)
     }
 
-    if (graphicsOrError.isRight()) {
-      return graphicsOrError.value
-    }
-
-    return null
+    return graphicsOrError.value
   }
 
   static async toPersistence(graphics: Graphics) {
     return {
       id: graphics.id,
       name: graphics.props.name,
-      addrees: graphics.props.addrees,
+      address: graphics.props.address,
     }
   }
 }
