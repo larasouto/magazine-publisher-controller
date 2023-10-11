@@ -5,7 +5,8 @@ import { MutationMethods, useMutate } from './useMutate'
 
 type FetchProps = {
   baseUrl: string
-  invalidateQuery: string[]
+  query: (string | undefined)[]
+  invalidateQuery?: boolean
   fetch?: {
     id?: string
     get?: boolean
@@ -27,6 +28,7 @@ type GenericMutationProps = {
 
 export const useFetch = <T>({
   baseUrl,
+  query,
   invalidateQuery,
   fetch,
   redirectMethod
@@ -41,7 +43,7 @@ export const useFetch = <T>({
    * @returns Promise com o resultado da requisição.
    */
   const get = useQuery<T>(
-    invalidateQuery,
+    query,
     async () => {
       /**
        * Se não houver um id, possivelmente está entrando na
@@ -66,7 +68,7 @@ export const useFetch = <T>({
    * @returns Promise com o resultado da requisição.
    */
   const list = useQuery<T>(
-    invalidateQuery,
+    query,
     async () => {
       return await api.get(`${baseUrl}`).then((res) => res.data.dto)
     },
@@ -88,7 +90,10 @@ export const useFetch = <T>({
     },
     {
       onSuccess: async () => {
-        await queryClient.invalidateQueries(invalidateQuery)
+        if (invalidateQuery) {
+          await queryClient.invalidateQueries(query)
+        }
+
         navigate(`${redirectMethod?.create ?? baseUrl}`)
       }
     }
@@ -107,7 +112,10 @@ export const useFetch = <T>({
     },
     {
       onSuccess: async () => {
-        await queryClient.invalidateQueries(invalidateQuery)
+        if (invalidateQuery) {
+          await queryClient.invalidateQueries(query)
+        }
+
         navigate(`${redirectMethod?.update ?? baseUrl}`)
       }
     }
@@ -126,7 +134,9 @@ export const useFetch = <T>({
     },
     {
       onSuccess: async () => {
-        await queryClient.invalidateQueries(invalidateQuery)
+        if (invalidateQuery) {
+          await queryClient.invalidateQueries(query)
+        }
 
         if (redirectMethod?.update) {
           navigate(`${redirectMethod?.update}`)
@@ -147,7 +157,10 @@ export const useFetch = <T>({
     },
     {
       onSuccess: async () => {
-        await queryClient.invalidateQueries(invalidateQuery)
+        if (invalidateQuery) {
+          await queryClient.invalidateQueries(query)
+        }
+
         navigate(`${redirectMethod?.generic ?? baseUrl}`)
       }
     }
