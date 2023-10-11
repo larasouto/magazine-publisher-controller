@@ -1,39 +1,36 @@
-import { Loading } from '@/components/Loading'
-import { useCategory } from '@/hooks/useCategory'
+import { useFetch } from '@/hooks/useFetch'
 import { PageLayout } from '@/layout/PageLayout'
 import { routes } from '@/routes/routes'
 import { useTranslation } from 'react-i18next'
-import { useQuery } from 'react-query'
+import { useParams } from 'react-router-dom'
 import { CategoriesForm } from './categories.form'
 import { CategoryFormWithId } from './categories.schema'
 
 export const CategoriesPage = () => {
   const { t } = useTranslation('categories')
-  const { id, getData } = useCategory()
-
+  const { id } = useParams()
   const title = id ? t('page.edit') : t('page.new')
-  const breadcrumb = [
-    { label: t('page.title'), link: routes.categories.index },
-    { label: title }
-  ]
 
-  const { data, isLoading } = useQuery<CategoryFormWithId>(
-    ['category', 'id'],
-    getData,
-    { enabled: !!id }
-  )
-
-  if (isLoading) {
-    return <Loading />
-  }
+  const { get } = useFetch<CategoryFormWithId>({
+    baseUrl: routes.categories.index,
+    query: ['categories'],
+    fetch: {
+      id: id,
+      get: true
+    }
+  })
 
   return (
     <PageLayout
       title={title}
-      breadcrumb={breadcrumb}
-      imageSrc="/banner-categories.jpg"
+      imageSrc="/banner.jpg"
+      isLoading={get.isLoading}
+      breadcrumb={[
+        { label: t('page.title'), link: routes.categories.index },
+        { label: title }
+      ]}
     >
-      <CategoriesForm data={data} />
+      <CategoriesForm data={get.data} />
     </PageLayout>
   )
 }

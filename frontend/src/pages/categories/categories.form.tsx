@@ -1,6 +1,7 @@
 import { SubmitButton } from '@/components/SubmitButton'
 import { GridLayout } from '@/components/layout/Grid'
-import { useCategory } from '@/hooks/useCategory'
+import { useFetch } from '@/hooks/useFetch'
+import { routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@nextui-org/react'
 import { useForm } from 'react-hook-form'
@@ -17,7 +18,14 @@ type CategoriesFormProps = {
 
 export const CategoriesForm = ({ data }: CategoriesFormProps) => {
   const { t } = useTranslation('categories')
-  const { create, update } = useCategory()
+
+  const { create, update } = useFetch<CategoryForm>({
+    baseUrl: routes.categories.index,
+    query: ['categories'],
+    fetch: {
+      id: data?.id
+    }
+  })
 
   const form = useForm<CategoryForm>({
     mode: 'all',
@@ -27,7 +35,7 @@ export const CategoriesForm = ({ data }: CategoriesFormProps) => {
 
   const onSubmit = async (form: CategoryForm) => {
     if (data) {
-      await update.mutateAsync({ id: data.id, ...form })
+      await update.mutateAsync(form)
       return
     }
     await create.mutateAsync(form)

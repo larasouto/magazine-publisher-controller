@@ -1,6 +1,6 @@
 import { AlertModal } from '@/components/modal/AlertModal'
-import { useCategory } from '@/hooks/useCategory'
-import { routes } from '@/routes/routes'
+import { useFetch } from '@/hooks/useFetch'
+import { backend, routes } from '@/routes/routes'
 import { replaceParams } from '@/utils/replace-params'
 import {
   Button,
@@ -14,6 +14,7 @@ import {
 } from '@nextui-org/react'
 import { Copy, FileSignature, MoreHorizontal, Trash } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { useQueryClient } from 'react-query'
 import { CategoryColumns } from './categories.columns'
 
 type CategoriesActionsProps = {
@@ -22,11 +23,18 @@ type CategoriesActionsProps = {
 
 export const CategoriesActions = ({ row }: CategoriesActionsProps) => {
   const { t } = useTranslation()
-  const { remove } = useCategory()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const queryClient = useQueryClient()
+
+  const { remove } = useFetch<CategoryColumns>({
+    baseUrl: backend.categories.baseUrl,
+    query: ['categories'],
+    invalidateQuery: true
+  })
 
   const handleDelete = async () => {
-    await remove.mutateAsync(row.id)
+    await remove.mutateAsync(row)
+    await queryClient.invalidateQueries('categories')
   }
 
   return (
