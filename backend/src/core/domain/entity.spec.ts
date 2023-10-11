@@ -18,10 +18,12 @@ describe('Entity', () => {
     const sutOne = new CustomEntity({}, 'test-id')
     const sutTwo = new CustomEntity({}, 'test-id')
 
+    expect(sutOne.equals(sutTwo)).toBe(true)
+    expect(sutOne.equals(sutOne)).toBe(true)
+
     class AnotherEntity {}
     const sutThree = new AnotherEntity()
 
-    expect(sutOne.equals(sutTwo)).toBe(true)
     expect(sutOne.equals(sutThree as any)).toBe(false)
     expect(sutOne.equals(undefined)).toBe(false)
     expect(sutOne.equals(null)).toBe(false)

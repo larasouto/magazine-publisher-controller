@@ -24,4 +24,11 @@ export class Entity<T> {
 
     return this.id === object.id
   }
+
+  public toResponseBody() {
+    return {
+      id: this._id,
+      ...this.props,
+    }
+  }
 }
