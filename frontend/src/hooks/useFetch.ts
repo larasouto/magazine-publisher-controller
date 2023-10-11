@@ -5,7 +5,7 @@ import { MutationMethods, useMutate } from './useMutate'
 
 type FetchProps = {
   baseUrl: string
-  invalidateQuery?: string[]
+  invalidateQuery: string[]
   fetch?: {
     id?: string
     get?: boolean
@@ -41,7 +41,7 @@ export const useFetch = <T>({
    * @returns Promise com o resultado da requisição.
    */
   const get = useQuery<T>(
-    [baseUrl, fetch?.id],
+    invalidateQuery,
     async () => {
       /**
        * Se não houver um id, possivelmente está entrando na
@@ -66,7 +66,7 @@ export const useFetch = <T>({
    * @returns Promise com o resultado da requisição.
    */
   const list = useQuery<T>(
-    [baseUrl],
+    invalidateQuery,
     async () => {
       return await api.get(`${baseUrl}`).then((res) => res.data.dto)
     },

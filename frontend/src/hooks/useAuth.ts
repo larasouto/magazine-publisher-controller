@@ -1,33 +1,28 @@
 import { HttpResponse } from '@/@types/HttpResponse'
-import { HttpResponseError } from '@/@types/HttpResponseError'
 import { SignIn } from '@/pages/auth/sign-in/sign-in.schema'
 import { SignUp } from '@/pages/auth/sign-up/sign-up.schema'
 import { routes } from '@/routes/routes'
-import { api } from '@/services/api'
 import { useMutation } from 'react-query'
 import { useNavigate } from 'react-router-dom'
-import { useAdaptResponse } from './useAdaptResponse'
+import { useMutate } from './useMutate'
 
 type HttpSignInResponse = HttpResponse & {
   token: string
 }
 
 export const useAuth = () => {
-  const { httpResponseHandle, httpResponseError } = useAdaptResponse()
   const navigate = useNavigate()
+  const { mutate } = useMutate()
 
   const signIn = useMutation(
     async (data: SignIn) => {
-      return await api.post('/auth/sign-in', data).then((res) => res.data)
+      const url = `/auth/sign-in`
+      return mutate(url, data, 'post')
     },
     {
       onSuccess: (response: HttpSignInResponse) => {
-        httpResponseHandle(response)
         localStorage.setItem('token', response.token)
         navigate(routes.home.index)
-      },
-      onError: (error: HttpResponseError) => {
-        httpResponseError(error)
       }
     }
   )
@@ -39,15 +34,12 @@ export const useAuth = () => {
 
   const signUp = useMutation(
     async (data: SignUp) => {
-      return await api.post('/auth/sign-up', data).then((res) => res.data)
+      const url = `/auth/sign-up`
+      return mutate(url, data, 'post')
     },
     {
-      onSuccess: (response: HttpResponse) => {
-        httpResponseHandle(response)
+      onSuccess: () => {
         navigate(routes.auth.sign_in.index)
-      },
-      onError: (error: HttpResponseError) => {
-        httpResponseError(error)
       }
     }
   )
