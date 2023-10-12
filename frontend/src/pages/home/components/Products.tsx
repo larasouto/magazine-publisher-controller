@@ -1,18 +1,25 @@
 import { Loading } from '@/components/Loading'
-import { useEdition } from '@/hooks/useEditions'
+import { api } from '@/services/api'
 import { CartStore, Item } from '@/stores/useCartStore'
 import { Button, Image } from '@nextui-org/react'
 import i18next from 'i18next'
 import { ShoppingCart } from 'lucide-react'
+import { ComponentProps } from 'react'
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 
-export const Products = () => {
-  const { list } = useEdition()
+type ProductsProps = ComponentProps<'section'>
+
+export const Products = ({ ...props }: ProductsProps) => {
   const { t } = useTranslation('cart')
 
-  const { data, isLoading } = useQuery<{ dto: Item[] }>(['products'], list)
+  const { data, isLoading } = useQuery<{ dto: Item[] }>(
+    ['products'],
+    async () => {
+      return await api.get('/editions').then((res) => res.data)
+    }
+  )
 
   if (isLoading) {
     return <Loading />
@@ -20,9 +27,9 @@ export const Products = () => {
 
   return (
     <>
-      <section>
+      <section {...props}>
         <h1 className="text-3xl font-bold mb-7 mt-2">Magazines for you</h1>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4">
           {data?.dto?.map((product) => (
             <div key={product.id} className="bg-default-100 rounded-lg group">
               <Image
