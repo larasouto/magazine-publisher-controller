@@ -7,7 +7,7 @@ import { CartItems } from './sections/CartItems'
 import { CartTopContent } from './sections/CartTopContent'
 
 export const Cart = () => {
-  const isOpen = useCartStore((state) => state.isOpen)
+  const [isOpen, close] = useCartStore((state) => [state.isOpen, state.close])
 
   useEffect(() => {
     switch (isOpen) {
