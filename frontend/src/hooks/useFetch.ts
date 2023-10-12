@@ -12,12 +12,7 @@ type FetchProps = {
     get?: boolean
     list?: boolean
   }
-  redirectMethod?: {
-    create?: string
-    update?: string
-    remove?: string
-    generic?: string
-  }
+  redirectTo?: string
 }
 
 type GenericMutationProps = {
@@ -26,12 +21,21 @@ type GenericMutationProps = {
   method: Omit<MutationMethods, 'get'>
 }
 
+/**
+ * Hook para realizar requisições e mutações.
+ *
+ * @param baseUrl Rota base para a requisição.
+ * @param query Query para invalidar o cache.
+ * @param invalidateQuery Se deve invalidar o cache.
+ * @param fetch Objeto para determinar se o 'get' ou 'list' deverão ser habilitados.
+ * @param redirectTo Rota para redirecionar após a requisição.
+ */
 export const useFetch = <T>({
   baseUrl,
   query,
   invalidateQuery,
   fetch,
-  redirectMethod
+  redirectTo
 }: FetchProps) => {
   const { mutate } = useMutate()
   const queryClient = useQueryClient()
@@ -94,7 +98,7 @@ export const useFetch = <T>({
           await queryClient.invalidateQueries(query)
         }
 
-        navigate(`${redirectMethod?.create ?? baseUrl}`)
+        navigate(`${redirectTo ?? baseUrl}`)
       }
     }
   )
@@ -116,7 +120,7 @@ export const useFetch = <T>({
           await queryClient.invalidateQueries(query)
         }
 
-        navigate(`${redirectMethod?.update ?? baseUrl}`)
+        navigate(`${redirectTo ?? baseUrl}`)
       }
     }
   )
@@ -138,8 +142,8 @@ export const useFetch = <T>({
           await queryClient.invalidateQueries(query)
         }
 
-        if (redirectMethod?.update) {
-          navigate(`${redirectMethod?.update}`)
+        if (redirectTo) {
+          navigate(`${redirectTo}`)
         }
       }
     }
@@ -161,7 +165,7 @@ export const useFetch = <T>({
           await queryClient.invalidateQueries(query)
         }
 
-        navigate(`${redirectMethod?.generic ?? baseUrl}`)
+        navigate(`${redirectTo ?? baseUrl}`)
       }
     }
   )
