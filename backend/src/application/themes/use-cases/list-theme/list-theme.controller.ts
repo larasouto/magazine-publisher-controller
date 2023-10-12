@@ -8,6 +8,6 @@ export class ListThemeController implements Controller {
   async handle(): Promise<HttpResponse> {
     const result = await this.listThemes.execute()
 
-    return ok({ dto: result })
+    return ok({ dto: result.map((theme) => theme?.toResponseBody()) })
   }
 }
