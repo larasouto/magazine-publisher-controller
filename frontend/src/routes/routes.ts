@@ -46,6 +46,28 @@ export const routes = {
   },
   editions: {
     index: '/editions',
-    new: '/editions/new'
+    new: '/editions/new',
+    edit: '/editions/:id/edit'
+  }
+}
+
+export const backend = {
+  magazines: {
+    baseUrl: '/magazines'
+  },
+  categories: {
+    baseUrl: '/categories'
+  },
+  themes: {
+    baseUrl: '/magazines/themes'
+  },
+  reporters: {
+    baseUrl: '/reporters'
+  },
+  editions: {
+    baseUrl: '/editions'
+  },
+  photographers: {
+    baseUrl: '/photographers'
   }
 }

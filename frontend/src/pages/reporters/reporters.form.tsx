@@ -1,6 +1,8 @@
 import { SubmitButton } from '@/components/SubmitButton'
-import { GridLayout } from '@/components/layout/Grid'
-import { useReporter } from '@/hooks/useReporter'
+import { GridLayout } from '@/components/ui/Grid'
+import { DatePicker } from '@/components/ui/date-picker/DatePicker'
+import { useFetch } from '@/hooks/useFetch'
+import { backend } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input, Select, SelectItem } from '@nextui-org/react'
 import { InputMask } from '@react-input/mask'
@@ -19,7 +21,14 @@ type CategoriesFormProps = {
 
 export const ReportersForm = ({ data }: CategoriesFormProps) => {
   const { t } = useTranslation('reporters')
-  const { create, update } = useReporter()
+
+  const { create, update } = useFetch<ReporterForm>({
+    baseUrl: backend.reporters.baseUrl,
+    query: ['reporters'],
+    fetch: {
+      id: data?.id
+    }
+  })
 
   const form = useForm<ReporterForm>({
     mode: 'all',
@@ -29,7 +38,7 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
 
   const onSubmit = async (form: ReporterForm) => {
     if (data) {
-      await update.mutateAsync({ id: data.id, ...form })
+      await update.mutateAsync(form)
       return
     }
     await create.mutateAsync(form)
@@ -124,17 +133,17 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
           <Controller
             control={form.control}
             name="entryDate"
-            render={({ field: { value, ref, onChange, onBlur } }) => (
-              <Input
-                type="date"
-                ref={ref}
+            render={({ field }) => (
+              <DatePicker
+                field={field}
                 label={t('form.entry_date.label')}
-                placeholder={t('form.entry_date.placeholder')}
-                errorMessage={form.formState.errors.entryDate?.message}
-                labelPlacement="outside"
-                value={value?.toString().split('T')[0]}
-                onChange={onChange}
-                onBlur={onBlur}
+                mode="single"
+                selected={field.value}
+                onSelect={field.onChange}
+                disabled={(date) =>
+                  date > new Date() || date < new Date('1900-01-01')
+                }
+                initialFocus
                 isRequired
               />
             )}
@@ -145,19 +154,18 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
             <Controller
               control={form.control}
               name="departureDate"
-              render={({ field: { value, ref, onChange, onBlur } }) => (
-                <Input
-                  type="date"
-                  ref={ref}
+              render={({ field }) => (
+                <DatePicker
+                  field={field}
                   label={t('form.departure_date.label')}
-                  placeholder={t('form.departure_date.placeholder')}
-                  errorMessage={form.formState.errors.departureDate?.message}
-                  labelPlacement="outside"
-                  value={value?.toString().split('T')[0]}
-                  onChange={onChange}
-                  onBlur={onBlur}
+                  mode="single"
+                  selected={field.value ?? undefined}
+                  onSelect={field.onChange}
+                  disabled={(date) =>
+                    date > new Date() || date < new Date('1900-01-01')
+                  }
+                  initialFocus
                   isRequired
-                  isClearable
                 />
               )}
             />

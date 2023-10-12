@@ -34,6 +34,6 @@ export class GetMagazineController implements Controller {
       }
     }
 
-    return ok({ dto: result.value })
+    return ok({ dto: result.value.toResponseBody() })
   }
 }

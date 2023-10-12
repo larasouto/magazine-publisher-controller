@@ -3,13 +3,23 @@ import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
-  DropdownTrigger
+  DropdownTrigger,
+  cn
 } from '@nextui-org/react'
 import { ChevronDown } from 'lucide-react'
+import { ComponentProps } from 'react'
 
-export const Filters = () => {
+type FilterProps = ComponentProps<'section'>
+
+export const Filters = ({ className, ...props }: FilterProps) => {
   return (
-    <section className="flex gap-2 justify-between">
+    <section
+      className={cn(
+        'flex gap-2 justify-between overflow-x-auto md:overflow-x-hidden',
+        className
+      )}
+      {...props}
+    >
       <div className="flex gap-2">
         <Dropdown placement="bottom-end">
           <DropdownTrigger>
@@ -67,7 +77,7 @@ export const Filters = () => {
       <Dropdown placement="bottom-end">
         <DropdownTrigger>
           <Button
-            className="rounded-full h-7 bg-default-200 dark:bg-default-100"
+            className="rounded-full h-7 bg-default-200 dark:bg-default-100 min-w-max"
             variant="bordered"
             endContent={<ChevronDown className="w-5 h-5" />}
           >

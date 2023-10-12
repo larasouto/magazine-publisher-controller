@@ -1,5 +1,5 @@
-import { useMagazine } from '@/hooks/useMagazine'
-import { routes } from '@/routes/routes'
+import { useFetch } from '@/hooks/useFetch'
+import { backend, routes } from '@/routes/routes'
 import { replaceParams } from '@/utils/replace-params'
 import {
   Button,
@@ -20,10 +20,15 @@ type MagazineActionsProps = {
 
 export const MagazineActions = ({ row }: MagazineActionsProps) => {
   const { t } = useTranslation()
-  const { remove } = useMagazine()
+
+  const { remove: inactivate } = useFetch<MagazineColumns>({
+    baseUrl: backend.magazines.baseUrl,
+    query: ['magazines'],
+    invalidateQuery: true
+  })
 
   const handleDelete = async () => {
-    await remove.mutateAsync(row.id)
+    await inactivate.mutateAsync(row)
   }
 
   return (

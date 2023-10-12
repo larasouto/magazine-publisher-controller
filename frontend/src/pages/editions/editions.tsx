@@ -1,36 +1,36 @@
-import { Loading } from '@/components/Loading'
-import { useEdition } from '@/hooks/useEditions'
+import { useFetch } from '@/hooks/useFetch'
 import { PageLayout } from '@/layout/PageLayout'
 import { routes } from '@/routes/routes'
 import { useTranslation } from 'react-i18next'
-import { useQuery } from 'react-query'
-import { MagazinesForm } from './editions.form'
+import { useParams } from 'react-router-dom'
+import { EditionsForm } from './editions.form'
+import { EditionFormWithId } from './editions.schema'
 
 export const EditionsPage = () => {
   const { t } = useTranslation('editions')
-  const { id, getData } = useEdition()
-
+  const { id } = useParams()
   const title = id ? t('page.edit') : t('page.new')
-  const breadcrumb = [
-    { label: t('page.title'), link: routes.reporters.index },
-    { label: title }
-  ]
 
-  const { data, isLoading } = useQuery(['edition', 'id'], getData, {
-    enabled: !!id
+  const { get } = useFetch<EditionFormWithId>({
+    baseUrl: routes.editions.index,
+    query: ['editions'],
+    fetch: {
+      id,
+      get: true
+    }
   })
-
-  if (isLoading) {
-    return <Loading />
-  }
 
   return (
     <PageLayout
       title={title}
-      breadcrumb={breadcrumb}
-      imageSrc="/banner-categories.jpg"
+      imageSrc="/banner.jpg"
+      isLoading={get.isLoading}
+      breadcrumb={[
+        { label: t('page.title'), link: routes.editions.index },
+        { label: title }
+      ]}
     >
-      <MagazinesForm data={data} />
+      <EditionsForm data={get.data} />
     </PageLayout>
   )
 }

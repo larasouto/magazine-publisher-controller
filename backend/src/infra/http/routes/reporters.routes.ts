@@ -16,7 +16,7 @@ reporters.post('/new', adaptRoute(makeCreateReportersController()))
 reporters.put('/:reporterId/edit', adaptRoute(makeEditReportersController()))
 reporters.get('/:reporterId', adaptRoute(makeGetReporterController()))
 reporters.get('/', adaptRoute(makeListReportersController()))
-reporters.put(
-  '/:reporterId/inactivate',
+reporters.delete(
+  '/:reporterId',
   adaptRoute(makeInactivateReportersController()),
 )

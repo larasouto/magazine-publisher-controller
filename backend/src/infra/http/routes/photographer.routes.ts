@@ -22,7 +22,7 @@ photographers.get(
   adaptRoute(makeGetPhotographerController()),
 )
 photographers.get('/', adaptRoute(makeListPhotographersController()))
-photographers.put(
-  '/:photographerId/inactivate',
+photographers.delete(
+  '/:photographerId',
   adaptRoute(makeInactivatePhotographersController()),
 )
