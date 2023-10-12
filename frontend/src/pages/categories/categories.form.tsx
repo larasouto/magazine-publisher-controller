@@ -1,5 +1,5 @@
 import { SubmitButton } from '@/components/SubmitButton'
-import { GridLayout } from '@/components/layout/Grid'
+import { GridLayout } from '@/components/ui/Grid'
 import { useFetch } from '@/hooks/useFetch'
 import { routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'

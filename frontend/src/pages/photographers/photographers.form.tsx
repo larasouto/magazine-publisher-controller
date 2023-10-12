@@ -1,6 +1,8 @@
 import { SubmitButton } from '@/components/SubmitButton'
-import { GridLayout } from '@/components/layout/Grid'
-import { usePhotographer } from '@/hooks/usePhotographers'
+import { GridLayout } from '@/components/ui/Grid'
+import { DatePicker } from '@/components/ui/date-picker/DatePicker'
+import { useFetch } from '@/hooks/useFetch'
+import { backend } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input, Select, SelectItem } from '@nextui-org/react'
 import { InputMask } from '@react-input/mask'
@@ -19,7 +21,15 @@ type PhotographerFormProps = {
 
 export const PhotographersForm = ({ data }: PhotographerFormProps) => {
   const { t } = useTranslation('photographers')
-  const { create, update } = usePhotographer()
+
+  const { create, update } = useFetch<PhotographerForm>({
+    baseUrl: backend.photographers.baseUrl,
+    query: ['photographers'],
+    invalidateQuery: true,
+    fetch: {
+      id: data?.id
+    }
+  })
 
   const form = useForm<PhotographerForm>({
     mode: 'all',
@@ -29,7 +39,7 @@ export const PhotographersForm = ({ data }: PhotographerFormProps) => {
 
   const onSubmit = async (form: PhotographerForm) => {
     if (data) {
-      await update.mutateAsync({ id: data.id, ...form })
+      await update.mutateAsync(form)
       return
     }
     await create.mutateAsync(form)
@@ -41,10 +51,7 @@ export const PhotographersForm = ({ data }: PhotographerFormProps) => {
       className="flex flex-col gap-3"
       noValidate
     >
-      <GridLayout
-        cols="3"
-        className="grid-cols-1 gap-3 sm:grid-cols-[8rem_1fr]"
-      >
+      <GridLayout cols="3">
         <fieldset>
           <Input
             label={t('form.name.label')}
@@ -127,17 +134,18 @@ export const PhotographersForm = ({ data }: PhotographerFormProps) => {
           <Controller
             control={form.control}
             name="entryDate"
-            render={({ field: { value, ref, onChange, onBlur } }) => (
-              <Input
-                type="date"
-                ref={ref}
+            render={({ field }) => (
+              <DatePicker
+                field={field}
                 label={t('form.entry_date.label')}
-                placeholder={t('form.entry_date.placeholder')}
                 errorMessage={form.formState.errors.entryDate?.message}
-                labelPlacement="outside"
-                value={value?.toString().split('T')[0]}
-                onChange={onChange}
-                onBlur={onBlur}
+                mode="single"
+                selected={field.value}
+                onSelect={field.onChange}
+                disabled={(date) =>
+                  date > new Date() || date < new Date('1900-01-01')
+                }
+                initialFocus
                 isRequired
               />
             )}
@@ -148,19 +156,18 @@ export const PhotographersForm = ({ data }: PhotographerFormProps) => {
             <Controller
               control={form.control}
               name="departureDate"
-              render={({ field: { value, ref, onChange, onBlur } }) => (
-                <Input
-                  type="date"
-                  ref={ref}
+              render={({ field }) => (
+                <DatePicker
+                  field={field}
                   label={t('form.departure_date.label')}
-                  placeholder={t('form.departure_date.placeholder')}
-                  errorMessage={form.formState.errors.departureDate?.message}
-                  labelPlacement="outside"
-                  value={value?.toString().split('T')[0]}
-                  onChange={onChange}
-                  onBlur={onBlur}
+                  mode="single"
+                  selected={field.value ?? undefined}
+                  onSelect={field.onChange}
+                  disabled={(date) =>
+                    date > new Date() || date < new Date('1900-01-01')
+                  }
+                  initialFocus
                   isRequired
-                  isClearable
                 />
               )}
             />

@@ -1,45 +1,36 @@
-import { Loading } from '@/components/Loading'
-import { useTheme } from '@/hooks/useTheme'
+import { useFetch } from '@/hooks/useFetch'
 import { PageLayout } from '@/layout/PageLayout'
-import { routes } from '@/routes/routes'
+import { backend, routes } from '@/routes/routes'
 import { useTranslation } from 'react-i18next'
-import { useQuery } from 'react-query'
-import { useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { ThemesForm } from './themes.form'
 import { ThemesFormWithId } from './themes.schema'
 
 export const ThemesPage = () => {
   const { t } = useTranslation('themes')
-  const { id, getData } = useTheme()
-  const navigate = useNavigate()
-
+  const { id } = useParams()
   const title = id ? t('page.edit') : t('page.new')
-  const breadcrumb = [
-    { label: t('page.title'), link: routes.themes.index },
-    { label: title }
-  ]
 
-  const { data, isLoading, isError } = useQuery<ThemesFormWithId>(
-    ['theme', 'id'],
-    getData,
-    { enabled: !!id }
-  )
-
-  if (isLoading) {
-    return <Loading />
-  }
-
-  if (isError) {
-    navigate(routes.themes.index)
-  }
+  const { get } = useFetch<ThemesFormWithId>({
+    baseUrl: backend.themes.baseUrl,
+    query: ['themes'],
+    fetch: {
+      id,
+      get: true
+    }
+  })
 
   return (
     <PageLayout
       title={title}
-      breadcrumb={breadcrumb}
-      imageSrc="/banner-categories.jpg"
+      imageSrc="/banner.jpg"
+      isLoading={get.isLoading}
+      breadcrumb={[
+        { label: t('page.title'), link: routes.themes.index },
+        { label: title }
+      ]}
     >
-      <ThemesForm data={data} />
+      <ThemesForm data={get.data} />
     </PageLayout>
   )
 }

@@ -1,4 +1,4 @@
-import { AlertModal } from '@/components/modal/AlertModal'
+import { AlertModal } from '@/components/ui/AlertModal'
 import { useFetch } from '@/hooks/useFetch'
 import { backend, routes } from '@/routes/routes'
 import { replaceParams } from '@/utils/replace-params'
@@ -14,7 +14,6 @@ import {
 } from '@nextui-org/react'
 import { Copy, FileSignature, MoreHorizontal, Trash } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { useQueryClient } from 'react-query'
 import { CategoryColumns } from './categories.columns'
 
 type CategoriesActionsProps = {
@@ -24,7 +23,6 @@ type CategoriesActionsProps = {
 export const CategoriesActions = ({ row }: CategoriesActionsProps) => {
   const { t } = useTranslation()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
-  const queryClient = useQueryClient()
 
   const { remove } = useFetch<CategoryColumns>({
     baseUrl: backend.categories.baseUrl,
@@ -34,7 +32,6 @@ export const CategoriesActions = ({ row }: CategoriesActionsProps) => {
 
   const handleDelete = async () => {
     await remove.mutateAsync(row)
-    await queryClient.invalidateQueries('categories')
   }
 
   return (

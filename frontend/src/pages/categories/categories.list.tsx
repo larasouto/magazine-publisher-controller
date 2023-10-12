@@ -1,4 +1,4 @@
-import { DataTable } from '@/components/table/DataTable'
+import { DataTable } from '@/components/ui/table/DataTable'
 import { useFetch } from '@/hooks/useFetch'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
@@ -26,7 +26,7 @@ export const CategoryListPage = () => {
     >
       <DataTable
         columns={columns}
-        data={list.data ?? []}
+        data={list?.data ?? []}
         toolbarButtons={<CategoriesToolbar />}
       />
     </PageLayout>

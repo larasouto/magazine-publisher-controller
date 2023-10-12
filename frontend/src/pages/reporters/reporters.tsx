@@ -1,36 +1,37 @@
-import { Loading } from '@/components/Loading'
-import { useReporter } from '@/hooks/useReporter'
+import { useFetch } from '@/hooks/useFetch'
 import { PageLayout } from '@/layout/PageLayout'
-import { routes } from '@/routes/routes'
+import { backend, routes } from '@/routes/routes'
 import { useTranslation } from 'react-i18next'
-import { useQuery } from 'react-query'
+import { useParams } from 'react-router-dom'
 import { ReportersForm } from './reporters.form'
+import { ReporterFormWithId } from './reporters.schema'
 
 export const ReportersPage = () => {
   const { t } = useTranslation('reporters')
-  const { id, getData } = useReporter()
+  const { id } = useParams()
 
-  const title = id ? t('page.edit') : t('page.new')
-  const breadcrumb = [
-    { label: t('page.title'), link: routes.reporters.index },
-    { label: title }
-  ]
-
-  const { data, isLoading } = useQuery(['reporter', 'id'], getData, {
-    enabled: !!id
+  const { get } = useFetch<ReporterFormWithId>({
+    baseUrl: backend.reporters.baseUrl,
+    query: ['reporters'],
+    fetch: {
+      id,
+      get: true
+    }
   })
 
-  if (isLoading) {
-    return <Loading />
-  }
+  const title = id ? t('page.edit') : t('page.new')
 
   return (
     <PageLayout
       title={title}
-      breadcrumb={breadcrumb}
-      imageSrc="/banner-categories.jpg"
+      imageSrc="/banner.jpg"
+      isLoading={get.isLoading}
+      breadcrumb={[
+        { label: t('page.title'), link: routes.reporters.index },
+        { label: title }
+      ]}
     >
-      <ReportersForm data={data} />
+      <ReportersForm data={get.data} />
     </PageLayout>
   )
 }
