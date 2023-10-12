@@ -8,6 +8,6 @@ export class ListReportersController implements Controller {
   async handle(): Promise<HttpResponse> {
     const result = await this.listReporters.execute()
 
-    return ok({ dto: result })
+    return ok({ dto: result.map((reporter) => reporter.toResponseBody()) })
   }
 }
