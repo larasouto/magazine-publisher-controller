@@ -4,7 +4,7 @@ import { UserFactory } from '@/tests/factories/UserFactory'
 import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
 import { v4 as uuid } from 'uuid'
-import { afterAll, beforeAll, describe, expect, test } from 'vitest'
+import { beforeAll, describe, expect, test } from 'vitest'
 
 describe('Delete graphics (end-to-end)', () => {
   const create = {
@@ -32,10 +32,10 @@ describe('Delete graphics (end-to-end)', () => {
 
   test('should not be able to delete a non-existing graphics', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
-    const nonExistingThemeId = 'non-existing-id'
+    const nonExistingGraphicsId = 'non-existing-id'
 
     const response = await request(app)
-      .delete(`/api/magazines/graphics/${nonExistingThemeId}`)
+      .delete(`/api/magazines/graphics/${nonExistingGraphicsId}`)
       .auth(jwt.token, { type: 'bearer' })
 
     expect(response.status).toBe(StatusCodes.BAD_REQUEST)
