@@ -28,6 +28,7 @@ type DataTableProps<TData, TValue> = {
   data: TData[]
 } & {
   toolbarButtons?: React.ReactNode
+  fn?: (ids: string[]) => void
 }
 
 export const DataTable = <TData, TValue>({

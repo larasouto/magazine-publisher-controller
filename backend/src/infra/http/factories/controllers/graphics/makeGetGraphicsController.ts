@@ -1,6 +1,6 @@
 import { PrismaGraphicsRepository } from '@/application/graphics/repositories/Prisma/PrismaGraphicsRepository'
-import { GetGraphics } from '@/application/graphics/use-case/get-theme/get-graphics'
-import { GetGraphicsController } from '@/application/graphics/use-case/get-theme/get-graphics.controller'
+import { GetGraphics } from '@/application/graphics/use-case/get-graphics/get-graphics'
+import { GetGraphicsController } from '@/application/graphics/use-case/get-graphics/get-graphics.controller'
 import { Controller } from '@/core/infra/controller'
 import { ValidatorCompositor } from '@/infra/validation/ValidatorCompositor'
 

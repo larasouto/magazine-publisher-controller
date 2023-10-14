@@ -1,6 +1,7 @@
 import { SubmitButton } from '@/components/SubmitButton'
-import { GridLayout } from '@/components/layout/Grid'
-import { useTheme } from '@/hooks/useTheme'
+import { GridLayout } from '@/components/ui/Grid'
+import { useFetch } from '@/hooks/useFetch'
+import { backend, routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@nextui-org/react'
 import { useForm } from 'react-hook-form'
@@ -13,7 +14,15 @@ type ThemesFormProps = {
 
 export const ThemesForm = ({ data }: ThemesFormProps) => {
   const { t } = useTranslation('themes')
-  const { create, update } = useTheme()
+
+  const { create, update } = useFetch<ThemeForm>({
+    baseUrl: backend.themes.baseUrl,
+    query: ['themes'],
+    redirectTo: routes.themes.index,
+    fetch: {
+      id: data?.id
+    }
+  })
 
   const form = useForm<ThemeForm>({
     mode: 'all',
@@ -23,7 +32,7 @@ export const ThemesForm = ({ data }: ThemesFormProps) => {
 
   const onSubmit = async (form: ThemeForm) => {
     if (data) {
-      await update.mutateAsync({ id: data.id, ...form })
+      await update.mutateAsync(form)
       return
     }
     await create.mutateAsync(form)

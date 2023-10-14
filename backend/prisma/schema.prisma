@@ -150,9 +150,29 @@ model Edition {
 }
 
 model Graphics {
-  id      String @id
-  name    String
-  address String
+  id          String                  @id
+  name        String
+  address     String
+  distributor GraphicsOnDistributor[]
 
   @@map("graphics")
+}
+
+model Distributor {
+  id       String                  @id
+  name     String
+  address  String
+  region   String
+  graphics GraphicsOnDistributor[]
+
+  @@map("distributor")
+}
+
+model GraphicsOnDistributor {
+  graphics      Graphics    @relation(fields: [graphicsId], references: [id])
+  graphicsId    String
+  distributor   Distributor @relation(fields: [distributorId], references: [id])
+  distributorId String
+
+  @@id([graphicsId, distributorId])
 }

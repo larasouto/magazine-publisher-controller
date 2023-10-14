@@ -11,7 +11,7 @@ export type Item = {
   quantity?: number
 }
 
-type CartStoreProps = {
+export type CartStoreProps = {
   isOpen: boolean
   items: Item[]
   toggleOpen: () => void
@@ -45,14 +45,23 @@ export const useCartStore = create<CartStoreProps>()(
   )
 )
 
+/**
+ * Abre ou fecha o carrinho.
+ */
 const toggleOpen = () => {
   useCartStore.setState((state) => ({ isOpen: !state.isOpen }))
 }
 
+/**
+ * Fecha o carrinho.
+ */
 const close = () => {
   useCartStore.setState({ isOpen: false })
 }
 
+/**
+ * Remove todos os itens do carrinho.
+ */
 const removeAll = () => {
   useCartStore.setState({ items: [] })
 }
@@ -158,7 +167,7 @@ const removeItem = (id: number) => {
 }
 
 /**
- * Caso queira usar sem o hook (sem ts reativo).
+ * Caso queira usar sem o hook (sem reatividade).
  */
 export const CartStore: Omit<CartStoreProps, 'isOpen' | 'items'> & {
   isOpen: () => boolean

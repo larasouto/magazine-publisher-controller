@@ -2,8 +2,10 @@ import { Input, Selection } from '@nextui-org/react'
 import { Table } from '@tanstack/react-table'
 import { Search } from 'lucide-react'
 
-import { Dispatch, SetStateAction, useMemo, useState } from 'react'
+import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react'
+import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
+import { TableDeleteButton } from './TableDeleteButton'
 import { TableFilterButton } from './TableFilterButton'
 import { TablePageSize } from './TablePageSize'
 
@@ -24,13 +26,37 @@ export function TableTopContent<TData>({
   const [type, setType] = useState<Selection>(new Set(['first']))
 
   const getFirstColumn = useMemo(() => {
-    return table.getAllColumns().at(1)
+    /**
+     * Se a primeira coluna for o checkbox de select,
+     * retorna a segunda.
+     */
+    if (table.getAllColumns()?.at(0)?.id === 'select') {
+      return table.getAllColumns().at(1)
+    }
+    /**
+     * Se não, retorna a primeira.
+     */
+    return table.getAllColumns().at(0)
   }, [table])
 
-  const selectedType = useMemo(
-    () => Array.from(type).join(', ').replace('_', ' '),
-    [type]
-  )
+  /**
+   * Deleta os itens selecionados. Esse método só irá funcionar
+   * se o backend tiver o método `deleteMany()`.
+   */
+  const handleDelete = useCallback(() => {
+    const rows = table.getSelectedRowModel().rows
+    const originalRows = rows.map((row) => row.original as { id: string })
+
+    toast.success(`Em breve... Necessário deleteMany() no backend.`, {
+      position: 'bottom-left'
+    })
+    console.log(originalRows)
+  }, [table])
+
+  /**
+   * Transforma o tipo de filtro em string.
+   */
+  const selectedType = Array.from(type).join(', ').replace('_', ' ')
 
   return (
     <>
@@ -59,8 +85,12 @@ export function TableTopContent<TData>({
                 className="w-full sm:max-w-xs lg:max-w-sm"
               />
             )}
-            <div className="hidden sm:inline-flex">
+            <div className="hidden sm:flex gap-2">
               <TableFilterButton type={type} setType={setType} />
+              <TableDeleteButton
+                isDisabled={!table.getSelectedRowModel().rows.length}
+                handleDelete={handleDelete}
+              />
             </div>
           </div>
           <div className="flex gap-3 self-end sm:self-auto">

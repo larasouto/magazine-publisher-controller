@@ -1,9 +1,9 @@
-import { useMagazine } from '@/hooks/useMagazine'
+import { useFetch } from '@/hooks/useFetch'
 import { MagazineFormWithId } from '@/pages/magazines/magazines.schema'
+import { backend } from '@/routes/routes'
 import { Select, SelectItem } from '@nextui-org/react'
 import { UseFormReturn } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { useQuery } from 'react-query'
 import { EditionForm } from '../editions.schema'
 
 type ThemesSelectProps = {
@@ -12,17 +12,19 @@ type ThemesSelectProps = {
 
 export const MagazinesSelect = ({ form }: ThemesSelectProps) => {
   const { t } = useTranslation('magazines')
-  const { list } = useMagazine()
 
-  const { data, isLoading } = useQuery<{ dto: MagazineFormWithId[] }>(
-    ['magazines'],
-    list
-  )
+  const { list } = useFetch<MagazineFormWithId[]>({
+    baseUrl: backend.magazines.baseUrl,
+    query: ['magazines'],
+    fetch: {
+      list: true
+    }
+  })
 
   return (
     <fieldset>
       <Select
-        items={data?.dto ?? []}
+        items={list?.data ?? []}
         label={t('form.magazine.label')}
         placeholder={t('form.magazine.placeholder')}
         labelPlacement="outside"
@@ -32,7 +34,7 @@ export const MagazinesSelect = ({ form }: ThemesSelectProps) => {
             ? [form.getValues('magazineId')]
             : undefined
         }
-        isLoading={isLoading}
+        isLoading={list.isLoading}
         disallowEmptySelection
         errorMessage={form.formState.errors.magazineId?.message}
         isRequired

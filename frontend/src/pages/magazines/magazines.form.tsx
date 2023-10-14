@@ -1,6 +1,7 @@
 import { SubmitButton } from '@/components/SubmitButton'
-import { GridLayout } from '@/components/layout/Grid'
-import { useMagazine } from '@/hooks/useMagazine'
+import { GridLayout } from '@/components/ui/Grid'
+import { useFetch } from '@/hooks/useFetch'
+import { backend, routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input, Select, SelectItem } from '@nextui-org/react'
 import { useForm } from 'react-hook-form'
@@ -19,7 +20,15 @@ type MagazinesFormProps = {
 
 export const MagazinesForm = ({ data }: MagazinesFormProps) => {
   const { t } = useTranslation('magazines')
-  const { create, update } = useMagazine()
+
+  const { create, update } = useFetch<MagazineForm>({
+    baseUrl: backend.magazines.baseUrl,
+    query: ['magazines'],
+    redirectTo: routes.magazines.index,
+    fetch: {
+      id: data?.id
+    }
+  })
 
   const form = useForm<MagazineForm>({
     mode: 'all',
@@ -29,7 +38,7 @@ export const MagazinesForm = ({ data }: MagazinesFormProps) => {
 
   const onSubmit = async (form: MagazineForm) => {
     if (data) {
-      await update.mutateAsync({ id: data.id, ...form })
+      await update.mutateAsync(form)
       return
     }
     await create.mutateAsync(form)

@@ -1,4 +1,4 @@
-import { Cart } from '@/components/cart/Cart'
+import { Cart } from '@/components/ui/cart/Cart'
 import { Outlet } from 'react-router-dom'
 import { AuthHeader } from './auth/AuthHeader'
 import { Header } from './main/header/Header'
@@ -25,7 +25,7 @@ export const ComponentLayout = ({ layout = 'blank' }: ComponentLayoutProps) => {
         <div className="flex flex-col">
           <Header />
           <Cart />
-          <main className="h-full w-full container p-3 sm:mx-auto">
+          <main className="h-full w-full container">
             <Outlet />
           </main>
         </div>
