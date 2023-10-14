@@ -6,7 +6,7 @@ export const CartEmpty = () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-2 h-full">
-      <Image src="/empty-cart.png" className="w-28 h-28" removeWrapper />
+      <Image src="/empty-cart.png" classNames={{ img: 'w-28 h-28' }} />
       <div className="flex flex-col items-center justify-center">
         <h1 className="text-3xl">{t('cart.is_empty.label')}</h1>
         <span className="text-sm">{t('cart.is_empty.description')}</span>
