@@ -21,6 +21,10 @@ export const MagazinesSelect = ({ form }: ThemesSelectProps) => {
     }
   })
 
+  if (list.isLoading) {
+    return null
+  }
+
   return (
     <fieldset>
       <Select

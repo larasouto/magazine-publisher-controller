@@ -3,7 +3,7 @@ import { z } from 'zod'
 export const EditionSchema = z.object({
   number: z.coerce.number().nonnegative().int(),
   title: z.string().min(2).max(64),
-  description: z.string().max(256).nullish(), 
+  description: z.string().max(256).nullish(),
   coverPath: z.string().nonempty(),
   price: z.coerce.number().nonnegative(),
   year: z.coerce.number().min(1900).max(2023),

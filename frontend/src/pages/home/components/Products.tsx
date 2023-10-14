@@ -1,4 +1,5 @@
 import { Loading } from '@/components/Loading'
+import { useSupabase } from '@/hooks/useSupabase'
 import { api } from '@/services/api'
 import { CartStore, Item } from '@/stores/useCartStore'
 import { Button, Image } from '@nextui-org/react'
@@ -13,6 +14,7 @@ type ProductsProps = ComponentProps<'section'>
 
 export const Products = ({ ...props }: ProductsProps) => {
   const { t } = useTranslation('cart')
+  const { getImage } = useSupabase()
 
   const { data, isLoading } = useQuery<{ dto: Item[] }>(
     ['products'],
@@ -31,11 +33,16 @@ export const Products = ({ ...props }: ProductsProps) => {
         <h1 className="text-3xl font-bold mb-7 mt-2">Magazines for you</h1>
         <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4">
           {data?.dto?.map((product) => (
-            <div key={product.id} className="bg-default-100 rounded-lg group">
+            <div key={product.id} className="bg-default-100 rounded-xl group">
               <Image
-                src={product.coverPath}
-                className="rounded-none rounded-t-lg w-full h-64 object-cover"
-                removeWrapper
+                src={getImage({ path: product.coverPath })}
+                width={340}
+                height={340}
+                classNames={{
+                  zoomedWrapper: 'h-64 w-full rounded-none rounded-t-xl',
+                  img: 'w-full sm:h-full rounded-none object-cover hover:scale-105'
+                }}
+                isZoomed
               />
               <div className="flex flex-col gap-2 p-3">
                 <div className="flex items-center gap-2 justify-between">
