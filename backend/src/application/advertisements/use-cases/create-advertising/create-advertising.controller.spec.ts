@@ -33,7 +33,7 @@ describe('Create advertising (end-to-end)', () => {
 
   afterAll(async () => {
     await prismaClient.advertising.deleteMany({
-      where: { title: { contains: 'test-create' } },
+      where: { name: { contains: 'test-create' } },
     })
     await prismaClient.magazine.deleteMany({
       where: { name: { contains: 'test-create' } },
@@ -94,7 +94,7 @@ describe('Create advertising (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .post('/api/editions/new')
+      .post('/api/advertisements/new')
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
@@ -102,7 +102,7 @@ describe('Create advertising (end-to-end)', () => {
     expect(response.body).toHaveProperty('message')
   })
 
-  test('should not be able to create an edition without authentication', async () => {
+  test('should not be able to create an advertising without authentication', async () => {
     const data: any = {
       number: 1,
       name: 'test-create-name-advertising2',

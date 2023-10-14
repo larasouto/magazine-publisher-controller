@@ -2,6 +2,7 @@ import { v4 as uuid } from 'uuid'
 import { beforeAll, describe, expect, test } from 'vitest'
 import { CreateAdvertising } from './create-advertising'
 import { IAdvertisingRepository } from '../../repositories/interfaces/IAdvertisingRepository'
+import { InMemoryAdvertisementsRepository } from '../../repositories/in-memory/InMemoryAdvertisementsRepository'
 
 let advertisementsRepository: IAdvertisingRepository
 let createAdvertising: CreateAdvertising

@@ -1,7 +1,9 @@
 import { Advertising } from '../../domain/advertising'
 import { IAdvertisingRepository } from '../interfaces/IAdvertisingRepository'
 
-export class InMemoryAdvertisingRepository implements IAdvertisingRepository {
+export class InMemoryAdvertisementsRepository
+  implements IAdvertisingRepository
+{
   constructor(public advertisements: Advertising[] = []) {}
 
   async findById(id: string): Promise<Advertising | null> {
