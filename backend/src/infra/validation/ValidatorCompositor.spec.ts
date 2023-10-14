@@ -18,10 +18,11 @@ describe('Validator Compositor', () => {
     }),
   ])
 
-  const data: RequiredFields = {
+  const data: any = {
     field1: '54321',
     field2: '12345',
     field3: '12345',
+    field4: '12345',
   }
 
   test('should not return an error if all fields are validated', () => {

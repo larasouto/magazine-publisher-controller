@@ -40,21 +40,21 @@ describe('Inactivate a reporter (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .put(`/api/reporters/${create.id}/inactivate`)
+      .delete(`/api/reporters/${create.id}`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
     expect(response.status).toBe(StatusCodes.OK)
 
     const reporter = await reporterRepository.findById(create.id)
-    expect(reporter.props.status).toBe('INACTIVE')
+    expect(reporter?.props.status).toBe('INACTIVE')
   })
 
   test('should not be able to inactivate a non existing reporter', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .put(`/api/reporters/${create.id}-complement/inactivate`)
+      .delete(`/api/reporters/${create.id}-complement`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
@@ -65,7 +65,7 @@ describe('Inactivate a reporter (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .put(`/api/reporters/${null}/inactivate`)
+      .delete(`/api/reporters/${null}`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 

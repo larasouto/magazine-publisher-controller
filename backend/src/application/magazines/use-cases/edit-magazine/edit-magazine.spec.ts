@@ -3,6 +3,7 @@ import { beforeAll, describe, expect, test } from 'vitest'
 import { InMemoryMagazinesRepository } from '../../repositories/in-memory/InMemoryMagazinesRepository'
 import { IMagazineRepository } from '../../repositories/interfaces/IMagazineRepository'
 import { EditMagazine } from './edit-magazine'
+import { PublicationPeriod } from '../../domain/magazine.schema'
 
 let magazinesRepository: IMagazineRepository
 let editMagazine: EditMagazine
@@ -25,7 +26,7 @@ describe('Create a magazine', () => {
       name: 'magazine-name',
       description: 'magazine-description',
       yearFounded: 2021,
-      publicationPeriod: 'ANNUALLY',
+      publicationPeriod: PublicationPeriod.ANNUALLY,
       themeId: themeData.id,
     }
 
@@ -37,7 +38,7 @@ describe('Create a magazine', () => {
       name: 'magazine-name-updated',
       description: 'magazine-description-updated',
       yearFounded: 2021,
-      publicationPeriod: 'ANNUALLY',
+      publicationPeriod: PublicationPeriod.ANNUALLY,
       themeId: themeData.id,
     })
     expect(updatedMagazine.isRight()).toBeTruthy()
@@ -58,7 +59,7 @@ describe('Create a magazine', () => {
       name: 'magazine-name',
       description: 'magazine-description',
       yearFounded: 2021,
-      publicationPeriod: 'ANNUALLY',
+      publicationPeriod: PublicationPeriod.ANNUALLY,
       themeId: themeData.id,
     }
 
@@ -70,7 +71,7 @@ describe('Create a magazine', () => {
       name: 'magazine-name-updated',
       description: 'magazine-description',
       yearFounded: 2021,
-      publicationPeriod: 'ANNUALLY',
+      publicationPeriod: PublicationPeriod.ANNUALLY,
       themeId: themeData.id,
     })
     expect(updatedMagazine.isRight()).toBeTruthy()
@@ -103,7 +104,7 @@ describe('Create a magazine', () => {
       name: 'test-magazine',
       description: 'test-magazine-description-updated',
       yearFounded: 2021,
-      publicationPeriod: 'ANNUALLY',
+      publicationPeriod: PublicationPeriod.ANNUALLY,
       themeId: themeData.id,
     })
     expect(updatedMagazine.isRight()).toBeTruthy()
@@ -138,7 +139,7 @@ describe('Create a magazine', () => {
       yearFounded: 1000,
       publicationPeriod: 'INVALID',
       themeId: 'invalid-id',
-    })
+    } as any)
     expect(updatedMagazine.isLeft()).toBeTruthy()
   })
 })

@@ -9,7 +9,7 @@ type EditMagazineRequest = {
   name: string
   description?: string
   yearFounded: number
-  publicationPeriod: string
+  publicationPeriod: PublicationPeriod
   themeId: string
 }
 

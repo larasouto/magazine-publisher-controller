@@ -37,6 +37,7 @@ export class UserMapper {
       email: user.props.email,
       password: await hashed.value.getHashedValue(),
       phone: user.props.phone,
+      role: user.props.role,
     }
   }
 }

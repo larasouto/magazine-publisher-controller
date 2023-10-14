@@ -5,6 +5,7 @@ import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
 import { v4 as uuid } from 'uuid'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
+import { PublicationPeriod } from '../../domain/magazine.schema'
 
 describe('Delete magazine (end-to-end)', () => {
   const theme: any = {
@@ -28,7 +29,7 @@ describe('Delete magazine (end-to-end)', () => {
     await prismaClient.magazine.create({
       data: {
         ...create,
-        publication_period: 'ANNUALLY',
+        publication_period: PublicationPeriod.ANNUALLY,
       },
     })
   })
