@@ -1,30 +1,32 @@
 import { MapperError } from '@/core/errors/MapperErrors'
-import { Graphics as PersistenceGraphics } from '@prisma/client'
-import { Graphics } from '../domain/distributor'
+import { Distributor as PersistenceDistributor } from '@prisma/client'
+import { Distributor } from '../domain/distributor'
 
-export class GraphicsMapper {
-  static toDomain(raw: PersistenceGraphics) {
-    const graphics: Pick<Graphics, 'props'> = {
+export class DistributorMapper {
+  static toDomain(raw: PersistenceDistributor) {
+    const distributor: Pick<Distributor, 'props'> = {
       props: {
         name: raw.name,
         address: raw.address,
+        region: raw.region,
       },
     }
 
-    const graphicsOrError = Graphics.create(graphics.props, raw.id)
+    const distributorOrError = Distributor.create(distributor.props, raw.id)
 
-    if (graphicsOrError.isLeft()) {
-      throw new MapperError(graphicsOrError.value.message)
+    if (distributorOrError.isLeft()) {
+      throw new MapperError(distributorOrError.value.message)
     }
 
-    return graphicsOrError.value
+    return distributorOrError.value
   }
 
-  static async toPersistence(graphics: Graphics) {
+  static async toPersistence(distributor: Distributor) {
     return {
-      id: graphics.id,
-      name: graphics.props.name,
-      address: graphics.props.address,
+      id: distributor.id,
+      name: distributor.props.name,
+      address: distributor.props.address,
+      region: distributor.props.region,
     }
   }
 }

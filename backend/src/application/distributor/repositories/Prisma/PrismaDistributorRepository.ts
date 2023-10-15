@@ -1,50 +1,50 @@
 import { prismaClient } from '@/infra/prisma/client'
-import { Graphics } from '../../domain/distributor'
-import { IGraphicsRepository } from '../Interfaces/IDistributorRepository'
-import { GraphicsMapper } from '../../mappers/distributor.mapper'
+import { Distributor } from '../../domain/distributor'
+import { DistributorMapper } from '../../mappers/distributor.mapper'
+import { IDistributorRepository } from '../Interfaces/IDistributorRepository'
 
-export class PrismaGraphicsRepository implements IGraphicsRepository {
-  async findById(id: string): Promise<Graphics | null> {
-    const graphics = await prismaClient.graphics.findUnique({
+export class PrismaDistributorRepository implements IDistributorRepository {
+  async findById(id: string): Promise<Distributor | null> {
+    const distributor = await prismaClient.distributor.findUnique({
       where: { id },
     })
 
-    if (!graphics) {
+    if (!distributor) {
       return null
     }
 
-    return GraphicsMapper.toDomain(graphics)
+    return DistributorMapper.toDomain(distributor)
   }
 
-  async create(graphics: Graphics): Promise<void> {
-    const data = await GraphicsMapper.toPersistence(graphics)
-    await prismaClient.graphics.create({
+  async create(distributor: Distributor): Promise<void> {
+    const data = await DistributorMapper.toPersistence(distributor)
+    await prismaClient.distributor.create({
       data,
     })
   }
 
   async delete(id: string): Promise<void> {
-    await prismaClient.graphics.delete({
+    await prismaClient.distributor.delete({
       where: { id },
     })
   }
 
-  async update(graphics: Graphics): Promise<void> {
-    const data = await GraphicsMapper.toPersistence(graphics)
+  async update(distributor: Distributor): Promise<void> {
+    const data = await DistributorMapper.toPersistence(distributor)
 
-    await prismaClient.graphics.update({
-      where: { id: graphics.id },
+    await prismaClient.distributor.update({
+      where: { id: distributor.id },
       data,
     })
   }
 
   async list(): Promise<any[]> {
-    const graphicss = await prismaClient.graphics.findMany()
-    return graphicss?.map(GraphicsMapper.toDomain) ?? []
+    const distributors = await prismaClient.distributor.findMany()
+    return distributors?.map(DistributorMapper.toDomain) ?? []
   }
 
   async deleteMany(ids: string[]): Promise<void> {
-    await prismaClient.graphics.deleteMany({
+    await prismaClient.distributor.deleteMany({
       where: { id: { in: ids } },
     })
   }

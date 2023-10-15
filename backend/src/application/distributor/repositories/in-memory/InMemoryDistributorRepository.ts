@@ -1,50 +1,51 @@
-import { Graphics } from '../../domain/distributor'
-import { IGraphicsRepository } from '../Interfaces/IDistributorRepository'
+import { Distributor } from "../../domain/distributor"
+import { IDistributorRepository } from "../Interfaces/IDistributorRepository"
 
-export class InMemoryGraphicssRepository implements IGraphicsRepository {
-  constructor(public graphicss: Graphics[] = []) {}
 
-  async findById(id: string): Promise<Graphics | null> {
-    const graphics = this.graphicss.find((graphics) => graphics.id === id)
+export class InMemoryDistributorsRepository implements IDistributorRepository {
+  constructor(public distributor: Distributor[] = []) {}
 
-    if (!graphics) {
+  async findById(id: string): Promise<Distributor | null> {
+    const distributor = this.distributor.find((distributor) => distributor.id === id)
+
+    if (!distributor) {
       return null
     }
 
-    return graphics
+    return distributor
   }
 
-  async create(graphics: Graphics): Promise<void> {
-    this.graphicss.push(graphics)
+  async create(distributor: Distributor): Promise<void> {
+    this.distributor.push(distributor)
   }
 
   async delete(id: string): Promise<void> {
-    const graphicsIndex = this.graphicss.findIndex(
-      (graphics) => graphics.id === id,
+    const distributorIndex = this.distributor.findIndex(
+      (distributor) => distributor.id === id,
     )
 
-    this.graphicss.splice(graphicsIndex, 1)
+    this.distributor.splice(distributorIndex, 1)
   }
 
   async deleteMany(ids: string[]): Promise<void> {
     ids.forEach((id) => {
-      const graphicsIndex = this.graphicss.findIndex(
-        (graphics) => graphics.id === id,
+      const distributorIndex = this.distributor.findIndex(
+        (distributor) => distributor.id === id,
       )
 
-      this.graphicss.splice(graphicsIndex, 1)
+      this.distributor.splice(distributorIndex, 1)
     })
   }
 
-  async update(graphics: Graphics): Promise<void> {
-    const graphicsIndex = this.graphicss.findIndex(
-      (graphics) => graphics.id === graphics.id,
+  async update(distributor: Distributor): Promise<void> {
+    const distributorIndex = this.distributor.findIndex(
+      (distributor) => distributor.id === distributor.id,
     )
 
-    this.graphicss[graphicsIndex] = graphics
+    this.distributor[distributorIndex] = distributor
   }
 
-  async list(): Promise<Graphics[]> {
-    return this.graphicss
+  async list(): Promise<Distributor[]> {
+    return this.distributor
   }
 }
