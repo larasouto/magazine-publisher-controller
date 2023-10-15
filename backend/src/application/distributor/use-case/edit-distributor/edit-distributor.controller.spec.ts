@@ -49,6 +49,8 @@ describe('Edit distributor (end-to-end)', () => {
 
     const data: any = {
       name: 'distributor-name-updated-2',
+      address: null,
+      region: 'test-distributor-region-editd',
     }
 
     const response = await request(app)
