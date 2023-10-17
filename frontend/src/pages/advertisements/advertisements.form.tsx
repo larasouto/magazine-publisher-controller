@@ -1,19 +1,19 @@
 import { SubmitButton } from '@/components/SubmitButton'
 import { GridLayout } from '@/components/ui/Grid'
-import { DatePicker } from '@/components/ui/date-picker/DatePicker'
 import { PriceIcon } from '@/components/ui/icons/PriceIcon'
 import { useFetch } from '@/hooks/useFetch'
+import { MagazinesSelect } from '@/pages/advertisements/magazines/magazines-select'
 import { backend } from '@/routes/routes'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Input } from '@nextui-org/react'
+import { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import {
   AdvertisingForm,
   AdvertisingFormWithId,
   AdvertisingSchema
 } from './advertisements.schema'
-import { MagazinesSelect } from '@/pages/advertisements/magazines/magazines-select'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Input } from '@nextui-org/react'
-import { useEffect } from 'react'
 
 type AdvertisementsFormProps = {
   data?: AdvertisingFormWithId
@@ -39,7 +39,7 @@ export const AdvertisementsForm = ({ data }: AdvertisementsFormProps) => {
   // TODO: Remover quando o envio de arquivos estiver pronto.
   useEffect(() => {
     form.setValue(
-      'coverPath',
+      'categoryAdvertising',
       `/revista${Math.floor(Math.random() * 7 + 1)}.jpg`
     )
   }, [form])
@@ -105,35 +105,15 @@ export const AdvertisementsForm = ({ data }: AdvertisementsFormProps) => {
             isClearable
           />
         </fieldset>
-        <fieldset>
-          <Controller
-            control={form.control}
-            name="publicationDate"
-            render={({ field }) => (
-              <DatePicker
-                field={field}
-                label={t('form.departure_date.label')}
-                mode="single"
-                selected={field.value}
-                onSelect={field.onChange}
-                disabled={(date) =>
-                  date > new Date() || date < new Date('1900-01-01')
-                }
-                initialFocus
-                isRequired
-              />
-            )}
-          />
-        </fieldset>
         <MagazinesSelect form={form} />
         <fieldset>
           <Input
             className="hidden"
             label={t('form.cover.label')}
             placeholder={t('form.cover.placeholder')}
-            errorMessage={form.formState.errors.coverPath?.message}
+            errorMessage={form.formState.errors.categoryAdvertising?.message}
             labelPlacement="outside"
-            {...form.register('coverPath')}
+            {...form.register('categoryAdvertising')}
             isRequired
             isClearable
           />

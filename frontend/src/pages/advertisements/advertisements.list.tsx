@@ -1,13 +1,10 @@
 import { DataTable } from '@/components/ui/table/DataTable'
 import { useFetch } from '@/hooks/useFetch'
 import { PageLayout } from '@/layout/PageLayout'
-import { columns } from '@/pages/categories/table/categories.columns'
 import { backend } from '@/routes/routes'
 import { useTranslation } from 'react-i18next'
 import { AdvertisingToolbar } from './advertisements.toolbar'
-import { AdvertisingColumns } from './table/advertisements.columns'
-
-
+import { AdvertisingColumns, columns } from './table/advertisements.columns'
 
 export const AdvertisementsListPage = () => {
   const { t } = useTranslation('advertisements')
@@ -21,7 +18,6 @@ export const AdvertisementsListPage = () => {
       list: true
     }
   })
-
   return (
     <PageLayout
       title={title}

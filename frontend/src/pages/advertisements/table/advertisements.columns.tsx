@@ -41,20 +41,20 @@ export const columns = [
   /**
    * Title
    */
-  helper.accessor((row) => row.title, {
-    id: 'title',
-    header: () => t('magazines:form.title.label'),
-    cell: ({ row }) => row.getValue('title'),
+  helper.accessor((row) => row.name, {
+    id: 'name',
+    header: () => t('magazines:form.name.label'),
+    cell: ({ row }) => row.getValue('name'),
     enableSorting: true,
     enableHiding: true
   }),
   /**
    * Description
    */
-  helper.accessor((row) => row.description, {
-    id: 'description',
-    header: () => t('magazines:form.description.label'),
-    cell: ({ row }) => row.getValue('description'),
+  helper.accessor((row) => row.categoryAdvertising, {
+    id: 'categoryAdvertising',
+    header: () => t('magazines:form.categoryAdvertising.label'),
+    cell: ({ row }) => row.getValue('categoryAdvertising'),
     enableSorting: true,
     enableHiding: true
   }),
@@ -65,6 +65,16 @@ export const columns = [
     id: 'price',
     header: () => t('magazines:form.price.label'),
     cell: ({ row }) => <LabelPrice toFormat={row.getValue('price')} />,
+    enableSorting: true,
+    enableHiding: true
+  }),
+  /**
+   * numberOfPages
+   */
+  helper.accessor((row) => row.numberOfPages, {
+    id: 'price',
+    header: () => t('magazines:form.numberOfPages.label'),
+    cell: ({ row }) => <LabelPrice toFormat={row.getValue('numberOfPages')} />,
     enableSorting: true,
     enableHiding: true
   }),
