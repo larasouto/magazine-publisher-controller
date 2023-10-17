@@ -1,5 +1,7 @@
 .env
+.vscode
 node_modules
+coverage
 dist
 src/infra/http/i18n/locales/*
 .DS_*

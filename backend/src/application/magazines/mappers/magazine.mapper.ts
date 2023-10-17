@@ -5,17 +5,16 @@ import { Magazine as PersistenceMagazine } from '@prisma/client'
 
 export class MagazineMapper {
   static toDomain(raw: PersistenceMagazine) {
-    const magazine: Pick<Magazine, 'props'> = {
-      props: {
+    const magazineOrError = Magazine.create(
+      {
         name: raw.name,
         description: raw.description,
         yearFounded: raw.year_founded,
         publicationPeriod: raw.publication_period,
         themeId: raw.theme_id,
       },
-    }
-
-    const magazineOrError = Magazine.create(magazine.props, raw.id)
+      raw.id,
+    )
 
     if (magazineOrError.isLeft()) {
       throw new MapperError(magazineOrError.value.message)
