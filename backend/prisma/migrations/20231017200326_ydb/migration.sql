@@ -156,14 +156,33 @@ CREATE TABLE "distributor" (
 
 -- CreateTable
 CREATE TABLE "GraphicsOnDistributor" (
+    "id" TEXT NOT NULL,
     "graphicsId" TEXT NOT NULL,
     "distributorId" TEXT NOT NULL,
 
-    CONSTRAINT "GraphicsOnDistributor_pkey" PRIMARY KEY ("graphicsId","distributorId")
+    CONSTRAINT "GraphicsOnDistributor_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "order" (
+    "id" TEXT NOT NULL,
+    "receipt_date" TIMESTAMP(3) NOT NULL,
+    "departure_date" TIMESTAMP(3) NOT NULL,
+    "status" TEXT NOT NULL,
+    "delivery_address" TEXT NOT NULL,
+    "example_number" INTEGER NOT NULL,
+    "editon_Id" TEXT NOT NULL,
+    "graphicsDistributor_id" TEXT NOT NULL,
+    "price" DOUBLE PRECISION NOT NULL,
+
+    CONSTRAINT "order_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "GraphicsOnDistributor_id_key" ON "GraphicsOnDistributor"("id");
 
 -- AddForeignKey
 ALTER TABLE "addresses" ADD CONSTRAINT "addresses_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -179,3 +198,9 @@ ALTER TABLE "GraphicsOnDistributor" ADD CONSTRAINT "GraphicsOnDistributor_graphi
 
 -- AddForeignKey
 ALTER TABLE "GraphicsOnDistributor" ADD CONSTRAINT "GraphicsOnDistributor_distributorId_fkey" FOREIGN KEY ("distributorId") REFERENCES "distributor"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "order" ADD CONSTRAINT "order_editon_Id_fkey" FOREIGN KEY ("editon_Id") REFERENCES "editions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "order" ADD CONSTRAINT "order_graphicsDistributor_id_fkey" FOREIGN KEY ("graphicsDistributor_id") REFERENCES "GraphicsOnDistributor"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

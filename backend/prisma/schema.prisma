@@ -114,7 +114,7 @@ model Magazine {
   theme_id           String
   created_at         DateTime                  @default(now())
   updated_at         DateTime                  @updatedAt
-  editions           Edition[]
+  Edition            Edition[]
 
   @@map("magazines")
 }
@@ -145,6 +145,7 @@ model Edition {
   magazine_id      String
   created_at       DateTime @default(now())
   updated_at       DateTime @updatedAt
+  Order            Order[]
 
   @@map("editions")
 }
@@ -169,10 +170,26 @@ model Distributor {
 }
 
 model GraphicsOnDistributor {
+  id            String      @id @unique
   graphics      Graphics    @relation(fields: [graphicsId], references: [id])
   graphicsId    String
   distributor   Distributor @relation(fields: [distributorId], references: [id])
   distributorId String
+  Order         Order[]
+}
 
-  @@id([graphicsId, distributorId])
+model Order {
+  id                     String                @id
+  receipt_date           DateTime
+  departure_date         DateTime
+  status                 String
+  delivery_address       String
+  example_number         Int
+  edition                Edition               @relation(fields: [editon_Id], references: [id])
+  editon_Id              String
+  graphicsDistributor    GraphicsOnDistributor @relation(fields: [graphicsDistributor_id], references: [id])
+  graphicsDistributor_id String
+  price                  Float
+
+  @@map("order")
 }
