@@ -153,7 +153,7 @@ model Edition {
 model Advertising {
   id                  String   @id
   name                String
-  categoryAdvertising String
+  category_advertising String
   number_of_pages     Int
   price               Float
   magazine            Magazine @relation(fields: [magazine_id], references: [id])

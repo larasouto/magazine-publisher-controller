@@ -4,16 +4,16 @@ import { MapperError } from '@/core/errors/MapperErrors'
 
 export class AdvertisingMapper {
   static toDomain(raw: PersistenceAdvertising) {
-    const advertising: Pick<Advertising, 'props'> = {
-      props: {
+    const advertisingOrError = Advertising.create(
+      {
         name: raw.name,
         categoryAdvertising: raw.category_advertising,
         numberOfPages: raw.number_of_pages,
         price: raw.price,
+        magazineId: raw.magazine_id,
       },
-    }
-
-    const advertisingOrError = Advertising.create(advertising.props, raw.id)
+      raw.id,
+    )
 
     if (advertisingOrError.isLeft()) {
       throw new MapperError(advertisingOrError.value.message)
@@ -30,9 +30,10 @@ export class AdvertisingMapper {
     return {
       id: advertising.id,
       name: advertising.props.name,
-      categoryAdvertising: advertising.props.categoryAdvertising,
-      numberOfPages: advertising.props.numberOfPages,
+      category_advertising: advertising.props.categoryAdvertising,
+      number_of_pages: advertising.props.numberOfPages,
       price: advertising.props.price,
+      magazine_id: advertising.props.magazineId,
     }
   }
 }
