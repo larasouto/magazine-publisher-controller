@@ -12,6 +12,10 @@ type UploadImageProps = Omit<SupabaseProps, 'file'> & { file: File }
 type GetImageProps = SupabaseProps
 type RemoveImageProps = Omit<SupabaseProps, 'path'> & { path: string[] }
 
+export const CND_URL = `
+  https://gxofgbywooawayvtndml.supabase.co/storage/v1/object/public/
+`
+
 export const useSupabase = () => {
   const uploadImage = async ({
     file,
