@@ -7,6 +7,7 @@ import { MagazineRoutes } from './pages/magazine.routes'
 import { PhotographersRoutes } from './pages/photographers.routes'
 import { ReportersRoutes } from './pages/reporters.routes'
 import { ThemesRoutes } from './pages/themes.routes'
+import { AdvertisementsRoutes } from './pages/advertisements.routes'
 
 /**
  * Criação do 'roteador' da aplicação, responsável por gerenciar
@@ -20,5 +21,6 @@ export const router = createBrowserRouter([
   PhotographersRoutes,
   ThemesRoutes,
   MagazineRoutes,
-  EditionsRoutes
+  EditionsRoutes,
+  AdvertisementsRoutes
 ])
