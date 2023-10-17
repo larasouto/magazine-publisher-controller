@@ -1,6 +1,6 @@
-import { AlertModal } from '@/components/modal/AlertModal'
-import { useCategory } from '@/hooks/useCategory'
-import { routes } from '@/routes/routes'
+import { AlertModal } from '@/components/ui/AlertModal'
+import { useFetch } from '@/hooks/useFetch'
+import { backend, routes } from '@/routes/routes'
 import { replaceParams } from '@/utils/replace-params'
 import {
   Button,
@@ -22,11 +22,16 @@ type CategoriesActionsProps = {
 
 export const CategoriesActions = ({ row }: CategoriesActionsProps) => {
   const { t } = useTranslation()
-  const { remove } = useCategory()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
+  const { remove } = useFetch<CategoryColumns>({
+    baseUrl: backend.categories.baseUrl,
+    query: ['categories'],
+    invalidateQuery: true
+  })
+
   const handleDelete = async () => {
-    await remove.mutateAsync(row.id)
+    await remove.mutateAsync(row)
   }
 
   return (

@@ -42,7 +42,13 @@ export const AlertModal = ({
               <Button color="danger" variant="light" onPress={onClose}>
                 {textClose ?? t('btn.modal.on_close')}
               </Button>
-              <Button color="primary" onPress={onAction}>
+              <Button
+                color="primary"
+                onPress={() => {
+                  onAction?.()
+                  onClose()
+                }}
+              >
                 {textAction ?? t('btn.modal.on_action')}
               </Button>
             </ModalFooter>

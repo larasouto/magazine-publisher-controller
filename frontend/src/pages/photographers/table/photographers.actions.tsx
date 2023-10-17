@@ -1,5 +1,5 @@
-import { usePhotographer } from '@/hooks/usePhotographers'
-import { routes } from '@/routes/routes'
+import { useFetch } from '@/hooks/useFetch'
+import { backend, routes } from '@/routes/routes'
 import { replaceParams } from '@/utils/replace-params'
 import {
   Button,
@@ -20,10 +20,15 @@ type ReporterActionsProps = {
 
 export const ReporterActions = ({ row }: ReporterActionsProps) => {
   const { t } = useTranslation()
-  const { inactivate } = usePhotographer()
+
+  const { remove: inactivate } = useFetch<PhotographerColumns>({
+    baseUrl: backend.photographers.baseUrl,
+    query: ['photographers'],
+    invalidateQuery: true
+  })
 
   const handleInactivate = async () => {
-    await inactivate.mutateAsync(row.id)
+    await inactivate.mutateAsync(row)
   }
 
   return (

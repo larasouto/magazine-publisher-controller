@@ -23,6 +23,10 @@ export const EditionsRoutes: RouteObject = {
         {
           path: routes.editions.new,
           element: <EditionsPage />
+        },
+        {
+          path: routes.editions.edit,
+          element: <EditionsPage />
         }
       ]
     }

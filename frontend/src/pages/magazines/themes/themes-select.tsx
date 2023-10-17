@@ -1,9 +1,9 @@
-import { useTheme } from '@/hooks/useTheme'
-import { ThemesFormWithId } from '@/pages/themes/themes.schema'
+import { useFetch } from '@/hooks/useFetch'
+import { ThemesColumns } from '@/pages/themes/table/themes.columns'
+import { backend } from '@/routes/routes'
 import { Select, SelectItem } from '@nextui-org/react'
 import { UseFormReturn } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { useQuery } from 'react-query'
 import { MagazineForm } from '../magazines.schema'
 
 type ThemesSelectProps = {
@@ -12,17 +12,19 @@ type ThemesSelectProps = {
 
 export const ThemesSelect = ({ form }: ThemesSelectProps) => {
   const { t } = useTranslation('magazines')
-  const { list } = useTheme()
 
-  const { data, isLoading } = useQuery<{ dto: ThemesFormWithId[] }>(
-    ['themes'],
-    list
-  )
+  const { list } = useFetch<ThemesColumns[]>({
+    baseUrl: backend.themes.baseUrl,
+    query: ['themes'],
+    fetch: {
+      list: true
+    }
+  })
 
   return (
     <fieldset>
       <Select
-        items={data?.dto ?? []}
+        items={list?.data ?? []}
         label={t('form.theme.label')}
         placeholder={t('form.theme.placeholder')}
         labelPlacement="outside"
@@ -30,7 +32,7 @@ export const ThemesSelect = ({ form }: ThemesSelectProps) => {
         defaultSelectedKeys={
           form.getValues('themeId') ? [form.getValues('themeId')] : undefined
         }
-        isLoading={isLoading}
+        isLoading={list.isLoading}
         disallowEmptySelection
         errorMessage={form.formState.errors.themeId?.message}
         isRequired

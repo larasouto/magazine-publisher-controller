@@ -1,32 +1,32 @@
-import { Loading } from '@/components/Loading'
-import { DataTable } from '@/components/table/DataTable'
-import { usePhotographer } from '@/hooks/usePhotographers'
+import { DataTable } from '@/components/ui/table/DataTable'
+import { useFetch } from '@/hooks/useFetch'
 import { PageLayout } from '@/layout/PageLayout'
+import { backend } from '@/routes/routes'
 import { useTranslation } from 'react-i18next'
-import { useQuery } from 'react-query'
 import { PhotographersToolbar } from './photographers.toolbar'
 import { PhotographerColumns, columns } from './table/photographers.columns'
 
 export const PhotographersListPage = () => {
   const { t } = useTranslation('photographers')
   const title = t('page.title')
-  const breadcrumb = [{ label: title }]
-  const { list } = usePhotographer()
 
-  const { data, isLoading } = useQuery<{ dto: PhotographerColumns[] }>(
-    ['photographers'],
-    list
-  )
-
-  if (isLoading) {
-    return <Loading />
-  }
+  const { list } = useFetch<PhotographerColumns[]>({
+    baseUrl: backend.photographers.baseUrl,
+    query: ['photographers'],
+    fetch: {
+      list: true
+    }
+  })
 
   return (
-    <PageLayout title={title} breadcrumb={breadcrumb}>
+    <PageLayout
+      title={title}
+      isLoading={list.isLoading}
+      breadcrumb={[{ label: title }]}
+    >
       <DataTable
         columns={columns}
-        data={data?.dto ?? []}
+        data={list?.data ?? []}
         toolbarButtons={<PhotographersToolbar />}
       />
     </PageLayout>

@@ -1,6 +1,9 @@
 import { SubmitButton } from '@/components/SubmitButton'
-import { GridLayout } from '@/components/layout/Grid'
-import { useEdition } from '@/hooks/useEditions'
+import { GridLayout } from '@/components/ui/Grid'
+import { DatePicker } from '@/components/ui/date-picker/DatePicker'
+import { PriceIcon } from '@/components/ui/icons/PriceIcon'
+import { useFetch } from '@/hooks/useFetch'
+import { backend } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@nextui-org/react'
 import { useEffect } from 'react'
@@ -17,9 +20,16 @@ type EditionsFormProps = {
   data?: EditionFormWithId
 }
 
-export const MagazinesForm = ({ data }: EditionsFormProps) => {
+export const EditionsForm = ({ data }: EditionsFormProps) => {
   const { t } = useTranslation('editions')
-  const { create, update } = useEdition()
+
+  const { create, update } = useFetch<EditionForm>({
+    baseUrl: backend.editions.baseUrl,
+    query: ['editions'],
+    fetch: {
+      id: data?.id
+    }
+  })
 
   const form = useForm<EditionForm>({
     mode: 'all',
@@ -27,22 +37,17 @@ export const MagazinesForm = ({ data }: EditionsFormProps) => {
     defaultValues: data
   })
 
-  /**
-   * Retirar esse trecho de código quando o envio de arquivos
-   *  estiver pronto.
-   */
+  // TODO: Remover quando o envio de arquivos estiver pronto.
   useEffect(() => {
     form.setValue(
       'coverPath',
       `/revista${Math.floor(Math.random() * 7 + 1)}.jpg`
     )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [form])
 
   const onSubmit = async (form: EditionForm) => {
-    console.table(form)
     if (data) {
-      await update.mutateAsync({ id: data.id, ...form })
+      await update.mutateAsync(form)
       return
     }
     await create.mutateAsync(form)
@@ -79,6 +84,7 @@ export const MagazinesForm = ({ data }: EditionsFormProps) => {
         <fieldset>
           <Input
             type="number"
+            startContent={<PriceIcon />}
             label={t('form.price.label')}
             placeholder={t('form.price.placeholder')}
             errorMessage={form.formState.errors.price?.message}
@@ -140,17 +146,17 @@ export const MagazinesForm = ({ data }: EditionsFormProps) => {
           <Controller
             control={form.control}
             name="publicationDate"
-            render={({ field: { value, ref, onChange, onBlur } }) => (
-              <Input
-                type="date"
-                ref={ref}
-                label={t('form.publication_date.label')}
-                placeholder={t('form.publication_date.placeholder')}
-                errorMessage={form.formState.errors.publicationDate?.message}
-                labelPlacement="outside"
-                value={value?.toString().split('T')[0]}
-                onChange={onChange}
-                onBlur={onBlur}
+            render={({ field }) => (
+              <DatePicker
+                field={field}
+                label={t('form.departure_date.label')}
+                mode="single"
+                selected={field.value}
+                onSelect={field.onChange}
+                disabled={(date) =>
+                  date > new Date() || date < new Date('1900-01-01')
+                }
+                initialFocus
                 isRequired
               />
             )}

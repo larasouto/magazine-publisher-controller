@@ -2,9 +2,14 @@ import { Button, Image } from '@nextui-org/react'
 
 export const Advertising = () => {
   return (
-    <section className="flex items-center justify-between h-full pl-16">
+    <section className="grid grid-cols-1 sm:grid-cols-2 items-center justify-between px-10">
+      <Image
+        className="hidden sm:inline-flex"
+        src="/mockup-2.png"
+        removeWrapper
+      />
       <div className="relative flex flex-col gap-3">
-        <h1 className="text-inherit text-3xl max-w-xl">
+        <h1 className="text-inherit text-xl max-w-md lg:text-3xl lg:max-w-xl">
           Garanta <span>descontos de até</span>{' '}
           <span className="text-gray-200 bg-violet-600 rounded-full px-4 font-semibold">
             50% OFF
@@ -21,7 +26,6 @@ export const Advertising = () => {
           Comprar agora
         </Button>
       </div>
-      <Image className="h-48 sm:h-72" src="/mockup-2.png" />
     </section>
   )
 }

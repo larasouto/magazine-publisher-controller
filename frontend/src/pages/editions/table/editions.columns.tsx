@@ -1,3 +1,4 @@
+import { LabelPrice } from '@/components/ui/LabelPrice'
 import { Checkbox } from '@nextui-org/react'
 import { createColumnHelper } from '@tanstack/react-table'
 import { t } from 'i18next'
@@ -68,7 +69,7 @@ export const columns = [
   helper.accessor((row) => row.price, {
     id: 'price',
     header: () => t('magazines:form.price.label'),
-    cell: ({ row }) => new Intl.NumberFormat().format(row.getValue('price')),
+    cell: ({ row }) => <LabelPrice toFormat={row.getValue('price')} />,
     enableSorting: true,
     enableHiding: true
   }),
