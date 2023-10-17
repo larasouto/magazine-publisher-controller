@@ -1,15 +1,12 @@
 import { useFetch } from '@/hooks/useFetch'
+import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend, routes } from '@/routes/routes'
-import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
 import { ThemesForm } from './themes.form'
 import { ThemesFormWithId } from './themes.schema'
 
 export const ThemesPage = () => {
-  const { t } = useTranslation('themes')
-  const { id } = useParams()
-  const title = id ? t('page.edit') : t('page.new')
+  const { id, t, title, breadcrumb } = usePageUtils('themes')
 
   const { get } = useFetch<ThemesFormWithId>({
     baseUrl: backend.themes.baseUrl,
@@ -22,13 +19,12 @@ export const ThemesPage = () => {
 
   return (
     <PageLayout
-      title={title}
+      title={title({ dynamic: true })}
       imageSrc="/banner.jpg"
       isLoading={get.isLoading}
-      breadcrumb={[
-        { label: t('page.title'), link: routes.themes.index },
-        { label: title }
-      ]}
+      breadcrumb={breadcrumb({
+        segments: [{ label: t('page.title'), link: routes.themes.index }]
+      })}
     >
       <ThemesForm data={get.data} />
     </PageLayout>

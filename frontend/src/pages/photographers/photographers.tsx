@@ -1,15 +1,12 @@
 import { useFetch } from '@/hooks/useFetch'
+import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend, routes } from '@/routes/routes'
-import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
 import { PhotographersForm } from './photographers.form'
 import { PhotographerFormWithId } from './photographers.schema'
 
 export const PhotographersPage = () => {
-  const { t } = useTranslation('photographers')
-  const { id } = useParams()
-  const title = id ? t('page.edit') : t('page.new')
+  const { id, t, title, breadcrumb } = usePageUtils('photographers')
 
   const { get } = useFetch<PhotographerFormWithId>({
     baseUrl: backend.photographers.baseUrl,
@@ -22,13 +19,12 @@ export const PhotographersPage = () => {
 
   return (
     <PageLayout
-      title={title}
+      title={title({ dynamic: true })}
       imageSrc="/banner.jpg"
       isLoading={get.isLoading}
-      breadcrumb={[
-        { label: t('page.title'), link: routes.photographers.index },
-        { label: title }
-      ]}
+      breadcrumb={breadcrumb({
+        segments: [{ label: t('page.title'), link: routes.photographers.index }]
+      })}
     >
       <PhotographersForm data={get.data} />
     </PageLayout>

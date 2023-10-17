@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { createJSONStorage, devtools, persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 
-export type Item = {
+export type CartItem = {
   id: number
   title: string
   description: string
@@ -13,10 +13,10 @@ export type Item = {
 
 export type CartStoreProps = {
   isOpen: boolean
-  items: Item[]
+  items: CartItem[]
   toggleOpen: () => void
   close: () => void
-  addItem: (item: Item) => void
+  addItem: (item: CartItem) => void
   removeItem: (id: number) => void
   incrementItem: (id: number) => void
   decrementItem: (id: number) => void
@@ -66,7 +66,7 @@ const removeAll = () => {
   useCartStore.setState({ items: [] })
 }
 
-const addItem = (item: Item) => {
+const addItem = (item: CartItem) => {
   /**
    * Verifica se o item já existe no carrinho e,
    * caso exista, retorna o item.
@@ -171,7 +171,7 @@ const removeItem = (id: number) => {
  */
 export const CartStore: Omit<CartStoreProps, 'isOpen' | 'items'> & {
   isOpen: () => boolean
-  items: () => Item[]
+  items: () => CartItem[]
 } = {
   isOpen: () => useCartStore.getState().isOpen,
   items: () => useCartStore.getState().items,

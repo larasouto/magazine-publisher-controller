@@ -1,4 +1,4 @@
-import { Label } from '@/components/ui/label/Label'
+import { Format } from '@/components/ui/label/Format'
 import { useSupabase } from '@/hooks/useSupabase'
 import { Button, Image } from '@nextui-org/react'
 import { Plus } from 'lucide-react'
@@ -10,9 +10,10 @@ import { EditionForm } from '../editions.schema'
 
 type EditionsCoverProps = {
   form: UseFormReturn<EditionForm>
+  errorMessage?: string
 }
 
-export const EditionsCover = ({ form }: EditionsCoverProps) => {
+export const EditionsCover = ({ form, errorMessage }: EditionsCoverProps) => {
   const { t } = useTranslation('editions')
   const { uploadImage, getImage } = useSupabase()
   const [preview, setPreview] = useState<string>()
@@ -27,6 +28,18 @@ export const EditionsCover = ({ form }: EditionsCoverProps) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    const handleWindowClose = (e) => {
+      alert('hihasidha')
+      e.preventDefault()
+    }
+    window.addEventListener('beforeunload', handleWindowClose)
+
+    return () => {
+      window.removeEventListener('beforeunload', handleWindowClose)
+    }
+  })
 
   const handleFile = async (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target.files?.[0]
@@ -52,7 +65,7 @@ export const EditionsCover = ({ form }: EditionsCoverProps) => {
   return (
     <div className="relative">
       <div className="rounded-xl">
-        <Label label={t('Capa')} />
+        <Format text={t('Capa')} size="sm" isRequired />
         <Button
           id="cover-button"
           type="button"
@@ -60,12 +73,18 @@ export const EditionsCover = ({ form }: EditionsCoverProps) => {
           onClick={() => document.getElementById('cover')?.click()}
         >
           {preview && (
-            <Image src={preview} className="w-40 h-[12.3rem] object-cover" />
+            <Image
+              src={preview}
+              classNames={{
+                img: 'brightness-75 z-1 w-40 h-[12.3rem] rounded-none object-cover'
+              }}
+            />
           )}
           <div className="absolute">
-            <Plus className="z-50 w-8 h-8 group-hover:scale-110" />
+            <Plus className={'z-50 w-9 h-9 text-white group-hover:scale-110'} />
           </div>
         </Button>
+        <div className="p-1 text-tiny text-danger">{errorMessage}</div>
         <input
           id="cover"
           type="file"

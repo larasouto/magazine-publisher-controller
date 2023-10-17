@@ -6,7 +6,6 @@ import { useFetch } from '@/hooks/useFetch'
 import { backend } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@nextui-org/react'
-import { InputNumberFormat } from '@react-input/number-format'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { EditionsCover } from './cover/editions.cover'
@@ -46,6 +45,8 @@ export const EditionsForm = ({ data }: EditionsFormProps) => {
     await create.mutateAsync(form)
   }
 
+  console.table(form.formState.errors)
+
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
@@ -53,7 +54,10 @@ export const EditionsForm = ({ data }: EditionsFormProps) => {
       noValidate
     >
       <GridLayout className="grid grid-cols-1 lg:grid-cols-[auto_1fr]">
-        <EditionsCover form={form} />
+        <EditionsCover
+          form={form}
+          errorMessage={form.formState.errors.coverPath?.message}
+        />
         <GridLayout cols="3">
           <fieldset>
             <Input
@@ -77,11 +81,8 @@ export const EditionsForm = ({ data }: EditionsFormProps) => {
             />
           </fieldset>
           <fieldset>
-            <InputNumberFormat
-              component={Input}
-              format="currency"
-              currency="BRL"
-              minimumFractionDigits={2}
+            <Input
+              type="number"
               startContent={<PriceIcon />}
               label={t('form.price.label')}
               placeholder={t('form.price.placeholder')}
@@ -148,6 +149,7 @@ export const EditionsForm = ({ data }: EditionsFormProps) => {
                 <DatePicker
                   field={field}
                   label={t('form.publication_date.label')}
+                  errorMessage={form.formState.errors.publicationDate?.message}
                   mode="single"
                   selected={field.value}
                   onSelect={field.onChange}

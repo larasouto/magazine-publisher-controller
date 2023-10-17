@@ -1,39 +1,37 @@
 import { cn } from '@/lib/utils'
-import { routes } from '@/routes/routes'
 import { Image } from '@nextui-org/react'
 import { ChevronRight } from 'lucide-react'
 import { ComponentProps } from 'react'
-import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-type Item = {
+export type BreadcrumbItem = {
   label: string
   link?: string
 }
 
 type BreadcrumbProps = ComponentProps<'div'> & {
   title: string
-  items: Array<Item>
+  items: Array<BreadcrumbItem>
   imageSrc?: string | boolean
 }
 
 export const Breadcrumb = ({
   title,
-  items,
+  items = [],
   className,
   imageSrc,
   ...props
 }: BreadcrumbProps) => {
-  const { t } = useTranslation()
-  const _items = [{ label: t('home'), link: routes.home.index }, ...items]
-
   return (
     <>
       {imageSrc && typeof imageSrc === 'string' && (
         <Image
           src={imageSrc}
-          className="max-w-full min-w-full max-h-40 object-cover h-auto mt-2 mb-5"
-          removeWrapper
+          classNames={{
+            wrapper: 'max-w-full min-w-full mt-2 mb-5',
+            img: 'max-h-40 object-cover max-w-full min-w-full'
+          }}
+          isZoomed
         />
       )}
       <div
@@ -43,7 +41,7 @@ export const Breadcrumb = ({
         {...props}
       >
         <ol className="text-sm flex items-center overflow-y-auto">
-          {_items.map((item, index) => {
+          {items.map((item, index) => {
             const isFirst = index === 0
 
             return (

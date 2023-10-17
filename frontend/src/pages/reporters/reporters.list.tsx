@@ -1,14 +1,13 @@
 import { DataTable } from '@/components/ui/table/DataTable'
 import { useFetch } from '@/hooks/useFetch'
+import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
-import { useTranslation } from 'react-i18next'
 import { ReportersToolbar } from './reporter.toolbar'
 import { ReporterColumns, columns } from './table/reporters.columns'
 
 export const ReporterListPage = () => {
-  const { t } = useTranslation('reporters')
-  const title = t('page.title')
+  const { title, breadcrumb } = usePageUtils('reporters')
 
   const { list } = useFetch<ReporterColumns[]>({
     baseUrl: backend.reporters.baseUrl,
@@ -20,9 +19,9 @@ export const ReporterListPage = () => {
 
   return (
     <PageLayout
-      title={title}
+      title={title()}
       isLoading={list.isLoading}
-      breadcrumb={[{ label: title }]}
+      breadcrumb={breadcrumb()}
     >
       <DataTable
         columns={columns}

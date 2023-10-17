@@ -1,15 +1,12 @@
 import { useFetch } from '@/hooks/useFetch'
+import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { routes } from '@/routes/routes'
-import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
 import { EditionsForm } from './editions.form'
 import { EditionFormWithId } from './editions.schema'
 
 export const EditionsPage = () => {
-  const { t } = useTranslation('editions')
-  const { id } = useParams()
-  const title = id ? t('page.edit') : t('page.new')
+  const { id, t, title, breadcrumb } = usePageUtils('editions')
 
   const { get } = useFetch<EditionFormWithId>({
     baseUrl: routes.editions.index,
@@ -22,13 +19,12 @@ export const EditionsPage = () => {
 
   return (
     <PageLayout
-      title={title}
+      title={title({ dynamic: true })}
       imageSrc="/banner.jpg"
       isLoading={get.isLoading}
-      breadcrumb={[
-        { label: t('page.title'), link: routes.editions.index },
-        { label: title }
-      ]}
+      breadcrumb={breadcrumb({
+        segments: [{ label: t('page.title'), link: routes.editions.index }]
+      })}
     >
       <EditionsForm data={get.data} />
     </PageLayout>

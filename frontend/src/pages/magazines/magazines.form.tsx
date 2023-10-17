@@ -85,14 +85,12 @@ export const MagazinesForm = ({ data }: MagazinesFormProps) => {
           />
         </fieldset>
         <fieldset>
+          {data?.publicationPeriod}
           <Select
             label={t('form.publication_period.label')}
             placeholder={t('form.publication_period.placeholder')}
             labelPlacement="outside"
-            defaultSelectedKeys={
-              [data?.publicationPeriod as PublicationPeriod] ??
-              PublicationPeriod.MONTHLY
-            }
+            defaultSelectedKeys={[String(data?.publicationPeriod ?? 1)]}
             {...form.register('publicationPeriod')}
             errorMessage={form.formState.errors.publicationPeriod?.message}
             disallowEmptySelection
@@ -103,14 +101,13 @@ export const MagazinesForm = ({ data }: MagazinesFormProps) => {
               .map((value) => (
                 <SelectItem key={value} value={value}>
                   {t(
-                    `form.publication_period.options.${PublicationPeriod[value]
-                      .toString()
-                      .toLowerCase()}`
+                    `form.publication_period.options.${PublicationPeriod[
+                      value
+                    ].toLowerCase()}`
                   )}
                 </SelectItem>
               ))}
           </Select>
-          {Object.values(PublicationPeriod)}
         </fieldset>
         <ThemesSelect form={form} />
       </GridLayout>

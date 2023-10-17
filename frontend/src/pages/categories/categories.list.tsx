@@ -1,14 +1,13 @@
 import { DataTable } from '@/components/ui/table/DataTable'
 import { useFetch } from '@/hooks/useFetch'
+import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
-import { useTranslation } from 'react-i18next'
 import { CategoriesToolbar } from './categories.toolbar'
 import { CategoryColumns, columns } from './table/categories.columns'
 
 export const CategoryListPage = () => {
-  const { t } = useTranslation('categories')
-  const title = t('page.title')
+  const { title, breadcrumb } = usePageUtils('categories')
 
   const { list } = useFetch<CategoryColumns[]>({
     baseUrl: backend.categories.baseUrl,
@@ -20,8 +19,8 @@ export const CategoryListPage = () => {
 
   return (
     <PageLayout
-      title={title}
-      breadcrumb={[{ label: title }]}
+      title={title()}
+      breadcrumb={breadcrumb()}
       isLoading={list.isLoading}
     >
       <DataTable

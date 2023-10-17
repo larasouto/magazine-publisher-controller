@@ -16,6 +16,7 @@
     "@headlessui/react": "^1.7.17",
     "@hookform/resolvers": "^3.3.2",
     "@nextui-org/react": "^2.1.10",
+    "@radix-ui/react-slot": "^1.0.2",
     "@react-input/mask": "^1.0.20",
     "@react-input/number-format": "^1.0.20",
     "@supabase/supabase-js": "^2.38.1",
