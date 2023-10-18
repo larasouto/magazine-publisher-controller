@@ -33,7 +33,7 @@ describe('List advertising (end-to-end)', () => {
 
   afterAll(async () => {
     await prismaClient.advertising.deleteMany({
-      where: { title: { contains: 'test-list' } },
+      where: { name: { contains: 'test-list' } },
     })
     await prismaClient.magazine.deleteMany({
       where: { name: { contains: 'test-list' } },

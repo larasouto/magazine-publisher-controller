@@ -115,7 +115,6 @@ model Magazine {
   created_at         DateTime                  @default(now())
   updated_at         DateTime                  @updatedAt
   editions           Edition[]
-  Advertising        Advertising[]
 
   @@map("magazines")
 }
@@ -151,15 +150,13 @@ model Edition {
 }
 
 model Advertising {
-  id                  String   @id
-  name                String
+  id                   String   @id
+  name                 String
   category_advertising String
-  number_of_pages     Int
-  price               Float
-  magazine            Magazine @relation(fields: [magazine_id], references: [id])
-  magazine_id         String
-  created_at          DateTime @default(now())
-  updated_at          DateTime @updatedAt
+  number_of_pages      Int
+  price                Float
+  created_at           DateTime @default(now())
+  updated_at           DateTime @updatedAt
 
   @@map("advertisements")
 }

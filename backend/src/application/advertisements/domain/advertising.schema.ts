@@ -5,7 +5,7 @@ export const AdvertisingSchema = z.object({
   categoryAdvertising: z.string().min(3).max(64),
   numberOfPages: z.coerce.number().nonnegative().int(),
   price: z.coerce.number().nonnegative(),
-  magazineId: z.string().uuid()
+  //magazineId: z.string().uuid()
 })
 
 export type AdvertisingProps = z.infer<typeof AdvertisingSchema>

@@ -1,13 +1,15 @@
 import { describe, expect, test } from 'vitest'
 import { Advertising } from './advertising'
+import { randomUUID } from 'crypto'
 
 describe('Entity Advertising', () => {
   test('should be able to create a advertising', () => {
     const data: any = {
       name: 'test-Advertising',
       categoryAdvertising: 'test-news',
-      numberOfPages: '6',
-      price: '10.0',
+      numberOfPages: 6,
+      price: 10.0,
+      // magazineId 10
     }
     const sut = Advertising.create(data)
     expect(sut.isRight()).toBeTruthy()

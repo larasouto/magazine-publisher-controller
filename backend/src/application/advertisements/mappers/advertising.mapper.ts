@@ -10,7 +10,7 @@ export class AdvertisingMapper {
         categoryAdvertising: raw.category_advertising,
         numberOfPages: raw.number_of_pages,
         price: raw.price,
-        magazineId: raw.magazine_id,
+        //magazineId: raw.magazine_id,
       },
       raw.id,
     )
@@ -33,7 +33,7 @@ export class AdvertisingMapper {
       category_advertising: advertising.props.categoryAdvertising,
       number_of_pages: advertising.props.numberOfPages,
       price: advertising.props.price,
-      magazine_id: advertising.props.magazineId,
+      //magazine_id: advertising.props.magazineId,
     }
   }
 }
