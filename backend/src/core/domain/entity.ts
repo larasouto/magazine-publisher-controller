@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid'
 
-export class Entity<T extends object> {
+export abstract class Entity<T> {
   protected readonly _id: string
   public readonly props: T
 
