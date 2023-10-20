@@ -1,24 +1,25 @@
-import { Item } from '@/stores/useCartStore'
+import { CartItem } from '@/stores/useCartStore'
 import i18next from 'i18next'
+import { useTranslation } from 'react-i18next'
+
 type Items = {
-  items: Item[]
+  items: CartItem[]
 }
 
 export const CartTotalPrice = ({ items }: Items) => {
-  const currencyType = i18next.language === 'pt-BR' ? 'BRL' : 'USD'
+  const { t } = useTranslation('cart')
 
   return (
     <>
-      <span className="text-sm text-secondary font-bold">Subtotal: </span>
+      <span className="px-2 text-sm text-secondary font-bold">
+        {t('cart.subtotal')}
+      </span>
       <span>
         {new Intl.NumberFormat(i18next.language, {
           style: 'currency',
-          currency: currencyType
+          currency: 'BRL'
         }).format(
-          items.reduce(
-            (acc, item) => (acc + item.price) * (item.quantity ?? 1),
-            0
-          )
+          items.reduce((acc, item) => (acc + item.price) * item.quantity!, 0)
         )}
       </span>
     </>

@@ -40,21 +40,21 @@ describe('Inactivate a photographer (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .put(`/api/photographers/${create.id}/inactivate`)
+      .delete(`/api/photographers/${create.id}`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
     expect(response.status).toBe(StatusCodes.OK)
 
     const photographer = await photographersRepository.findById(create.id)
-    expect(photographer.props.status).toBe('INACTIVE')
+    expect(photographer?.props.status).toBe('INACTIVE')
   })
 
   test('should not be able to inactivate a non existing photographer', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .put(`/api/photographers/${create.id}-complement/inactivate`)
+      .delete(`/api/photographers/${create.id}-complement`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
@@ -65,7 +65,7 @@ describe('Inactivate a photographer (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .put(`/api/photographers/${null}/inactivate`)
+      .delete(`/api/photographers/${null}`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 

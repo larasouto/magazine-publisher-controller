@@ -1,11 +1,11 @@
 import { z } from 'zod'
 
 export enum PublicationPeriod {
-  ANNUALLY = 'ANNUALLY',
-  BIANNUAL = 'BIANNUAL',
-  MONTHLY = 'MONTHLY',
-  BIMONTHLY = 'BIMONTHLY',
-  WEEKLY = 'WEEKLY',
+  WEEKLY = 0,
+  MONTHLY = 1,
+  BIMONTHLY = 2,
+  ANNUALLY = 3,
+  BIANNUAL = 4,
 }
 
 export const MagazineSchema = z.object({

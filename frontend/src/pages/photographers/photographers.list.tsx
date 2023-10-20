@@ -1,14 +1,13 @@
 import { DataTable } from '@/components/ui/table/DataTable'
 import { useFetch } from '@/hooks/useFetch'
+import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
-import { useTranslation } from 'react-i18next'
 import { PhotographersToolbar } from './photographers.toolbar'
 import { PhotographerColumns, columns } from './table/photographers.columns'
 
 export const PhotographersListPage = () => {
-  const { t } = useTranslation('photographers')
-  const title = t('page.title')
+  const { title, breadcrumb } = usePageUtils('photographers')
 
   const { list } = useFetch<PhotographerColumns[]>({
     baseUrl: backend.photographers.baseUrl,
@@ -20,9 +19,9 @@ export const PhotographersListPage = () => {
 
   return (
     <PageLayout
-      title={title}
+      title={title()}
       isLoading={list.isLoading}
-      breadcrumb={[{ label: title }]}
+      breadcrumb={breadcrumb()}
     >
       <DataTable
         columns={columns}

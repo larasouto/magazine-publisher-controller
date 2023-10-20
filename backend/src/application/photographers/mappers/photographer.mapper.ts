@@ -5,8 +5,8 @@ import { PhotographerStatus } from '../domain/photographer.schema'
 
 export class PhotographerMapper {
   static toDomain(raw: PersistencePhotographer) {
-    const photographer: Pick<Photographer, 'props'> = {
-      props: {
+    const photographerOrError = Photographer.create(
+      {
         name: raw.name,
         email: raw.email,
         cpf: raw.cpf,
@@ -16,9 +16,8 @@ export class PhotographerMapper {
         entryDate: raw.entry_date,
         departureDate: raw.departure_date,
       },
-    }
-
-    const photographerOrError = Photographer.create(photographer.props, raw.id)
+      raw.id,
+    )
 
     if (photographerOrError.isLeft()) {
       throw new Error(t('errors.invalid_Photographer'))

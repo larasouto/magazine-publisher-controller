@@ -11,7 +11,7 @@ type ThemesSelectProps = {
 }
 
 export const MagazinesSelect = ({ form }: ThemesSelectProps) => {
-  const { t } = useTranslation('magazines')
+  const { t } = useTranslation('editions')
 
   const { list } = useFetch<MagazineFormWithId[]>({
     baseUrl: backend.magazines.baseUrl,
@@ -20,6 +20,10 @@ export const MagazinesSelect = ({ form }: ThemesSelectProps) => {
       list: true
     }
   })
+
+  if (list.isLoading) {
+    return null
+  }
 
   return (
     <fieldset>

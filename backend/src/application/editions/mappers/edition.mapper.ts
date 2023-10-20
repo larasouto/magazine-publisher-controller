@@ -4,8 +4,8 @@ import { MapperError } from '@/core/errors/MapperErrors'
 
 export class EditionMapper {
   static toDomain(raw: PersistenceEdition) {
-    const edition: Pick<Edition, 'props'> = {
-      props: {
+    const editionOrError = Edition.create(
+      {
         number: raw.number,
         title: raw.title,
         description: raw.description,
@@ -17,9 +17,8 @@ export class EditionMapper {
         numberOfPages: raw.number_of_pages,
         magazineId: raw.magazine_id,
       },
-    }
-
-    const editionOrError = Edition.create(edition.props, raw.id)
+      raw.id,
+    )
 
     if (editionOrError.isLeft()) {
       throw new MapperError(editionOrError.value.message)

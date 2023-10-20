@@ -1,14 +1,12 @@
 import { useFetch } from '@/hooks/useFetch'
+import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend, routes } from '@/routes/routes'
-import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
 import { ReportersForm } from './reporters.form'
 import { ReporterFormWithId } from './reporters.schema'
 
 export const ReportersPage = () => {
-  const { t } = useTranslation('reporters')
-  const { id } = useParams()
+  const { id, t, title, breadcrumb } = usePageUtils('reporters')
 
   const { get } = useFetch<ReporterFormWithId>({
     baseUrl: backend.reporters.baseUrl,
@@ -19,17 +17,14 @@ export const ReportersPage = () => {
     }
   })
 
-  const title = id ? t('page.edit') : t('page.new')
-
   return (
     <PageLayout
-      title={title}
+      title={title({ dynamic: true })}
       imageSrc="/banner.jpg"
       isLoading={get.isLoading}
-      breadcrumb={[
-        { label: t('page.title'), link: routes.reporters.index },
-        { label: title }
-      ]}
+      breadcrumb={breadcrumb({
+        segments: [{ label: t('page.title'), link: routes.reporters.index }]
+      })}
     >
       <ReportersForm data={get.data} />
     </PageLayout>

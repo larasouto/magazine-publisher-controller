@@ -2,6 +2,7 @@ import { Either, left, right } from '@/core/logic/either'
 import { User } from '../../domain/user'
 import { IUsersRepository } from '../../repositories/interfaces/IUsersRepository'
 import { UserAlreadyExistsError } from './errors/UserAlreadyExistsError'
+import { UserRole } from '../../domain/user.schema'
 
 type CreateUserRequest = {
   email: string
@@ -26,7 +27,7 @@ export class CreateUser {
       name,
       password,
       phone,
-      role: 'CUSTOMER',
+      role: UserRole.CUSTOMER,
     })
 
     if (userOrError.isLeft()) {

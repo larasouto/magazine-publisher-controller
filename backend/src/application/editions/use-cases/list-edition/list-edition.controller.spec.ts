@@ -5,6 +5,7 @@ import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { v4 as uuid } from 'uuid'
+import { PublicationPeriod } from '@/application/magazines/domain/magazine.schema'
 
 describe('List edition (end-to-end)', () => {
   const theme: any = {
@@ -18,7 +19,7 @@ describe('List edition (end-to-end)', () => {
     name: 'test-list-magazine-name',
     description: 'test-list-magazine-description',
     year_founded: 2021,
-    publication_period: 'MONTHLY',
+    publication_period: PublicationPeriod.MONTHLY,
     theme_id: theme.id,
   }
 

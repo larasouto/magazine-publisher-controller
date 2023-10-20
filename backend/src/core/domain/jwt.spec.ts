@@ -2,6 +2,7 @@ import { describe, expect, test } from 'vitest'
 import { InvalidJWTTokenError } from './errors/InvalidJWTTokenError'
 import { JWT, JWTTokenPayload } from './jwt'
 import { User } from '@/application/users/domain/user'
+import { UserRole } from '@/application/users/domain/user.schema'
 
 describe('JWT model', () => {
   test('should be able to create new user', () => {
@@ -9,7 +10,7 @@ describe('JWT model', () => {
       name: 'test',
       email: 'email@test.com',
       password: '123456789',
-      role: 'CUSTOMER',
+      role: UserRole.CUSTOMER,
     })
 
     const user = userOrError.value as User
@@ -24,7 +25,7 @@ describe('JWT model', () => {
       name: 'test',
       email: 'email@test.com',
       password: '123456789',
-      role: 'CUSTOMER',
+      role: UserRole.CUSTOMER,
     })
 
     const user = userOrError.value as User
@@ -50,7 +51,7 @@ describe('JWT model', () => {
       name: 'test',
       email: 'email@test.com',
       password: '123456789',
-      role: 'CUSTOMER',
+      role: UserRole.CUSTOMER,
     })
 
     const user = userOrError.value as User

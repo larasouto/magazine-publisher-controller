@@ -12,7 +12,8 @@ export const routes = {
     }
   },
   home: {
-    index: '/home'
+    index: '/home',
+    editions: '/home/editions/:id'
   },
   categories: {
     index: '/categories',

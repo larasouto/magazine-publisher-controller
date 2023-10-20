@@ -5,15 +5,14 @@ import { SubtitleType } from '../domain/subtitle.schema'
 
 export class SubtitleMapper {
   static toDomain(raw: PersistenceSubtitle) {
-    const subtitle: Pick<Subtitle, 'props'> = {
-      props: {
+    const subtitleOrError = Subtitle.create(
+      {
         name: raw.name,
         description: raw.description,
         type: raw.type as SubtitleType,
       },
-    }
-
-    const subtitleOrError = Subtitle.create(subtitle.props, raw.id)
+      raw.id,
+    )
 
     if (subtitleOrError.isLeft()) {
       throw new MapperError(subtitleOrError.value.message)

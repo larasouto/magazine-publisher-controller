@@ -1,4 +1,3 @@
-import { ZodValidate } from '@/core/@types/ZodValidate'
 import { Entity } from '@/core/domain/entity'
 import { ZodValidationError } from '@/core/domain/errors/ZodValidationError'
 import { Either, left, right } from '@/core/logic/either'

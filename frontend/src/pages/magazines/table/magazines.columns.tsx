@@ -1,6 +1,7 @@
 import { Checkbox, Chip } from '@nextui-org/react'
 import { createColumnHelper } from '@tanstack/react-table'
 import { t } from 'i18next'
+import { PublicationPeriod } from '../magazines.schema'
 import { MagazineActions } from './magazines.actions'
 
 export type MagazineColumns = {
@@ -76,20 +77,22 @@ export const columns = [
     id: 'publicationPeriod',
     header: () => t('magazines:form.publication_period.label'),
     cell: ({ row }) => {
-      const status = row.getValue('publicationPeriod') as string
+      const status = row.getValue('publicationPeriod') as PublicationPeriod
 
       const colors = {
-        ANNUALLY: 'danger',
-        BIANNUAL: 'warning',
+        WEEKLY: 'primary',
         MONTHLY: 'default',
         BIMONTHLY: 'secondary',
-        WEEKLY: 'primary'
+        ANNUALLY: 'danger',
+        BIANNUAL: 'warning'
       }
 
       return (
         <Chip color={colors[status]}>
           {t(
-            `magazines:form.publication_period.options.${status.toLowerCase()}`
+            `magazines:form.publication_period.options.${PublicationPeriod[
+              status
+            ].toLowerCase()}`
           )}
         </Chip>
       )

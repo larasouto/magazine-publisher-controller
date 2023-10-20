@@ -9,7 +9,7 @@ export const CartBottomContent = () => {
   const items = useCartStore((state) => state.items)
 
   return (
-    <div className="flex flex-col my-2 gap-2">
+    <div className="flex flex-col my-2 gap-2 px-5">
       <Button
         className="w-full text-lg"
         color="secondary"

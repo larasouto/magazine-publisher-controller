@@ -1,3 +1,4 @@
 {
-  "invalid_cpf": "Invalid CPF"
+  "invalid_cpf": "Invalid CPF",
+  "required_field": "Required field"
 }

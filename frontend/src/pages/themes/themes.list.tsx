@@ -1,14 +1,13 @@
 import { DataTable } from '@/components/ui/table/DataTable'
 import { useFetch } from '@/hooks/useFetch'
+import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
-import { useTranslation } from 'react-i18next'
 import { ThemesColumns, columns } from './table/themes.columns'
 import { ThemesToolbar } from './themes.toolbar'
 
 export const ThemesListPage = () => {
-  const { t } = useTranslation('themes')
-  const title = t('page.title')
+  const { title, breadcrumb } = usePageUtils('themes')
 
   const { list } = useFetch<ThemesColumns[]>({
     baseUrl: backend.themes.baseUrl,
@@ -20,9 +19,9 @@ export const ThemesListPage = () => {
 
   return (
     <PageLayout
-      title={title}
+      title={title()}
       isLoading={list.isLoading}
-      breadcrumb={[{ label: title }]}
+      breadcrumb={breadcrumb()}
     >
       <DataTable
         columns={columns}

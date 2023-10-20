@@ -5,17 +5,16 @@ import { Password } from '@/core/domain/password'
 
 export class UserMapper {
   static toDomain(raw: PersistenceUser) {
-    const user: Pick<User, 'props'> = {
-      props: {
+    const userOrError = User.create(
+      {
         name: raw.name,
         email: raw.email,
         password: raw.password,
         phone: raw.phone,
         role: raw.role,
       },
-    }
-
-    const userOrError = User.create(user.props, raw.id)
+      raw.id,
+    )
 
     if (userOrError.isLeft()) {
       throw new Error(t('errors.invalid_user'))
@@ -37,6 +36,7 @@ export class UserMapper {
       email: user.props.email,
       password: await hashed.value.getHashedValue(),
       phone: user.props.phone,
+      role: user.props.role,
     }
   }
 }

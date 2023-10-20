@@ -12,7 +12,7 @@ export class UserFactory {
       name: 'just-for-tests',
       email: overrides?.email || 'just-for-tests@email.com',
       password: overrides?.password || '12345678',
-      role: 'ADMIN',
+      role: 1,
     })
 
     return user.value as User

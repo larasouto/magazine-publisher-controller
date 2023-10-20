@@ -97,7 +97,7 @@ describe('Edit reporter (end-to-end)', () => {
     const edited = await prismaClient.reporter.findFirst({
       where: { id: create.id },
     })
-    expect(edited.departure_date).toStrictEqual(data.departureDate)
+    expect(edited!.departure_date).toStrictEqual(data.departureDate)
   })
 
   test('should not be able to edit a reporter with empty data', async () => {

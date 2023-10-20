@@ -1,3 +1,4 @@
+import { PublicationPeriod } from '@/application/magazines/domain/magazine.schema'
 import { app } from '@/infra/http/app'
 import { prismaClient } from '@/infra/prisma/client'
 import { UserFactory } from '@/tests/factories/UserFactory'
@@ -18,7 +19,7 @@ describe('Get a edition (end-to-end)', () => {
     name: 'test-get-magazine-edition',
     description: 'test-description',
     year_founded: 2021,
-    publication_period: 'ANNUALLY',
+    publication_period: PublicationPeriod.ANNUALLY,
     theme_id: theme.id,
   }
 
@@ -66,7 +67,7 @@ describe('Get a edition (end-to-end)', () => {
     const response = await request(app)
       .get(`/api/editions/${create.id}`)
       .auth(jwt.token, { type: 'bearer' })
-    console.log(response.body)
+
     expect(response.status).toBe(StatusCodes.OK)
   })
 

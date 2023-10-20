@@ -4,13 +4,14 @@ import { Validator } from '@/core/infra/validator'
 import { t } from 'i18next'
 import { EditMagazine } from './edit-magazine'
 import { MagazineNotFoundError } from './errors/MagazineNotFoundError'
+import { PublicationPeriod } from '../../domain/magazine.schema'
 
 type EditMagazineControllerRequest = {
   magazineId: string
   name: string
   description?: string
   yearFounded: number
-  publicationPeriod: string
+  publicationPeriod: PublicationPeriod
   themeId: string
 }
 

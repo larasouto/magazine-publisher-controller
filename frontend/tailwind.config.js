@@ -16,8 +16,9 @@ export default {
       }
     },
     screens: {
-      'xss': { min: '320px', max: '479px' },
-      'xs': { min: '480px', max: '639px' },
+      'base': '100%',
+      'xss': { min: '360px' },
+      'xs': { min: '430px' },
       ...defaultTheme.screens
     },
     extend: {}

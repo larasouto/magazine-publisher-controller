@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid'
 
-export class Entity<T> {
+export abstract class Entity<T> {
   protected readonly _id: string
   public readonly props: T
 
@@ -11,6 +11,10 @@ export class Entity<T> {
 
   get id() {
     return this._id
+  }
+
+  public get<K extends keyof T>(key: K): T[K] {
+    return this.props[key]
   }
 
   public equals(object?: Entity<T> | null): boolean {
