@@ -1,5 +1,5 @@
 import { afterEach, beforeAll, describe, expect, it } from 'vitest'
-import { CartStore, Item, useCartStore } from './useCartStore'
+import { CartItem, CartStore, useCartStore } from './useCartStore'
 
 describe('useCartStore', () => {
   beforeAll(() => {
@@ -30,7 +30,7 @@ describe('useCartStore', () => {
 
   it('should add an item to the cart', () => {
     CartStore.addItem({
-      id: 1,
+      id: '2',
       title: 'title',
       description: 'description',
       price: 10,
@@ -41,8 +41,8 @@ describe('useCartStore', () => {
   })
 
   it('should increment an item if already exists', () => {
-    const item: Item = {
-      id: 1,
+    const item: CartItem = {
+      id: '1',
       title: 'title',
       description: 'description',
       price: 10,
@@ -58,16 +58,16 @@ describe('useCartStore', () => {
   })
 
   it('should decrement an item if quantity is greater than 1', () => {
-    const item1: Item = {
-      id: 1,
+    const item1: CartItem = {
+      id: '1',
       title: 'title',
       description: 'description',
       price: 10,
       coverPath: 'coverPath'
     }
 
-    const item2: Item = { ...item1, id: 2 }
-    const item3: Item = { ...item1, id: 3 }
+    const item2: CartItem = { ...item1, id: '2' }
+    const item3: CartItem = { ...item1, id: '3' }
 
     CartStore.addItem(item1)
     CartStore.addItem(item1)
@@ -89,16 +89,16 @@ describe('useCartStore', () => {
   })
 
   it('should remove an item from the cart', () => {
-    const item1: Item = {
-      id: 1,
+    const item1: CartItem = {
+      id: '1',
       title: 'title',
       description: 'description',
       price: 10,
       coverPath: 'coverPath'
     }
 
-    const item2: Item = { ...item1, id: 2 }
-    const item3: Item = { ...item1, id: 3 }
+    const item2: CartItem = { ...item1, id: '2' }
+    const item3: CartItem = { ...item1, id: '3' }
 
     CartStore.addItem(item1)
     CartStore.addItem(item1)
@@ -116,8 +116,8 @@ describe('useCartStore', () => {
   })
 
   it('should remove an item from the cart if quantity is 0', () => {
-    const item1: Item = {
-      id: 1,
+    const item1: CartItem = {
+      id: '1',
       title: 'title',
       description: 'description',
       price: 10,
@@ -138,16 +138,16 @@ describe('useCartStore', () => {
   })
 
   it('should remove all items from the cart', () => {
-    const item1: Item = {
-      id: 1,
+    const item1: CartItem = {
+      id: '1',
       title: 'title',
       description: 'description',
       price: 10,
       coverPath: 'coverPath'
     }
 
-    const item2: Item = { ...item1, id: 2 }
-    const item3: Item = { ...item1, id: 3 }
+    const item2: CartItem = { ...item1, id: '2' }
+    const item3: CartItem = { ...item1, id: '3' }
 
     CartStore.addItem(item1)
     CartStore.addItem(item1)

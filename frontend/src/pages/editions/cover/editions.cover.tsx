@@ -29,18 +29,6 @@ export const EditionsCover = ({ form, errorMessage }: EditionsCoverProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    const handleWindowClose = (e) => {
-      alert('hihasidha')
-      e.preventDefault()
-    }
-    window.addEventListener('beforeunload', handleWindowClose)
-
-    return () => {
-      window.removeEventListener('beforeunload', handleWindowClose)
-    }
-  })
-
   const handleFile = async (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target.files?.[0]
 

@@ -78,7 +78,7 @@ export const CartItems = () => {
                       </Button>
                       unid.
                     </div>
-                    <Tooltip color="foreground" content={t('remove_item')}>
+                    <Tooltip color="foreground" content={t('cart.remove_item')}>
                       <Button
                         color="danger"
                         className="flex gap-2 min-w-unit-7 w-unit-7 h-unit-7"

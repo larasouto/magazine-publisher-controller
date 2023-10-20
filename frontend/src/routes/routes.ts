@@ -13,7 +13,7 @@ export const routes = {
   },
   home: {
     index: '/home',
-    magazines: '/home/magazine/:id'
+    editions: '/home/editions/:id'
   },
   categories: {
     index: '/categories',

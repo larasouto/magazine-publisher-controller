@@ -9,7 +9,7 @@ export const EditionSchema = z.object({
     .string()
     .refine((c) => c.length > 1, params({ key: 'required_field' })),
   price: z.coerce.number().positive(),
-  year: z.coerce.number().min(1900).max(2023),
+  year: z.coerce.number().min(1900).max(new Date().getFullYear()),
   publicationDate: z.coerce.date(),
   numberOfCopies: z.coerce.number().positive().int(),
   numberOfPages: z.coerce.number().positive().int(),

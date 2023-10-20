@@ -1,8 +1,9 @@
-import { Item } from '@/stores/useCartStore'
+import { CartItem } from '@/stores/useCartStore'
 import i18next from 'i18next'
 import { useTranslation } from 'react-i18next'
+
 type Items = {
-  items: Item[]
+  items: CartItem[]
 }
 
 export const CartTotalPrice = ({ items }: Items) => {

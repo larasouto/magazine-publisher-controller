@@ -33,7 +33,7 @@ export const Products = ({ ...props }: ProductsProps) => {
   return (
     <>
       <section {...props}>
-        <h1 className="text-3xl font-bold mb-7 mt-2">Magazines for you</h1>
+        <h1 className="text-3xl font-bold mb-7 mt-2">Revistas para você</h1>
         <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4">
           {data?.map((product) => (
             <div key={product.id} className="bg-default-100 rounded-xl group">
@@ -64,7 +64,7 @@ export const Products = ({ ...props }: ProductsProps) => {
                   <ShoppingCart className="hidden group-hover:inline-flex w-5 h-5" />
                   {new Intl.NumberFormat(i18next.language, {
                     style: 'currency',
-                    currency: i18next.language === 'en-US' ? 'USD' : 'BRL'
+                    currency: 'BRL'
                   }).format(product.price)}
                 </Button>
               </div>

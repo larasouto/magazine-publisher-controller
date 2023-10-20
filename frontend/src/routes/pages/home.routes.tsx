@@ -21,7 +21,7 @@ export const HomeRoutes: RouteObject = {
           element: <HomePage />
         },
         {
-          path: routes.home.magazines,
+          path: routes.home.editions,
           element: <MagazineShow />
         }
       ]

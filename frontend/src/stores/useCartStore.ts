@@ -3,7 +3,7 @@ import { createJSONStorage, devtools, persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 
 export type CartItem = {
-  id: number
+  id: string
   title: string
   description: string
   price: number
@@ -17,10 +17,11 @@ export type CartStoreProps = {
   toggleOpen: () => void
   close: () => void
   addItem: (item: CartItem) => void
-  removeItem: (id: number) => void
-  incrementItem: (id: number) => void
-  decrementItem: (id: number) => void
+  removeItem: (id: string) => void
+  incrementItem: (id: string) => void
+  decrementItem: (id: string) => void
   removeAll: () => void
+  getItemQuantity: (id: string) => number
 }
 
 export const useCartStore = create<CartStoreProps>()(
@@ -35,7 +36,8 @@ export const useCartStore = create<CartStoreProps>()(
         incrementItem: (id) => incrementItem(id),
         decrementItem: (id) => decrementItem(id),
         removeItem: (id) => removeItem(id),
-        removeAll: () => removeAll()
+        removeAll: () => removeAll(),
+        getItemQuantity: (id) => getItemQuantity(id)
       })),
       {
         name: 'cart',
@@ -91,7 +93,7 @@ const addItem = (item: CartItem) => {
   }))
 }
 
-const incrementItem = (id: number) => {
+const incrementItem = (id: string) => {
   /**
    * Incrementa a unidade do item.
    */
@@ -102,7 +104,7 @@ const incrementItem = (id: number) => {
   }))
 }
 
-const decrementItem = (id: number) => {
+const decrementItem = (id: string) => {
   /**
    * Verifica se o item já existe no carrinho e,
    * caso exista, retorna o item.
@@ -141,7 +143,20 @@ const decrementItem = (id: number) => {
   }))
 }
 
-const removeItem = (id: number) => {
+const getItemQuantity = (id: string) => {
+  /**
+   * Verifica se o item já existe no carrinho e,
+   * caso exista, retorna o item.
+   */
+  const item = useCartStore.getState().items.find((item) => item.id === id)
+
+  /**
+   * Caso exista, retorna a quantidade do item. Caso não, retorna 0.
+   */
+  return item?.quantity || 0
+}
+
+const removeItem = (id: string) => {
   /**
    * Verifica se o item já existe no carrinho e,
    * caso exista, retorna o item.
@@ -181,5 +196,6 @@ export const CartStore: Omit<CartStoreProps, 'isOpen' | 'items'> & {
   incrementItem: (id) => useCartStore.getState().incrementItem(id),
   decrementItem: (id) => useCartStore.getState().decrementItem(id),
   removeItem: (id) => useCartStore.getState().removeItem(id),
-  removeAll: () => useCartStore.getState().removeAll()
+  removeAll: () => useCartStore.getState().removeAll(),
+  getItemQuantity: (id) => getItemQuantity(id)
 }
