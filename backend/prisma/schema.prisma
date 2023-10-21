@@ -18,6 +18,7 @@ model User {
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   addresses  Address[]
+  Order      Order[]
 
   @@map("users")
 }
@@ -118,7 +119,7 @@ model Subtitle {
 }
 
 model Edition {
-  id               String   @id
+  id               String      @id
   number           Int
   title            String
   cover_path       String
@@ -128,10 +129,40 @@ model Edition {
   description      String?
   publication_date DateTime
   number_of_copies Int
-  magazine         Magazine @relation(fields: [magazine_id], references: [id])
+  magazine         Magazine    @relation(fields: [magazine_id], references: [id])
   magazine_id      String
-  created_at       DateTime @default(now())
-  updated_at       DateTime @updatedAt
+  created_at       DateTime    @default(now())
+  updated_at       DateTime    @updatedAt
+  OrderItem        OrderItem[]
 
   @@map("editions")
+}
+
+model OrderItem {
+  id         String   @id
+  quantity   Int
+  price      Float
+  edition    Edition  @relation(fields: [edition_id], references: [id])
+  edition_id String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  order      Order?   @relation(fields: [order_id], references: [id])
+  order_id   String?
+
+  @@map("orders_items")
+}
+
+model Order {
+  id             String      @id
+  customer       User        @relation(fields: [customer_id], references: [id])
+  customer_id    String
+  payment_method Int
+  items          OrderItem[]
+  total_value    Float
+  address_id     String
+  status         Int
+  created_at     DateTime    @default(now())
+  updated_at     DateTime    @updatedAt
+
+  @@map("orders")
 }
