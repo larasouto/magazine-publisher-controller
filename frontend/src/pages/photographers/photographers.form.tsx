@@ -25,7 +25,6 @@ export const PhotographersForm = ({ data }: PhotographerFormProps) => {
   const { create, update } = useFetch<PhotographerForm>({
     baseUrl: backend.photographers.baseUrl,
     query: ['photographers'],
-    invalidateQuery: true,
     fetch: {
       id: data?.id
     }

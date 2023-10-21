@@ -26,8 +26,7 @@ export const ThemesActions = ({ row }: ThemesActionsProps) => {
 
   const { remove } = useFetch<ThemesColumns>({
     baseUrl: backend.themes.baseUrl,
-    query: ['themes'],
-    invalidateQuery: true
+    query: ['themes']
   })
 
   const handleDelete = async () => {
