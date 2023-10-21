@@ -44,4 +44,14 @@ describe('Delete category (end-to-end)', () => {
 
     expect(response.status).toBe(StatusCodes.OK)
   })
+
+  test("should not be able to delete a category that doesn't exist", async () => {
+    const { jwt } = UserFactory.createAndAuthenticate()
+
+    const response = await request(app)
+      .del(`/api/categories/?categoryId=invalid-category-id`)
+      .auth(jwt.token, { type: 'bearer' })
+
+    expect(response.status).toBe(StatusCodes.BAD_REQUEST)
+  })
 })

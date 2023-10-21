@@ -7,7 +7,7 @@ import { CategoryNotFoundError } from './errors/CategoryNotFoundError'
 import { OneOrMoreCategoryNotFoundError } from './errors/OneOrMoreCategoryNotFoundError'
 
 type DeleteCategoryControllerRequest = {
-  categoryId: string[]
+  ids: string[]
 }
 
 export class DeleteCategoryController implements Controller {
@@ -39,6 +39,11 @@ export class DeleteCategoryController implements Controller {
       }
     }
 
-    return ok({ message: t('category.deleted') })
+    const message =
+      request.ids?.length > 1
+        ? t('category.deleted_many')
+        : t('category.deleted')
+
+    return ok({ message })
   }
 }

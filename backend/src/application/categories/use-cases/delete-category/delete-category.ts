@@ -4,7 +4,7 @@ import { CategoryNotFoundError } from './errors/CategoryNotFoundError'
 import { OneOrMoreCategoryNotFoundError } from './errors/OneOrMoreCategoryNotFoundError'
 
 type DeleteCategoryRequest = {
-  categoryId: string[]
+  ids: string[]
 }
 
 type DeleteCategoryResponse = Either<CategoryNotFoundError, null>
@@ -13,7 +13,7 @@ export class DeleteCategory {
   constructor(private categoriesRepository: ICategoryRepository) {}
 
   async execute({
-    categoryId,
+    ids: categoryId,
   }: DeleteCategoryRequest): Promise<DeleteCategoryResponse> {
     const categoryOrCategories = Array.isArray(categoryId)
       ? categoryId
