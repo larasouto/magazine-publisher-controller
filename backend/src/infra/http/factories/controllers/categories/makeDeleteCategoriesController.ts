@@ -6,7 +6,7 @@ import { RequiredFieldsValidator } from '@/infra/validation/RequiredFieldsValida
 import { ValidatorCompositor } from '@/infra/validation/ValidatorCompositor'
 
 type RequiredFields = {
-  categoryId: string
+  categoryId: string[]
 }
 
 export function makeDeleteCategoriesController(): Controller {

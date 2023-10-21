@@ -1,12 +1,13 @@
 import { Controller } from '@/core/infra/controller'
-import { HttpResponse, clientError, ok } from '@/core/infra/http-response'
+import { HttpResponse, clientError, fail, ok } from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
 import { t } from 'i18next'
 import { DeleteCategory } from './delete-category'
 import { CategoryNotFoundError } from './errors/CategoryNotFoundError'
+import { OneOrMoreCategoryNotFoundError } from './errors/OneOrMoreCategoryNotFoundError'
 
 type DeleteCategoryControllerRequest = {
-  categoryId: string
+  categoryId: string[]
 }
 
 export class DeleteCategoryController implements Controller {
@@ -31,6 +32,7 @@ export class DeleteCategoryController implements Controller {
 
       switch (error.constructor) {
         case CategoryNotFoundError:
+        case OneOrMoreCategoryNotFoundError:
           return clientError(error)
         default:
           return clientError(error)

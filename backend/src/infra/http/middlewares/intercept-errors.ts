@@ -8,6 +8,12 @@ export const interceptErrors = (
   res: Response,
   _next: NextFunction,
 ) => {
+  if (!!err.message.includes("Can't reach database server at")) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      status: 'error',
+      message: "Can't reach database server",
+    })
+  }
   if (err instanceof ZodError) {
     return res.status(StatusCodes.BAD_REQUEST).json({
       status: 'error',

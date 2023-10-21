@@ -4,6 +4,7 @@ import { Category } from '../../domain/category'
 import { InMemoryCategoriesRepository } from '../../repositories/in-memory/InMemoryCategoriesRepository'
 import { ICategoryRepository } from '../../repositories/interfaces/ICategoryRepository'
 import { DeleteCategory } from './delete-category'
+import { CategoryFactory } from '@/tests/factories/CategoryFactory'
 
 let categoriesRepository: ICategoryRepository
 let deleteCategory: DeleteCategory
@@ -15,24 +16,29 @@ describe('Delete category', () => {
   })
 
   test('should delete a category', async () => {
-    const data: any = {
-      name: 'test-name-category',
-      description: 'test-description-category',
-    }
+    const category1 = CategoryFactory.create()
+    const category2 = CategoryFactory.create()
 
-    const category = Category.create(data).value as Category
+    await categoriesRepository.create(category1)
+    await categoriesRepository.create(category2)
 
-    await categoriesRepository.create(category)
-    expect(await categoriesRepository.findById(category.id)).toBeTruthy()
+    const response = await deleteCategory.execute({
+      categoryId: [category1.id, category2.id],
+    })
 
-    await deleteCategory.execute({ categoryId: category.id })
-    expect(await categoriesRepository.findById(category.id)).toBeFalsy()
+    expect(response.isRight()).toBeTruthy()
+    expect(await categoriesRepository.list()).toStrictEqual([])
   })
 
-  test('should not delete a category if it does not exist', async () => {
-    const categoryId = 'invalid-category-id'
+  test('should not delete a non-existing category', async () => {
+    const category1 = CategoryFactory.create()
+    await categoriesRepository.create(category1)
 
-    await deleteCategory.execute({ categoryId })
-    expect(await categoriesRepository.findById(categoryId)).toBeFalsy()
+    const response = await deleteCategory.execute({
+      categoryId: [category1.id, 'non-existing-id'],
+    })
+
+    expect(response.isLeft()).toBeTruthy()
+    expect(await categoriesRepository.list()).toStrictEqual([category1])
   })
 })

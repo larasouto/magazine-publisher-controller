@@ -1,10 +1,10 @@
 import { Either, left, right } from '@/core/logic/either'
 import { ICategoryRepository } from '../../repositories/interfaces/ICategoryRepository'
 import { CategoryNotFoundError } from './errors/CategoryNotFoundError'
-import { prismaClient } from '@/infra/prisma/client'
+import { OneOrMoreCategoryNotFoundError } from './errors/OneOrMoreCategoryNotFoundError'
 
 type DeleteCategoryRequest = {
-  categoryId: string
+  categoryId: string[]
 }
 
 type DeleteCategoryResponse = Either<CategoryNotFoundError, null>
@@ -15,13 +15,25 @@ export class DeleteCategory {
   async execute({
     categoryId,
   }: DeleteCategoryRequest): Promise<DeleteCategoryResponse> {
-    const categoryExists = await this.categoriesRepository.findById(categoryId)
+    const categoryOrCategories = Array.isArray(categoryId)
+      ? categoryId
+      : [categoryId]
 
-    if (!categoryExists) {
-      return left(new CategoryNotFoundError())
+    const categoryPromises = categoryOrCategories
+      .filter((categoryId) => categoryId)
+      .map((categoryId) => this.categoriesRepository.findById(categoryId))
+
+    const categories = await Promise.all(categoryPromises)
+
+    if (categories.some((category) => category === null)) {
+      return left(
+        categories.length > 1
+          ? new OneOrMoreCategoryNotFoundError()
+          : new CategoryNotFoundError(),
+      )
     }
 
-    await this.categoriesRepository.delete(categoryId)
+    await this.categoriesRepository.deleteMany(categoryOrCategories)
 
     return right(null)
   }
