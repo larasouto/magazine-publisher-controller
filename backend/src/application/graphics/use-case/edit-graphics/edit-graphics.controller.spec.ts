@@ -34,7 +34,7 @@ describe('Edit graphics (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .put(`/api/magazines/graphicss/${create.id}/edit`)
+      .put(`/api/magazines/graphics/${create.id}/edit`)
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
@@ -42,7 +42,7 @@ describe('Edit graphics (end-to-end)', () => {
     expect(response.body).toHaveProperty('message')
   })
 
-  test('should be able to updated a graphics without address (remove address)', async () => {
+  test('should not be able to updated a graphics without address (remove address)', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const data: any = {
@@ -54,7 +54,7 @@ describe('Edit graphics (end-to-end)', () => {
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
-    expect(response.status).toBe(StatusCodes.OK)
+    expect(response.status).toBe(StatusCodes.BAD_REQUEST)
     expect(response.body).toHaveProperty('message')
   })
 
@@ -81,7 +81,7 @@ describe('Edit graphics (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .put(`/api/magazines/graphicss/invalid-id/edit`)
+      .put(`/api/magazines/graphics/invalid-id/edit`)
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 

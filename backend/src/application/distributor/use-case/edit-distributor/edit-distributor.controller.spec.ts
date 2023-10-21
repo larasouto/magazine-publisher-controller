@@ -36,7 +36,7 @@ describe('Edit distributor (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .put(`/api/magazines/distributors/${create.id}/edit`)
+      .put(`/api/magazines/distributor/${create.id}/edit`)
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
@@ -44,7 +44,7 @@ describe('Edit distributor (end-to-end)', () => {
     expect(response.body).toHaveProperty('message')
   })
 
-  test('should be able to updated a distributor without address (remove address)', async () => {
+  test('should not be able to updated a distributor without address (remove address)', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const data: any = {
@@ -58,7 +58,7 @@ describe('Edit distributor (end-to-end)', () => {
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
-    expect(response.status).toBe(StatusCodes.OK)
+    expect(response.status).toBe(StatusCodes.BAD_REQUEST)
     expect(response.body).toHaveProperty('message')
   })
 
@@ -86,7 +86,7 @@ describe('Edit distributor (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .put(`/api/magazines/distributors/invalid-id/edit`)
+      .put(`/api/magazines/distributor/invalid-id/edit`)
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 

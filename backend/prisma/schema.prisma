@@ -151,20 +151,20 @@ model Edition {
 }
 
 model Graphics {
-  id          String                  @id
-  name        String
-  address     String
-  distributor GraphicsOnDistributor[]
+  id                    String                  @id
+  name                  String
+  address               String
+  graphicsOnDistributor GraphicsOnDistributor[]
 
   @@map("graphics")
 }
 
 model Distributor {
-  id       String                  @id
-  name     String
-  address  String
-  region   String
-  graphics GraphicsOnDistributor[]
+  id                    String                  @id
+  name                  String
+  address               String
+  region                String
+  graphicsOnDistributor GraphicsOnDistributor[]
 
   @@map("distributor")
 }
@@ -190,6 +190,17 @@ model Order {
   graphicsDistributor    GraphicsOnDistributor @relation(fields: [graphicsDistributor_id], references: [id])
   graphicsDistributor_id String
   price                  Float
+  orderReturn            OrderReturn[]
 
   @@map("order")
+}
+
+model OrderReturn {
+  id            String   @id
+  order         Order    @relation(fields: [order_Id], references: [id])
+  order_Id      String
+  return_number Int
+  return_date   DateTime
+
+  @@map("orderReturn")
 }
