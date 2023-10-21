@@ -6,7 +6,6 @@ import { MutationMethods, useMutate } from './useMutate'
 type FetchProps = {
   baseUrl: string
   query: (string | undefined)[]
-  invalidateQuery?: boolean
   fetch?: {
     id?: string
     get?: boolean
@@ -21,23 +20,23 @@ type GenericMutationProps = {
   method: Omit<MutationMethods, 'get'>
 }
 
+type RemoveProps<T> = T & { id: string }
+
 /**
  * Hook para realizar requisições e mutações.
  *
  * @param baseUrl Rota base para a requisição.
  * @param query Query para invalidar o cache.
- * @param invalidateQuery Se deve invalidar o cache.
  * @param fetch Objeto para determinar se o 'get' ou 'list' deverão ser habilitados.
  * @param redirectTo Rota para redirecionar após a requisição.
  */
 export const useFetch = <T>({
   baseUrl,
   query,
-  invalidateQuery,
   fetch,
   redirectTo
 }: FetchProps) => {
-  const { mutate } = useMutate()
+  const { mutate, promise } = useMutate()
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
@@ -90,14 +89,11 @@ export const useFetch = <T>({
   const create = useMutation(
     async (data: T) => {
       const url = `${baseUrl}/new`
-      return mutate(url, data, 'post')
+      return await promise(api.post(url, data))
     },
     {
       onSuccess: async () => {
-        if (invalidateQuery) {
-          await queryClient.invalidateQueries(query)
-        }
-
+        await queryClient.invalidateQueries(query)
         navigate(`${redirectTo ?? baseUrl}`)
       }
     }
@@ -112,14 +108,11 @@ export const useFetch = <T>({
   const update = useMutation(
     async (data: T) => {
       const url = `${baseUrl}/${fetch?.id}/edit`
-      return mutate(url, data, 'put')
+      return await promise(api.put(url, data))
     },
     {
       onSuccess: async () => {
-        if (invalidateQuery) {
-          await queryClient.invalidateQueries(query)
-        }
-
+        await queryClient.invalidateQueries(query)
         navigate(`${redirectTo ?? baseUrl}`)
       }
     }
@@ -134,13 +127,33 @@ export const useFetch = <T>({
   const remove = useMutation(
     async (data: T & { id: string }) => {
       const url = `${baseUrl}/${data.id}`
-      return mutate(url, undefined, 'delete')
+      return await promise(api.delete(url))
     },
     {
       onSuccess: async () => {
-        if (invalidateQuery) {
-          await queryClient.invalidateQueries(query)
+        await queryClient.invalidateQueries(query)
+
+        if (redirectTo) {
+          navigate(`${redirectTo}`)
         }
+      }
+    }
+  )
+
+  /**
+   * Método para remover um ou mais registros, sejam quais forem.
+   *
+   * @param data Registros a serem removidos.
+   * @returns Promise com o resultado da requisição.
+   */
+  const removeMany = useMutation(
+    async (data: RemoveProps<T> | RemoveProps<T>[]) => {
+      const _data = Array.isArray(data) ? data : [data.id]
+      return await promise(api.delete(baseUrl, { params: { ids: _data } }))
+    },
+    {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(query)
 
         if (redirectTo) {
           navigate(`${redirectTo}`)
@@ -156,19 +169,16 @@ export const useFetch = <T>({
    * @returns Promise com o resultado da requisição.
    */
   const generic = useMutation(
-    async (data: GenericMutationProps) => {
-      return mutate(data.url, data.data, data.method as MutationMethods)
+    async ({ url, data, method }: GenericMutationProps) => {
+      return await mutate({ url, data, method: method as MutationMethods })
     },
     {
       onSuccess: async () => {
-        if (invalidateQuery) {
-          await queryClient.invalidateQueries(query)
-        }
-
+        await queryClient.invalidateQueries(query)
         navigate(`${redirectTo ?? baseUrl}`)
       }
     }
   )
 
-  return { create, update, remove, get, list, generic }
+  return { create, update, remove, removeMany, get, list, generic }
 }
