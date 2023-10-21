@@ -1,42 +1,44 @@
 import { v4 as uuid } from 'uuid'
 import { beforeEach, describe, expect, test } from 'vitest'
+import { Theme } from '../../domain/theme'
 import { InMemoryThemesRepository } from '../../repositories/in-memory/InMemoryThemesRepository'
 import { IThemeRepository } from '../../repositories/interfaces/IThemeRepository'
 import { DeleteTheme } from './delete-theme'
+import { ThemeFactory } from '@/tests/factories/ThemeFactory'
 
-let themesRepository: IThemeRepository
+let categoriesRepository: IThemeRepository
 let deleteTheme: DeleteTheme
 
-describe('Delete a theme', () => {
+describe('Delete theme', () => {
   beforeEach(() => {
-    themesRepository = new InMemoryThemesRepository()
-    deleteTheme = new DeleteTheme(themesRepository)
+    categoriesRepository = new InMemoryThemesRepository()
+    deleteTheme = new DeleteTheme(categoriesRepository)
   })
 
-  test('should be able to delete a theme', async () => {
-    const data: any = {
-      id: uuid(),
-      name: 'theme-name-delete',
-      description: 'theme-description-delete',
-    }
+  test('should delete a theme', async () => {
+    const theme1 = ThemeFactory.create()
+    const theme2 = ThemeFactory.create()
 
-    await themesRepository.create(data)
-    expect(await themesRepository.findById(data.id)).toBeTruthy()
+    await categoriesRepository.create(theme1)
+    await categoriesRepository.create(theme2)
 
-    const deletedTheme = await deleteTheme.execute({
-      themeId: data.id,
+    const response = await deleteTheme.execute({
+      themeId: [theme1.id, theme2.id],
     })
 
-    expect(deletedTheme.isRight()).toBeTruthy()
+    expect(response.isRight()).toBeTruthy()
+    expect(await categoriesRepository.list()).toStrictEqual([])
   })
 
-  test('should not be able to delete a non-existing theme', async () => {
-    const nonExistingThemeId = 'non-existing-id'
+  test('should not delete a non-existing theme', async () => {
+    const theme1 = ThemeFactory.create()
+    await categoriesRepository.create(theme1)
 
-    const nonExistingTheme = await deleteTheme.execute({
-      themeId: nonExistingThemeId,
+    const response = await deleteTheme.execute({
+      themeId: [theme1.id, 'non-existing-id'],
     })
 
-    expect(nonExistingTheme).toBeTruthy()
+    expect(response.isLeft()).toBeTruthy()
+    expect(await categoriesRepository.list()).toStrictEqual([theme1])
   })
 })

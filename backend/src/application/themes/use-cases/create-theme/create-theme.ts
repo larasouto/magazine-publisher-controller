@@ -19,9 +19,9 @@ export class CreateTheme {
       return left(themeOrError.value)
     }
 
-    const user = themeOrError.value
-    await this.themesRepository.create(user)
+    const theme = themeOrError.value
+    await this.themesRepository.create(theme)
 
-    return right(user)
+    return right(theme)
   }
 }

@@ -46,7 +46,7 @@ describe('Edit theme (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const data: any = {
-      name: 'theme-name-updated-2',
+      name: 'theme-name-updated',
     }
 
     const response = await request(app)
