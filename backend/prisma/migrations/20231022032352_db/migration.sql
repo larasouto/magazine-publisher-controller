@@ -171,11 +171,21 @@ CREATE TABLE "order" (
     "status" TEXT NOT NULL,
     "delivery_address" TEXT NOT NULL,
     "example_number" INTEGER NOT NULL,
+    "price" DOUBLE PRECISION NOT NULL,
     "editon_Id" TEXT NOT NULL,
     "graphicsDistributor_id" TEXT NOT NULL,
-    "price" DOUBLE PRECISION NOT NULL,
 
     CONSTRAINT "order_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "orderReturn" (
+    "id" TEXT NOT NULL,
+    "order_Id" TEXT NOT NULL,
+    "return_number" INTEGER NOT NULL,
+    "return_date" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "orderReturn_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -204,3 +214,6 @@ ALTER TABLE "order" ADD CONSTRAINT "order_editon_Id_fkey" FOREIGN KEY ("editon_I
 
 -- AddForeignKey
 ALTER TABLE "order" ADD CONSTRAINT "order_graphicsDistributor_id_fkey" FOREIGN KEY ("graphicsDistributor_id") REFERENCES "GraphicsOnDistributor"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "orderReturn" ADD CONSTRAINT "orderReturn_order_Id_fkey" FOREIGN KEY ("order_Id") REFERENCES "order"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

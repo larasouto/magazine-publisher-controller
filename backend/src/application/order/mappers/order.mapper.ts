@@ -36,7 +36,7 @@ export class OrderMapper {
       id: order.id,
       receipt_date: order.props.receiptDate,
       departure_date: order.props.departureDate,
-      status: order.props.status.toString(),
+      status: order.props.status,
       delivery_address: order.props.deliveryAddress,
       example_number: order.props.exampleNumber,
       price: order.props.price,

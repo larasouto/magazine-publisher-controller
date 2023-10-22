@@ -4,15 +4,10 @@ import { UserFactory } from '@/tests/factories/UserFactory'
 import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
 import { v4 as uuid } from 'uuid'
-import { afterAll, afterEach, beforeAll, describe, expect, test } from 'vitest'
-import { PrismaOrdersRepository } from '../../repositories/prisma/PrismaOrderRepository'
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { Status } from '../../domain/order.schema'
 
-const orderRepository = new PrismaOrdersRepository()
-
-let orderId: string[] = []
-
-describe('List order (end-to-end)', () => {
+describe('Create order (end-to-end)', () => {
   const theme: any = {
     id: uuid(),
     name: 'test-theme-name-delete',
@@ -117,6 +112,17 @@ describe('List order (end-to-end)', () => {
     await prismaClient.theme.deleteMany({
       where: { name: { contains: 'test-theme-name-delete' } },
     })
+  })
+
+  test('should be able to get a order', async () => {
+    const { jwt } = UserFactory.createAndAuthenticate()
+
+    const response = await request(app)
+      .get(`/api/magazines/${order.id}`)
+      .auth(jwt.token, { type: 'bearer' })
+      .send()
+
+    expect(response.status).toBe(StatusCodes.OK)
   })
 
   test('should not be able to get a non existing order', async () => {

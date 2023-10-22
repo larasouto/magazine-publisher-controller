@@ -1,6 +1,6 @@
 import { Either, left, right } from '@/core/logic/either'
 import { Order } from '../../domain/order'
-import { IOrderRepository } from '../../repositories/interfaces/IThemeRepository'
+import { IOrderRepository } from '../../repositories/interfaces/IOrderRepository'
 import { Status } from '../../domain/order.schema'
 
 type CreateOrderRequest = {
@@ -17,6 +17,9 @@ type CreateOrderRequest = {
 type CreateOrderResponse = Either<Error, Order>
 
 export class CreateOrder {
+  static execute(data: any) {
+    throw new Error('Method not implemented.')
+  }
   constructor(private ordersRepository: IOrderRepository) {}
 
   async execute(request: CreateOrderRequest): Promise<CreateOrderResponse> {
@@ -26,9 +29,9 @@ export class CreateOrder {
       return left(orderOrError.value)
     }
 
-    const user = orderOrError.value
-    await this.ordersRepository.create(user)
+    const order = orderOrError.value
+    await this.ordersRepository.create(order)
 
-    return right(user)
+    return right(order)
   }
 }

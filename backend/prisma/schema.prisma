@@ -185,11 +185,11 @@ model Order {
   status                 String
   delivery_address       String
   example_number         Int
+  price                  Float
   edition                Edition               @relation(fields: [editon_Id], references: [id])
   editon_Id              String
   graphicsDistributor    GraphicsOnDistributor @relation(fields: [graphicsDistributor_id], references: [id])
   graphicsDistributor_id String
-  price                  Float
   orderReturn            OrderReturn[]
 
   @@map("order")

@@ -1,6 +1,6 @@
 
 import { PrismaOrdersRepository } from '@/application/order/repositories/prisma/PrismaOrderRepository'
-import { CreateOrderController } from '@/application/order/use-case/create-order/crate-order.controller'
+import { CreateOrderController } from '@/application/order/use-case/create-order/create-order.controller'
 import { CreateOrder } from '@/application/order/use-case/create-order/create-order'
 import { Controller } from '@/core/infra/controller'
 import { ValidatorCompositor } from '@/infra/validation/ValidatorCompositor'

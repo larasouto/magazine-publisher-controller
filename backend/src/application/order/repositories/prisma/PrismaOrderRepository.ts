@@ -1,7 +1,7 @@
 import { prismaClient } from '@/infra/prisma/client'
 import { Order } from '../../domain/order'
 import { OrderMapper } from '../../mappers/order.mapper'
-import { IOrderRepository } from '../interfaces/IThemeRepository'
+import { IOrderRepository } from '../interfaces/IOrderRepository'
 
 export class PrismaOrdersRepository implements IOrderRepository {
   async findById(id: string): Promise<Order | null> {
@@ -20,7 +20,9 @@ export class PrismaOrdersRepository implements IOrderRepository {
     const data = await OrderMapper.toPersistence(order)
 
     await prismaClient.order.create({
-      data,
+      data: {
+        ...data,
+      },
     })
   }
 
@@ -45,8 +47,8 @@ export class PrismaOrdersRepository implements IOrderRepository {
     })
   }
 
-  async list(): Promise<any[]> {
+  async list(): Promise<(Order | null)[]> {
     const orders = await prismaClient.order.findMany()
-    return orders?.map(OrderMapper.toDomain) ?? []
+    return orders.map(OrderMapper.toDomain)
   }
 }

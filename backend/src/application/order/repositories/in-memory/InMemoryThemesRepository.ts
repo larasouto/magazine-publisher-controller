@@ -1,5 +1,5 @@
 import { Order } from '../../domain/order'
-import { IOrderRepository } from '../interfaces/IThemeRepository'
+import { IOrderRepository } from '../interfaces/IOrderRepository'
 
 export class InMemoryOrdersRepository implements IOrderRepository {
   constructor(public orders: Order[] = []) {}

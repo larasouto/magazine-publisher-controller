@@ -3,7 +3,7 @@ import { CreateOrder } from './create-order'
 import { Status } from '../../domain/order.schema'
 import { v4 as uuid } from 'uuid'
 import { Order } from '../../domain/order'
-import { IOrderRepository } from '../../repositories/interfaces/IThemeRepository'
+import { IOrderRepository } from '../../repositories/interfaces/IOrderRepository'
 import { InMemoryOrdersRepository } from '../../repositories/in-memory/InMemoryThemesRepository'
 
 let ordersRepository: IOrderRepository

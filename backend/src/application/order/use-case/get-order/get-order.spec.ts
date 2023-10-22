@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid'
 import { beforeEach, describe, expect, test } from 'vitest'
-import { IOrderRepository } from '../../repositories/interfaces/IThemeRepository'
+import { IOrderRepository } from '../../repositories/interfaces/IOrderRepository'
 import { GetOrder } from './get-order'
 import { InMemoryOrdersRepository } from '../../repositories/in-memory/InMemoryThemesRepository'
 import { Status } from '../../domain/order.schema'

@@ -4,48 +4,140 @@ import { UserFactory } from '@/tests/factories/UserFactory'
 import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
 import { v4 as uuid } from 'uuid'
-import { afterEach, describe, expect, test } from 'vitest'
-import { PrismaOrdersRepository } from '../../repositories/prisma/PrismaOrderRepository'
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { Status } from '../../domain/order.schema'
+import { PrismaOrdersRepository } from '../../repositories/prisma/PrismaOrderRepository'
 
 const orderRepository = new PrismaOrdersRepository()
 
 let orderId: string[] = []
 
 describe('List order (end-to-end)', () => {
-  afterEach(async () => {
-    await prismaClient.order.deleteMany({
-      where: { id: { in: orderId } },
+  const theme: any = {
+    id: uuid(),
+    name: 'test-theme-name-delete',
+    description: 'test-theme-description-delete',
+  }
+
+  const magazine = {
+    id: uuid(),
+    name: 'test-magazine-name-delete',
+    description: 'test-magazine-description-delete',
+    year_founded: 2021,
+    theme_id: theme.id,
+  }
+
+  const edition: any = {
+    id: uuid(),
+    number: 1,
+    title: 'test-create-title-edition',
+    description: 'test-create-description-edition',
+    cover_path: 'test-create-cover-path-edition', // Corrigido
+    price: 49.9,
+    year: 2023,
+    publication_date: new Date(),
+    number_of_copies: 100,
+    number_of_pages: 254,
+    magazine_id: magazine.id,
+  }
+
+  const graphics: any = {
+    id: uuid(),
+    name: 'graphics-name',
+    address: 'graphics-address',
+  }
+  const distributor: any = {
+    id: uuid(),
+    name: 'distributor-name',
+    address: 'distributor-address',
+    region: 'region test',
+  }
+
+  const graphicsOnDistributor: any = {
+    id: 'id fake',
+    distributorId: distributor.id,
+    graphicsId: graphics.id,
+  }
+
+  beforeAll(async () => {
+    await prismaClient.theme.create({
+      data: theme,
+    })
+    await prismaClient.magazine.create({
+      data: magazine,
+    })
+    await prismaClient.edition.create({
+      data: edition,
+    })
+    await prismaClient.graphics.create({
+      data: graphics,
+    })
+    await prismaClient.distributor.create({
+      data: distributor,
+    })
+    await prismaClient.graphicsOnDistributor.create({
+      data: graphicsOnDistributor,
     })
   })
 
-  test('should list all order', async () => {
+  afterAll(async () => {
+    await prismaClient.order.deleteMany({
+      where: { delivery_address: { contains: 'address' } },
+    })
+    await prismaClient.graphicsOnDistributor.deleteMany({
+      where: { id: { contains: 'id fake' } },
+    })
+    await prismaClient.distributor.deleteMany({
+      where: { name: { contains: 'distributor-name' } },
+    })
+    await prismaClient.graphics.deleteMany({
+      where: { name: { contains: 'graphics-name' } },
+    })
+    await prismaClient.edition.deleteMany({
+      where: { title: { contains: 'test-create-title-edition' } },
+    })
+    await prismaClient.magazine.deleteMany({
+      where: { name: { contains: 'test-magazine-name-delete' } },
+    })
+    await prismaClient.theme.deleteMany({
+      where: { name: { contains: 'test-theme-name-delete' } },
+    })
+  })
+
+  test('should be able to list editions', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
-    const data: any = {
+    const order1: any = {
       id: uuid(),
-      receiptDate: new Date(),
-      departureDate: new Date(),
-      status: Status.deliv,
-      deliveryAddress: 'order-deliveryAddress',
-      exampleNumber: 12,
+      receipt_date: new Date(),
+      departure_date: new Date(),
+      status: Status.inPreparation,
+      delivery_address: 'address',
+      example_number: 12,
+      editon_Id: edition.id,
+      graphicsDistributor_id: graphicsOnDistributor.id,
       price: 12,
-      editonId: uuid(),
-      graphicsDistributorId: uuid(),
     }
 
-    await prismaClient.order.create({
-      data,
+    const order2: any = {
+      ...order1,
+      id: uuid(),
+    }
+
+    await prismaClient.edition.createMany({
+      data: [order1, order2],
     })
-    orderId.push(data.id)
 
     const response = await request(app)
-      .get('/api/magazines/order')
+      .get(`/api/order`)
       .auth(jwt.token, { type: 'bearer' })
+      .send()
 
     expect(response.status).toBe(StatusCodes.OK)
-
-    const order = await orderRepository.list()
-    expect(order.length > 0).toBeTruthy()
+    expect(response.body.dto.length > 0).toBeTruthy()
+  })
+  test('should not be able to list order without authentication', async () => {
+    const response = await request(app).get(`/api/order`).send()
+    expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
   })
 })
