@@ -9,7 +9,7 @@ describe('Entity Advertising', () => {
       categoryAdvertising: 'test-news',
       numberOfPages: 6,
       price: 10.0,
-      // magazineId 10
+      magazineId: randomUUID(),
     }
     const sut = Advertising.create(data)
     expect(sut.isRight()).toBeTruthy()

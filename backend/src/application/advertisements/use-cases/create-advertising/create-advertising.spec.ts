@@ -19,6 +19,7 @@ describe('Create an advertising (end-to-end)', () => {
       categoryAdvertising: 'test-create-category_advertising',
       numberOfPages: 8,
       price: 46.6,
+      magazineId: uuid(),
     }
 
     const advertising = await createAdvertising.execute(create)

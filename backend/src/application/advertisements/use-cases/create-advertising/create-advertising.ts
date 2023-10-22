@@ -7,6 +7,7 @@ type CreateAdvertisingRequest = {
   categoryAdvertising: string
   numberOfPages: number
   price: number
+  magazineId: string
 }
 
 type CreateAdvertisingResponse = Either<Error, Advertising>

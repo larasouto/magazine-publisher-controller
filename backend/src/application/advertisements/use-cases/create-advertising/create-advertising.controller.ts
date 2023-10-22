@@ -9,6 +9,7 @@ type CreateAdvertisingControllerRequest = {
   categoryAdvertising: string
   numberOfPages: number
   price: number
+  magazineId: string
 }
 
 export class CreateAdvertisingController implements Controller {
