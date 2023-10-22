@@ -92,16 +92,17 @@ model Photographer {
 }
 
 model Magazine {
-  id                 String    @id
+  id                 String          @id
   name               String
   description        String?
   year_founded       Int
   publication_period Int
-  theme              Theme     @relation(fields: [theme_id], references: [id])
+  theme              Theme           @relation(fields: [theme_id], references: [id])
   theme_id           String
-  created_at         DateTime  @default(now())
-  updated_at         DateTime  @updatedAt
+  created_at         DateTime        @default(now())
+  updated_at         DateTime        @updatedAt
   editions           Edition[]
+  Subscriptions      Subscription[]
 
   @@map("magazines")
 }
@@ -134,4 +135,19 @@ model Edition {
   updated_at       DateTime @updatedAt
 
   @@map("editions")
+}
+
+model Subscription {
+  id          String   @id
+  name        String
+  description String
+  type        Int
+  frequency   Int
+  price       Float
+  magazine    Magazine @relation(fields: [magazine_id], references: [id])
+  magazine_id String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map("subscriptions")
 }

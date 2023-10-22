@@ -129,6 +129,21 @@ CREATE TABLE "editions" (
     CONSTRAINT "editions_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "subscriptions" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT,
+    "type" TEXT NOT NULL,
+    "frequency" TEXT NOT NULL,
+    "price" DOUBLE PRECISION NOT NULL,
+    "magazine_id" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "subscriptions_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
@@ -140,3 +155,6 @@ ALTER TABLE "magazines" ADD CONSTRAINT "magazines_theme_id_fkey" FOREIGN KEY ("t
 
 -- AddForeignKey
 ALTER TABLE "editions" ADD CONSTRAINT "editions_magazine_id_fkey" FOREIGN KEY ("magazine_id") REFERENCES "magazines"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "subscriptions" ADD CONSTRAINT "subscriptions_magazine_id_fkey" FOREIGN KEY ("magazine_id") REFERENCES "magazines"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
