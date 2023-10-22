@@ -5,7 +5,14 @@ import {
   SubscriptionFrequency,
 } from '@/application/subscriptions/domain/subscription.schema'
 
-type SubscriptionOverrides = SubscriptionProps
+type SubscriptionOverrides = {
+  name?: string
+  description?: string
+  type?: SubscriptionType
+  frequency?: SubscriptionFrequency
+  price?: number
+  magazineId?: string
+}
 
 export class SubscriptionFactory {
   static create(overrides?: SubscriptionOverrides) {
