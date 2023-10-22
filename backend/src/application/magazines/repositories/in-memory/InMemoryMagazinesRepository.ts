@@ -39,6 +39,11 @@ export class InMemoryMagazinesRepository implements IMagazineRepository {
     this.magazines[magazineIndex] = magazine
   }
 
+  async exists(id: string): Promise<boolean> {
+    const magazine = this.magazines.some((magazine) => magazine.id === id)
+    return !!magazine
+  }
+
   async list(): Promise<Magazine[]> {
     return this.magazines
   }

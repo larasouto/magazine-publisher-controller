@@ -45,6 +45,14 @@ export class PrismaMagazinesRepository implements IMagazineRepository {
     })
   }
 
+  async exists(id: string): Promise<boolean> {
+    const magazineExists = await prismaClient.magazine.findUnique({
+      where: { id },
+    })
+
+    return !!magazineExists
+  }
+
   async list(): Promise<Magazine[]> {
     const magazines = await prismaClient.magazine.findMany()
     return magazines.map((magazine) => MagazineMapper.toDomain(magazine))
