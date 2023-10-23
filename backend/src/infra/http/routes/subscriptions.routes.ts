@@ -5,6 +5,7 @@ import { adaptRoute } from '@/core/infra/adapters/express-route-adapter'
 import { makeCreateSubscriptionsController } from '../factories/controllers/subscriptions/makeCreateSubscriptionController'
 import { makeDeleteSubscriptionsController } from '../factories/controllers/subscriptions/makeDeleteSubscriptionController'
 import { makeListSubscriptionsController } from '../factories/controllers/subscriptions/makeListSubscriptionController'
+import { makeGetSubscriptionController } from '../factories/controllers/subscriptions/makeGetSubscriptionController'
 
 export const subscriptions = Router()
 
@@ -12,7 +13,8 @@ subscriptions.use(adaptMiddleware(makeEnsureAuthenticated()))
 
 subscriptions.post('/new', adaptRoute(makeCreateSubscriptionsController()))
 subscriptions.get('/', adaptRoute(makeListSubscriptionsController()))
-subscriptions.delete(
-  '/',
-  adaptRoute(makeDeleteSubscriptionsController()),
+subscriptions.delete('/', adaptRoute(makeDeleteSubscriptionsController()))
+subscriptions.get(
+  '/:subscriptionId',
+  adaptRoute(makeGetSubscriptionController()),
 )
