@@ -3,22 +3,21 @@ import { prismaClient } from '@/infra/prisma/client'
 import { UserFactory } from '@/tests/factories/UserFactory'
 import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
-import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { v4 as uuid } from 'uuid'
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 
 describe('List advertising (end-to-end)', () => {
   const theme: any = {
     id: uuid(),
-    name: 'test-list-theme-name',
-    description: 'test-list-theme-description',
+    name: 'test-theme-name-delete',
+    description: 'test-theme-description-delete',
   }
 
-  const magazine: any = {
+  const magazine = {
     id: uuid(),
-    name: 'test-list-magazine-name',
-    description: 'test-list-magazine-description',
+    name: 'test-magazine-name-delete',
+    description: 'test-magazine-description-delete',
     year_founded: 2021,
-    publication_period: 'MONTHLY',
     theme_id: theme.id,
   }
 
@@ -32,34 +31,31 @@ describe('List advertising (end-to-end)', () => {
   })
 
   afterAll(async () => {
-    await prismaClient.advertising.deleteMany({
-      where: { name: { contains: 'test-list' } },
-    })
     await prismaClient.magazine.deleteMany({
-      where: { name: { contains: 'test-list' } },
+      where: { name: { contains: 'test-magazine-name-delete' } },
     })
     await prismaClient.theme.deleteMany({
-      where: { name: { contains: 'test-list' } },
+      where: { name: { contains: 'test-theme-name-delete' } },
     })
   })
 
-  test('should be able to list advertisements', async () => {
+  test('should be able to list advertising', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const advertising1: any = {
-      number: 1,
-      name: 'test-create-name-advertising',
-      categoryAdvertising: 'test-create-category_advertising',
-      numberOfPages: 8,
-      price: 46.6,
-      magazineId: magazine.id,
+      id: uuid(),
+      name: 'test-advertising-name',
+      categoryAdvertising: 'test-advertising-category_advertising',
+      numberOfPages: 2,
+      price: 16,
+      magazine: {
+        connect: { id: magazine.id },
+      },
     }
 
     const advertising2: any = {
       ...advertising1,
       id: uuid(),
-      title: 'test-list-title-advertising-2',
-      description: 'test-list-description-advertising-2',
     }
 
     await prismaClient.advertising.createMany({
@@ -67,16 +63,15 @@ describe('List advertising (end-to-end)', () => {
     })
 
     const response = await request(app)
-      .get(`/api/advertisements`)
+      .get('/api/advertising')
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
     expect(response.status).toBe(StatusCodes.OK)
     expect(response.body.dto.length > 0).toBeTruthy()
   })
-
-  test('should not be able to list advertisements without authentication', async () => {
-    const response = await request(app).get(`/api/advertisements`).send()
+  test('should not be able to list advertising without authentication', async () => {
+    const response = await request(app).get('/api/advertising').send()
     expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
   })
 })
