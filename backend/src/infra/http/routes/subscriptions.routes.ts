@@ -6,6 +6,7 @@ import { makeCreateSubscriptionsController } from '../factories/controllers/subs
 import { makeDeleteSubscriptionsController } from '../factories/controllers/subscriptions/makeDeleteSubscriptionController'
 import { makeListSubscriptionsController } from '../factories/controllers/subscriptions/makeListSubscriptionController'
 import { makeGetSubscriptionController } from '../factories/controllers/subscriptions/makeGetSubscriptionController'
+import { makeEditSubscriptionsController } from '../factories/controllers/subscriptions/makeEditSubscriptionController'
 
 export const subscriptions = Router()
 
@@ -17,4 +18,8 @@ subscriptions.delete('/', adaptRoute(makeDeleteSubscriptionsController()))
 subscriptions.get(
   '/:subscriptionId',
   adaptRoute(makeGetSubscriptionController()),
+)
+subscriptions.put(
+  '/:subscriptionId/edit',
+  adaptRoute(makeEditSubscriptionsController()),
 )
