@@ -4,7 +4,7 @@ import { SubscriptionNotFoundError } from './errors/SubscriptionNotFoundError'
 import { OneOrMoreSubscriptionNotFoundError } from './errors/OneOrMoreSubscriptionNotFoundError'
 
 type DeleteSubscriptionRequest = {
-  subscriptionId: string[]
+  ids: string[]
 }
 
 type DeleteSubscriptionResponse = Either<SubscriptionNotFoundError, null>
@@ -13,7 +13,7 @@ export class DeleteSubscription {
   constructor(private subscriptionsRepository: ISubscriptionsRepository) {}
 
   async execute({
-    subscriptionId,
+    ids: subscriptionId,
   }: DeleteSubscriptionRequest): Promise<DeleteSubscriptionResponse> {
     const subscriptionOrSubscriptions = Array.isArray(subscriptionId)
       ? subscriptionId

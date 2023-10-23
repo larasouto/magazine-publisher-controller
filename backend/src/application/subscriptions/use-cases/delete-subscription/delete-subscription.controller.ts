@@ -7,7 +7,7 @@ import { SubscriptionNotFoundError } from './errors/SubscriptionNotFoundError'
 import { OneOrMoreSubscriptionNotFoundError } from './errors/OneOrMoreSubscriptionNotFoundError'
 
 type DeleteSubscriptionControllerRequest = {
-  subscriptionId: string[]
+  ids: string[]
 }
 
 export class DeleteSubscriptionController implements Controller {
@@ -39,6 +39,11 @@ export class DeleteSubscriptionController implements Controller {
       }
     }
 
-    return ok({ message: t('subscription.deleted') })
+    const message =
+      request.ids?.length > 1
+        ? t('subscription.deleted_many')
+        : t('subscription.deleted')
+
+    return ok({ message })
   }
 }

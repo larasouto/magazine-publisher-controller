@@ -40,7 +40,7 @@ describe('Delete subscription (end-to-end)', () => {
     await subscriptionsRepository.create(subscription)
 
     const response = await request(app)
-      .del(`/api/subscriptions/?subscriptionId=${subscription.id}`)
+      .del(`/api/subscriptions/?ids=${subscription.id}`)
       .auth(jwt.token, { type: 'bearer' })
 
     expect(response.status).toBe(StatusCodes.OK)
@@ -61,7 +61,7 @@ describe('Delete subscription (end-to-end)', () => {
 
     const response = await request(app)
       .del(
-        `/api/subscriptions/?subscriptionId=${subscription1.id}&subscriptionId=${subscription2.id}`,
+        `/api/subscriptions/?ids=${subscription1.id}&ids=${subscription2.id}`,
       )
       .auth(jwt.token, { type: 'bearer' })
 

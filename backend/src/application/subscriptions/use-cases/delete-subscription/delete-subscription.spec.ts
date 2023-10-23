@@ -21,7 +21,7 @@ describe('Delete subscription', () => {
     await subscriptionsRepository.create(subscription2)
 
     const response = await deleteSubscription.execute({
-      subscriptionId: [subscription1.id, subscription2.id],
+      ids: [subscription1.id, subscription2.id],
     })
 
     expect(response.isRight()).toBeTruthy()
@@ -33,7 +33,7 @@ describe('Delete subscription', () => {
     await subscriptionsRepository.create(subscription1)
 
     const response = await deleteSubscription.execute({
-      subscriptionId: [subscription1.id, 'non-existing-id'],
+      ids: [subscription1.id, 'non-existing-id'],
     })
 
     expect(response.isLeft()).toBeTruthy()
