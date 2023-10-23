@@ -61,7 +61,6 @@ export const SubscriptionForm = ({ data }: SubscriptionsFormProps) => {
             labelPlacement="outside"
             {...form.register('name')}
             isRequired
-            isClearable
           />
         </fieldset>
         <fieldset>
@@ -71,7 +70,6 @@ export const SubscriptionForm = ({ data }: SubscriptionsFormProps) => {
             errorMessage={form.formState.errors.description?.message}
             labelPlacement="outside"
             {...form.register('description')}
-            isClearable
           />
         </fieldset>
         <fieldset>
@@ -132,7 +130,6 @@ export const SubscriptionForm = ({ data }: SubscriptionsFormProps) => {
             labelPlacement="outside"
             {...form.register('price')}
             isRequired
-            isClearable
           />
         </fieldset>
         <MagazinesSelect form={form} />

@@ -9,15 +9,13 @@ import { SubscriptionColumns, columns } from './table/subscriptions.columns'
 export const SubscriptionsListPage = () => {
   const { title, breadcrumb } = usePageUtils('subscriptions')
 
-  const { list } = useFetch<SubscriptionColumns[]>({
+  const { list, removeMany } = useFetch<SubscriptionColumns[]>({
     baseUrl: backend.subscriptions.baseUrl,
     query: ['subscriptions'],
     fetch: {
       list: true
     }
   })
-
-  console.log(list.data)
 
   return (
     <PageLayout
@@ -29,6 +27,7 @@ export const SubscriptionsListPage = () => {
         columns={columns}
         data={list?.data ?? []}
         toolbarButtons={<SubscriptionToolbar />}
+        fn={removeMany.mutateAsync}
       />
     </PageLayout>
   )

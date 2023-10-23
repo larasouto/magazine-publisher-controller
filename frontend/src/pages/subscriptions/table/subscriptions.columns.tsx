@@ -5,7 +5,7 @@ import {
   SubscriptionFrequency,
   SubscriptionType
 } from '../subscriptions.schema'
-import { SubscriptionActions } from './subscriptions.actions'
+import { SubscriptionsActions } from './subscriptions.actions'
 
 export type SubscriptionColumns = {
   id: string
@@ -123,7 +123,7 @@ export const columns = [
    */
   helper.display({
     id: 'actions',
-    cell: ({ row }) => <SubscriptionActions row={row.original} />,
+    cell: ({ row }) => <SubscriptionsActions row={row.original} />,
     enableSorting: false,
     enableHiding: false
   })
