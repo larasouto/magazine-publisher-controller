@@ -34,9 +34,9 @@ describe('List distributors (end-to-end)', () => {
     distributorId.push(data.id)
 
     const response = await request(app)
-      .get('/api/magazines/')
+      .get('/api/magazines/distributor')
       .auth(jwt.token, { type: 'bearer' })
-
+    console.log(response.body)
     expect(response.status).toBe(StatusCodes.OK)
 
     const distributors = await distributorsRepository.list()

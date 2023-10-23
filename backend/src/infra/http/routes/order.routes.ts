@@ -12,4 +12,4 @@ order.use(adaptMiddleware(makeEnsureAuthenticated()))
 
 order.post('/new', adaptRoute(makeCreateOrderController()))
 order.get('/', adaptRoute(makeListOrderController()))
-order.get('/:graphicsId', adaptRoute(makeGetOrderController()))
+order.get('/:orderId', adaptRoute(makeGetOrderController()))

@@ -27,14 +27,16 @@ describe('List graphics (end-to-end)', () => {
       address: 'test-graphics-address',
     }
 
-    await prismaClient.graphics.create({
+    const graphic = await prismaClient.graphics.create({
       data,
     })
+    console.log(graphic)
     graphicsId.push(data.id)
 
     const response = await request(app)
-      .get('/api/magazines/graphics/')
+      .get('/api/magazines/graphics')
       .auth(jwt.token, { type: 'bearer' })
+    console.log(response.body)
 
     expect(response.status).toBe(StatusCodes.OK)
 

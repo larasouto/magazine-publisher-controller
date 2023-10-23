@@ -82,7 +82,7 @@ describe('List order (end-to-end)', () => {
 
   afterAll(async () => {
     await prismaClient.order.deleteMany({
-      where: { delivery_address: { contains: 'address' } },
+      where: { delivery_address: { contains: 'test' } },
     })
     await prismaClient.graphicsOnDistributor.deleteMany({
       where: { id: { contains: 'id fake' } },
@@ -104,7 +104,7 @@ describe('List order (end-to-end)', () => {
     })
   })
 
-  test('should be able to list editions', async () => {
+  test('should be able to list orders', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const order1: any = {
@@ -112,7 +112,7 @@ describe('List order (end-to-end)', () => {
       receipt_date: new Date(),
       departure_date: new Date(),
       status: Status.inPreparation,
-      delivery_address: 'address',
+      delivery_address: 'test-addrees',
       example_number: 12,
       editon_Id: edition.id,
       graphicsDistributor_id: graphicsOnDistributor.id,
@@ -124,20 +124,20 @@ describe('List order (end-to-end)', () => {
       id: uuid(),
     }
 
-    await prismaClient.edition.createMany({
+    await prismaClient.order.createMany({
       data: [order1, order2],
     })
 
     const response = await request(app)
-      .get(`/api/order`)
+      .get(`/api/magazines/order`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
-
+    console.log(response.body)
     expect(response.status).toBe(StatusCodes.OK)
     expect(response.body.dto.length > 0).toBeTruthy()
   })
   test('should not be able to list order without authentication', async () => {
-    const response = await request(app).get(`/api/order`).send()
+    const response = await request(app).get(`/api/magazines/order`).send()
     expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
   })
 })

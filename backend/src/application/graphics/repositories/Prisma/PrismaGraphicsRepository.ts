@@ -39,8 +39,9 @@ export class PrismaGraphicsRepository implements IGraphicsRepository {
   }
 
   async list(): Promise<any[]> {
-    const graphicss = await prismaClient.graphics.findMany()
-    return graphicss?.map(GraphicsMapper.toDomain) ?? []
+    const graphics = await prismaClient.graphics.findMany()
+    console.log('a')
+    return graphics?.map(GraphicsMapper.toDomain) ?? []
   }
 
   async deleteMany(ids: string[]): Promise<void> {

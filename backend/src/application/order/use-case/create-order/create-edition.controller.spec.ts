@@ -49,21 +49,9 @@ describe('Create order (end-to-end)', () => {
   }
 
   const graphicsOnDistributor: any = {
-    id: 'id fake',
+    id: uuid(),
     distributorId: distributor.id,
     graphicsId: graphics.id,
-  }
-
-  const order: any = {
-    id: uuid(),
-    receipt_date: new Date(),
-    departure_date: new Date(),
-    status: Status.inPreparation,
-    delivery_address: 'address',
-    example_number: 12,
-    editon_Id: edition.id,
-    graphicsDistributor_id: graphicsOnDistributor.id,
-    price: 12,
   }
 
   beforeAll(async () => {
@@ -85,17 +73,14 @@ describe('Create order (end-to-end)', () => {
     await prismaClient.graphicsOnDistributor.create({
       data: graphicsOnDistributor,
     })
-    await prismaClient.order.create({
-      data: order,
-    })
   })
 
   afterAll(async () => {
     await prismaClient.order.deleteMany({
-      where: { delivery_address: { contains: 'address' } },
+      where: { id: createdOrderId },
     })
     await prismaClient.graphicsOnDistributor.deleteMany({
-      where: { id: { contains: 'id fake' } },
+      where: { id: { contains: graphicsOnDistributor.id } },
     })
     await prismaClient.distributor.deleteMany({
       where: { name: { contains: 'distributor-name' } },
@@ -113,42 +98,87 @@ describe('Create order (end-to-end)', () => {
       where: { name: { contains: 'test-theme-name-delete' } },
     })
   })
-
-  test('should be able to get a order', async () => {
+  let createdOrderId = ''
+  test('should be able to create an order', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
-    const response = await request(app)
-      .get(`/api/magazines/${order.id}`)
-      .auth(jwt.token, { type: 'bearer' })
-      .send()
+    const data: any = {
+      id: uuid(),
+      receiptDate: new Date(),
+      departureDate: new Date(),
+      status: Status.inPreparation,
+      deliveryAddress: 'address',
+      exampleNumber: 12,
+      editonId: edition.id,
+      graphicsDistributorId: graphicsOnDistributor.id,
+      price: 12,
+    }
 
-    expect(response.status).toBe(StatusCodes.OK)
+    const response = await request(app)
+      .post('/api/magazines/order/new')
+      .auth(jwt.token, { type: 'bearer' })
+      .send(data)
+    console.log(response.body)
+    expect(response.status).toBe(StatusCodes.CREATED)
+    expect(response.body).toHaveProperty('message')
+    createdOrderId = response.body.id
   })
 
-  test('should not be able to get a non existing order', async () => {
+  test('should not be able to create an order with empty data', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
+    const data: any = {}
+
     const response = await request(app)
-      .get(`/api/magazines/${order.id}-complement`)
+      .post('/api/magazines/order/new')
       .auth(jwt.token, { type: 'bearer' })
-      .send()
+      .send(data)
 
     expect(response.status).toBe(StatusCodes.BAD_REQUEST)
+    expect(response.body).toHaveProperty('message')
   })
-  test('should not be able to get a order with no authentication', async () => {
-    const response = await request(app).get(`/api/magazines/${order.id}`).send()
+
+  test('should not be able to create an order without an magazine associated', async () => {
+    const { jwt } = UserFactory.createAndAuthenticate()
+
+    const data: any = {
+      id: uuid(),
+      receipt_date: new Date(),
+      departure_date: new Date(),
+      status: Status.inPreparation,
+      delivery_address: 'address',
+      example_number: 12,
+      editon_Id: edition.id,
+      graphicsDistributor_id: graphicsOnDistributor.id,
+      price: 12,
+    }
+
+    const response = await request(app)
+      .post('/api/magazines/order/new')
+      .auth(jwt.token, { type: 'bearer' })
+      .send(data)
+
+    expect(response.status).toBe(StatusCodes.BAD_REQUEST)
+    expect(response.body).toHaveProperty('message')
+  })
+
+  test('should not be able to create an order without authentication', async () => {
+    const data: any = {
+      receipt_date: new Date(),
+      departure_date: new Date(),
+      status: Status.inPreparation,
+      delivery_address: 'address',
+      example_number: 12,
+      editon_Id: edition.id,
+      graphicsDistributor_id: graphicsOnDistributor.id,
+      price: 12,
+    }
+
+    const response = await request(app)
+      .post('/api/magazines/order/new')
+      .send(data)
 
     expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
-  })
-
-  test('should not be able to get a magazine with invalid orderId', async () => {
-    const { jwt } = UserFactory.createAndAuthenticate()
-
-    const response = await request(app)
-      .get(`/api/magazines/${null}`)
-      .auth(jwt.token, { type: 'bearer' })
-      .send()
-
-    expect(response.status).toBe(StatusCodes.BAD_REQUEST)
+    expect(response.body).toHaveProperty('message')
   })
 })
