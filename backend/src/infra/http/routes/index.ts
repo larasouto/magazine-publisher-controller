@@ -8,6 +8,7 @@ import { themes } from './themes.routes'
 import { subtitles } from './subtitles.routes'
 import { editions } from './editions.routes'
 import { subscriptions } from './subscriptions.routes'
+import { addresses } from './addresses.routes'
 
 export const router = Router()
 
@@ -20,3 +21,4 @@ router.use('/magazines', magazines)
 router.use('/editions/subtitles', subtitles)
 router.use('/editions', editions)
 router.use('/subscriptions', subscriptions)
+router.use('/addresses', addresses)
