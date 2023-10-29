@@ -4,7 +4,7 @@ import { UserFactory } from '@/tests/factories/UserFactory'
 import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
 import { v4 as uuid } from 'uuid'
-import { afterEach, describe, expect, test } from 'vitest'
+import { afterAll, describe, expect, test } from 'vitest'
 import { PrismaGraphicsRepository } from '../../repositories/Prisma/PrismaGraphicsRepository'
 
 const graphicsRepository = new PrismaGraphicsRepository()
@@ -12,7 +12,7 @@ const graphicsRepository = new PrismaGraphicsRepository()
 let graphicsId: string[] = []
 
 describe('List graphics (end-to-end)', () => {
-  afterEach(async () => {
+  afterAll(async () => {
     await prismaClient.graphics.deleteMany({
       where: { id: { in: graphicsId } },
     })
@@ -23,20 +23,19 @@ describe('List graphics (end-to-end)', () => {
 
     const data: any = {
       id: uuid(),
-      name: 'test-graphics-name',
-      address: 'test-graphics-address',
+      name: 'graphics-name',
+      address: 'graphics-address',
     }
 
-    const graphic = await prismaClient.graphics.create({
+    await prismaClient.graphics.create({
       data,
     })
-    console.log(graphic)
     graphicsId.push(data.id)
 
     const response = await request(app)
-      .get('/api/magazines/graphics')
+      .get('/api/graphics')
       .auth(jwt.token, { type: 'bearer' })
-    console.log(response.body)
+      .send()
 
     expect(response.status).toBe(StatusCodes.OK)
 
