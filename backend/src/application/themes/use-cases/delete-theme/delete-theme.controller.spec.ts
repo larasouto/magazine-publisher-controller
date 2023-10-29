@@ -23,7 +23,7 @@ describe('Delete theme (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .delete(`/api/magazines/themes/${create.id}`)
+      .delete(`/api/themes/${create.id}`)
       .auth(jwt.token, { type: 'bearer' })
 
     expect(response.status).toBe(StatusCodes.OK)
@@ -35,7 +35,7 @@ describe('Delete theme (end-to-end)', () => {
     const nonExistingThemeId = 'non-existing-id'
 
     const response = await request(app)
-      .delete(`/api/magazines/themes/${nonExistingThemeId}`)
+      .delete(`/api/themes/${nonExistingThemeId}`)
       .auth(jwt.token, { type: 'bearer' })
 
     expect(response.status).toBe(StatusCodes.BAD_REQUEST)

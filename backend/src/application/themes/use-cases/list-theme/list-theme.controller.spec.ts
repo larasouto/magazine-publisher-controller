@@ -33,7 +33,7 @@ describe('List themes (end-to-end)', () => {
     themeId.push(data.id)
 
     const response = await request(app)
-      .get('/api/magazines/themes')
+      .get('/api/themes')
       .auth(jwt.token, { type: 'bearer' })
 
     expect(response.status).toBe(StatusCodes.OK)

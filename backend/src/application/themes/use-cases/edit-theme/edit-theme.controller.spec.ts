@@ -34,7 +34,7 @@ describe('Edit theme (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .put(`/api/magazines/themes/${create.id}/edit`)
+      .put(`/api/themes/${create.id}/edit`)
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
@@ -50,7 +50,7 @@ describe('Edit theme (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .put(`/api/magazines/themes/${create.id}/edit`)
+      .put(`/api/themes/${create.id}/edit`)
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
@@ -64,7 +64,7 @@ describe('Edit theme (end-to-end)', () => {
     const data: any = {}
 
     const response = await request(app)
-      .put(`/api/magazines/themes/${create.id}/edit`)
+      .put(`/api/themes/${create.id}/edit`)
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
@@ -81,7 +81,7 @@ describe('Edit theme (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .put(`/api/magazines/themes/invalid-id/edit`)
+      .put(`/api/themes/invalid-id/edit`)
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 

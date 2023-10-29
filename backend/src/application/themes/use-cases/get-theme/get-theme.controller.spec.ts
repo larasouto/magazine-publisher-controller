@@ -29,7 +29,7 @@ describe('Get a theme (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .get(`/api/magazines/themes/${create.id}`)
+      .get(`/api/themes/${create.id}`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
@@ -40,7 +40,7 @@ describe('Get a theme (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .get(`/api/magazines/themes/${create.id}-complement`)
+      .get(`/api/themes/${create.id}-complement`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
@@ -49,7 +49,7 @@ describe('Get a theme (end-to-end)', () => {
 
   test('should not be able to get a theme with no authentication', async () => {
     const response = await request(app)
-      .get(`/api/magazines/themes/${create.id}`)
+      .get(`/api/themes/${create.id}`)
       .send()
 
     expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
@@ -59,7 +59,7 @@ describe('Get a theme (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .get(`/api/magazines/themes/${null}`)
+      .get(`/api/themes/${null}`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
