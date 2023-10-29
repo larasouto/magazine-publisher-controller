@@ -14,8 +14,8 @@ export const TableBottomContent = <TData,>({
   const [page, setPages] = useState(1)
 
   return (
-    <div className="py-2 px-2 flex justify-between items-center">
-      <span className="text-small text-default-400">
+    <div className="py-2 px-2 flex justify-center xs:justify-between items-center">
+      <span className="hidden xs:flex text-small text-default-400">
         {table.getFilteredSelectedRowModel().rows.length} {t('of')}{' '}
         {table.getFilteredRowModel().rows.length} {t('rows_selected')}.
       </span>
@@ -25,13 +25,14 @@ export const TableBottomContent = <TData,>({
         showShadow
         color="primary"
         page={page}
+        initialPage={1}
         total={table.getPageCount()}
         onChange={(page) => {
           setPages(page)
           table.setPageIndex(page - 1)
         }}
       />
-      <div className="hidden sm:flex w-[30%] justify-end gap-2">
+      <div className="hidden sm:flex justify-end gap-2">
         <Button
           isDisabled={!table.getCanPreviousPage()}
           size="sm"
