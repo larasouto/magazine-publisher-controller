@@ -23,7 +23,7 @@ describe('Create graphics (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .post('/api/magazines/graphics/new')
+      .post('/api/graphics/new')
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
@@ -37,7 +37,7 @@ describe('Create graphics (end-to-end)', () => {
     const data: any = {}
 
     const response = await request(app)
-      .post('/api/magazines/graphics/new')
+      .post('/api/graphics/new')
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
@@ -53,7 +53,7 @@ describe('Create graphics (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .post('/api/magazines/graphics/new')
+      .post('/api/graphics/new')
       .send(data)
 
     expect(response.status).toBe(StatusCodes.UNAUTHORIZED)

@@ -155,12 +155,12 @@ CREATE TABLE "distributor" (
 );
 
 -- CreateTable
-CREATE TABLE "GraphicsOnDistributor" (
+CREATE TABLE "graphicsOnDistributor" (
     "id" TEXT NOT NULL,
     "graphicsId" TEXT NOT NULL,
     "distributorId" TEXT NOT NULL,
 
-    CONSTRAINT "GraphicsOnDistributor_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "graphicsOnDistributor_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -181,9 +181,9 @@ CREATE TABLE "order" (
 -- CreateTable
 CREATE TABLE "orderReturn" (
     "id" TEXT NOT NULL,
-    "order_Id" TEXT NOT NULL,
     "return_number" INTEGER NOT NULL,
     "return_date" TIMESTAMP(3) NOT NULL,
+    "order_Id" TEXT NOT NULL,
 
     CONSTRAINT "orderReturn_pkey" PRIMARY KEY ("id")
 );
@@ -192,7 +192,7 @@ CREATE TABLE "orderReturn" (
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "GraphicsOnDistributor_id_key" ON "GraphicsOnDistributor"("id");
+CREATE UNIQUE INDEX "graphicsOnDistributor_id_key" ON "graphicsOnDistributor"("id");
 
 -- AddForeignKey
 ALTER TABLE "addresses" ADD CONSTRAINT "addresses_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -204,16 +204,16 @@ ALTER TABLE "magazines" ADD CONSTRAINT "magazines_theme_id_fkey" FOREIGN KEY ("t
 ALTER TABLE "editions" ADD CONSTRAINT "editions_magazine_id_fkey" FOREIGN KEY ("magazine_id") REFERENCES "magazines"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "GraphicsOnDistributor" ADD CONSTRAINT "GraphicsOnDistributor_graphicsId_fkey" FOREIGN KEY ("graphicsId") REFERENCES "graphics"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "graphicsOnDistributor" ADD CONSTRAINT "graphicsOnDistributor_graphicsId_fkey" FOREIGN KEY ("graphicsId") REFERENCES "graphics"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "GraphicsOnDistributor" ADD CONSTRAINT "GraphicsOnDistributor_distributorId_fkey" FOREIGN KEY ("distributorId") REFERENCES "distributor"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "graphicsOnDistributor" ADD CONSTRAINT "graphicsOnDistributor_distributorId_fkey" FOREIGN KEY ("distributorId") REFERENCES "distributor"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "order" ADD CONSTRAINT "order_editon_Id_fkey" FOREIGN KEY ("editon_Id") REFERENCES "editions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "order" ADD CONSTRAINT "order_graphicsDistributor_id_fkey" FOREIGN KEY ("graphicsDistributor_id") REFERENCES "GraphicsOnDistributor"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "order" ADD CONSTRAINT "order_graphicsDistributor_id_fkey" FOREIGN KEY ("graphicsDistributor_id") REFERENCES "graphicsOnDistributor"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "orderReturn" ADD CONSTRAINT "orderReturn_order_Id_fkey" FOREIGN KEY ("order_Id") REFERENCES "order"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

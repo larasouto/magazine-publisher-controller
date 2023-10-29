@@ -1,3 +1,4 @@
+
 import { PrismaGraphicsRepository } from '@/application/graphics/repositories/Prisma/PrismaGraphicsRepository'
 import { ListGraphics } from '@/application/graphics/use-case/list-graphics/list-graphics'
 import { ListGraphicsController } from '@/application/graphics/use-case/list-graphics/list-graphics.controller'

@@ -29,7 +29,7 @@ describe('Get a graphics (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .get(`/api/magazines/graphics/${create.id}`)
+      .get(`/api/graphics/${create.id}`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
@@ -40,7 +40,7 @@ describe('Get a graphics (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .get(`/api/magazines/graphics/${create.id}-complement`)
+      .get(`/api/graphics/${create.id}-complement`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
@@ -59,7 +59,7 @@ describe('Get a graphics (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .get(`/api/magazines/graphics/${null}`)
+      .get(`/api/graphics/${null}`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 

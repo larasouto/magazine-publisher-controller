@@ -23,7 +23,7 @@ describe('Delete graphics (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .delete(`/api/magazines/graphics/${create.id}`)
+      .delete(`/api/graphics/${create.id}`)
       .auth(jwt.token, { type: 'bearer' })
 
     expect(response.status).toBe(StatusCodes.OK)
@@ -35,7 +35,7 @@ describe('Delete graphics (end-to-end)', () => {
     const nonExistingGraphicsId = 'non-existing-id'
 
     const response = await request(app)
-      .delete(`/api/magazines/graphics/${nonExistingGraphicsId}`)
+      .delete(`/api/graphics/${nonExistingGraphicsId}`)
       .auth(jwt.token, { type: 'bearer' })
 
     expect(response.status).toBe(StatusCodes.BAD_REQUEST)

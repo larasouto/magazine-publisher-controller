@@ -176,6 +176,8 @@ model GraphicsOnDistributor {
   distributor   Distributor @relation(fields: [distributorId], references: [id])
   distributorId String
   Order         Order[]
+
+  @@map("graphicsOnDistributor")
 }
 
 model Order {
@@ -197,10 +199,10 @@ model Order {
 
 model OrderReturn {
   id            String   @id
-  order         Order    @relation(fields: [order_Id], references: [id])
-  order_Id      String
   return_number Int
   return_date   DateTime
+  order         Order    @relation(fields: [order_Id], references: [id])
+  order_Id      String
 
   @@map("orderReturn")
 }

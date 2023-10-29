@@ -40,7 +40,6 @@ export class PrismaGraphicsRepository implements IGraphicsRepository {
 
   async list(): Promise<any[]> {
     const graphics = await prismaClient.graphics.findMany()
-    console.log('a')
     return graphics?.map(GraphicsMapper.toDomain) ?? []
   }
 
