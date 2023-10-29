@@ -1,11 +1,9 @@
-import { Entity } from '@/core/domain/entity'
-import { ZodValidationError } from '@/core/domain/errors/ZodValidationError'
 import { Either, left, right } from '@/core/logic/either'
+import { ZodValidationError } from '@/core/domain/errors/ZodValidationError'
+import { Entity } from '@/core/domain/entity'
 import { OrderReturnProps, OrderReturnSchema } from './orde0Returnr.schema'
 
-
 export class OrderReturn extends Entity<OrderReturnProps> {
-  static id: string
   private constructor(props: OrderReturnProps, id?: string) {
     super(props, id)
   }

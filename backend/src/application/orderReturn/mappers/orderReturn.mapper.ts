@@ -7,8 +7,8 @@ export class OrderReturnMapper {
     const orderReturn: Pick<OrderReturn, 'props'> = {
       props: {
         returnDate: raw.return_date,
-        orderId: raw.order_Id,
         returnNumber: raw.return_number,
+        orderId: raw.order_Id,
       },
     }
 
@@ -30,7 +30,7 @@ export class OrderReturnMapper {
       id: orderReturn.id,
       return_date: orderReturn.props.returnDate,
       return_number: orderReturn.props.returnNumber,
-      order_id: orderReturn.props.orderId,
+      order_Id: orderReturn.props.orderId,
     }
   }
 }
