@@ -30,7 +30,7 @@ describe('Get a distributor (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .get(`/api/magazines/distributor/${create.id}`)
+      .get(`/api/distributor/${create.id}`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
@@ -41,7 +41,7 @@ describe('Get a distributor (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .get(`/api/magazines/distributor/${create.id}-complement`)
+      .get(`/api/distributor/${create.id}-complement`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
@@ -50,7 +50,7 @@ describe('Get a distributor (end-to-end)', () => {
 
   test('should not be able to get a distributor with no authentication', async () => {
     const response = await request(app)
-      .get(`/api/magazines/distributors/${create.id}`)
+      .get(`/api/distributor/${create.id}`)
       .send()
 
     expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
@@ -60,7 +60,7 @@ describe('Get a distributor (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .get(`/api/magazines/distributor/${null}`)
+      .get(`/api/distributor/${null}`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 

@@ -4,42 +4,35 @@ import { UserFactory } from '@/tests/factories/UserFactory'
 import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
 import { v4 as uuid } from 'uuid'
-import { afterEach, describe, expect, test } from 'vitest'
-import { PrismaDistributorRepository } from '../../repositories/Prisma/PrismaDistributorRepository'
+import { afterAll, describe, expect, test } from 'vitest'
 
-const distributorsRepository = new PrismaDistributorRepository()
-
-let distributorId: string[] = []
-
-describe('List distributors (end-to-end)', () => {
-  afterEach(async () => {
+describe('List distributor (end-to-end)', () => {
+  afterAll(async () => {
     await prismaClient.distributor.deleteMany({
-      where: { id: { in: distributorId } },
+      where: { name: { contains: 'test-list' } },
     })
   })
 
-  test('should list all distributors', async () => {
+  test('should be able to list distributor', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
-    const data: any = {
+    const create = {
       id: uuid(),
-      name: 'test-distributor-name',
-      address: 'test-distributor-address',
-      region: 'test-distributor-region',
+      name: 'test-list-distributor-create',
+      address: 'test-list-distributor-address-create',
+      region: 'test-region',
     }
 
     await prismaClient.distributor.create({
-      data,
+      data: create,
     })
-    distributorId.push(data.id)
 
     const response = await request(app)
-      .get('/api/magazines/distributor')
+      .get(`/api/distributor/`)
       .auth(jwt.token, { type: 'bearer' })
-    console.log(response.body)
-    expect(response.status).toBe(StatusCodes.OK)
+      .send()
 
-    const distributors = await distributorsRepository.list()
-    expect(distributors.length > 0).toBeTruthy()
+    expect(response.status).toBe(StatusCodes.OK)
+    expect(response.body.dto.length > 0).toBeTruthy()
   })
 })

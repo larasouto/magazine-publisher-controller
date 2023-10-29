@@ -36,7 +36,7 @@ describe('Edit distributor (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .put(`/api/magazines/distributor/${create.id}/edit`)
+      .put(`/api/distributor/${create.id}/edit`)
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
@@ -54,7 +54,7 @@ describe('Edit distributor (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .put(`/api/magazines/distributor/${create.id}/edit`)
+      .put(`/api/distributor/${create.id}/edit`)
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
@@ -68,7 +68,7 @@ describe('Edit distributor (end-to-end)', () => {
     const data: any = {}
 
     const response = await request(app)
-      .put(`/api/magazines/distributor/${create.id}/edit`)
+      .put(`/api/distributor/${create.id}/edit`)
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
@@ -86,7 +86,7 @@ describe('Edit distributor (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .put(`/api/magazines/distributor/invalid-id/edit`)
+      .put(`/api/distributor/invalid-id/edit`)
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
