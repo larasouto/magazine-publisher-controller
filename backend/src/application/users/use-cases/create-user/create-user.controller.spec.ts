@@ -22,7 +22,6 @@ describe('Create user (end-to-end)', () => {
     }
 
     const response = await request(app).post('/api/auth/sign-up').send(data)
-
     expect(response.status).toBe(StatusCodes.CREATED)
 
     const userInDatabase = await prismaClient.user.findUnique({
