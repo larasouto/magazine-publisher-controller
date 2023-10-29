@@ -34,7 +34,7 @@ describe('Create a order', () => {
     expect(await ordersRepository.findById(order.id)).toBeTruthy()
   })
 
-  test('should not be able to create a theme with empty data', async () => {
+  test('should not be able to create a order with empty data', async () => {
     const data: any = {
       receiptDate: null,
       departureDate: null,

@@ -7,7 +7,7 @@ import { v4 as uuid } from 'uuid'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { Status } from '../../domain/order.schema'
 
-describe('List order (end-to-end)', () => {
+describe('Create order (end-to-end)', () => {
   const theme: any = {
     id: uuid(),
     name: 'test-theme-name-delete',
@@ -27,7 +27,7 @@ describe('List order (end-to-end)', () => {
     number: 1,
     title: 'test-create-title-edition',
     description: 'test-create-description-edition',
-    cover_path: 'test-create-cover-path-edition', // Corrigido
+    cover_path: 'test-create-cover-path-edition',
     price: 49.9,
     year: 2023,
     publication_date: new Date(),
@@ -77,7 +77,7 @@ describe('List order (end-to-end)', () => {
 
   afterAll(async () => {
     await prismaClient.order.deleteMany({
-      where: { delivery_address: { contains: 'test' } },
+      where: { delivery_address: 'address' },
     })
     await prismaClient.graphicsOnDistributor.deleteMany({
       where: { id: { contains: graphicsOnDistributor.id } },
@@ -99,40 +99,83 @@ describe('List order (end-to-end)', () => {
     })
   })
 
-  test('should be able to list orders', async () => {
+  test('should be able to create an order', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
-    const order1: any = {
+    const data: any = {
+      id: uuid(),
+      receiptDate: new Date(),
+      departureDate: new Date(),
+      status: Status.inPreparation,
+      deliveryAddress: 'address',
+      exampleNumber: 12,
+      editonId: edition.id,
+      graphicsDistributorId: graphicsOnDistributor.id,
+      price: 12,
+    }
+
+    const response = await request(app)
+      .post('/api/order/new')
+      .auth(jwt.token, { type: 'bearer' })
+      .send(data)
+
+    expect(response.status).toBe(StatusCodes.CREATED)
+    expect(response.body).toHaveProperty('message')
+  })
+
+  test('should not be able to create an order with empty data', async () => {
+    const { jwt } = UserFactory.createAndAuthenticate()
+
+    const data: any = {}
+
+    const response = await request(app)
+      .post('/api/order/new')
+      .auth(jwt.token, { type: 'bearer' })
+      .send(data)
+
+    expect(response.status).toBe(StatusCodes.BAD_REQUEST)
+    expect(response.body).toHaveProperty('message')
+  })
+
+  test('should not be able to create an order without an edition associated', async () => {
+    const { jwt } = UserFactory.createAndAuthenticate()
+
+    const data: any = {
       id: uuid(),
       receipt_date: new Date(),
       departure_date: new Date(),
       status: Status.inPreparation,
-      delivery_address: 'test-addrees',
+      delivery_address: 'address',
       example_number: 12,
       editon_Id: edition.id,
       graphicsDistributor_id: graphicsOnDistributor.id,
       price: 12,
     }
 
-    const order2: any = {
-      ...order1,
-      id: uuid(),
+    const response = await request(app)
+      .post('/api/order/new')
+      .auth(jwt.token, { type: 'bearer' })
+      .send(data)
+
+    expect(response.status).toBe(StatusCodes.BAD_REQUEST)
+    expect(response.body).toHaveProperty('message')
+  })
+
+  test('should not be able to create an order without authentication', async () => {
+    const data: any = {
+      receipt_date: new Date(),
+      departure_date: new Date(),
+      status: Status.inPreparation,
+      delivery_address: 'address',
+      example_number: 12,
+      editon_Id: edition.id,
+      graphicsDistributor_id: graphicsOnDistributor.id,
+      price: 12,
     }
 
-    await prismaClient.order.createMany({
-      data: [order1, order2],
-    })
+    const response = await request(app).post('/api/order/new').send(data)
 
-    const response = await request(app)
-      .get(`/api/order`)
-      .auth(jwt.token, { type: 'bearer' })
-      .send()
-
-    expect(response.status).toBe(StatusCodes.OK)
-    expect(response.body.dto.length > 0).toBeTruthy()
-  })
-  test('should not be able to list order without authentication', async () => {
-    const response = await request(app).get(`/api/magazines/order`).send()
     expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
+    expect(response.body).toHaveProperty('message')
   })
 })

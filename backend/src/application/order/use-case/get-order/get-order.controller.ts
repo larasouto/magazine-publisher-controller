@@ -5,8 +5,7 @@ import { GetOrder } from './get-order'
 import { OrderNotFoundError } from './errors/OrderNotFoundError'
 
 type GetOrderControllerRequest = {
-  orderId: string // Adicione o campo 'orderId' ao tipo GetOrderControllerRequest
-  graphicsId: string
+  orderId: string
 }
 
 export class GetOrderController implements Controller {

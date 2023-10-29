@@ -4,15 +4,10 @@ import { UserFactory } from '@/tests/factories/UserFactory'
 import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
 import { v4 as uuid } from 'uuid'
-import { afterAll, afterEach, beforeAll, describe, expect, test } from 'vitest'
-import { PrismaOrdersRepository } from '../../repositories/prisma/PrismaOrderRepository'
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { Status } from '../../domain/order.schema'
 
-const orderRepository = new PrismaOrdersRepository()
-
-let orderId: string[] = []
-
-describe('List order (end-to-end)', () => {
+describe('Get order (end-to-eOnd)', () => {
   const theme: any = {
     id: uuid(),
     name: 'test-theme-name-delete',
@@ -54,7 +49,7 @@ describe('List order (end-to-end)', () => {
   }
 
   const graphicsOnDistributor: any = {
-    id: 'id fake',
+    id: uuid(),
     distributorId: distributor.id,
     graphicsId: graphics.id,
   }
@@ -100,7 +95,7 @@ describe('List order (end-to-end)', () => {
       where: { delivery_address: { contains: 'address' } },
     })
     await prismaClient.graphicsOnDistributor.deleteMany({
-      where: { id: { contains: 'id fake' } },
+      where: { id: { contains: graphicsOnDistributor.id } },
     })
     await prismaClient.distributor.deleteMany({
       where: { name: { contains: 'distributor-name' } },
@@ -123,14 +118,14 @@ describe('List order (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .get(`/api/magazines/${order.id}-complement`)
+      .get(`/api/order/${order.id}-complement`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
     expect(response.status).toBe(StatusCodes.BAD_REQUEST)
   })
   test('should not be able to get a order with no authentication', async () => {
-    const response = await request(app).get(`/api/magazines/${order.id}`).send()
+    const response = await request(app).get(`/api/order/${order.id}`).send()
 
     expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
   })
@@ -139,7 +134,7 @@ describe('List order (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .get(`/api/magazines/${null}`)
+      .get(`/api/order/${null}`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
