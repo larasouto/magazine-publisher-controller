@@ -59,7 +59,6 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
             labelPlacement="outside"
             {...form.register('name')}
             isRequired
-            isClearable
           />
         </fieldset>
         <fieldset>
@@ -71,7 +70,6 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
             labelPlacement="outside"
             {...form.register('email')}
             isRequired
-            isClearable
           />
         </fieldset>
         <fieldset>
@@ -84,7 +82,6 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
             errorMessage={form.formState.errors.phone?.message}
             labelPlacement="outside"
             {...form.register('phone')}
-            isClearable
           />
         </fieldset>
         <fieldset>
@@ -98,7 +95,6 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
             labelPlacement="outside"
             {...form.register('cpf')}
             isRequired
-            isClearable
           />
         </fieldset>
         <fieldset>
@@ -109,7 +105,6 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
             labelPlacement="outside"
             {...form.register('specialty')}
             isRequired
-            isClearable
           />
         </fieldset>
         <fieldset>

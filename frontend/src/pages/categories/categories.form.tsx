@@ -56,7 +56,6 @@ export const CategoriesForm = ({ data }: CategoriesFormProps) => {
             labelPlacement="outside"
             {...form.register('name')}
             isRequired
-            isClearable
           />
         </fieldset>
         <fieldset>
@@ -66,7 +65,6 @@ export const CategoriesForm = ({ data }: CategoriesFormProps) => {
             errorMessage={form.formState.errors.description?.message}
             labelPlacement="outside"
             {...form.register('description')}
-            isClearable
           />
         </fieldset>
       </GridLayout>
