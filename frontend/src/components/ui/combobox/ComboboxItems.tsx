@@ -8,13 +8,15 @@ type ComboboxItemsProps<T extends FieldValues, K extends FieldPath<T>> = {
   items: ComboboxItem[]
   label?: string
   onClose: () => void
+  afterChange?: ControllerRenderProps['onChange']
 }
 
 export const ComboboxItems = <T extends FieldValues, K extends FieldPath<T>>({
   field,
   label,
   items,
-  onClose
+  onClose,
+  afterChange
 }: ComboboxItemsProps<T, K>) => {
   return (
     <ScrollShadow className="w-full max-h-80" size={0}>
@@ -29,7 +31,10 @@ export const ComboboxItems = <T extends FieldValues, K extends FieldPath<T>>({
               field.onChange(item.key)
               onClose()
             }}
-            onPress={() => field.onChange(item.key)}
+            onPress={() => {
+              field.onChange(item.key)
+              afterChange?.(item.key)
+            }}
             startContent={
               <Check
                 className={cn(

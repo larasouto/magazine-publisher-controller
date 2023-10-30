@@ -6,7 +6,7 @@ import {
   cn,
   useDisclosure
 } from '@nextui-org/react'
-import { ChevronsUpDown, SearchIcon } from 'lucide-react'
+import { ChevronsUpDown, Loader, SearchIcon } from 'lucide-react'
 import { useId, useState } from 'react'
 import { ControllerRenderProps, FieldPath, FieldValues } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -23,9 +23,10 @@ type DropdownProps<T extends FieldValues, K extends FieldPath<T>> = {
   items: ComboboxItem[]
   isRequired?: boolean
   label?: string
-  shouldCloseOnClick?: boolean
   errorMessage?: string
   placeholder?: string
+  isLoading?: boolean
+  afterChange?: ControllerRenderProps['onChange']
 }
 
 export const Combobox = <T extends FieldValues, K extends FieldPath<T>>({
@@ -34,14 +35,16 @@ export const Combobox = <T extends FieldValues, K extends FieldPath<T>>({
   isRequired,
   errorMessage,
   placeholder,
-  items
+  items,
+  isLoading = true,
+  afterChange
 }: DropdownProps<T, K>) => {
   const id = useId()
   const { t } = useTranslation('default')
   const { isOpen, onOpenChange, onClose } = useDisclosure()
   const [search, setSearch] = useState('')
 
-  const filtered = items.filter((item) =>
+  const filtered = items?.filter((item) =>
     item.value.toLowerCase().includes(search.toLowerCase())
   )
 
@@ -66,6 +69,7 @@ export const Combobox = <T extends FieldValues, K extends FieldPath<T>>({
         <PopoverTrigger>
           <Button
             id={id}
+            type="button"
             className={cn(
               'w-full justify-between px-3 text-left font-normal bg-default-100 hover:bg-default-200',
               !field.value && 'text-gray-400'
@@ -74,7 +78,11 @@ export const Combobox = <T extends FieldValues, K extends FieldPath<T>>({
             {items.find((value) => value.key === field.value)?.value ??
               placeholder ??
               t('combobox.search_for')}
-            <ChevronsUpDown className="h-4 w-4 opacity-50" />
+            {!isLoading ? (
+              <ChevronsUpDown className="h-4 w-4 opacity-50" />
+            ) : (
+              <Loader className="h-4 w-4 opacity-50 animate-spin" />
+            )}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="p-0">
@@ -97,7 +105,12 @@ export const Combobox = <T extends FieldValues, K extends FieldPath<T>>({
             isClearable
             autoFocus
           />
-          <ComboboxItems field={field} items={filtered} onClose={onClose} />
+          <ComboboxItems
+            field={field}
+            items={filtered}
+            afterChange={afterChange}
+            onClose={onClose}
+          />
           {filtered.length === 0 && (
             <p className="py-5 text-center text-default-400">
               {t('combobox.no_results')}
