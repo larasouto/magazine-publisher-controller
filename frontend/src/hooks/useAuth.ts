@@ -3,6 +3,7 @@ import { SignIn } from '@/pages/auth/sign-in/sign-in.schema'
 import { SignUp } from '@/pages/auth/sign-up/sign-up.schema'
 import { routes } from '@/routes/routes'
 import { api } from '@/services/api'
+import toast from 'react-hot-toast'
 import { useMutation } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { useMutate } from './useMutate'
@@ -23,6 +24,7 @@ export const useAuth = () => {
     {
       onSuccess: (response: HttpSignInResponse) => {
         localStorage.setItem('token', response.token)
+        toast.remove('token-expired')
         navigate(routes.home.index)
       }
     }

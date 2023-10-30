@@ -1,10 +1,10 @@
 import i18next from 'i18next'
 
-type PriceProps = Intl.NumberFormatOptions & {
+type FormatPriceProps = Intl.NumberFormatOptions & {
   toFormat: string | number | bigint
 }
 
-export const Price = ({ toFormat, ...props }: PriceProps) => {
+export const FormatPrice = ({ toFormat, ...props }: FormatPriceProps) => {
   if (typeof toFormat === 'string') {
     toFormat = +toFormat
   }
