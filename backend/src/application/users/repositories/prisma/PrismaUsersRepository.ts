@@ -1,6 +1,6 @@
 import { prismaClient } from '@/infra/prisma/client'
 import { User } from '../../domain/user'
-import { UserMapper } from '../../mappers/user.mapper'
+import { UserDetails, UserMapper } from '../../mappers/user.mapper'
 import { IUsersRepository } from '../interfaces/IUsersRepository'
 
 export class PrismaUsersRepository implements IUsersRepository {
@@ -14,6 +14,23 @@ export class PrismaUsersRepository implements IUsersRepository {
     }
 
     return UserMapper.toDomain(user)
+  }
+
+  async getDetails(id: string): Promise<UserDetails | null> {
+    const user = await prismaClient.user.findUnique({
+      where: { id },
+      include: {
+        addresses: true,
+        cards: true,
+        subscriptions: true,
+      },
+    })
+
+    if (!user) {
+      return null
+    }
+
+    return UserMapper.toUserDetails(user)
   }
 
   async findByEmail(email: string): Promise<User | null> {
