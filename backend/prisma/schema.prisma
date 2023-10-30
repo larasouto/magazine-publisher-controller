@@ -9,34 +9,37 @@ datasource db {
 }
 
 model User {
-  id            String         @id
-  name          String
-  email         String         @unique
-  password      String
-  phone         String?
-  role          Int            @default(0)
-  created_at    DateTime       @default(now())
-  updated_at    DateTime       @updatedAt
-  addresses     Address[]
-  cards         Card[]
-  subscriptions Subscription[]
+  id                  String                @id
+  name                String
+  email               String                @unique
+  password            String
+  phone               String?
+  role                Int                   @default(0)
+  created_at          DateTime              @default(now())
+  updated_at          DateTime              @updatedAt
+  addresses           Address[]
+  cards               Card[]
+  subscriptions       Subscription[]
+  Order               Order[]
+  PaymentSubscription PaymentSubscription[]
 
   @@map("users")
 }
 
 model Subscription {
-  id          String   @id
-  name        String
-  description String
-  type        Int
-  frequency   Int
-  price       Float
-  magazine    Magazine @relation(fields: [magazine_id], references: [id])
-  magazine_id String
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
-  user        User     @relation(fields: [user_id], references: [id])
-  user_id     String
+  id                  String                @id
+  name                String
+  description         String
+  type                Int
+  frequency           Int
+  price               Float
+  magazine            Magazine              @relation(fields: [magazine_id], references: [id])
+  magazine_id         String
+  created_at          DateTime              @default(now())
+  updated_at          DateTime              @updatedAt
+  user                User                  @relation(fields: [user_id], references: [id])
+  user_id             String
+  PaymentSubscription PaymentSubscription[]
 
   @@map("subscriptions")
 }
@@ -47,14 +50,14 @@ model Card {
   holder          String
   expiration_date String
   security_code   Int
-  phone           String
+  phone           String?
   type            Int
   flag            String
-  billing_address  String
+  billing_address String
   created_at      DateTime @default(now())
   updated_at      DateTime @updatedAt
-  user            User    @relation(fields: [user_id], references: [id])
-  user_id          String
+  user            User     @relation(fields: [user_id], references: [id])
+  user_id         String
 
   @@map("cards")
 }
@@ -157,7 +160,7 @@ model Subtitle {
 }
 
 model Edition {
-  id               String   @id
+  id               String      @id
   number           Int
   title            String
   cover_path       String
@@ -167,10 +170,54 @@ model Edition {
   description      String?
   publication_date DateTime
   number_of_copies Int
-  magazine         Magazine @relation(fields: [magazine_id], references: [id])
+  magazine         Magazine    @relation(fields: [magazine_id], references: [id])
   magazine_id      String
-  created_at       DateTime @default(now())
-  updated_at       DateTime @updatedAt
+  created_at       DateTime    @default(now())
+  updated_at       DateTime    @updatedAt
+  OrderItem        OrderItem[]
 
   @@map("editions")
+}
+
+model OrderItem {
+  id         String   @id
+  quantity   Int
+  edition    Edition  @relation(fields: [edition_id], references: [id])
+  edition_id String
+  order      Order    @relation(fields: [order_id], references: [id])
+  order_id   String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("orders_items")
+}
+
+model Order {
+  id             String      @id
+  customer       User        @relation(fields: [customer_id], references: [id])
+  customer_id    String
+  payment_method Int
+  order_items    OrderItem[]
+  total_value    Float
+  address_id     String
+  status         Int
+  created_at     DateTime    @default(now())
+  updated_at     DateTime    @updatedAt
+
+  @@map("orders")
+}
+
+model PaymentSubscription {
+  id              String       @id
+  costumer        User         @relation(fields: [costumer_id], references: [id])
+  costumer_id     String
+  status          Int
+  payment_method  Int
+  subscription    Subscription @relation(fields: [subscription_id], references: [id])
+  subscription_id String
+  address_id      String
+  created_at      DateTime     @default(now())
+  updated_at      DateTime     @updatedAt
+
+  @@map("payment_subscriptions")
 }
