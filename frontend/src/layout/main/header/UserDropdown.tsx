@@ -1,5 +1,6 @@
 import { Menu } from '@/components/ui/Menu'
 import { useAuth } from '@/hooks/useAuth'
+import { ProfileModal } from '@/pages/users/profile/profile.modal'
 import {
   Avatar,
   Dropdown,
@@ -14,7 +15,8 @@ import parser from 'ua-parser-js'
 
 export const UserDropdown = () => {
   const { signOut } = useAuth()
-  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const menu = useDisclosure()
+  const profile = useDisclosure()
 
   const handleOs = () => {
     const os = parser(navigator.userAgent).os.name
@@ -63,8 +65,9 @@ export const UserDropdown = () => {
               key="settings"
               endContent={<Settings className="w-5 h-5" />}
               textValue="settings"
+              onClick={profile.onOpen}
             >
-              Settings
+              Profile
             </DropdownItem>
             <DropdownItem
               key="help_and_feedback"
@@ -78,7 +81,7 @@ export const UserDropdown = () => {
             <DropdownItem
               key="logout"
               color="primary"
-              onClick={onOpen}
+              onClick={menu.onOpen}
               textValue="logout"
               shortcut={handleOs()}
             >
@@ -98,7 +101,8 @@ export const UserDropdown = () => {
           </DropdownSection>
         </DropdownMenu>
       </Dropdown>
-      <Menu isOpen={isOpen} onOpenChange={onOpenChange} hasSearch />
+      <Menu {...menu} hasSearch />
+      <ProfileModal {...profile} />
     </>
   )
 }

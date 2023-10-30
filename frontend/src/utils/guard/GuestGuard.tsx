@@ -1,5 +1,6 @@
+import { useToken } from '@/hooks/useToken'
 import { routes } from '@/routes/routes'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 type GuestGuardProps = {
@@ -7,16 +8,20 @@ type GuestGuardProps = {
 }
 
 export const GuestGuard = ({ children }: GuestGuardProps) => {
-  const [mounted, setMounted] = useState(false)
-  const token = localStorage.getItem('token')
+  const isMounted = useRef(false)
+  const { token } = useToken()
   const navigate = useNavigate()
 
   useEffect(() => {
+    if (isMounted.current) {
+      return
+    }
+    isMounted.current = true
+
     if (token) {
       navigate(routes.home.index)
     }
-    setMounted(true)
   }, [token, navigate])
 
-  return <>{mounted && children}</>
+  return <>{children}</>
 }

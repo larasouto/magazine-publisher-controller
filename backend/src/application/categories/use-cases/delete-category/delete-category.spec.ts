@@ -23,7 +23,7 @@ describe('Delete category', () => {
     await categoriesRepository.create(category2)
 
     const response = await deleteCategory.execute({
-      categoryId: [category1.id, category2.id],
+      ids: [category1.id, category2.id],
     })
 
     expect(response.isRight()).toBeTruthy()
@@ -35,7 +35,7 @@ describe('Delete category', () => {
     await categoriesRepository.create(category1)
 
     const response = await deleteCategory.execute({
-      categoryId: [category1.id, 'non-existing-id'],
+      ids: [category1.id, 'non-existing-id'],
     })
 
     expect(response.isLeft()).toBeTruthy()

@@ -59,7 +59,6 @@ export const MagazinesForm = ({ data }: MagazinesFormProps) => {
             labelPlacement="outside"
             {...form.register('name')}
             isRequired
-            isClearable
           />
         </fieldset>
         <fieldset>
@@ -69,7 +68,6 @@ export const MagazinesForm = ({ data }: MagazinesFormProps) => {
             errorMessage={form.formState.errors.description?.message}
             labelPlacement="outside"
             {...form.register('description')}
-            isClearable
           />
         </fieldset>
         <fieldset>
@@ -81,7 +79,6 @@ export const MagazinesForm = ({ data }: MagazinesFormProps) => {
             labelPlacement="outside"
             {...form.register('yearFounded')}
             isRequired
-            isClearable
           />
         </fieldset>
         <fieldset>

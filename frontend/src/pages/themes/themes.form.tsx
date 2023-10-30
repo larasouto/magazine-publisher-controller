@@ -53,7 +53,6 @@ export const ThemesForm = ({ data }: ThemesFormProps) => {
             labelPlacement="outside"
             {...form.register('name')}
             isRequired
-            isClearable
           />
         </fieldset>
         <fieldset>
@@ -63,7 +62,6 @@ export const ThemesForm = ({ data }: ThemesFormProps) => {
             errorMessage={form.formState.errors.description?.message}
             labelPlacement="outside"
             {...form.register('description')}
-            isClearable
           />
         </fieldset>
       </GridLayout>

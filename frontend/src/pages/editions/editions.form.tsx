@@ -45,8 +45,6 @@ export const EditionsForm = ({ data }: EditionsFormProps) => {
     await create.mutateAsync(form)
   }
 
-  console.table(form.formState.errors)
-
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
@@ -67,7 +65,6 @@ export const EditionsForm = ({ data }: EditionsFormProps) => {
               labelPlacement="outside"
               {...form.register('title')}
               isRequired
-              isClearable
             />
           </fieldset>
           <fieldset>
@@ -77,7 +74,6 @@ export const EditionsForm = ({ data }: EditionsFormProps) => {
               errorMessage={form.formState.errors.description?.message}
               labelPlacement="outside"
               {...form.register('description')}
-              isClearable
             />
           </fieldset>
           <fieldset>
@@ -90,7 +86,6 @@ export const EditionsForm = ({ data }: EditionsFormProps) => {
               labelPlacement="outside"
               {...form.register('price')}
               isRequired
-              isClearable
             />
           </fieldset>
           <fieldset>
@@ -102,7 +97,6 @@ export const EditionsForm = ({ data }: EditionsFormProps) => {
               labelPlacement="outside"
               {...form.register('year')}
               isRequired
-              isClearable
             />
           </fieldset>
           <fieldset>
@@ -114,7 +108,6 @@ export const EditionsForm = ({ data }: EditionsFormProps) => {
               labelPlacement="outside"
               {...form.register('number')}
               isRequired
-              isClearable
             />
           </fieldset>
           <fieldset>
@@ -126,7 +119,6 @@ export const EditionsForm = ({ data }: EditionsFormProps) => {
               labelPlacement="outside"
               {...form.register('numberOfCopies')}
               isRequired
-              isClearable
             />
           </fieldset>
           <fieldset>
@@ -138,7 +130,6 @@ export const EditionsForm = ({ data }: EditionsFormProps) => {
               labelPlacement="outside"
               {...form.register('numberOfPages')}
               isRequired
-              isClearable
             />
           </fieldset>
           <fieldset>
@@ -172,7 +163,6 @@ export const EditionsForm = ({ data }: EditionsFormProps) => {
               labelPlacement="outside"
               {...form.register('coverPath')}
               isRequired
-              isClearable
             />
           </fieldset>
         </GridLayout>

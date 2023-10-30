@@ -1,10 +1,10 @@
 import i18next from 'i18next'
 
-type DateProps = Intl.DateTimeFormatOptions & {
+type FormatDateProps = Intl.DateTimeFormatOptions & {
   date: string | Date
 }
 
-export const LDate = ({ date, ...props }: DateProps) => {
+export const FormatDate = ({ date, ...props }: FormatDateProps) => {
   if (typeof date === 'string') {
     date = new Date(date)
   }

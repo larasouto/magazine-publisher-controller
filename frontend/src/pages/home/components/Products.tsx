@@ -30,6 +30,10 @@ export const Products = ({ ...props }: ProductsProps) => {
     return <Loading />
   }
 
+  if (!Array.isArray(data)) {
+    return null
+  }
+
   return (
     <>
       <section {...props}>

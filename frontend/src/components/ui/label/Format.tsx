@@ -1,7 +1,7 @@
 import { cn } from '@nextui-org/react'
 import { ComponentProps } from 'react'
-import { LDate } from './Date'
-import { Price } from './Price'
+import { FormatDate } from './FormatDate'
+import { FormatPrice } from './FormatPrice'
 
 type FormatProps = ComponentProps<'span'> & {
   text: string
@@ -39,8 +39,8 @@ export const Format = ({
       {...props}
     >
       {type === 'text' && text}
-      {type === 'price' && <Price toFormat={text} {...options?.price} />}
-      {type === 'date' && <LDate date={text} {...options?.date} />}
+      {type === 'price' && <FormatPrice toFormat={text} {...options?.price} />}
+      {type === 'date' && <FormatDate date={text} {...options?.date} />}
     </span>
   )
 }

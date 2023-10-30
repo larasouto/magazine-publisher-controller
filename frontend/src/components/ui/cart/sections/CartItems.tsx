@@ -4,7 +4,7 @@ import { Button, Image, Tooltip } from '@nextui-org/react'
 import { Minus, Plus, Trash } from 'lucide-react'
 import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Price } from '../../label/Price'
+import { Format } from '../../label/Format'
 import { CartEmpty } from '../CartEmpty'
 
 export const CartItems = () => {
@@ -53,7 +53,7 @@ export const CartItems = () => {
                         {t('cart.item.price.label')}
                       </label>
                       <p className="line-clamp-1">
-                        <Price toFormat={item.price} />
+                        <Format text={item.price} type="price" />
                       </p>
                     </div>
                   </div>
