@@ -20,6 +20,7 @@ export const SubscriptionSchema = z.object({
   frequency: z.nativeEnum(SubscriptionFrequency),
   price: z.coerce.number().positive(),
   magazineId: z.string().uuid(),
+  userId: z.string().uuid(),
 })
 
 export type SubscriptionProps = z.infer<typeof SubscriptionSchema>

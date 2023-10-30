@@ -3,8 +3,6 @@ import { PrismaMagazinesRepository } from '@/application/magazines/repositories/
 import { IThemeRepository } from '@/application/themes/repositories/interfaces/IThemeRepository'
 import { PrismaThemesRepository } from '@/application/themes/repositories/prisma/PrismaThemesRepository'
 import { app } from '@/infra/http/app'
-import { subscriptions } from '@/infra/http/routes/subscriptions.routes'
-import { themes } from '@/infra/http/routes/themes.routes'
 import { prismaClient } from '@/infra/prisma/client'
 import { MagazineFactory } from '@/tests/factories/MagazineFactory'
 import { ThemeFactory } from '@/tests/factories/ThemeFactory'
@@ -12,20 +10,31 @@ import { UserFactory } from '@/tests/factories/UserFactory'
 import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
-import { PrismaSubscriptionsRepository } from '../../repositories/prisma/PrismaSubscriptionsRepository'
-import { Subscription } from '../../domain/subscription'
 import {
   SubscriptionFrequency,
   SubscriptionType,
 } from '../../domain/subscription.schema'
+import { IUsersRepository } from '@/application/users/repositories/interfaces/IUsersRepository'
+import { PrismaUsersRepository } from '@/application/users/repositories/prisma/PrismaUsersRepository'
+import { User } from '@/application/users/domain/user'
+import { M } from 'vitest/dist/reporters-cb94c88b'
 
 let themesRepository: IThemeRepository
 let magazinesRepository: IMagazineRepository
+let usersRepository: IUsersRepository
 
 describe('Create subscription (end-to-end)', () => {
+  const { jwt, user } = UserFactory.createAndAuthenticate()
+  const theme = ThemeFactory.create()
+  const magazine = MagazineFactory.create({ themeId: theme.id })
+
   beforeAll(async () => {
     themesRepository = new PrismaThemesRepository()
     magazinesRepository = new PrismaMagazinesRepository()
+    usersRepository = new PrismaUsersRepository()
+    await themesRepository.create(theme)
+    await magazinesRepository.create(magazine)
+    await usersRepository.create(user)
   })
 
   afterAll(async () => {
@@ -38,17 +47,12 @@ describe('Create subscription (end-to-end)', () => {
     await prismaClient.theme.deleteMany({
       where: { name: { contains: 'test' } },
     })
+    await prismaClient.user.deleteMany({
+      where: { id: user.id },
+    })
   })
 
   test('should be able to create a subscription', async () => {
-    const { jwt } = UserFactory.createAndAuthenticate()
-
-    const theme = ThemeFactory.create()
-    await themesRepository.create(theme)
-
-    const magazine = MagazineFactory.create({ themeId: theme.id })
-    await magazinesRepository.create(magazine)
-
     const data: any = {
       name: 'test-subscription-name',
       description: 'test-subscription-description',
@@ -56,6 +60,7 @@ describe('Create subscription (end-to-end)', () => {
       frequency: SubscriptionFrequency.MONTHLY,
       price: 50.0,
       magazineId: magazine.id,
+      userId: user.id,
     }
 
     const response = await request(app)

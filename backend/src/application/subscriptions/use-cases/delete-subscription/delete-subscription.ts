@@ -19,6 +19,10 @@ export class DeleteSubscription {
       ? subscriptionId
       : [subscriptionId]
 
+    if(subscriptionOrSubscriptions.length === 0) {
+      return left(new OneOrMoreSubscriptionNotFoundError())
+    }
+
     const subscriptionPromises = subscriptionOrSubscriptions
       .filter((subscriptionId) => subscriptionId)
       .map((subscriptionId) => this.subscriptionsRepository.findById(subscriptionId))

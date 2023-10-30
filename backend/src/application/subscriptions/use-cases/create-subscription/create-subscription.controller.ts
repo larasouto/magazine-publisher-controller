@@ -11,6 +11,7 @@ type CreateSubscriptionControllerRequest = {
   frequency: number
   price: number
   magazineId: string
+  userId: string
 }
 
 export class CreateSubscriptionController implements Controller {

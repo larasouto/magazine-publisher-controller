@@ -1,4 +1,4 @@
-import {  Subscription as PersistenceSubscription } from '@prisma/client'
+import { Subscription as PersistenceSubscription } from '@prisma/client'
 import { Subscription } from '../domain/subscription'
 import { MapperError } from '@/core/errors/MapperErrors'
 
@@ -12,6 +12,7 @@ export class SubscriptionMapper {
         frequency: raw.frequency,
         price: raw.price,
         magazineId: raw.magazine_id,
+        userId: raw.user_id,
       },
       raw.id,
     )
@@ -32,6 +33,7 @@ export class SubscriptionMapper {
       frequency: subscription.props.frequency,
       price: subscription.props.price,
       magazine_id: subscription.props.magazineId,
+      user_id: subscription.props.userId,
     }
   }
 }

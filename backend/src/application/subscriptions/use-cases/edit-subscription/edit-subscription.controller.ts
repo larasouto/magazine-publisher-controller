@@ -13,6 +13,7 @@ type EditSubscriptionControllerRequest = {
   frequency: number
   price: number
   magazineId: string
+  userId: string
 }
 
 export class EditSubscriptionController implements Controller {

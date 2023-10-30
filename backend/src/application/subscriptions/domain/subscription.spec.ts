@@ -12,6 +12,7 @@ describe('Entity Subscription', () => {
       frequency: SubscriptionFrequency.MONTHLY,
       price: 49.99,
       magazineId: uuid(),
+      userId: uuid(),
     }
 
     const sut = Subscription.create(data)

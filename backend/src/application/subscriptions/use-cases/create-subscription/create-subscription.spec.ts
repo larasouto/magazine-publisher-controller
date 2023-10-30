@@ -13,30 +13,42 @@ import { CreateSubscription } from './create-subscription'
 import { IThemeRepository } from '@/application/themes/repositories/interfaces/IThemeRepository'
 import { ThemeFactory } from '@/tests/factories/ThemeFactory'
 import { InMemoryThemesRepository } from '@/application/themes/repositories/in-memory/InMemoryThemesRepository'
+import { UserFactory } from '@/tests/factories/UserFactory'
+import { IUsersRepository } from '@/application/users/repositories/interfaces/IUsersRepository'
+import { InMemoryUsersRepository } from '@/application/users/repositories/in-memory/InMemoryUsersRepository'
+import { Theme } from '@/application/themes/domain/theme'
+import { Magazine } from '@/application/magazines/domain/magazine'
+import { User } from '@/application/users/domain/user'
 
 let subscriptionsRepository: ISubscriptionsRepository
 let createSubscription: CreateSubscription
 let magazinesRepository: IMagazineRepository
 let themesRepository: IThemeRepository
+let usersRepository: IUsersRepository
+let theme: Theme
+let magazine: Magazine
+let user: User
 
 describe('Create a subscription', () => {
   beforeAll(async () => {
     subscriptionsRepository = new InMemorySubscriptionsRepository()
     themesRepository = new InMemoryThemesRepository()
     magazinesRepository = new InMemoryMagazinesRepository()
+    usersRepository = new InMemoryUsersRepository()
     createSubscription = new CreateSubscription(
       subscriptionsRepository,
       magazinesRepository,
+      usersRepository,
     )
+    theme = ThemeFactory.create()
+    await themesRepository.create(theme)
+    magazine = MagazineFactory.create({ themeId: theme.id })
+    await magazinesRepository.create(magazine)
+    user = UserFactory.create()
+    await usersRepository.create(user)
   })
 
   test('should be able to create a subscription', async () => {
-    const theme = ThemeFactory.create()
-    await themesRepository.create(theme)
-
-    const magazine = MagazineFactory.create({ themeId: theme.id })
-    await magazinesRepository.create(magazine)
-
     const data: any = {
       name: 'test-subscription-name',
       description: 'test-subscription-description',
@@ -44,6 +56,7 @@ describe('Create a subscription', () => {
       frequency: SubscriptionFrequency.MONTHLY,
       price: 50.0,
       magazineId: magazine.id,
+      userId: user.id,
     }
 
     const response = await createSubscription.execute(data)
@@ -66,6 +79,7 @@ describe('Create a subscription', () => {
       frequency: SubscriptionFrequency.MONTHLY,
       price: 50.0,
       magazineId: magazine.id,
+      userId: user.id,
     }
 
     const response = await createSubscription.execute(data)

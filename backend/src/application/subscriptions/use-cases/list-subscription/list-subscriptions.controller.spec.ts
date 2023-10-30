@@ -3,33 +3,45 @@ import { prismaClient } from '@/infra/prisma/client'
 import { UserFactory } from '@/tests/factories/UserFactory'
 import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
-import { v4 as uuid } from 'uuid'
-import { afterAll, afterEach, beforeAll, describe, expect, test } from 'vitest'
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { PrismaSubscriptionsRepository } from '../../repositories/prisma/PrismaSubscriptionsRepository'
 import { PrismaThemesRepository } from '@/application/themes/repositories/prisma/PrismaThemesRepository'
 import { PrismaMagazinesRepository } from '@/application/magazines/repositories/prisma/PrismaMagazinesRepository'
 import { ThemeFactory } from '@/tests/factories/ThemeFactory'
 import { MagazineFactory } from '@/tests/factories/MagazineFactory'
-import { Subscription } from '../../domain/subscription'
-import {
-  SubscriptionFrequency,
-  SubscriptionType,
-} from '../../domain/subscription.schema'
 import { ISubscriptionsRepository } from '../../repositories/interfaces/ISubscriptionsRepository'
 import { IThemeRepository } from '@/application/themes/repositories/interfaces/IThemeRepository'
 import { IMagazineRepository } from '@/application/magazines/repositories/interfaces/IMagazineRepository'
+import { IUsersRepository } from '@/application/users/repositories/interfaces/IUsersRepository'
+import { PrismaUsersRepository } from '@/application/users/repositories/prisma/PrismaUsersRepository'
+import { SubscriptionFactory } from '@/tests/factories/SubscriptionFactory'
 
 let subscriptionsRepository: ISubscriptionsRepository
 let themesRepository: IThemeRepository
 let magazinesRepository: IMagazineRepository
+let usersRepository: IUsersRepository
 
 let subscriptionId: string[] = []
 
 describe('List subscriptions (end-to-end)', () => {
+  const { jwt, user } = UserFactory.createAndAuthenticate()
+
+  const theme = ThemeFactory.create()
+  const magazine = MagazineFactory.create({ themeId: theme.id })
+  const subscription = SubscriptionFactory.create({
+    magazineId: magazine.id,
+    userId: user.id,
+  })
+
   beforeAll(async () => {
     themesRepository = new PrismaThemesRepository()
     magazinesRepository = new PrismaMagazinesRepository()
+    usersRepository = new PrismaUsersRepository()
     subscriptionsRepository = new PrismaSubscriptionsRepository()
+    await themesRepository.create(theme)
+    await magazinesRepository.create(magazine)
+    await usersRepository.create(user)
+    await subscriptionsRepository.create(subscription)
   })
 
   afterAll(async () => {
@@ -42,32 +54,13 @@ describe('List subscriptions (end-to-end)', () => {
     await prismaClient.theme.deleteMany({
       where: { name: { contains: 'test' } },
     })
+    await prismaClient.user.deleteMany({
+      where: { id: user.id },
+    })
   })
 
   test('should list all subscriptions', async () => {
-    const { jwt } = UserFactory.createAndAuthenticate()
-
-    const theme = ThemeFactory.create()
-    await themesRepository.create(theme)
-
-    const magazine = MagazineFactory.create({ themeId: theme.id })
-    await magazinesRepository.create(magazine)
-
-    const data: any = {
-      id: uuid(),
-      name: 'test-subscription-name',
-      description: 'test-subscription-description',
-      type: SubscriptionType.PREMIUM,
-      frequency: SubscriptionFrequency.MONTHLY,
-      price: 50.0,
-      magazine_id: magazine.id,
-    }
-
-    await prismaClient.subscription.create({
-      data,
-    })
-
-    subscriptionId.push(data.id)
+    subscriptionId.push(subscription.id)
 
     const response = await request(app)
       .get('/api/subscriptions')

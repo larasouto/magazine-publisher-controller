@@ -3,7 +3,7 @@ import { prismaClient } from '@/infra/prisma/client'
 import { UserFactory } from '@/tests/factories/UserFactory'
 import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
-import { afterAll, beforeAll, describe, expect, test } from 'vitest'
+import { afterAll, afterEach, beforeAll, describe, expect, test } from 'vitest'
 import { EditSubscription } from './edit-subscription'
 import { ThemeFactory } from '@/tests/factories/ThemeFactory'
 import { IMagazineRepository } from '@/application/magazines/repositories/interfaces/IMagazineRepository'
@@ -22,31 +22,43 @@ import { ISubscriptionsRepository } from '../../repositories/interfaces/ISubscri
 import { PrismaThemesRepository } from '@/application/themes/repositories/prisma/PrismaThemesRepository'
 import { PrismaMagazinesRepository } from '@/application/magazines/repositories/prisma/PrismaMagazinesRepository'
 import { v4 as uuid } from 'uuid'
+import { IUsersRepository } from '@/application/users/repositories/interfaces/IUsersRepository'
+import { User } from '@/application/users/domain/user'
+import { PrismaUsersRepository } from '@/application/users/repositories/prisma/PrismaUsersRepository'
 
 let subscriptionsRepository: ISubscriptionsRepository
 let editSubscription: EditSubscription
 let magazinesRepository: IMagazineRepository
 let themesRepository: IThemeRepository
+let usersRepository: IUsersRepository
 let theme: Theme
 let magazine: Magazine
 let subscription: Subscription
 
 describe('Edit subscription (end-to-end)', () => {
+  const { jwt, user } = UserFactory.createAndAuthenticate()
+
+  const theme = ThemeFactory.create()
+  const magazine = MagazineFactory.create({ themeId: theme.id })
+
+  const subscription = SubscriptionFactory.create({
+    magazineId: magazine.id,
+    userId: user.id,
+  })
+
   beforeAll(async () => {
     subscriptionsRepository = new PrismaSubscriptionsRepository()
     magazinesRepository = new PrismaMagazinesRepository()
     themesRepository = new PrismaThemesRepository()
+    usersRepository = new PrismaUsersRepository()
     editSubscription = new EditSubscription(
       subscriptionsRepository,
       magazinesRepository,
+      usersRepository,
     )
-    theme = ThemeFactory.create()
     await themesRepository.create(theme)
-
-    magazine = MagazineFactory.create({ themeId: theme.id })
     await magazinesRepository.create(magazine)
-
-    subscription = SubscriptionFactory.create({ magazineId: magazine.id })
+    await usersRepository.create(user)
     await subscriptionsRepository.create(subscription)
   })
 
@@ -60,11 +72,12 @@ describe('Edit subscription (end-to-end)', () => {
     await prismaClient.theme.deleteMany({
       where: { name: { contains: 'test' } },
     })
+    await prismaClient.user.deleteMany({
+      where: { id: user.id },
+    })
   })
 
   test('should be able to update a subscription', async () => {
-    const { jwt } = UserFactory.createAndAuthenticate()
-
     const updatedSubscription: any = {
       subscriptionId: subscription.id,
       name: 'test-subscription-updated-name',
@@ -73,6 +86,7 @@ describe('Edit subscription (end-to-end)', () => {
       frequency: SubscriptionFrequency.ANNUAL,
       price: 49.99,
       magazineId: magazine.id,
+      userId: user.id,
     }
 
     const response = await request(app)
@@ -99,7 +113,8 @@ describe('Edit subscription (end-to-end)', () => {
   })
 
   test('should not be able to update a subscription with invalid id', async () => {
-    const { jwt } = UserFactory.createAndAuthenticate()
+    const { jwt, user } = UserFactory.createAndAuthenticate()
+    await usersRepository.create(user)
 
     const updatedSubscription: any = {
       subscriptionId: subscription.id,
@@ -109,6 +124,7 @@ describe('Edit subscription (end-to-end)', () => {
       frequency: SubscriptionFrequency.ANNUAL,
       price: 49.99,
       magazineId: magazine.id,
+      userId: user.id,
     }
 
     const response = await request(app)
@@ -121,7 +137,8 @@ describe('Edit subscription (end-to-end)', () => {
   })
 
   test('should not be able to update a subscription with invalid magazine id', async () => {
-    const { jwt } = UserFactory.createAndAuthenticate()
+    const { jwt, user } = UserFactory.createAndAuthenticate()
+    await usersRepository.create(user)
 
     const updatedSubscription: any = {
       subscriptionId: subscription.id,
@@ -131,6 +148,7 @@ describe('Edit subscription (end-to-end)', () => {
       frequency: SubscriptionFrequency.ANNUAL,
       price: 49.99,
       magazineId: uuid(),
+      userId: user.id,
     }
 
     const response = await request(app)

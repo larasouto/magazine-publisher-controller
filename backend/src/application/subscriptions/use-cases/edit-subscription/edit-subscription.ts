@@ -4,6 +4,8 @@ import { ISubscriptionsRepository } from '../../repositories/interfaces/ISubscri
 import { SubscriptionNotFoundError } from './errors/SubscriptionNotFoundError'
 import { MagazineNotFoundError } from './errors/MagazineNotFoundError'
 import { IMagazineRepository } from '@/application/magazines/repositories/interfaces/IMagazineRepository'
+import { IUsersRepository } from '@/application/users/repositories/interfaces/IUsersRepository'
+import { UserNotFoundError } from './errors/UserNotFoundError'
 
 type EditSubscriptionRequest = {
   subscriptionId: string
@@ -13,6 +15,7 @@ type EditSubscriptionRequest = {
   frequency: number
   price: number
   magazineId: string
+  userId: string
 }
 
 type EditSubscriptionResponse = Either<SubscriptionNotFoundError, Subscription>
@@ -21,6 +24,7 @@ export class EditSubscription {
   constructor(
     private subscriptionsRepository: ISubscriptionsRepository,
     private magazinesRepository: IMagazineRepository,
+    private usersRepository: IUsersRepository,
   ) {}
 
   async execute({
@@ -46,6 +50,14 @@ export class EditSubscription {
 
     if (!magazineExists) {
       return left(new MagazineNotFoundError())
+    }
+
+    const userExists = await this.usersRepository.findById(
+      request.userId,
+    )
+
+    if (!userExists) {
+      return left(new UserNotFoundError())
     }
 
     const subscription = subscriptionOrError.value

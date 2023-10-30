@@ -14,48 +14,49 @@ import {
 import { IThemeRepository } from '@/application/themes/repositories/interfaces/IThemeRepository'
 import { InMemoryThemesRepository } from '@/application/themes/repositories/in-memory/InMemoryThemesRepository'
 import { InMemoryMagazinesRepository } from '@/application/magazines/repositories/in-memory/InMemoryMagazinesRepository'
+import { IUsersRepository } from '@/application/users/repositories/interfaces/IUsersRepository'
+import { UserFactory } from '@/tests/factories/UserFactory'
+import { InMemoryUsersRepository } from '@/application/users/repositories/in-memory/InMemoryUsersRepository'
+import { SubscriptionFactory } from '@/tests/factories/SubscriptionFactory'
 
 let listSubscriptions: ListSubscriptions
 let createSubscription: CreateSubscription
 let subscriptionsRepository: ISubscriptionsRepository
 let magazinesRepository: IMagazineRepository
 let themesRepository: IThemeRepository
+let usersRepository: IUsersRepository
 
 describe('List subscriptions', () => {
-  beforeEach(() => {
+  const theme = ThemeFactory.create()
+  const magazine = MagazineFactory.create({ themeId: theme.id })
+  const user = UserFactory.create()
+
+  beforeEach(async () => {
     themesRepository = new InMemoryThemesRepository()
     magazinesRepository = new InMemoryMagazinesRepository()
     subscriptionsRepository = new InMemorySubscriptionsRepository()
+    usersRepository = new InMemoryUsersRepository()
+    await themesRepository.create(theme)
+    await magazinesRepository.create(magazine)
+    await usersRepository.create(user)
     listSubscriptions = new ListSubscriptions(subscriptionsRepository)
     createSubscription = new CreateSubscription(
       subscriptionsRepository,
       magazinesRepository,
+      usersRepository,
     )
   })
 
   test('should list all subscriptions', async () => {
-    const theme = ThemeFactory.create()
-    await themesRepository.create(theme)
-
-    const magazine = MagazineFactory.create({ themeId: theme.id })
-    await magazinesRepository.create(magazine)
-
-    const data1 = {
-      name: 'test-subscription-name',
-      description: 'test-subscription-description',
-      type: SubscriptionType.PREMIUM,
-      frequency: SubscriptionFrequency.MONTHLY,
-      price: 50.0,
+    const data1 = SubscriptionFactory.create({
       magazineId: magazine.id,
-    }
+      userId: user.id,
+    }).toResponseBody()
 
     const data2 = {
+      ...data1,
       name: 'second-subscription-name',
       description: 'second-subscription-description',
-      type: SubscriptionType.PREMIUM,
-      frequency: SubscriptionFrequency.MONTHLY,
-      price: 50.0,
-      magazineId: magazine.id,
     }
 
     const response1 = await createSubscription.execute(data1)

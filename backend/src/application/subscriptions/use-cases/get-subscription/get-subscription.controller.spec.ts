@@ -14,23 +14,29 @@ import { Theme } from '@/application/themes/domain/theme'
 import { Magazine } from '@/application/magazines/domain/magazine'
 import { SubscriptionFactory } from '@/tests/factories/SubscriptionFactory'
 import { prismaClient } from '@/infra/prisma/client'
+import { afterEach } from 'node:test'
+import { IUsersRepository } from '@/application/users/repositories/interfaces/IUsersRepository'
+import { PrismaUsersRepository } from '@/application/users/repositories/prisma/PrismaUsersRepository'
 
 let magazinesRepository: IMagazineRepository
 let themesRepository: IThemeRepository
+let usersRepository: IUsersRepository
 let subscriptionsRepository: PrismaSubscriptionsRepository
-let theme: Theme
-let magazine: Magazine
 
 describe('Get subscription (end-to-end)', () => {
+  const { jwt, user } = UserFactory.createAndAuthenticate()
+
+  const theme = ThemeFactory.create()
+  const magazine = MagazineFactory.create({ themeId: theme.id })
+
   beforeAll(async () => {
     themesRepository = new PrismaThemesRepository()
     magazinesRepository = new PrismaMagazinesRepository()
+    usersRepository = new PrismaUsersRepository()
     subscriptionsRepository = new PrismaSubscriptionsRepository()
-    theme = ThemeFactory.create()
     await themesRepository.create(theme)
-
-    magazine = MagazineFactory.create({ themeId: theme.id })
     await magazinesRepository.create(magazine)
+    await usersRepository.create(user)
   })
 
   afterAll(async () => {
@@ -43,12 +49,16 @@ describe('Get subscription (end-to-end)', () => {
     await prismaClient.theme.deleteMany({
       where: { name: { contains: 'test' } },
     })
+    await prismaClient.user.deleteMany({
+      where: { id: user.id },
+    })
   })
 
   test('should be able to get an existing subscription', async () => {
-    const { jwt } = UserFactory.createAndAuthenticate()
-
-    const subscription = SubscriptionFactory.create({ magazineId: magazine.id })
+    const subscription = SubscriptionFactory.create({
+      magazineId: magazine.id,
+      userId: user.id,
+    })
     await subscriptionsRepository.create(subscription)
 
     const response = await request(app)
@@ -60,9 +70,10 @@ describe('Get subscription (end-to-end)', () => {
   })
 
   test('should not be able to get a non existing subscription', async () => {
-    const { jwt } = UserFactory.createAndAuthenticate()
-
-    const subscription = SubscriptionFactory.create({ magazineId: magazine.id })
+    const subscription = SubscriptionFactory.create({
+      magazineId: magazine.id,
+      userId: user.id,
+    })
     await subscriptionsRepository.create(subscription)
 
     const response = await request(app)
@@ -74,8 +85,6 @@ describe('Get subscription (end-to-end)', () => {
   })
 
   test('should not be able to get a subscription with invalid subscriptionId', async () => {
-    const { jwt } = UserFactory.createAndAuthenticate()
-
     const response = await request(app)
       .get(`/api/subscriptions/${null}`)
       .auth(jwt.token, { type: 'bearer' })

@@ -13,38 +13,42 @@ import {
   SubscriptionType,
 } from '../../domain/subscription.schema'
 import { SubscriptionFactory } from '@/tests/factories/SubscriptionFactory'
-import { Theme } from '@/application/themes/domain/theme'
-import { Magazine } from '@/application/magazines/domain/magazine'
-import { Subscription } from '../../domain/subscription'
+import { InMemoryUsersRepository } from '@/application/users/repositories/in-memory/InMemoryUsersRepository'
+import { IUsersRepository } from '@/application/users/repositories/interfaces/IUsersRepository'
+import { UserFactory } from '@/tests/factories/UserFactory'
 
 let subscriptionsRepository: ISubscriptionsRepository
 let editSubscription: EditSubscription
 let magazinesRepository: IMagazineRepository
 let themesRepository: IThemeRepository
-let theme: Theme
-let magazine: Magazine
-let subscription: Subscription
+let usersRepository: IUsersRepository
 
 describe('Edit a subscription', () => {
+  const theme = ThemeFactory.create()
+  const magazine = MagazineFactory.create({ themeId: theme.id })
+  const user = UserFactory.create()
+  const subscription = SubscriptionFactory.create({
+    magazineId: magazine.id,
+    userId: user.id,
+  })
+
   beforeAll(async () => {
     subscriptionsRepository = new InMemorySubscriptionsRepository()
     magazinesRepository = new InMemoryMagazinesRepository()
     themesRepository = new InMemoryThemesRepository()
+    usersRepository = new InMemoryUsersRepository()
     editSubscription = new EditSubscription(
       subscriptionsRepository,
       magazinesRepository,
+      usersRepository,
     )
-    theme = ThemeFactory.create()
     await themesRepository.create(theme)
-
-    magazine = MagazineFactory.create({ themeId: theme.id })
     await magazinesRepository.create(magazine)
+    await usersRepository.create(user)
+    await subscriptionsRepository.create(subscription)
   })
 
   test('should be able to update a subscription', async () => {
-    subscription = SubscriptionFactory.create({ magazineId: magazine.id })
-    await subscriptionsRepository.create(subscription)
-
     const updatedSubscription = await editSubscription.execute({
       subscriptionId: subscription.id,
       name: 'test-subscription-updated-name',
@@ -53,6 +57,7 @@ describe('Edit a subscription', () => {
       frequency: SubscriptionFrequency.MONTHLY,
       price: 49.99,
       magazineId: magazine.id,
+      userId: user.id,
     })
 
     expect(updatedSubscription.isRight()).toBeTruthy()
@@ -62,9 +67,6 @@ describe('Edit a subscription', () => {
   })
 
   test('should not be able to update a subscription with invalid data', async () => {
-    subscription = SubscriptionFactory.create({ magazineId: magazine.id })
-
-    await subscriptionsRepository.create(subscription)
     expect(await subscriptionsRepository.findById(subscription.id)).toBeTruthy()
 
     const updatedSubscription = await editSubscription.execute({
@@ -75,6 +77,7 @@ describe('Edit a subscription', () => {
       frequency: SubscriptionFrequency.MONTHLY,
       price: 0,
       magazineId: magazine.id,
+      userId: user.id,
     })
 
     expect(updatedSubscription.isLeft()).toBeTruthy()
