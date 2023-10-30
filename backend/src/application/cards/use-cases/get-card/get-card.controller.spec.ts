@@ -41,7 +41,6 @@ describe('Get a card (end-to-end)', () => {
       .get(`/api/cards/${card.id}`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
-    console.log(response.body)
 
     expect(response.status).toBe(StatusCodes.OK)
   })

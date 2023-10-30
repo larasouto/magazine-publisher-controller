@@ -16,7 +16,6 @@ export class GetUserDetails {
   async execute({
     userId,
   }: GetUserDetailsRequest): Promise<GetUserDetailsResponse> {
-    console.log(userId)
     if (!userId) {
       return left(new UserNotFoundError())
     }

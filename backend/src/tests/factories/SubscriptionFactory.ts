@@ -12,6 +12,7 @@ type SubscriptionOverrides = {
   frequency?: SubscriptionFrequency
   price?: number
   magazineId?: string
+  userId?: string
 }
 
 export class SubscriptionFactory {
@@ -23,6 +24,7 @@ export class SubscriptionFactory {
       frequency: SubscriptionFrequency.MONTHLY,
       price: 49.99,
       magazineId: 'test-magazine-id',
+      userId: 'test-user-id',
       ...overrides,
     })
 
