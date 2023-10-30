@@ -6,6 +6,7 @@ import { makeCreateCardsController } from '../factories/controllers/cards/makeCr
 import { makeGetCardController } from '../factories/controllers/cards/makeGetCardController'
 import { makeEditCardsController } from '../factories/controllers/cards/makeEditCardsController'
 import { makeDeleteCardsController } from '../factories/controllers/cards/makeDeleteCardsController'
+import { makeListCardsController } from '../factories/controllers/cards/makeListCardsController'
 
 export const cards = Router()
 
@@ -15,3 +16,4 @@ cards.post('/new', adaptRoute(makeCreateCardsController()))
 cards.delete('/', adaptRoute(makeDeleteCardsController()))
 cards.put('/:cardId/edit', adaptRoute(makeEditCardsController()))
 cards.get('/:cardId', adaptRoute(makeGetCardController()))
+cards.get('/', adaptRoute(makeListCardsController()))
