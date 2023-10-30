@@ -28,8 +28,7 @@ export const EditionsActions = ({ row }: EditionsActionsProps) => {
 
   const { remove } = useFetch<EditionColumns>({
     baseUrl: backend.editions.baseUrl,
-    query: ['editions'],
-    invalidateQuery: true
+    query: ['editions']
   })
 
   const handleDelete = async () => {

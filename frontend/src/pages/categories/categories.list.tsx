@@ -9,7 +9,7 @@ import { CategoryColumns, columns } from './table/categories.columns'
 export const CategoryListPage = () => {
   const { title, breadcrumb } = usePageUtils('categories')
 
-  const { list } = useFetch<CategoryColumns[]>({
+  const { list, removeMany } = useFetch<CategoryColumns[]>({
     baseUrl: backend.categories.baseUrl,
     query: ['categories'],
     fetch: {
@@ -26,6 +26,7 @@ export const CategoryListPage = () => {
       <DataTable
         columns={columns}
         data={list?.data ?? []}
+        fn={removeMany.mutateAsync}
         toolbarButtons={<CategoriesToolbar />}
       />
     </PageLayout>

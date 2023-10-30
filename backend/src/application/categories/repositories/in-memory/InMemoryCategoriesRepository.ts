@@ -13,12 +13,10 @@ export class InMemoryCategoriesRepository implements ICategoryRepository {
     this.categories.push(category)
   }
 
-  async delete(id: string): Promise<void> {
-    const categoryIndex = this.categories.findIndex(
-      (category) => category.id === id,
+  async deleteMany(ids: string[]): Promise<void> {
+    this.categories = this.categories.filter(
+      (category) => !ids.includes(category.id),
     )
-
-    this.categories.splice(categoryIndex, 1)
   }
 
   async update(category: Category): Promise<void> {

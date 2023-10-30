@@ -8,9 +8,11 @@ type UserOverrides = {
 
 export class UserFactory {
   static create(overrides?: UserOverrides) {
+    const _email = Math.random().toString(36).substring(2)
+
     const user = User.create({
       name: 'just-for-tests',
-      email: overrides?.email || 'just-for-tests@email.com',
+      email: overrides?.email || `${_email}@email.com`,
       password: overrides?.password || '12345678',
       role: 1,
     })

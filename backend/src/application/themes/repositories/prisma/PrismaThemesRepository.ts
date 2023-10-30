@@ -24,12 +24,6 @@ export class PrismaThemesRepository implements IThemeRepository {
     })
   }
 
-  async delete(id: string): Promise<void> {
-    await prismaClient.theme.delete({
-      where: { id },
-    })
-  }
-
   async deleteMany(ids: string[]): Promise<void> {
     await prismaClient.theme.deleteMany({
       where: { id: { in: ids } },

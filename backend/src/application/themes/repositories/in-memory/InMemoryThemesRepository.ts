@@ -18,12 +18,6 @@ export class InMemoryThemesRepository implements IThemeRepository {
     this.themes.push(theme)
   }
 
-  async delete(id: string): Promise<void> {
-    const themeIndex = this.themes.findIndex((theme) => theme.id === id)
-
-    this.themes.splice(themeIndex, 1)
-  }
-
   async deleteMany(ids: string[]): Promise<void> {
     ids.forEach((id) => {
       const themeIndex = this.themes.findIndex((theme) => theme.id === id)

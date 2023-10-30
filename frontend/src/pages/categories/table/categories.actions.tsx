@@ -24,14 +24,13 @@ export const CategoriesActions = ({ row }: CategoriesActionsProps) => {
   const { t } = useTranslation()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
-  const { remove } = useFetch<CategoryColumns>({
+  const { removeMany } = useFetch({
     baseUrl: backend.categories.baseUrl,
-    query: ['categories'],
-    invalidateQuery: true
+    query: ['categories']
   })
 
   const handleDelete = async () => {
-    await remove.mutateAsync(row)
+    await removeMany.mutateAsync(row)
   }
 
   return (

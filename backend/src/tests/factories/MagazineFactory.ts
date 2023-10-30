@@ -4,7 +4,13 @@ import {
   PublicationPeriod,
 } from '@/application/magazines/domain/magazine.schema'
 
-type MagazineOverrides = MagazineProps
+type MagazineOverrides = {
+  name?: string
+  description?: string
+  publicationPeriod?: PublicationPeriod
+  yearFounded?: number
+  themeId?: string
+}
 
 export class MagazineFactory {
   static create(overrides?: MagazineOverrides) {

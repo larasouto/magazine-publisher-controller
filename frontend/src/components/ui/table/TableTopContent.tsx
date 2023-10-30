@@ -3,7 +3,6 @@ import { Table } from '@tanstack/react-table'
 import { Search } from 'lucide-react'
 
 import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react'
-import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 import { TableDeleteButton } from './TableDeleteButton'
 import { TableFilterButton } from './TableFilterButton'
@@ -14,13 +13,15 @@ type TableTopContentProps<TData> = {
   globalFilter: string
   setGlobalFilter: Dispatch<SetStateAction<string>>
   toolbarButtons?: React.ReactNode
+  fn?: (ids: any) => void
 }
 
 export function TableTopContent<TData>({
   globalFilter,
   setGlobalFilter,
   table,
-  toolbarButtons
+  toolbarButtons,
+  fn
 }: TableTopContentProps<TData>) {
   const { t } = useTranslation('table')
   const [type, setType] = useState<Selection>(new Set(['first']))
@@ -47,11 +48,9 @@ export function TableTopContent<TData>({
     const rows = table.getSelectedRowModel().rows
     const originalRows = rows.map((row) => row.original as { id: string })
 
-    toast.success(`Em breve... Necessário deleteMany() no backend.`, {
-      position: 'bottom-left'
-    })
-    console.log(originalRows)
-  }, [table])
+    const ids = originalRows.map((row) => row.id)
+    fn?.(ids)
+  }, [fn, table])
 
   /**
    * Transforma o tipo de filtro em string.

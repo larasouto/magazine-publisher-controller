@@ -1,9 +1,11 @@
 import { Either, left, right } from '@/core/logic/either'
 import { IThemeRepository } from '../../repositories/interfaces/IThemeRepository'
 import { ThemeNotFoundError } from './errors/ThemeNotFoundError'
+import { OneOrMoreThemeNotFoundError } from './errors/OneOrMoreThemeNotFoundError'
+
 
 type DeleteThemeRequest = {
-  themeId: string
+  themeId: string[]
 }
 
 type DeleteThemeResponse = Either<ThemeNotFoundError, null>
@@ -11,14 +13,28 @@ type DeleteThemeResponse = Either<ThemeNotFoundError, null>
 export class DeleteTheme {
   constructor(private themesRepository: IThemeRepository) {}
 
-  async execute({ themeId }: DeleteThemeRequest): Promise<DeleteThemeResponse> {
-    const themeExists = await this.themesRepository.findById(themeId)
+  async execute({
+    themeId,
+  }: DeleteThemeRequest): Promise<DeleteThemeResponse> {
+    const themeOrThemes = Array.isArray(themeId)
+      ? themeId
+      : [themeId]
 
-    if (!themeExists) {
-      return left(new ThemeNotFoundError())
+    const themePromises = themeOrThemes
+      .filter((themeId) => themeId)
+      .map((themeId) => this.themesRepository.findById(themeId))
+
+    const themes = await Promise.all(themePromises)
+
+    if (themes.some((theme) => theme === null)) {
+      return left(
+        themes.length > 1
+          ? new OneOrMoreThemeNotFoundError()
+          : new ThemeNotFoundError(),
+      )
     }
 
-    await this.themesRepository.delete(themeId)
+    await this.themesRepository.deleteMany(themeOrThemes)
 
     return right(null)
   }

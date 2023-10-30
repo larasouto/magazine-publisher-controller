@@ -1,7 +1,18 @@
-import { User as PersistenceUser } from '@prisma/client'
-import { User } from '../domain/user'
-import { t } from 'i18next'
 import { Password } from '@/core/domain/password'
+import {
+  Address as PersistenceAddress,
+  Card as PersistenceCard,
+  Subscription as PersistenceSubscription,
+  User as PersistenceUser,
+} from '@prisma/client'
+import { t } from 'i18next'
+import { User } from '../domain/user'
+
+export type UserDetails = PersistenceUser & {
+  addresses: PersistenceAddress[]
+  cards: PersistenceCard[]
+  subscriptions: PersistenceSubscription[]
+}
 
 export class UserMapper {
   static toDomain(raw: PersistenceUser) {
@@ -37,6 +48,15 @@ export class UserMapper {
       password: await hashed.value.getHashedValue(),
       phone: user.props.phone,
       role: user.props.role,
+    }
+  }
+
+  static toUserDetails(user: UserDetails): UserDetails {
+    return {
+      ...user,
+      addresses: user.addresses,
+      cards: user.cards,
+      subscriptions: user.subscriptions,
     }
   }
 }

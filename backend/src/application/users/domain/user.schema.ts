@@ -1,4 +1,8 @@
 import { z } from 'zod'
+import { User } from './user'
+import { Address } from '@/application/addresses/domain/address'
+import { Card } from '@/application/cards/domain/card'
+import { Subscription } from '@/application/subscriptions/domain/subscription'
 
 export enum UserRole {
   CUSTOMER = 0,

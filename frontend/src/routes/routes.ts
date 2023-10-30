@@ -49,6 +49,11 @@ export const routes = {
     index: '/editions',
     new: '/editions/new',
     edit: '/editions/:id/edit'
+  },
+  subscriptions: {
+    index: '/subscriptions',
+    new: '/subscriptions/new',
+    edit: '/subscriptions/:id/edit'
   }
 }
 
@@ -70,5 +75,8 @@ export const backend = {
   },
   photographers: {
     baseUrl: '/photographers'
+  },
+  subscriptions: {
+    baseUrl: '/subscriptions'
   }
 }
