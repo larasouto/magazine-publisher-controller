@@ -9,6 +9,7 @@ import { subtitles } from './subtitles.routes'
 import { editions } from './editions.routes'
 import { subscriptions } from './subscriptions.routes'
 import { addresses } from './addresses.routes'
+import { cards } from './cards.routes'
 
 export const router = Router()
 
@@ -22,3 +23,4 @@ router.use('/editions/subtitles', subtitles)
 router.use('/editions', editions)
 router.use('/subscriptions', subscriptions)
 router.use('/addresses', addresses)
+router.use('/cards', cards)
