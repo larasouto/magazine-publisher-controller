@@ -1,7 +1,9 @@
 import { Theme } from '@/application/themes/domain/theme'
-import { ThemeProps } from '@/application/themes/domain/theme.schema'
 
-type ThemeOverrides = ThemeProps
+type ThemeOverrides = {
+  name?: string
+  description?: string
+}
 
 export class ThemeFactory {
   static create(overrides?: ThemeOverrides) {

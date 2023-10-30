@@ -10,6 +10,7 @@ import { editions } from './editions.routes'
 import { subscriptions } from './subscriptions.routes'
 import { addresses } from './addresses.routes'
 import { cards } from './cards.routes'
+import { orders } from './orders.routes'
 
 export const router = Router()
 
@@ -24,3 +25,4 @@ router.use('/editions', editions)
 router.use('/subscriptions', subscriptions)
 router.use('/addresses', addresses)
 router.use('/cards', cards)
+router.use('/orders', orders)
