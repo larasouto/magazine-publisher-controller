@@ -14,7 +14,4 @@ payments.use(adaptMiddleware(makeEnsureAuthenticated()))
 payments.post('/new', adaptRoute(makeCreatePaymentSubscriptionsController()))
 payments.get('/', adaptRoute(makeListPaymentSubscriptionsController()))
 payments.get('/:orderId', adaptRoute(makeGetPaymentSubscriptionController()))
-payments.delete(
-  '/:orderId',
-  adaptRoute(makeUpdateStatusSubscriptionsController()),
-)
+payments.put('/:orderId', adaptRoute(makeUpdateStatusSubscriptionsController()))
