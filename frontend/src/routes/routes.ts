@@ -54,6 +54,20 @@ export const routes = {
     index: '/subscriptions',
     new: '/subscriptions/new',
     edit: '/subscriptions/:id/edit'
+  },
+  profile: {
+    addresses: {
+      index: '/profile/addresses',
+      new: '/profile/addresses/new',
+      edit: '/profile/addresses/:id/edit',
+      delete: '/profile/addresses/:id/delete'
+    },
+    cards: {
+      index: '/profile/cards',
+      new: '/profile/cards/new',
+      edit: '/profile/cards/:id/edit',
+      delete: '/profile/cards/:id/delete'
+    }
   }
 }
 
@@ -78,5 +92,13 @@ export const backend = {
   },
   subscriptions: {
     baseUrl: '/subscriptions'
+  },
+  profile: {
+    addresses: {
+      baseUrl: '/addresses'
+    },
+    cards: {
+      baseUrl: '/cards'
+    }
   }
 }

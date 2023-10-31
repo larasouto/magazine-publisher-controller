@@ -5,6 +5,7 @@ import { EditionsRoutes } from './pages/editions.routes'
 import { HomeRoutes } from './pages/home.routes'
 import { MagazineRoutes } from './pages/magazine.routes'
 import { PhotographersRoutes } from './pages/photographers.routes'
+import { AddressesRoutes } from './pages/profile/addresses.routes'
 import { ReportersRoutes } from './pages/reporters.routes'
 import { SubscriptionRoutes } from './pages/subscriptions.routes'
 import { ThemesRoutes } from './pages/themes.routes'
@@ -22,5 +23,6 @@ export const router = createBrowserRouter([
   ThemesRoutes,
   MagazineRoutes,
   EditionsRoutes,
-  SubscriptionRoutes
+  SubscriptionRoutes,
+  AddressesRoutes
 ])
