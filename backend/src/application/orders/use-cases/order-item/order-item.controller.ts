@@ -49,6 +49,6 @@ export class CreateOrderController implements Controller {
       }
     }
 
-    return created({ message: t('order.created') })
+    return created({ message: t('item.created') })
   }
 }

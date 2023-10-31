@@ -35,6 +35,6 @@ export class CreateCategoryController implements Controller {
       }
     }
 
-    return created({ message: t('category.created') })
+    return created({ message: t('item.created') })
   }
 }

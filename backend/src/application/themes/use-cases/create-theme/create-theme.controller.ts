@@ -33,6 +33,6 @@ export class CreateThemeController implements Controller {
       }
     }
 
-    return created({ message: t('theme.created') })
+    return created({ message: t('item.created') })
   }
 }

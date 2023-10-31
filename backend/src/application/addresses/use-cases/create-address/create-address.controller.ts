@@ -38,6 +38,6 @@ export class CreateAddressController implements Controller {
       }
     }
 
-    return created({ message: t('address.created') })
+    return created({ message: t('item.created') })
   }
 }

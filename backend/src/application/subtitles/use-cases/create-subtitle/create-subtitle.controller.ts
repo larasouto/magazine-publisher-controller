@@ -36,6 +36,6 @@ export class CreateSubtitleController implements Controller {
       }
     }
 
-    return created({ message: t('subtitle.created') })
+    return created({ message: t('item.created') })
   }
 }

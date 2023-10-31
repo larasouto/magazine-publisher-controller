@@ -42,6 +42,6 @@ export class CreateEditionController implements Controller {
           return clientError(error)
       }
     }
-    return created({ message: t('edition.created') })
+    return created({ message: t('item.created') })
   }
 }
