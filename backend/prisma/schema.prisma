@@ -144,7 +144,7 @@ model Magazine {
   updated_at         DateTime       @updatedAt
   editions           Edition[]
   subscriptions      Subscription[]
-  advertisings        Advertising[]
+  advertisings       Advertising[]
 
   @@map("magazines")
 }
@@ -194,16 +194,16 @@ model OrderItem {
 }
 
 model Order {
-  id             String      @id
-  customer       User        @relation(fields: [customer_id], references: [id])
-  customer_id    String
-  payment_method Int
-  order_items    OrderItem[]
-  total_value    Float
-  address_id     String
-  status         Int
-  created_at     DateTime    @default(now())
-  updated_at     DateTime    @updatedAt
+  id          String      @id
+  customer    User        @relation(fields: [customer_id], references: [id])
+  customer_id String
+  card_id     String
+  order_items OrderItem[]
+  total_value Float
+  address_id  String
+  status      Int
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @updatedAt
 
   @@map("orders")
 }

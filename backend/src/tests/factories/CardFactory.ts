@@ -27,8 +27,6 @@ export class CardFactory {
       ...overrides,
     })
 
-    console.log(card)
-
     return card.value as Card
   }
 }

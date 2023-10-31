@@ -5,4 +5,5 @@ export interface IOrderRepository {
   create(order: Order): Promise<void>
   deleteMany(ids: string[]): Promise<void>
   list(): Promise<Order[]>
+  updateStatus(id: string, status: number): Promise<void>
 }

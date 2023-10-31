@@ -1,4 +1,5 @@
 import { Order } from '../../domain/order'
+import { OrderStatus } from '../../domain/order.schema'
 import { IOrderRepository } from '../interfaces/IOrdersRepository'
 
 export class InMemoryOrdersRepository implements IOrderRepository {
@@ -28,5 +29,20 @@ export class InMemoryOrdersRepository implements IOrderRepository {
 
   async list(): Promise<Order[]> {
     return this.orders
+  }
+
+  async updateStatus(id: string, newStatus: OrderStatus): Promise<void> {
+    const orderIndex = this.orders.findIndex((order) => order.id === id)
+
+    if (orderIndex !== -1) {
+      const order = {
+        ...this.orders[orderIndex],
+        status: newStatus,
+      }
+
+      this.orders[orderIndex] = Order.create({
+        ...order.props,
+      }).value as Order
+    }
   }
 }

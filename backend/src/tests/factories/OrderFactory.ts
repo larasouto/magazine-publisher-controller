@@ -5,7 +5,7 @@ type OrderOverrides = {
   totalValue?: number
   status?: number
   addressId?: string
-  paymentMethod?: number
+  cardId: string
   customerId?: string
 }
 
