@@ -53,6 +53,11 @@ export const routes = {
     index: '/graphics',
     new: '/graphics/new',
     edit: '/graphics/:id/edit'
+  },
+  distributor: {
+    index: '/distributor',
+    new: '/distributor/new',
+    edit: '/distributor/:id/edit'
   }
 }
 
@@ -77,5 +82,8 @@ export const backend = {
   },
   graphics: {
     baseUrl: '/graphics'
+  },
+  distributor: {
+    baseUrl: '/distributor'
   }
 }

@@ -8,6 +8,7 @@ import { PhotographersRoutes } from './pages/photographers.routes'
 import { ReportersRoutes } from './pages/reporters.routes'
 import { ThemesRoutes } from './pages/themes.routes'
 import { GraphicsRoutes } from './pages/graphics.routes'
+import { DistributorRoutes } from './pages/distributor.routes'
 
 /**
  * Criação do 'roteador' da aplicação, responsável por gerenciar
@@ -22,5 +23,6 @@ export const router = createBrowserRouter([
   ThemesRoutes,
   MagazineRoutes,
   EditionsRoutes,
-  GraphicsRoutes
+  GraphicsRoutes,
+  DistributorRoutes
 ])
