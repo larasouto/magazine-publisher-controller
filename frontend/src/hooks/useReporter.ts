@@ -6,10 +6,10 @@ import {
 } from '@/pages/reporters/reporters.schema'
 import { routes } from '@/routes/routes'
 import { api } from '@/services/api'
-import { toResponseBody } from '@/utils/to-response-body'
 import { useMutation, useQueryClient } from 'react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAdaptResponse } from './useAdaptResponse'
+import { toResponseBody } from '@/utils/to-response-body'
 
 const route = 'reporters'
 
