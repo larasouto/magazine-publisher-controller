@@ -25,7 +25,7 @@ export const GraphicsActions = ({ row }: GraphicsActionsProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   const { remove } = useFetch<GraphicsColumns>({
-    baseUrl: backend.themes.baseUrl,
+    baseUrl: backend.graphics.baseUrl,
     query: ['graphics'],
     invalidateQuery: true
   })
