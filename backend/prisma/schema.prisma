@@ -210,10 +210,10 @@ model Order {
 
 model PaymentSubscription {
   id              String       @id
-  costumer        User         @relation(fields: [costumer_id], references: [id])
-  costumer_id     String
+  customer        User         @relation(fields: [customer_id], references: [id])
+  customer_id     String
   status          Int
-  payment_method  Int
+  card_id         String
   subscription    Subscription @relation(fields: [subscription_id], references: [id])
   subscription_id String
   address_id      String
