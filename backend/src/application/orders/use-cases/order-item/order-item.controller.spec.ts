@@ -1,30 +1,34 @@
 import { IAddressesRepository } from '@/application/addresses/repositories/interfaces/IAddressesRepository'
 import { PrismaAddressesRepository } from '@/application/addresses/repositories/prisma/PrismaAddressesRepository'
+import { ICardsRepository } from '@/application/cards/repositories/interfaces/ICardsRepository'
+import { PrismaCardsRepository } from '@/application/cards/repositories/prisma/PrismaCardsRepository'
+import { IEditionRepository } from '@/application/editions/repositories/interfaces/IEditionRepository'
+import { PrismaEditionsRepository } from '@/application/editions/repositories/prisma/PrismaEditionsRepository'
+import { IMagazineRepository } from '@/application/magazines/repositories/interfaces/IMagazineRepository'
+import { PrismaMagazinesRepository } from '@/application/magazines/repositories/prisma/PrismaMagazinesRepository'
+import { IThemeRepository } from '@/application/themes/repositories/interfaces/IThemeRepository'
+import { PrismaThemesRepository } from '@/application/themes/repositories/prisma/PrismaThemesRepository'
 import { IUsersRepository } from '@/application/users/repositories/interfaces/IUsersRepository'
 import { PrismaUsersRepository } from '@/application/users/repositories/prisma/PrismaUsersRepository'
 import { app } from '@/infra/http/app'
 import { prismaClient } from '@/infra/prisma/client'
 import { AddressFactory } from '@/tests/factories/AddressFactory'
+import { CardFactory } from '@/tests/factories/CardFactory'
+import { EditionFactory } from '@/tests/factories/EditionFactory'
+import { MagazineFactory } from '@/tests/factories/MagazineFactory'
+import { ThemeFactory } from '@/tests/factories/ThemeFactory'
 import { UserFactory } from '@/tests/factories/UserFactory'
 import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
-import { afterAll, beforeAll, describe, expect, test } from 'vitest'
-import { ThemeFactory } from '@/tests/factories/ThemeFactory'
-import { MagazineFactory } from '@/tests/factories/MagazineFactory'
-import { IThemeRepository } from '@/application/themes/repositories/interfaces/IThemeRepository'
-import { IMagazineRepository } from '@/application/magazines/repositories/interfaces/IMagazineRepository'
-import { IEditionRepository } from '@/application/editions/repositories/interfaces/IEditionRepository'
-import { PrismaThemesRepository } from '@/application/themes/repositories/prisma/PrismaThemesRepository'
-import { PrismaMagazinesRepository } from '@/application/magazines/repositories/prisma/PrismaMagazinesRepository'
-import { PrismaEditionsRepository } from '@/application/editions/repositories/prisma/PrismaEditionsRepository'
-import { EditionFactory } from '@/tests/factories/EditionFactory'
 import { v4 as uuid } from 'uuid'
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 
 let usersRepository: IUsersRepository
 let addressRepository: IAddressesRepository
 let themesRepository: IThemeRepository
 let magazinesRepository: IMagazineRepository
 let editionsRepository: IEditionRepository
+let cardsRepository: ICardsRepository
 
 describe('Create order (end-to-end)', () => {
   const { jwt, user } = UserFactory.createAndAuthenticate()
@@ -32,6 +36,7 @@ describe('Create order (end-to-end)', () => {
   const theme = ThemeFactory.create()
   const magazine = MagazineFactory.create({ themeId: theme.id })
   const edition = EditionFactory.create({ magazineId: magazine.id })
+  const card = CardFactory.create({ userId: user.id })
 
   beforeAll(async () => {
     usersRepository = new PrismaUsersRepository()
@@ -39,11 +44,13 @@ describe('Create order (end-to-end)', () => {
     themesRepository = new PrismaThemesRepository()
     magazinesRepository = new PrismaMagazinesRepository()
     editionsRepository = new PrismaEditionsRepository()
+    cardsRepository = new PrismaCardsRepository()
     await usersRepository.create(user)
     await addressRepository.create(address)
     await themesRepository.create(theme)
     await magazinesRepository.create(magazine)
     await editionsRepository.create(edition)
+    await cardsRepository.create(card)
   })
 
   afterAll(async () => {
@@ -53,8 +60,8 @@ describe('Create order (end-to-end)', () => {
     await prismaClient.address.deleteMany({
       where: { id: address.id },
     })
-    await prismaClient.user.deleteMany({
-      where: { id: user.id },
+    await prismaClient.card.deleteMany({
+      where: { id: card.id },
     })
     await prismaClient.edition.deleteMany({
       where: { id: edition.id },
@@ -64,6 +71,9 @@ describe('Create order (end-to-end)', () => {
     })
     await prismaClient.theme.deleteMany({
       where: { id: theme.id },
+    })
+    await prismaClient.user.deleteMany({
+      where: { id: user.id },
     })
   })
 
