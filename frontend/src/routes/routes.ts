@@ -68,6 +68,9 @@ export const routes = {
       edit: '/profile/cards/:id/edit',
       delete: '/profile/cards/:id/delete'
     }
+  },
+  orders: {
+    index: '/orders'
   }
 }
 

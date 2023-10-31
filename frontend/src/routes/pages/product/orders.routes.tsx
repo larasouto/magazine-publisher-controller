@@ -1,11 +1,10 @@
 import { ComponentLayout } from '@/layout/ComponentLayout'
-import { HomePage } from '@/pages/home/home'
-import { EditionShow } from '@/pages/products/details/editions.show'
+import { OrderProducts } from '@/pages/products/orders/orders'
 import { AuthGuard } from '@/utils/guard/AuthGuard'
 import { routes } from '@routes'
 import { RouteObject } from 'react-router-dom'
 
-export const HomeRoutes: RouteObject = {
+export const OrdersRoutes: RouteObject = {
   path: '/',
   children: [
     {
@@ -17,12 +16,8 @@ export const HomeRoutes: RouteObject = {
       ),
       children: [
         {
-          path: routes.home.index,
-          element: <HomePage />
-        },
-        {
-          path: routes.home.editions,
-          element: <EditionShow />
+          path: routes.orders.index,
+          element: <OrderProducts />
         }
       ]
     }

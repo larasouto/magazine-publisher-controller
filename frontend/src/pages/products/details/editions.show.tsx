@@ -9,7 +9,7 @@ import { useCartStore } from '@/stores/useCartStore'
 import { Button, Divider, Image } from '@nextui-org/react'
 import { Minus, Plus } from 'lucide-react'
 
-export const MagazineShow = () => {
+export const EditionShow = () => {
   const { id, title, breadcrumb } = usePageUtils('editions')
   const { getImage } = useSupabase()
 

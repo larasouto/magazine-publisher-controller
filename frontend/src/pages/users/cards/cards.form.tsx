@@ -34,7 +34,6 @@ export const CardsForm = ({ data }: CardsFormProps) => {
   })
 
   const onSubmit = async (form: CardDataWithId) => {
-    console.table(form)
     if (data) {
       await update.mutateAsync(form)
       setSelected('list')
@@ -123,8 +122,8 @@ export const CardsForm = ({ data }: CardsFormProps) => {
         </fieldset>
         <fieldset>
           <Select
-            label={t('form.publication_period.label')}
-            placeholder={t('form.publication_period.placeholder')}
+            label={t('form.payment_method.label')}
+            placeholder={t('form.payment_method.placeholder')}
             labelPlacement="outside"
             defaultSelectedKeys={[String(data?.type ?? 1)]}
             {...form.register('type')}
@@ -137,7 +136,7 @@ export const CardsForm = ({ data }: CardsFormProps) => {
               .map((value) => (
                 <SelectItem key={value} value={value}>
                   {t(
-                    `form.publication_period.options.${CardType[
+                    `form.payment_method.options.${CardType[
                       value
                     ].toLowerCase()}`
                   )}

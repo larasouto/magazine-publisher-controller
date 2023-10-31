@@ -77,6 +77,7 @@ export const AddressesForm = ({ data }: AddressesFormProps) => {
             errorMessage={form.formState.errors.number?.message}
             labelPlacement="outside"
             {...form.register('number')}
+            isRequired
           />
         </fieldset>
         <fieldset>
@@ -114,7 +115,6 @@ export const AddressesForm = ({ data }: AddressesFormProps) => {
             errorMessage={form.formState.errors.complement?.message}
             labelPlacement="outside"
             {...form.register('complement')}
-            isRequired
           />
         </fieldset>
       </GridLayout>

@@ -2,19 +2,22 @@ import { Loading } from '@/components/Loading'
 import { useFetch } from '@/hooks/useFetch'
 import { useSupabase } from '@/hooks/useSupabase'
 import { CartItem, CartStore } from '@/stores/useCartStore'
+import { replaceParams } from '@/utils/replace-params'
 import { Button, Image } from '@nextui-org/react'
 import i18next from 'i18next'
 import { ShoppingCart } from 'lucide-react'
 import { ComponentProps } from 'react'
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
-import { backend } from '../../../routes/routes'
+import { useNavigate } from 'react-router-dom'
+import { backend, routes } from '../../../routes/routes'
 
 type ProductsProps = ComponentProps<'section'>
 
 export const Products = ({ ...props }: ProductsProps) => {
   const { t } = useTranslation('cart')
   const { getImage } = useSupabase()
+  const navigate = useNavigate()
 
   const {
     list: { data, isLoading }
@@ -47,9 +50,12 @@ export const Products = ({ ...props }: ProductsProps) => {
                 height={340}
                 classNames={{
                   zoomedWrapper: 'h-64 w-full rounded-none rounded-t-xl',
-                  img: 'w-full sm:h-full rounded-none object-cover hover:scale-105'
+                  img: 'w-full sm:h-full rounded-none object-cover hover:scale-105 hover:cursor-pointer'
                 }}
                 isZoomed
+                onClick={() =>
+                  navigate(replaceParams(routes.home.editions, [product.id]))
+                }
               />
               <div className="flex flex-col gap-2 p-3">
                 <div className="flex items-center gap-2 justify-between">
@@ -61,7 +67,9 @@ export const Products = ({ ...props }: ProductsProps) => {
                   variant="solid"
                   className="mt-2 group hover:bg-primary-700 dark:hover:bg-primary-200"
                   onClick={() => {
-                    toast.success(t('cart.add_to_cart'))
+                    toast.success(t('cart.add_to_cart'), {
+                      id: product.id
+                    })
                     CartStore.addItem(product)
                   }}
                 >

@@ -53,6 +53,7 @@ export const SelectState = ({ form }: SelectAddressStateProps) => {
               value: `${state.nome} - ${state.sigla}`
             })) ?? []
           }
+          isRequired
         />
       )}
     />
