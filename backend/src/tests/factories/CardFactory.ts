@@ -4,7 +4,7 @@ type CardOverrides = {
   number?: string
   holder?: string
   expirationDate?: string
-  securityCode?: number
+  securityCode?: string
   billingAddress?: string
   phone?: string
   type?: number
@@ -15,10 +15,10 @@ type CardOverrides = {
 export class CardFactory {
   static create(overrides?: CardOverrides) {
     const card = Card.create({
-      number: '1234567890123456',
+      number: '1234 5678 9012 3456',
       holder: 'test-card-holder',
       expirationDate: '02/2025',
-      securityCode: 123,
+      securityCode: '123',
       billingAddress: 'test-card-billing-address',
       phone: '(55) 9.9999-9999',
       type: 0,
@@ -26,6 +26,8 @@ export class CardFactory {
       userId: 'test-user-id',
       ...overrides,
     })
+
+    console.log(card)
 
     return card.value as Card
   }

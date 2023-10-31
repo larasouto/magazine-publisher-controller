@@ -10,7 +10,7 @@ type CreateOrderControllerRequest = {
   totalValue: number
   status: number
   addressId: string
-  paymentMethod: number
+  cardId: string
   items: {
     editionId: string
     quantity: number

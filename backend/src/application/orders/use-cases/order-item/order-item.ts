@@ -5,12 +5,14 @@ import { IUsersRepository } from '@/application/users/repositories/interfaces/IU
 import { CustomerNotFoundError } from './errors/CustomerNotFoundError'
 import { IAddressesRepository } from '@/application/addresses/repositories/interfaces/IAddressesRepository'
 import { AddressNotFoundError } from './errors/AddressNotFoundError'
+import { ICardsRepository } from '@/application/cards/repositories/interfaces/ICardsRepository'
+import { CardNotFoundError } from './errors/CardNotFoundError'
 
 type CreateOrderRequest = {
   totalValue: number
   status: number
   addressId: string
-  paymentMethod: number
+  cardId: string
   items: {
     editionId: string
     quantity: number
@@ -25,12 +27,14 @@ export class CreateOrder {
     private ordersRepository: IOrderRepository,
     private usersRepository: IUsersRepository,
     private addressRepository: IAddressesRepository,
+    private cardRepository: ICardsRepository,
   ) {}
 
   async execute({
     userId: customerId,
     ...request
   }: CreateOrderRequest): Promise<CreateOrderResponse> {
+    console.log(request)
     const orderOrError = Order.create({ ...request, customerId })
 
     if (orderOrError.isLeft()) {
@@ -47,6 +51,12 @@ export class CreateOrder {
 
     if (!address) {
       return left(new AddressNotFoundError())
+    }
+
+    const card = this.cardRepository.findById(request.cardId)
+
+    if (!card) {
+      return left(new CardNotFoundError())
     }
 
     const order = orderOrError.value

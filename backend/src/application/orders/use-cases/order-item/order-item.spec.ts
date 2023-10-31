@@ -18,6 +18,9 @@ import { InMemoryThemesRepository } from '@/application/themes/repositories/in-m
 import { InMemoryMagazinesRepository } from '@/application/magazines/repositories/in-memory/InMemoryMagazinesRepository'
 import { ThemeFactory } from '@/tests/factories/ThemeFactory'
 import { MagazineFactory } from '@/tests/factories/MagazineFactory'
+import { CardFactory } from '@/tests/factories/CardFactory'
+import { ICardsRepository } from '@/application/cards/repositories/interfaces/ICardsRepository'
+import { InMemoryCardsRepository } from '@/application/cards/repositories/in-memory/InMemoryCardsRepository'
 
 let ordersRepository: IOrderRepository
 let createOrder: CreateOrder
@@ -26,10 +29,12 @@ let addressRepository: IAddressesRepository
 let editionRepository: IEditionRepository
 let magazineRepository: IMagazineRepository
 let themeRepository: IThemeRepository
+let cardRepository: ICardsRepository
 
 describe('Create a order', () => {
   const user = UserFactory.create()
   const address = AddressFactory.create({ userId: user.id })
+  const card = CardFactory.create({ userId: user.id })
   const theme = ThemeFactory.create()
   const magazine = MagazineFactory.create({ themeId: theme.id })
   const edition = EditionFactory.create({ magazineId: magazine.id })
@@ -41,13 +46,18 @@ describe('Create a order', () => {
     ordersRepository = new InMemoryOrdersRepository()
     usersRepository = new InMemoryUsersRepository()
     addressRepository = new InMemoryAddressesRepository()
+    cardRepository = new InMemoryCardsRepository()
     createOrder = new CreateOrder(
       ordersRepository,
       usersRepository,
       addressRepository,
+      cardRepository,
     )
     await usersRepository.create(user)
     await addressRepository.create(address)
+    await themeRepository.create(theme)
+    await magazineRepository.create(magazine)
+    await cardRepository.create(card)
     await editionRepository.create(edition)
   })
 
@@ -61,7 +71,7 @@ describe('Create a order', () => {
           quantity: 1,
         },
       ],
-      paymentMethod: 1,
+      cardId: card.id,
       status: 1,
       totalValue: 100,
     }

@@ -1,8 +1,5 @@
 import { Order } from '@/application/orders/domain/order'
-import {
-  OrderStatus,
-  PaymentMethod,
-} from '@/application/orders/domain/order.schema'
+import { OrderStatus } from '@/application/orders/domain/order.schema'
 
 type OrderOverrides = {
   totalValue?: number
@@ -18,7 +15,7 @@ export class OrderFactory {
       totalValue: 100,
       status: OrderStatus.PENDING,
       addressId: 'test-address-id',
-      paymentMethod: PaymentMethod.CREDIT_CARD,
+      cardId: 'test-card-id',
       customerId: 'test-customer-id',
       ...overrides,
     })

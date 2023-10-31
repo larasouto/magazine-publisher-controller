@@ -9,7 +9,7 @@ export class OrderMapper {
         totalValue: raw.total_value,
         status: raw.status,
         addressId: raw.address_id,
-        paymentMethod: raw.payment_method,
+        cardId: raw.card_id,
         customerId: raw.customer_id,
       },
       raw.id,
@@ -28,7 +28,7 @@ export class OrderMapper {
       total_value: order.props.totalValue,
       status: order.props.status,
       address_id: order.props.addressId,
-      payment_method: order.props.paymentMethod,
+      card_id: order.props.cardId,
       customer_id: order.props.customerId,
     }
   }

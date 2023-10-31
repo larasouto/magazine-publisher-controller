@@ -14,7 +14,7 @@ describe('Entity Order', () => {
           quantity: 1,
         },
       ],
-      paymentMethod: 1,
+      cardId: uuid(),
       status: 1,
       totalValue: 100,
     }
