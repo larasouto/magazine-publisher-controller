@@ -13,5 +13,11 @@ payments.use(adaptMiddleware(makeEnsureAuthenticated()))
 
 payments.post('/new', adaptRoute(makeCreatePaymentSubscriptionsController()))
 payments.get('/', adaptRoute(makeListPaymentSubscriptionsController()))
-payments.get('/:orderId', adaptRoute(makeGetPaymentSubscriptionController()))
-payments.put('/:orderId', adaptRoute(makeUpdateStatusSubscriptionsController()))
+payments.get(
+  '/:paymentSubscriptionId',
+  adaptRoute(makeGetPaymentSubscriptionController()),
+)
+payments.put(
+  '/:paymentSubscriptionId',
+  adaptRoute(makeUpdateStatusSubscriptionsController()),
+)

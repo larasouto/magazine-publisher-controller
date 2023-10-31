@@ -13,8 +13,11 @@ paymentsAd.use(adaptMiddleware(makeEnsureAuthenticated()))
 
 paymentsAd.post('/new', adaptRoute(makeCreatePaymentAdvertisingsController()))
 paymentsAd.get('/', adaptRoute(makeListPaymentAdvertisingsController()))
-paymentsAd.get('/:orderId', adaptRoute(makeGetPaymentAdvertisingController()))
+paymentsAd.get(
+  '/:paymentAdvertisingId',
+  adaptRoute(makeGetPaymentAdvertisingController()),
+)
 paymentsAd.put(
-  '/:orderId',
+  '/:paymentAdvertisingId',
   adaptRoute(makeUpdateStatusAdvertisingsController()),
 )
