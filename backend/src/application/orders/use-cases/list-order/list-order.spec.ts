@@ -20,6 +20,9 @@ import { ThemeFactory } from '@/tests/factories/ThemeFactory'
 import { MagazineFactory } from '@/tests/factories/MagazineFactory'
 import { EditionFactory } from '@/tests/factories/EditionFactory'
 import { OrderFactory } from '@/tests/factories/OrderFactory'
+import { CardFactory } from '@/tests/factories/CardFactory'
+import { ICardsRepository } from '@/application/cards/repositories/interfaces/ICardsRepository'
+import { InMemoryCardsRepository } from '@/application/cards/repositories/in-memory/InMemoryCardsRepository'
 
 let listOrders: ListOrders
 let createOrder: CreateOrder
@@ -29,10 +32,12 @@ let addressRepository: IAddressesRepository
 let magazinesRepository: IMagazineRepository
 let themesRepository: IThemeRepository
 let editionsRepository: IEditionRepository
+let cardsRepository: ICardsRepository
 
 describe('List orders', () => {
   const user = UserFactory.create()
   const address = AddressFactory.create({ userId: user.id })
+  const card = CardFactory.create({ userId: user.id })
   const theme = ThemeFactory.create()
   const magazine = MagazineFactory.create({ themeId: theme.id })
   const edition = EditionFactory.create({ magazineId: magazine.id })
@@ -43,15 +48,18 @@ describe('List orders', () => {
     addressRepository = new InMemoryAddressesRepository()
     magazinesRepository = new InMemoryMagazinesRepository()
     themesRepository = new InMemoryThemesRepository()
+    cardsRepository = new InMemoryCardsRepository()
     editionsRepository = new InMemoryEditionsRepository()
     listOrders = new ListOrders(ordersRepository)
     createOrder = new CreateOrder(
       ordersRepository,
       usersRepository,
       addressRepository,
+      cardsRepository,
     )
     await usersRepository.create(user)
     await addressRepository.create(address)
+    await cardsRepository.create(card)
     await themesRepository.create(theme)
     await magazinesRepository.create(magazine)
     await editionsRepository.create(edition)
@@ -61,11 +69,13 @@ describe('List orders', () => {
     const data1 = OrderFactory.create({
       addressId: magazine.id,
       customerId: user.id,
+      cardId: card.id,
     })
 
     const data2 = OrderFactory.create({
       addressId: magazine.id,
       customerId: user.id,
+      cardId: card.id,
     })
 
     await ordersRepository.create(data1)
@@ -80,7 +90,7 @@ describe('List orders', () => {
     const response = await listOrders.execute()
     expect(response.length).toBe(2)
 
-    expect(response[0].props.customerId).toBe(data1.props.customerId)
+    expect(response[0].props.totalValue).toBe(data1.props.totalValue)
     expect(response[1].props.customerId).toBe(data2.props.customerId)
   })
 

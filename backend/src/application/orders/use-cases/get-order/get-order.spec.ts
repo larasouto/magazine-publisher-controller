@@ -18,6 +18,9 @@ import { InMemoryMagazinesRepository } from '@/application/magazines/repositorie
 import { InMemoryThemesRepository } from '@/application/themes/repositories/in-memory/InMemoryThemesRepository'
 import { IEditionRepository } from '@/application/editions/repositories/interfaces/IEditionRepository'
 import { InMemoryEditionsRepository } from '@/application/editions/repositories/in-memory/InMemoryEditionsRepository'
+import { ICardsRepository } from '@/application/cards/repositories/interfaces/ICardsRepository'
+import { InMemoryCardsRepository } from '@/application/cards/repositories/in-memory/InMemoryCardsRepository'
+import { CardFactory } from '@/tests/factories/CardFactory'
 
 let ordersRepository: IOrderRepository
 let getOrder: GetOrder
@@ -26,6 +29,7 @@ let addressRepository: IAddressesRepository
 let magazinesRepository: IMagazineRepository
 let themesRepository: IThemeRepository
 let editionsRepository: IEditionRepository
+let cardsRepository: ICardsRepository
 
 describe('Get a order', () => {
   const user = UserFactory.create()
@@ -33,7 +37,12 @@ describe('Get a order', () => {
   const theme = ThemeFactory.create()
   const magazine = MagazineFactory.create({ themeId: theme.id })
   const edition = EditionFactory.create({ magazineId: magazine.id })
-  const order = OrderFactory.create({ customerId: user.id })
+  const card = CardFactory.create({ userId: user.id })
+  const order = OrderFactory.create({
+    customerId: user.id,
+    addressId: address.id,
+    cardId: card.id,
+  })
 
   beforeAll(async () => {
     ordersRepository = new InMemoryOrdersRepository()
@@ -42,6 +51,7 @@ describe('Get a order', () => {
     magazinesRepository = new InMemoryMagazinesRepository()
     themesRepository = new InMemoryThemesRepository()
     editionsRepository = new InMemoryEditionsRepository()
+    cardsRepository = new InMemoryCardsRepository()
     getOrder = new GetOrder(
       ordersRepository,
       usersRepository,

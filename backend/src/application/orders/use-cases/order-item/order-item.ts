@@ -34,7 +34,6 @@ export class CreateOrder {
     userId: customerId,
     ...request
   }: CreateOrderRequest): Promise<CreateOrderResponse> {
-    console.log(request)
     const orderOrError = Order.create({ ...request, customerId })
 
     if (orderOrError.isLeft()) {

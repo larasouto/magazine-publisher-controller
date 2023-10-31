@@ -3,7 +3,6 @@ import { prismaClient } from '@/infra/prisma/client'
 import { UserFactory } from '@/tests/factories/UserFactory'
 import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
-import { v4 as uuid } from 'uuid'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { PrismaOrdersRepository } from '../../repositories/prisma/PrismaOrdersRepository'
 import { IOrderRepository } from '../../repositories/interfaces/IOrdersRepository'
@@ -22,6 +21,9 @@ import { IAddressesRepository } from '@/application/addresses/repositories/inter
 import { IMagazineRepository } from '@/application/magazines/repositories/interfaces/IMagazineRepository'
 import { IThemeRepository } from '@/application/themes/repositories/interfaces/IThemeRepository'
 import { IEditionRepository } from '@/application/editions/repositories/interfaces/IEditionRepository'
+import { ICardsRepository } from '@/application/cards/repositories/interfaces/ICardsRepository'
+import { CardFactory } from '@/tests/factories/CardFactory'
+import { PrismaCardsRepository } from '@/application/cards/repositories/prisma/PrismaCardsRepository'
 
 let ordersRepository: IOrderRepository
 let usersRepository: IUsersRepository
@@ -29,6 +31,7 @@ let addressRepository: IAddressesRepository
 let magazinesRepository: IMagazineRepository
 let themesRepository: IThemeRepository
 let editionsRepository: IEditionRepository
+let cardsRepository: ICardsRepository
 
 let orderId: string[] = []
 
@@ -38,9 +41,11 @@ describe('List orders (end-to-end)', () => {
   const theme = ThemeFactory.create()
   const magazine = MagazineFactory.create({ themeId: theme.id })
   const edition = EditionFactory.create({ magazineId: magazine.id })
+  const card = CardFactory.create({ userId: user.id })
   const order = OrderFactory.create({
     customerId: user.id,
     addressId: address.id,
+    cardId: card.id,
   })
 
   beforeAll(async () => {
@@ -50,8 +55,10 @@ describe('List orders (end-to-end)', () => {
     magazinesRepository = new PrismaMagazinesRepository()
     themesRepository = new PrismaThemesRepository()
     editionsRepository = new PrismaEditionsRepository()
+    cardsRepository = new PrismaCardsRepository()
     await usersRepository.create(user)
     await addressRepository.create(address)
+    await cardsRepository.create(card)
     await themesRepository.create(theme)
     await magazinesRepository.create(magazine)
     await editionsRepository.create(edition)
@@ -73,6 +80,9 @@ describe('List orders (end-to-end)', () => {
     })
     await prismaClient.theme.deleteMany({
       where: { id: theme.id },
+    })
+    await prismaClient.card.deleteMany({
+      where: { id: card.id },
     })
     await prismaClient.user.deleteMany({
       where: { id: user.id },

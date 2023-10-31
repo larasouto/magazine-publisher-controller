@@ -5,7 +5,6 @@ import { OrderNotFoundError } from './errors/OrderNotFoundError'
 import { IUsersRepository } from '@/application/users/repositories/interfaces/IUsersRepository'
 import { IAddressesRepository } from '@/application/addresses/repositories/interfaces/IAddressesRepository'
 import { UserNotFoundError } from './errors/UserNotFoundError'
-import { AddressNotFoundError } from './errors/AddressNotFoundError'
 
 type GetOrderRequest = {
   orderId: string

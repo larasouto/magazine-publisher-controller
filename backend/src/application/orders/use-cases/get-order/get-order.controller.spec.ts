@@ -9,7 +9,6 @@ import { PrismaOrdersRepository } from '../../repositories/prisma/PrismaOrdersRe
 import { PrismaUsersRepository } from '@/application/users/repositories/prisma/PrismaUsersRepository'
 import { IOrderRepository } from '../../repositories/interfaces/IOrdersRepository'
 import { IUsersRepository } from '@/application/users/repositories/interfaces/IUsersRepository'
-import { Order } from '../../domain/order'
 import { PrismaAddressesRepository } from '@/application/addresses/repositories/prisma/PrismaAddressesRepository'
 import { PrismaMagazinesRepository } from '@/application/magazines/repositories/prisma/PrismaMagazinesRepository'
 import { PrismaThemesRepository } from '@/application/themes/repositories/prisma/PrismaThemesRepository'
@@ -19,14 +18,21 @@ import { AddressFactory } from '@/tests/factories/AddressFactory'
 import { ThemeFactory } from '@/tests/factories/ThemeFactory'
 import { MagazineFactory } from '@/tests/factories/MagazineFactory'
 import { EditionFactory } from '@/tests/factories/EditionFactory'
+import { IAddressesRepository } from '@/application/addresses/repositories/interfaces/IAddressesRepository'
+import { IMagazineRepository } from '@/application/magazines/repositories/interfaces/IMagazineRepository'
+import { IThemeRepository } from '@/application/themes/repositories/interfaces/IThemeRepository'
+import { IEditionRepository } from '@/application/editions/repositories/interfaces/IEditionRepository'
+import { ICardsRepository } from '@/application/cards/repositories/interfaces/ICardsRepository'
+import { CardFactory } from '@/tests/factories/CardFactory'
 
 let ordersRepository: IOrderRepository
 let usersRepository: IUsersRepository
 let getOrder: GetOrder
-let addressRepository: PrismaAddressesRepository
-let magazinesRepository: PrismaMagazinesRepository
-let themesRepository: PrismaThemesRepository
-let editionsRepository: PrismaEditionsRepository
+let addressRepository: IAddressesRepository
+let magazinesRepository: IMagazineRepository
+let themesRepository: IThemeRepository
+let editionsRepository: IEditionRepository
+let cardsRepository: ICardsRepository
 
 describe('Get a order (end-to-end)', () => {
   const { jwt, user } = UserFactory.createAndAuthenticate()
@@ -34,9 +40,11 @@ describe('Get a order (end-to-end)', () => {
   const theme = ThemeFactory.create()
   const magazine = MagazineFactory.create({ themeId: theme.id })
   const edition = EditionFactory.create({ magazineId: magazine.id })
+  const card = CardFactory.create({ userId: user.id })
   const order = OrderFactory.create({
     customerId: user.id,
     addressId: address.id,
+    cardId: card.id,
   })
 
   beforeAll(async () => {
@@ -86,7 +94,6 @@ describe('Get a order (end-to-end)', () => {
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
-    console.log(response.body)
     expect(response.status).toBe(StatusCodes.OK)
   })
 
