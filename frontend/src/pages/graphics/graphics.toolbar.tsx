@@ -7,7 +7,7 @@ export const GraphicsToolbar = () => {
   const { t } = useTranslation('graphics')
 
   return (
-    <Link href={routes.themes.new}>
+    <Link href={routes.graphics.new}>
       <Button color="primary" endContent={<PlusIcon />}>
         {t('page.new')}
       </Button>

@@ -13,12 +13,12 @@ type GraphicsFormProps = {
 }
 
 export const GraphicsForm = ({ data }: GraphicsFormProps) => {
-  const { t } = useTranslation('themes')
+  const { t } = useTranslation('graphics')
 
   const { create, update } = useFetch<GraphicForm>({
-    baseUrl: backend.themes.baseUrl,
+    baseUrl: backend.graphics.baseUrl,
     query: ['graphics'],
-    redirectTo: routes.themes.index,
+    redirectTo: routes.graphics.index,
     fetch: {
       id: data?.id
     }

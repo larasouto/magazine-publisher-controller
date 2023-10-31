@@ -26,7 +26,7 @@ export const GraphicsActions = ({ row }: GraphicsActionsProps) => {
 
   const { remove } = useFetch<GraphicsColumns>({
     baseUrl: backend.themes.baseUrl,
-    query: ['themes'],
+    query: ['graphics'],
     invalidateQuery: true
   })
 
