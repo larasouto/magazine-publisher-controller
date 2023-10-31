@@ -49,7 +49,7 @@ model Card {
   number          String
   holder          String
   expiration_date String
-  security_code   Int
+  security_code   String
   phone           String?
   type            Int
   flag            String

@@ -10,7 +10,7 @@ type CreateCardRequest = {
   number: string
   holder: string
   expirationDate: string
-  securityCode: number
+  securityCode: string
   billingAddress: string
   phone: string
   type: number

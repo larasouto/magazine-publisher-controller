@@ -82,7 +82,6 @@ export const MagazinesForm = ({ data }: MagazinesFormProps) => {
           />
         </fieldset>
         <fieldset>
-          {data?.publicationPeriod}
           <Select
             label={t('form.publication_period.label')}
             placeholder={t('form.publication_period.placeholder')}
