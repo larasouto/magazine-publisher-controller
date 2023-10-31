@@ -49,6 +49,9 @@ export class CreateOrderController implements Controller {
       }
     }
 
-    return created({ message: t('item.created') })
+    return created({
+      message: t('item.created'),
+      dto: result.value.toResponseBody(),
+    })
   }
 }

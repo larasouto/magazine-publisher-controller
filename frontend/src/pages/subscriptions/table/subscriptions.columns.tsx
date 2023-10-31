@@ -14,6 +14,7 @@ export type SubscriptionColumns = {
   type: number
   frequency: string
   magazineId: string
+  price: number
 }
 
 const helper = createColumnHelper<SubscriptionColumns>()

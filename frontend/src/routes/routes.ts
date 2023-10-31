@@ -55,7 +55,8 @@ export const routes = {
     new: '/subscriptions/new',
     edit: '/subscriptions/:id/edit',
     plans: '/subscriptions/plans',
-    payment: '/subscriptions/:id/subscribe'
+    payment: '/subscriptions/:id/subscribe',
+    payment_list: '/subscriptions/payment-list'
   },
   profile: {
     addresses: {
@@ -72,7 +73,8 @@ export const routes = {
     }
   },
   orders: {
-    index: '/orders'
+    index: '/orders',
+    list: '/orders/list'
   }
 }
 
@@ -96,7 +98,10 @@ export const backend = {
     baseUrl: '/photographers'
   },
   subscriptions: {
-    baseUrl: '/subscriptions'
+    baseUrl: '/subscriptions',
+    payment: {
+      baseUrl: '/payment-subscriptions'
+    }
   },
   profile: {
     addresses: {

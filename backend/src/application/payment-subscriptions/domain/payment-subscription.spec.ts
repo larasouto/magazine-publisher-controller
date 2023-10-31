@@ -5,7 +5,6 @@ import { v4 as uuid } from 'uuid'
 describe('Entity Payment Subscription', () => {
   test('should be able to create a payment subscription', () => {
     const data: any = {
-      id: uuid(),
       customerId: uuid(),
       cardId: uuid(),
       status: 1,

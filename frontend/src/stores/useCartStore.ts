@@ -41,7 +41,7 @@ export const useCartStore = create<CartStoreProps>()(
         getTotalValue: () => getTotalValue()
       }),
       {
-        name: 'cart',
+        name: `cart-${localStorage.getItem('user')}`,
         storage: createJSONStorage(() => localStorage)
       }
     )

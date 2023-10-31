@@ -1,5 +1,6 @@
 import { ComponentLayout } from '@/layout/ComponentLayout'
-import { SubscriptionsPayment } from '@/pages/products/subscriptions/subscriptions.payment'
+import { SubscriptionsPayment } from '@/pages/products/subscriptions/subscriptions.form'
+import { SubscriptionPaymentListPage } from '@/pages/products/subscriptions/subscriptions.list'
 import { SubscriptionsPlan } from '@/pages/products/subscriptions/subscriptions.plans'
 import { SubscriptionPage } from '@/pages/subscriptions/subscriptions'
 import { SubscriptionsListPage } from '@/pages/subscriptions/subscriptions.list'
@@ -37,6 +38,10 @@ export const SubscriptionRoutes: RouteObject = {
         {
           path: routes.subscriptions.payment,
           element: <SubscriptionsPayment />
+        },
+        {
+          path: routes.subscriptions.payment_list,
+          element: <SubscriptionPaymentListPage />
         }
       ]
     }

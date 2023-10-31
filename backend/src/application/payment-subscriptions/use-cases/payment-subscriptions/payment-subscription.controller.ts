@@ -46,6 +46,9 @@ export class CreatePaymentSubscriptionController implements Controller {
       }
     }
 
-    return created({ message: t('paymentSubscription.created') })
+    return created({
+      message: t('paymentSubscription.created'),
+      dto: result.value.toResponseBody(),
+    })
   }
 }
