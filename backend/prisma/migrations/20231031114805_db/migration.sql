@@ -34,7 +34,7 @@ CREATE TABLE "cards" (
     "number" TEXT NOT NULL,
     "holder" TEXT NOT NULL,
     "expiration_date" TEXT NOT NULL,
-    "security_code" INTEGER NOT NULL,
+    "security_code" TEXT NOT NULL,
     "phone" TEXT,
     "type" INTEGER NOT NULL,
     "flag" TEXT NOT NULL,
@@ -204,6 +204,21 @@ CREATE TABLE "payment_subscriptions" (
     CONSTRAINT "payment_subscriptions_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "advertisings" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT,
+    "category" INTEGER NOT NULL,
+    "number_of_pages" INTEGER NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+    "price" DOUBLE PRECISION NOT NULL,
+    "magazine_id" TEXT NOT NULL,
+
+    CONSTRAINT "advertisings_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
@@ -239,3 +254,6 @@ ALTER TABLE "payment_subscriptions" ADD CONSTRAINT "payment_subscriptions_costum
 
 -- AddForeignKey
 ALTER TABLE "payment_subscriptions" ADD CONSTRAINT "payment_subscriptions_subscription_id_fkey" FOREIGN KEY ("subscription_id") REFERENCES "subscriptions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "advertisings" ADD CONSTRAINT "advertisings_magazine_id_fkey" FOREIGN KEY ("magazine_id") REFERENCES "magazines"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
