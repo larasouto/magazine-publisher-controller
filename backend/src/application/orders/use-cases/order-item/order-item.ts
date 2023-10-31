@@ -9,7 +9,6 @@ import { ICardsRepository } from '@/application/cards/repositories/interfaces/IC
 import { CardNotFoundError } from './errors/CardNotFoundError'
 
 type CreateOrderRequest = {
-  totalValue: number
   status: number
   addressId: string
   cardId: string
@@ -18,6 +17,7 @@ type CreateOrderRequest = {
     quantity: number
   }[]
   userId: string
+  totalValue: number
 }
 
 type CreateOrderResponse = Either<Error, Order>

@@ -18,12 +18,16 @@ import { PrismaThemesRepository } from '@/application/themes/repositories/prisma
 import { PrismaMagazinesRepository } from '@/application/magazines/repositories/prisma/PrismaMagazinesRepository'
 import { PrismaEditionsRepository } from '@/application/editions/repositories/prisma/PrismaEditionsRepository'
 import { EditionFactory } from '@/tests/factories/EditionFactory'
+import { CardFactory } from '@/tests/factories/CardFactory'
+import { ICardsRepository } from '@/application/cards/repositories/interfaces/ICardsRepository'
+import { PrismaCardsRepository } from '@/application/cards/repositories/prisma/PrismaCardsRepository'
 
 let usersRepository: IUsersRepository
 let addressRepository: IAddressesRepository
 let themesRepository: IThemeRepository
 let magazinesRepository: IMagazineRepository
 let editionsRepository: IEditionRepository
+let cardsRepository: ICardsRepository
 
 describe('Create order (end-to-end)', () => {
   const { jwt, user } = UserFactory.createAndAuthenticate()
@@ -31,6 +35,7 @@ describe('Create order (end-to-end)', () => {
   const theme = ThemeFactory.create()
   const magazine = MagazineFactory.create({ themeId: theme.id })
   const edition = EditionFactory.create({ magazineId: magazine.id })
+  const card = CardFactory.create({ userId: user.id })
 
   beforeAll(async () => {
     usersRepository = new PrismaUsersRepository()
@@ -38,11 +43,13 @@ describe('Create order (end-to-end)', () => {
     themesRepository = new PrismaThemesRepository()
     magazinesRepository = new PrismaMagazinesRepository()
     editionsRepository = new PrismaEditionsRepository()
+    cardsRepository = new PrismaCardsRepository()
     await usersRepository.create(user)
     await addressRepository.create(address)
     await themesRepository.create(theme)
     await magazinesRepository.create(magazine)
     await editionsRepository.create(edition)
+    await cardsRepository.create(card)
   })
 
   afterAll(async () => {
@@ -52,8 +59,8 @@ describe('Create order (end-to-end)', () => {
     await prismaClient.address.deleteMany({
       where: { id: address.id },
     })
-    await prismaClient.user.deleteMany({
-      where: { id: user.id },
+    await prismaClient.card.deleteMany({
+      where: { id: card.id },
     })
     await prismaClient.edition.deleteMany({
       where: { id: edition.id },
@@ -63,6 +70,9 @@ describe('Create order (end-to-end)', () => {
     })
     await prismaClient.theme.deleteMany({
       where: { id: theme.id },
+    })
+    await prismaClient.user.deleteMany({
+      where: { id: user.id },
     })
   })
 
@@ -75,8 +85,8 @@ describe('Create order (end-to-end)', () => {
           quantity: 1,
         },
       ],
-      paymentMethod: 1,
-      status: 1,
+      cardId: card.id,
+      status: 0,
       totalValue: 100,
     }
 

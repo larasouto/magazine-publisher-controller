@@ -1,3 +1,4 @@
+import { OrderItem } from '@prisma/client'
 import { Order } from '../../domain/order'
 
 export interface IOrderRepository {
@@ -6,4 +7,5 @@ export interface IOrderRepository {
   deleteMany(ids: string[]): Promise<void>
   list(): Promise<Order[]>
   updateStatus(id: string, status: number): Promise<void>
+  //getTotalValue(): Promise<number>
 }
