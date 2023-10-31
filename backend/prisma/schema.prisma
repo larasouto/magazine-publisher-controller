@@ -22,6 +22,7 @@ model User {
   subscriptions       Subscription[]
   Order               Order[]
   PaymentSubscription PaymentSubscription[]
+  PaymentAdvertising  PaymentAdvertising[]
 
   @@map("users")
 }
@@ -224,16 +225,32 @@ model PaymentSubscription {
 }
 
 model Advertising {
-  id              String   @id
-  name            String
-  description     String?
-  category        Int
-  number_of_pages Int
-  created_at      DateTime @default(now())
-  updated_at      DateTime @updatedAt
-  price           Float
-  magazine        Magazine @relation(fields: [magazine_id], references: [id])
-  magazine_id     String
+  id                 String               @id
+  name               String
+  description        String?
+  category           Int
+  number_of_pages    Int
+  created_at         DateTime             @default(now())
+  updated_at         DateTime             @updatedAt
+  price              Float
+  magazine           Magazine             @relation(fields: [magazine_id], references: [id])
+  magazine_id        String
+  PaymentAdvertising PaymentAdvertising[]
 
   @@map("advertisings")
+}
+
+model PaymentAdvertising {
+  id             String      @id
+  customer       User        @relation(fields: [customer_id], references: [id])
+  customer_id    String
+  status         Int
+  card_id        String
+  advertising    Advertising @relation(fields: [advertising_id], references: [id])
+  advertising_id String
+  address_id     String
+  created_at     DateTime    @default(now())
+  updated_at     DateTime    @updatedAt
+
+  @@map("payment_advertisings")
 }

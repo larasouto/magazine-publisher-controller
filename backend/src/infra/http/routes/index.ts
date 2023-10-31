@@ -13,6 +13,7 @@ import { cards } from './cards.routes'
 import { orders } from './orders.routes'
 import { advertisings } from './advertisings.routes'
 import { payments } from './payment-subscriptions.routes'
+import { paymentsAd } from './payment-advertisings.routes'
 
 export const router = Router()
 
@@ -28,5 +29,6 @@ router.use('/subscriptions', subscriptions)
 router.use('/addresses', addresses)
 router.use('/cards', cards)
 router.use('/orders', orders)
-router.use('advertisings', advertisings)
-router.use('payment-subscriptions', payments)
+router.use('/advertisings', advertisings)
+router.use('/payment-subscriptions', payments)
+router.use('/payment-advertisings', paymentsAd)
