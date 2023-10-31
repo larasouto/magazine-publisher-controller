@@ -34,7 +34,7 @@ export class EditAddress {
       return left(addressOrError.value)
     }
 
-    const userExists = await this.usersRepository.exists(request.userId)
+    const userExists = await this.usersRepository.findById(request.userId)
 
     if (!userExists) {
       return left(new UserNotFoundError())

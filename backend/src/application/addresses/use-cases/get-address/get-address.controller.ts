@@ -3,9 +3,12 @@ import { HttpResponse, clientError, ok } from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
 import { AddressNotFoundError } from './errors/AddressNotFoundError'
 import { GetAddress } from './get-address'
+import { User } from '@/application/users/domain/user'
+import { UserNotFoundError } from './errors/UserNotFoundError'
 
 type GetAddressControllerRequest = {
   addressId: string
+  userId: string
 }
 
 export class GetAddressController implements Controller {
@@ -27,6 +30,7 @@ export class GetAddressController implements Controller {
       const error = result.value
 
       switch (error.constructor) {
+        case UserNotFoundError:
         case AddressNotFoundError:
           return clientError({ type: 'info', message: error.message })
         default:
