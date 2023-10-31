@@ -53,7 +53,9 @@ export const routes = {
   subscriptions: {
     index: '/subscriptions',
     new: '/subscriptions/new',
-    edit: '/subscriptions/:id/edit'
+    edit: '/subscriptions/:id/edit',
+    plans: '/subscriptions/plans',
+    payment: '/subscriptions/:id/subscribe'
   },
   profile: {
     addresses: {
@@ -103,5 +105,8 @@ export const backend = {
     cards: {
       baseUrl: '/cards'
     }
+  },
+  orders: {
+    baseUrl: '/orders'
   }
 }

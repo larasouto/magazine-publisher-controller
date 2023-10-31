@@ -1,19 +1,20 @@
 import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
+import { OrdersForm } from './orders.form'
 
 export const OrderProducts = () => {
-  const { id, t, title, breadcrumb } = usePageUtils('orders')
+  const { title, breadcrumb } = usePageUtils('orders')
 
   return (
     <PageLayout
-      title={title({ dynamic: true })}
+      title={title({ title: 'Finalizar Pedido' })}
       imageSrc="/banner.jpg"
       breadcrumb={breadcrumb({
         _default: false,
-        segments: [{ label: t('page.title') }]
+        segments: [{ label: 'Pedido' }]
       })}
     >
-      Hi there!
+      <OrdersForm />
     </PageLayout>
   )
 }

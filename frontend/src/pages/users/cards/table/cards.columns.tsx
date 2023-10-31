@@ -6,6 +6,12 @@ import { CardsActions } from './cards.actions'
 export type CardsColumns = {
   id: string
   holder: string
+  number: string
+  securityCode: string
+  expirationDate: string
+  billingAddress: string
+  phone?: string
+  type: number
 }
 
 const helper = createColumnHelper<CardsColumns>()

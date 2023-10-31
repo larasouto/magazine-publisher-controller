@@ -11,7 +11,7 @@ export type SubscriptionColumns = {
   id: string
   name: string
   description: string
-  type: string
+  type: number
   frequency: string
   magazineId: string
 }

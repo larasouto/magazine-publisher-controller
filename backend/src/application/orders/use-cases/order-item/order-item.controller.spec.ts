@@ -18,6 +18,7 @@ import { PrismaThemesRepository } from '@/application/themes/repositories/prisma
 import { PrismaMagazinesRepository } from '@/application/magazines/repositories/prisma/PrismaMagazinesRepository'
 import { PrismaEditionsRepository } from '@/application/editions/repositories/prisma/PrismaEditionsRepository'
 import { EditionFactory } from '@/tests/factories/EditionFactory'
+import { v4 as uuid } from 'uuid'
 
 let usersRepository: IUsersRepository
 let addressRepository: IAddressesRepository
@@ -75,7 +76,7 @@ describe('Create order (end-to-end)', () => {
           quantity: 1,
         },
       ],
-      paymentMethod: 1,
+      cardId: uuid(),
       status: 1,
       totalValue: 100,
     }
@@ -84,6 +85,8 @@ describe('Create order (end-to-end)', () => {
       .post('/api/orders/new')
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
+
+    console.log(response.body)
 
     expect(response.status).toBe(StatusCodes.CREATED)
     expect(response.body).toHaveProperty('message')

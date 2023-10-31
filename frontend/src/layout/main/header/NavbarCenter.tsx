@@ -15,7 +15,7 @@ export const NavbarCenter = () => {
         </Link>
       </NavbarItem>
       <NavbarItem>
-        <Link color="foreground" href="/">
+        <Link color="foreground" href={routes.subscriptions.plans}>
           Assinatura
         </Link>
       </NavbarItem>
