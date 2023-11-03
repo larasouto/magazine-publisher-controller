@@ -13,7 +13,7 @@ export const CartTopContent = () => {
   ])
 
   return (
-    <div className="flex items-center sm:justify-between h-full">
+    <div className="flex items-center sm:justify-between h-full px-5">
       <div className="flex flex-grow items-center justify-between pb-7">
         <div className="flex items-center gap-3">
           <Button

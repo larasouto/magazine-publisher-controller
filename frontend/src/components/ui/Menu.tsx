@@ -19,9 +19,15 @@ type MenuProps = {
   isOpen: boolean
   hasSearch?: boolean
   onOpenChange: () => void
+  onClose: () => void
 }
 
-export const Menu = ({ isOpen, onOpenChange, hasSearch }: MenuProps) => {
+export const Menu = ({
+  isOpen,
+  hasSearch,
+  onClose,
+  onOpenChange
+}: MenuProps) => {
   const { t } = useTranslation('menu')
   const [search, setSearch] = useState('')
 
@@ -36,7 +42,13 @@ export const Menu = ({ isOpen, onOpenChange, hasSearch }: MenuProps) => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'Escape' || (e.key === 'k' && (e.metaKey || e.ctrlKey))) {
         e.preventDefault()
-        onOpenChange()
+
+        const key = {
+          Escape: () => onClose(),
+          k: () => onOpenChange()
+        }
+
+        key[e.key]()
       }
     }
 
@@ -45,7 +57,7 @@ export const Menu = ({ isOpen, onOpenChange, hasSearch }: MenuProps) => {
     return () => {
       document.removeEventListener('keydown', down)
     }
-  }, [onOpenChange])
+  }, [onClose, onOpenChange])
 
   return (
     <>
@@ -79,7 +91,6 @@ export const Menu = ({ isOpen, onOpenChange, hasSearch }: MenuProps) => {
                       inputWrapper: 'rounded-b-none !pl-5 !pr-11 h-unit-12',
                       clearButton: 'right-10'
                     }}
-                    isClearable
                     autoFocus
                   />
                 </>

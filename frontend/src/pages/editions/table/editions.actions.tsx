@@ -1,5 +1,6 @@
 import { AlertModal } from '@/components/ui/AlertModal'
 import { useFetch } from '@/hooks/useFetch'
+import { useSupabase } from '@/hooks/useSupabase'
 import { backend, routes } from '@/routes/routes'
 import { replaceParams } from '@/utils/replace-params'
 import {
@@ -23,14 +24,15 @@ type EditionsActionsProps = {
 export const EditionsActions = ({ row }: EditionsActionsProps) => {
   const { t } = useTranslation()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const { removeImages } = useSupabase()
 
   const { remove } = useFetch<EditionColumns>({
     baseUrl: backend.editions.baseUrl,
-    query: ['editions'],
-    invalidateQuery: true
+    query: ['editions']
   })
 
   const handleDelete = async () => {
+    await removeImages({ path: [row.coverPath] })
     await remove.mutateAsync(row)
   }
 

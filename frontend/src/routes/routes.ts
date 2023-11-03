@@ -12,7 +12,8 @@ export const routes = {
     }
   },
   home: {
-    index: '/home'
+    index: '/home',
+    editions: '/home/editions/:id'
   },
   categories: {
     index: '/categories',
@@ -49,15 +50,20 @@ export const routes = {
     new: '/editions/new',
     edit: '/editions/:id/edit'
   },
-  graphics: {
-    index: '/graphics',
-    new: '/graphics/new',
-    edit: '/graphics/:id/edit'
+  subscriptions: {
+    index: '/subscriptions',
+    new: '/subscriptions/new',
+    edit: '/subscriptions/:id/edit'
   },
   distributor: {
     index: '/distributor',
     new: '/distributor/new',
     edit: '/distributor/:id/edit'
+  },
+  graphics: {
+    index: '/graphics',
+    new: '/graphics/new',
+    edit: '/graphics/:id/edit'
   }
 }
 
@@ -69,7 +75,7 @@ export const backend = {
     baseUrl: '/categories'
   },
   themes: {
-    baseUrl: '/themes'
+    baseUrl: '/magazines/themes'
   },
   reporters: {
     baseUrl: '/reporters'
@@ -80,10 +86,13 @@ export const backend = {
   photographers: {
     baseUrl: '/photographers'
   },
-  graphics: {
-    baseUrl: '/graphics'
+  subscriptions: {
+    baseUrl: '/subscriptions'
   },
   distributor: {
     baseUrl: '/distributor'
+  },
+  graphics: {
+    baseUrl: '/graphics'
   }
 }

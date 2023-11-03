@@ -1,3 +1,4 @@
 {
-  "invalid_cpf": "CPF inválido"
+  "invalid_cpf": "CPF inválido",
+  "required_field": "Campo obrigatório"
 }

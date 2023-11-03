@@ -14,7 +14,7 @@ export const ComponentLayout = ({ layout = 'blank' }: ComponentLayoutProps) => {
         <>
           <AuthHeader />
           <div className="min-h-[calc(100vh-3.5rem)] flex justify-center items-center">
-            <main className="w-full m-2 min-[420px]:w-[400px]">
+            <main className="w-full m-2 max-w-md">
               <Outlet />
             </main>
           </div>
@@ -25,7 +25,7 @@ export const ComponentLayout = ({ layout = 'blank' }: ComponentLayoutProps) => {
         <div className="flex flex-col">
           <Header />
           <Cart />
-          <main className="h-full w-full container">
+          <main className="h-full w-full container pb-10">
             <Outlet />
           </main>
         </div>

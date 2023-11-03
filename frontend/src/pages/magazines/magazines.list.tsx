@@ -1,14 +1,13 @@
 import { DataTable } from '@/components/ui/table/DataTable'
 import { useFetch } from '@/hooks/useFetch'
+import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
-import { useTranslation } from 'react-i18next'
 import { MagazineToolbar } from './magazines.toolbar'
 import { MagazineColumns, columns } from './table/magazines.columns'
 
 export const MagazinesListPage = () => {
-  const { t } = useTranslation('magazines')
-  const title = t('page.title')
+  const { title, breadcrumb } = usePageUtils('magazines')
 
   const { list } = useFetch<MagazineColumns[]>({
     baseUrl: backend.magazines.baseUrl,
@@ -20,9 +19,9 @@ export const MagazinesListPage = () => {
 
   return (
     <PageLayout
-      title={title}
+      title={title()}
       isLoading={list.isLoading}
-      breadcrumb={[{ label: title }]}
+      breadcrumb={breadcrumb()}
     >
       <DataTable
         columns={columns}

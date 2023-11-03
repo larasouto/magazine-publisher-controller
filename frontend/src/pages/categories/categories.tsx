@@ -1,15 +1,12 @@
 import { useFetch } from '@/hooks/useFetch'
+import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { routes } from '@/routes/routes'
-import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
 import { CategoriesForm } from './categories.form'
 import { CategoryFormWithId } from './categories.schema'
 
 export const CategoriesPage = () => {
-  const { t } = useTranslation('categories')
-  const { id } = useParams()
-  const title = id ? t('page.edit') : t('page.new')
+  const { id, t, title, breadcrumb } = usePageUtils('categories')
 
   const { get } = useFetch<CategoryFormWithId>({
     baseUrl: routes.categories.index,
@@ -22,13 +19,12 @@ export const CategoriesPage = () => {
 
   return (
     <PageLayout
-      title={title}
+      title={title({ dynamic: true })}
       imageSrc="/banner.jpg"
       isLoading={get.isLoading}
-      breadcrumb={[
-        { label: t('page.title'), link: routes.categories.index },
-        { label: title }
-      ]}
+      breadcrumb={breadcrumb({
+        segments: [{ label: t('page.title'), link: routes.categories.index }]
+      })}
     >
       <CategoriesForm data={get.data} />
     </PageLayout>

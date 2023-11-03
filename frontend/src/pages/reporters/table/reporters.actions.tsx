@@ -23,8 +23,7 @@ export const ReporterActions = ({ row }: ReporterActionsProps) => {
 
   const { remove: inactivate } = useFetch<ReporterColumns>({
     baseUrl: backend.reporters.baseUrl,
-    query: ['reporters'],
-    invalidateQuery: true
+    query: ['reporters']
   })
 
   const handleInactivate = async () => {

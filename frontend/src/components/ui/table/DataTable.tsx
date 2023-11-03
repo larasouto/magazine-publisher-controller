@@ -28,13 +28,14 @@ type DataTableProps<TData, TValue> = {
   data: TData[]
 } & {
   toolbarButtons?: React.ReactNode
-  fn?: (ids: string[]) => void
+  fn?: (ids: any) => void
 }
 
 export const DataTable = <TData, TValue>({
   columns,
   data,
-  toolbarButtons
+  toolbarButtons,
+  fn
 }: DataTableProps<TData, TValue>) => {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -74,6 +75,7 @@ export const DataTable = <TData, TValue>({
             globalFilter={globalFilter}
             setGlobalFilter={setGlobalFilter}
             toolbarButtons={toolbarButtons}
+            fn={fn}
           />
         }
         topContentPlacement="outside"

@@ -1,15 +1,13 @@
 import { DataTable } from '@/components/ui/table/DataTable'
 import { useFetch } from '@/hooks/useFetch'
+import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
-import { useTranslation } from 'react-i18next'
 import { EditionToolbar } from './editions.toolbar'
 import { EditionColumns, columns } from './table/editions.columns'
 
 export const EditionsListPage = () => {
-  const { t } = useTranslation('editions')
-  const title = t('page.title')
-  const breadcrumb = [{ label: title }]
+  const { title, breadcrumb } = usePageUtils('editions')
 
   const { list } = useFetch<EditionColumns[]>({
     baseUrl: backend.editions.baseUrl,
@@ -21,8 +19,8 @@ export const EditionsListPage = () => {
 
   return (
     <PageLayout
-      title={title}
-      breadcrumb={breadcrumb}
+      title={title()}
+      breadcrumb={breadcrumb()}
       isLoading={list.isLoading}
     >
       <DataTable

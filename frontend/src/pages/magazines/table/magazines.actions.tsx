@@ -23,8 +23,7 @@ export const MagazineActions = ({ row }: MagazineActionsProps) => {
 
   const { remove: inactivate } = useFetch<MagazineColumns>({
     baseUrl: backend.magazines.baseUrl,
-    query: ['magazines'],
-    invalidateQuery: true
+    query: ['magazines']
   })
 
   const handleDelete = async () => {

@@ -25,7 +25,6 @@ export const PhotographersForm = ({ data }: PhotographerFormProps) => {
   const { create, update } = useFetch<PhotographerForm>({
     baseUrl: backend.photographers.baseUrl,
     query: ['photographers'],
-    invalidateQuery: true,
     fetch: {
       id: data?.id
     }
@@ -60,7 +59,6 @@ export const PhotographersForm = ({ data }: PhotographerFormProps) => {
             labelPlacement="outside"
             {...form.register('name')}
             isRequired
-            isClearable
           />
         </fieldset>
         <fieldset>
@@ -72,7 +70,6 @@ export const PhotographersForm = ({ data }: PhotographerFormProps) => {
             labelPlacement="outside"
             {...form.register('email')}
             isRequired
-            isClearable
           />
         </fieldset>
         <fieldset>
@@ -86,7 +83,6 @@ export const PhotographersForm = ({ data }: PhotographerFormProps) => {
             labelPlacement="outside"
             {...form.register('cpf')}
             isRequired
-            isClearable
           />
         </fieldset>
         <fieldset>
@@ -99,7 +95,6 @@ export const PhotographersForm = ({ data }: PhotographerFormProps) => {
             errorMessage={form.formState.errors.phone?.message}
             labelPlacement="outside"
             {...form.register('phone')}
-            isClearable
           />
         </fieldset>
         <fieldset>
@@ -110,7 +105,6 @@ export const PhotographersForm = ({ data }: PhotographerFormProps) => {
             labelPlacement="outside"
             {...form.register('specialty')}
             isRequired
-            isClearable
           />
         </fieldset>
         <fieldset>

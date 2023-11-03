@@ -2,7 +2,7 @@ import { Button, Image } from '@nextui-org/react'
 
 export const Advertising = () => {
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 items-center justify-between px-10">
+    <section className="grid grid-cols-1 sm:grid-cols-2 items-center justify-between p-10 lg:py-0">
       <Image
         className="hidden sm:inline-flex"
         src="/mockup-2.png"

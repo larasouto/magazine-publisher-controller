@@ -36,7 +36,7 @@ export const PageLayout = ({
           className="mb-5"
         />
       )}
-      <article>{children}</article>
+      <main>{children}</main>
     </>
   )
 }

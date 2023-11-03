@@ -1,10 +1,10 @@
-import { Input, Selection } from '@nextui-org/react'
+import { Selection } from '@nextui-org/react'
 import { Table } from '@tanstack/react-table'
 import { Search } from 'lucide-react'
 
 import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react'
-import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
+import { DebouncedInput } from '../DebouncedInput'
 import { TableDeleteButton } from './TableDeleteButton'
 import { TableFilterButton } from './TableFilterButton'
 import { TablePageSize } from './TablePageSize'
@@ -14,13 +14,15 @@ type TableTopContentProps<TData> = {
   globalFilter: string
   setGlobalFilter: Dispatch<SetStateAction<string>>
   toolbarButtons?: React.ReactNode
+  fn?: (ids: any) => void
 }
 
 export function TableTopContent<TData>({
   globalFilter,
   setGlobalFilter,
   table,
-  toolbarButtons
+  toolbarButtons,
+  fn
 }: TableTopContentProps<TData>) {
   const { t } = useTranslation('table')
   const [type, setType] = useState<Selection>(new Set(['first']))
@@ -47,11 +49,10 @@ export function TableTopContent<TData>({
     const rows = table.getSelectedRowModel().rows
     const originalRows = rows.map((row) => row.original as { id: string })
 
-    toast.success(`Em breve... Necessário deleteMany() no backend.`, {
-      position: 'bottom-left'
-    })
-    console.log(originalRows)
-  }, [table])
+    const ids = originalRows.map((row) => row.id)
+    fn?.(ids)
+    table.toggleAllPageRowsSelected(false)
+  }, [fn, table])
 
   /**
    * Transforma o tipo de filtro em string.
@@ -63,34 +64,31 @@ export function TableTopContent<TData>({
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-end">
           <div className="flex flex-grow gap-2 items-center">
-            {selectedType === 'all' && (
-              <Input
-                id="search-debounced-input"
-                value={globalFilter ?? ''}
-                startContent={<Search className="text-default-500" />}
-                onChange={(e) => setGlobalFilter(String(e.target.value))}
-                placeholder={t('filter.search_by')}
-                className="w-full sm:max-w-xs lg:max-w-sm"
-              />
-            )}
-            {selectedType === 'first' && (
-              <Input
-                id="search-input"
-                placeholder={t('filter.search_by')}
-                value={String(getFirstColumn?.getFilterValue() ?? '')}
-                startContent={<Search className="text-default-500" />}
-                onChange={(event) =>
-                  getFirstColumn?.setFilterValue(event.target.value)
-                }
-                className="w-full sm:max-w-xs lg:max-w-sm"
-              />
-            )}
-            <div className="hidden sm:flex gap-2">
+            <DebouncedInput
+              id="search-debounced-input"
+              startContent={<Search className="text-default-500" />}
+              placeholder={t('filter.search_by')}
+              className="w-full sm:max-w-xs lg:max-w-sm"
+              value={
+                selectedType === 'all'
+                  ? globalFilter ?? ''
+                  : String(getFirstColumn?.getFilterValue()?.toString() ?? '')
+              }
+              onChange={(value) =>
+                selectedType === 'all'
+                  ? setGlobalFilter(value)
+                  : getFirstColumn?.setFilterValue(value)
+              }
+              debounce={100}
+            />
+            <div className="flex gap-2">
               <TableFilterButton type={type} setType={setType} />
-              <TableDeleteButton
-                isDisabled={!table.getSelectedRowModel().rows.length}
-                handleDelete={handleDelete}
-              />
+              {fn && (
+                <TableDeleteButton
+                  isDisabled={!table.getSelectedRowModel().rows.length}
+                  handleDelete={handleDelete}
+                />
+              )}
             </div>
           </div>
           <div className="flex gap-3 self-end sm:self-auto">

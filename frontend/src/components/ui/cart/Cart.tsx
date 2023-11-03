@@ -31,10 +31,10 @@ export const Cart = () => {
             <motion.aside
               initial={{ x: 768, opacity: 0.8 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ ease: 'easeInOut', duration: 0.6 }}
+              transition={{ ease: 'easeInOut', duration: 0.4 }}
               exit={{ x: 768 }}
               className={cn(
-                'z-50 fixed top-0 right-0 h-full w-full sm:w-[480px] rounded-l-lg bg-default-200 dark:bg-default-50 p-5 grid grid-rows-[auto,_1fr] gap-2'
+                'z-50 fixed top-0 right-0 h-full w-full sm:w-[480px] rounded-l-lg bg-default-200 dark:bg-default-50 py-5 grid grid-rows-[auto,_1fr] gap-2'
               )}
             >
               <CartTopContent />
