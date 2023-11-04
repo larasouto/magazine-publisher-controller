@@ -10,7 +10,7 @@ type EditionOverrides = {
   numberOfCopies?: number
   numberOfPages?: number
   year?: number
-  magazineId?: string
+  magazineId: string
 }
 
 export class EditionFactory {

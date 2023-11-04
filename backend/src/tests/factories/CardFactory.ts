@@ -9,7 +9,7 @@ type CardOverrides = {
   phone?: string
   type?: number
   flag?: string
-  userId?: string
+  userId: string
 }
 
 export class CardFactory {
