@@ -174,6 +174,7 @@ CREATE TABLE "order" (
     "price" DOUBLE PRECISION NOT NULL,
     "editon_Id" TEXT NOT NULL,
     "graphicsDistributor_id" TEXT NOT NULL,
+    "bookstore_id" TEXT NOT NULL,
 
     CONSTRAINT "order_pkey" PRIMARY KEY ("id")
 );
@@ -186,6 +187,14 @@ CREATE TABLE "orderReturn" (
     "order_Id" TEXT NOT NULL,
 
     CONSTRAINT "orderReturn_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "bookstore" (
+    "id" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
+
+    CONSTRAINT "bookstore_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -214,6 +223,9 @@ ALTER TABLE "order" ADD CONSTRAINT "order_editon_Id_fkey" FOREIGN KEY ("editon_I
 
 -- AddForeignKey
 ALTER TABLE "order" ADD CONSTRAINT "order_graphicsDistributor_id_fkey" FOREIGN KEY ("graphicsDistributor_id") REFERENCES "graphicsOnDistributor"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "order" ADD CONSTRAINT "order_bookstore_id_fkey" FOREIGN KEY ("bookstore_id") REFERENCES "bookstore"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "orderReturn" ADD CONSTRAINT "orderReturn_order_Id_fkey" FOREIGN KEY ("order_Id") REFERENCES "order"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

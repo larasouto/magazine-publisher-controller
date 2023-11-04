@@ -192,6 +192,8 @@ model Order {
   editon_Id              String
   graphicsDistributor    GraphicsOnDistributor @relation(fields: [graphicsDistributor_id], references: [id])
   graphicsDistributor_id String
+  bookstore                Bookstore               @relation(fields: [bookstore_id], references: [id])
+  bookstore_id             String
   orderReturn            OrderReturn[]
 
   @@map("order")
@@ -205,4 +207,12 @@ model OrderReturn {
   order_Id      String
 
   @@map("orderReturn")
+}
+
+model Bookstore {
+  id            String @id
+  address       String
+  Order         Order[]
+
+  @@map("bookstore")
 }
