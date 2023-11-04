@@ -5,7 +5,6 @@ import { t } from 'i18next'
 import { CouponNotFoundError } from './errors/CouponNotFoundError'
 import { EditCoupon } from './edit-coupon'
 
-
 type EditCouponControllerRequest = {
   couponId: string
   couponCode: string
