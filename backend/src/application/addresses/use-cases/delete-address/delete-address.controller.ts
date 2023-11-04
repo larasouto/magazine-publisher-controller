@@ -7,7 +7,7 @@ import { AddressNotFoundError } from './errors/AddressNotFoundError'
 import { OneOrMoreAddressNotFoundError } from './errors/OneOrMoreAddressNotFoundError'
 
 type DeleteAddressControllerRequest = {
-  addressId: string[]
+  ids: string[]
 }
 
 export class DeleteAddressController implements Controller {

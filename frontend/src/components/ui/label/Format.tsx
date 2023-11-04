@@ -1,4 +1,4 @@
-import { cn } from '@nextui-org/react'
+import { cn } from '@/lib/utils'
 import { ComponentProps } from 'react'
 import { FormatDate } from './FormatDate'
 import { FormatPrice } from './FormatPrice'
@@ -27,13 +27,13 @@ export const Format = ({
     <span
       className={cn(
         "block text-small font-medium text-foreground pb-1.5 will-change-auto origin-top-left transition-all !duration-200 !ease-out motion-reduce:transition-none data-[required=true]:after:content-['*'] data-[required=true]:after:ml-0.5 after:text-danger",
-        className,
         {
           'text-xs': size === 'xs',
           'text-sm': size === 'sm',
           'text-base': size === 'md',
           'text-lg': size === 'lg'
-        }
+        },
+        className
       )}
       data-required={isRequired}
       {...props}

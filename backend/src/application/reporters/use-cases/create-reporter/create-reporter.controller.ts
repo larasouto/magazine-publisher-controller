@@ -41,6 +41,6 @@ export class CreateReporterController implements Controller {
       }
     }
 
-    return created({ message: t('reporter.created') })
+    return created({ message: t('item.created') })
   }
 }

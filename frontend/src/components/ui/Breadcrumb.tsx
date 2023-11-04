@@ -35,9 +35,13 @@ export const Breadcrumb = ({
         />
       )}
       <div
-        className={cn('flex flex-col gap-1', className, {
-          'mt-5': !imageSrc
-        })}
+        className={cn(
+          'flex flex-col gap-1',
+          {
+            'mt-5': !imageSrc
+          },
+          className
+        )}
         {...props}
       >
         <ol className="text-sm flex items-center overflow-y-auto">

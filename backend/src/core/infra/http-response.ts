@@ -8,6 +8,7 @@ export type HttpResponse = {
 export type Response = {
   type?: 'info' | 'success' | 'error'
   message: string
+  dto?: any
 }
 
 export function ok<T>(dto?: T, response?: Response): HttpResponse {
@@ -27,6 +28,7 @@ export function created(response?: Response): HttpResponse {
     body: {
       type: response?.type ?? 'success',
       message: response?.message,
+      ...response?.dto,
     },
   }
 }

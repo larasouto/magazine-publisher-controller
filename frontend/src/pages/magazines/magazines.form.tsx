@@ -23,7 +23,7 @@ export const MagazinesForm = ({ data }: MagazinesFormProps) => {
 
   const { create, update } = useFetch<MagazineForm>({
     baseUrl: backend.magazines.baseUrl,
-    query: ['magazines'],
+    query: ['magazines', 'subscriptions'],
     redirectTo: routes.magazines.index,
     fetch: {
       id: data?.id
@@ -82,7 +82,6 @@ export const MagazinesForm = ({ data }: MagazinesFormProps) => {
           />
         </fieldset>
         <fieldset>
-          {data?.publicationPeriod}
           <Select
             label={t('form.publication_period.label')}
             placeholder={t('form.publication_period.placeholder')}

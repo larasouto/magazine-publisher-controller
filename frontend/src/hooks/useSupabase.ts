@@ -25,7 +25,7 @@ export const useSupabase = () => {
   }: Omit<UploadImageProps, 'file'> & { file: File }) => {
     const result = await supabase.storage.from(from).upload(path, file, {
       upsert,
-      cacheControl: '900' // 15 minutes
+      cacheControl: '10000' // 15 minutes
     })
 
     if (result.error) {

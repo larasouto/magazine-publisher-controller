@@ -9,7 +9,7 @@ type MagazineOverrides = {
   description?: string
   publicationPeriod?: PublicationPeriod
   yearFounded?: number
-  themeId?: string
+  themeId: string
 }
 
 export class MagazineFactory {

@@ -4,7 +4,7 @@ import { AddressNotFoundError } from './errors/AddressNotFoundError'
 import { OneOrMoreAddressNotFoundError } from './errors/OneOrMoreAddressNotFoundError'
 
 type DeleteAddressRequest = {
-  addressId: string[]
+  ids: string[]
 }
 
 type DeleteAddressResponse = Either<AddressNotFoundError, null>
@@ -13,7 +13,7 @@ export class DeleteAddress {
   constructor(private addressesRepository: IAddressesRepository) {}
 
   async execute({
-    addressId,
+    ids: addressId,
   }: DeleteAddressRequest): Promise<DeleteAddressResponse> {
     const addressOrAddresses = Array.isArray(addressId)
       ? addressId

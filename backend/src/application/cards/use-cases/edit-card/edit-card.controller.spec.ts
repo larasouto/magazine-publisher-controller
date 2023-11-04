@@ -42,10 +42,10 @@ describe('Edit card (end-to-end)', () => {
   test('should be able to update a card', async () => {
     const updatedCard: any = {
       cardId: card.id,
-      number: '0987654321098765',
+      number: '0987 6543 2109 8765',
       holder: 'test-updated-holder',
       expirationDate: '01/2025',
-      securityCode: 321,
+      securityCode: '321',
       billingAddress: 'test-updated-billing-address',
       phone: '(55) 9.9999-9999',
       type: 0,
@@ -77,7 +77,7 @@ describe('Edit card (end-to-end)', () => {
   test('should not be able to update a card with invalid id', async () => {
     const updatedCard: any = {
       cardId: card.id,
-      number: '0987654321098765',
+      number: '0987 6543 2109 8765',
       holder: 'test-updated-holder',
       expirationDate: '01/2025',
       securityCode: 321,

@@ -7,10 +7,10 @@ export enum CardType {
 }
 
 export const CardSchema = z.object({
-  holder: z.string().min(2).max(64),
-  number: z.string().min(16).max(16),
+  holder: z.string().min(1).max(64),
+  number: z.string().min(19).max(19),
   expirationDate: z.string().min(7).max(7),
-  securityCode: z.number().min(0).max(999),
+  securityCode: z.string().min(3).max(3),
   billingAddress: z.string().min(1).max(264),
   phone: z
     .string()

@@ -37,6 +37,6 @@ export class CreateMagazineController implements Controller {
           return clientError(error)
       }
     }
-    return created({ message: t('magazine.created') })
+    return created({ message: t('item.created') })
   }
 }

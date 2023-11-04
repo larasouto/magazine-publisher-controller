@@ -21,7 +21,7 @@ describe('Delete theme (end-to-end)', () => {
     await themesRepository.create(theme)
 
     const response = await request(app)
-      .del(`/api/themes/?themeId=${theme.id}`)
+      .del(`/api/themes/?ids=${theme.id}`)
       .auth(jwt.token, { type: 'bearer' })
 
     expect(response.status).toBe(StatusCodes.OK)
@@ -37,9 +37,7 @@ describe('Delete theme (end-to-end)', () => {
     await themesRepository.create(theme2)
 
     const response = await request(app)
-      .del(
-        `/api/themes/?themeId=${theme.id}&themeId=${theme2.id}`,
-      )
+      .del(`/api/themes/?ids=${theme.id}&ids=${theme2.id}`)
       .auth(jwt.token, { type: 'bearer' })
 
     expect(response.status).toBe(StatusCodes.OK)

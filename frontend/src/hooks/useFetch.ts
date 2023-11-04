@@ -94,13 +94,19 @@ export const useFetch = <T>({
    * @returns Promise com o resultado da requisição.
    */
   const create = useMutation(
-    async (data: T & { asyncFn?: () => Promise<void> }) => {
+    async (
+      data: T & {
+        asyncFn?: () => Promise<void>
+        internalAsyncFn?: () => Promise<void>
+      }
+    ) => {
       const url = `${baseUrl}/new`
       await data.asyncFn?.()
       return await promise(api.post(url, data))
     },
     {
-      onSuccess: async () => {
+      onSuccess: async (_, { internalAsyncFn }) => {
+        await internalAsyncFn?.()
         await queryClient.invalidateQueries(query)
         navigate(`${redirectTo ?? baseUrl}`)
       }

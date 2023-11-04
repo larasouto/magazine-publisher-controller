@@ -10,7 +10,7 @@ type CreateCardControllerRequest = {
   number: string
   holder: string
   expirationDate: string
-  securityCode: number
+  securityCode: string
   billingAddress: string
   phone: string
   type: number
@@ -44,6 +44,6 @@ export class CreateCardController implements Controller {
       }
     }
 
-    return created({ message: t('card.created') })
+    return created({ message: t('item.created') })
   }
 }

@@ -1,7 +1,9 @@
 import { Category } from '@/application/categories/domain/category'
-import { CategoryProps } from '@/application/categories/domain/category.schema'
 
-type CategoryOverrides = CategoryProps
+type CategoryOverrides = {
+  name?: string
+  description?: string
+}
 
 export class CategoryFactory {
   static create(overrides?: CategoryOverrides) {

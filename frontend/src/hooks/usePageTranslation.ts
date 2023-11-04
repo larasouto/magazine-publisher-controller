@@ -7,17 +7,19 @@ type PageProps = {
   _default?: boolean
   segments?: BreadcrumbItem[]
   dynamic?: boolean
+  title?: string
 }
 
 export const usePageUtils = (ns?: string | string[]) => {
   const { id } = useParams()
   const { t } = useTranslation(ns)
 
-  const title = ({ dynamic = false }: PageProps = {}) => {
+  const title = ({ dynamic = false, title }: PageProps = {}) => {
     if (dynamic) {
       return id ? t('page.edit') : t('page.new')
     }
-    return t('page.title')
+
+    return title ?? t('page.title')
   }
 
   const breadcrumb = ({ _default = true, segments }: PageProps = {}) => {
