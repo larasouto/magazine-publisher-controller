@@ -11,6 +11,7 @@ import { graphics } from './graphics.routes'
 import { distributor } from './distributor.routes'
 import { order } from './order.routes'
 import { orderRetur } from './orderReturn.routes'
+import { bookstore } from './bookstore.routes'
 
 export const router = Router()
 
@@ -26,3 +27,4 @@ router.use('/graphics', graphics)
 router.use('/distributor', distributor)
 router.use('/order', order)
 router.use('/orderReturn', orderRetur)
+router.use('/bookstore', bookstore)
