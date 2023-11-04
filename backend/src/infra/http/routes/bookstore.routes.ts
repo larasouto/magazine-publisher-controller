@@ -6,6 +6,7 @@ import { makeCreateBookstoresController } from '../factories/controllers/booksto
 import { makeDeleteBookstoresController } from '../factories/controllers/bookstore/makeDeleteBookstoreController'
 import { makeEditBookstoresController } from '../factories/controllers/bookstore/makeEditBookstoreController'
 import { makeGetBookstoreController } from '../factories/controllers/bookstore/makeGetThemeController'
+import { makeListBookstoresController } from '../factories/controllers/bookstore/makeListBookstoreController'
 
 export const bookstore = Router()
 
@@ -15,4 +16,4 @@ bookstore.post('/new', adaptRoute(makeCreateBookstoresController()))
 bookstore.put('/:bookstoreId/edit', adaptRoute(makeEditBookstoresController()))
 bookstore.get('/:bookstoreId', adaptRoute(makeGetBookstoreController()))
 bookstore.delete('/:bookstoreId', adaptRoute(makeDeleteBookstoresController()))
-//bookstore.get('/', adaptRoute(makeListThemesController()))
+bookstore.get('/', adaptRoute(makeListBookstoresController()))
