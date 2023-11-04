@@ -3,7 +3,7 @@ import { Bookstore } from '../../domain/bookstore'
 import { IBookstoreRepository } from '../interfaces/IBookstoresRepository'
 import { BookstoreMapper } from '../../mappers/bookstore.mapper'
 
-export class PrismaBooksotreRepository implements IBookstoreRepository {
+export class PrismaBookstoresRepository implements IBookstoreRepository {
   async findById(id: string): Promise<Bookstore | null> {
     const bookstore = await prismaClient.bookstore.findUnique({
       where: { id },
