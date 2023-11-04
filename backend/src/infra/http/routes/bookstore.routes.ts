@@ -5,6 +5,7 @@ import { makeEnsureAuthenticated } from '../factories/controllers/auth/makeEnsur
 import { makeCreateBookstoresController } from '../factories/controllers/bookstore/makeCreateBookstoreController'
 import { makeDeleteBookstoresController } from '../factories/controllers/bookstore/makeDeleteBookstoreController'
 import { makeEditBookstoresController } from '../factories/controllers/bookstore/makeEditBookstoreController'
+import { makeGetBookstoreController } from '../factories/controllers/bookstore/makeGetThemeController'
 
 export const bookstore = Router()
 
@@ -12,6 +13,6 @@ bookstore.use(adaptMiddleware(makeEnsureAuthenticated()))
 
 bookstore.post('/new', adaptRoute(makeCreateBookstoresController()))
 bookstore.put('/:bookstoreId/edit', adaptRoute(makeEditBookstoresController()))
-//bookstore.get('/:themeId', adaptRoute(makeGetThemeController()))
+bookstore.get('/:bookstoreId', adaptRoute(makeGetBookstoreController()))
 bookstore.delete('/:bookstoreId', adaptRoute(makeDeleteBookstoresController()))
 //bookstore.get('/', adaptRoute(makeListThemesController()))
