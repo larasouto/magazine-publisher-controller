@@ -1,6 +1,4 @@
 import { beforeEach, describe, expect, test } from 'vitest'
-import { IUsersRepository } from '@/application/users/repositories/interfaces/IUsersRepository'
-import { InMemoryUsersRepository } from '@/application/users/repositories/in-memory/InMemoryUsersRepository'
 import { UserFactory } from '@/tests/factories/UserFactory'
 import { Coupon } from '../../domain/coupon'
 import { InMemoryCouponsRepository } from '../../repositories/in-memory/InMemoryCouponsRepository'
@@ -11,36 +9,29 @@ import { ListCoupons } from './list-coupon'
 let listCoupons: ListCoupons
 let createCoupon: CreateCoupon
 let couponsRepository: ICouponsRepository
-let usersRepository: IUsersRepository
 
 describe('List coupons', () => {
   beforeEach(() => {
     couponsRepository = new InMemoryCouponsRepository()
-    usersRepository = new InMemoryUsersRepository()
     listCoupons = new ListCoupons(couponsRepository)
-    createCoupon = new CreateCoupon(couponsRepository, usersRepository)
+    createCoupon = new CreateCoupon(couponsRepository)
   })
 
   test('should list all coupons', async () => {
-    const user = UserFactory.create()
-    await usersRepository.create(user)
-
     const data1 = {
       couponCode: 'test-couponCode',
       discountAmount: 10,
-      expirationDate: '12/2023',
-      maximumAmountOfUse: 1,
+      expirationDate: '01/12/2023',
+      availableQuantity: 1,
       type: 0,
-      userId: user.id,
     }
 
     const data2 = {
       couponCode: 'test-couponCode2',
       discountAmount: 10,
-      expirationDate: '12/2023',
-      maximumAmountOfUse: 1,
+      expirationDate: '01/12/2023',
+      availableQuantity: 1,
       type: 0,
-      userId: user.id,
     }
 
     const response1 = await createCoupon.execute(data1)

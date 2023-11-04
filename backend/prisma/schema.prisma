@@ -19,7 +19,6 @@ model User {
   updated_at          DateTime              @updatedAt
   addresses           Address[]
   cards               Card[]
-  coupons             Coupon[]
   subscriptions       Subscription[]
   Order               Order[]
   PaymentSubscription PaymentSubscription[]
@@ -257,16 +256,14 @@ model PaymentAdvertising {
 }
 
 model Coupon {
-  id              String   @id
-  couponCode      String
-  discountAmount  Int
-  expiration_date String
-  maximumAmountOfUse   Int
-  type            Int
-  created_at      DateTime @default(now())
-  updated_at      DateTime @updatedAt
-  user            User     @relation(fields: [user_id], references: [id])
-  user_id         String
+  id                 String   @id
+  coupon_code        String
+  discount_amount    Int
+  expiration_date    DateTime
+  available_quantity Int
+  type               Int
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
 
   @@map("coupons")
 }

@@ -5,31 +5,23 @@ import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
 import { v4 as uuid } from 'uuid'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
-import { IUsersRepository } from '@/application/users/repositories/interfaces/IUsersRepository'
-import { PrismaUsersRepository } from '@/application/users/repositories/prisma/PrismaUsersRepository'
 import { PrismaCouponsRepository } from '../../repositories/prisma/PrismaCouponsRepository'
 import { ICouponsRepository } from '../../repositories/interfaces/ICouponsRepository'
 
 let couponsRepository: ICouponsRepository
-let usersRepository: IUsersRepository
 
 let couponId: string[] = []
 
 describe('List coupons (end-to-end)', () => {
-  const { jwt, user } = UserFactory.createAndAuthenticate()
+  const { jwt } = UserFactory.createAndAuthenticate()
 
   beforeAll(async () => {
     couponsRepository = new PrismaCouponsRepository()
-    usersRepository = new PrismaUsersRepository()
-    await usersRepository.create(user)
   })
 
   afterAll(async () => {
     await prismaClient.coupon.deleteMany({
       where: { id: { in: couponId } },
-    })
-    await prismaClient.user.deleteMany({
-      where: { id: user.id },
     })
   })
 
@@ -38,10 +30,9 @@ describe('List coupons (end-to-end)', () => {
       id: uuid(),
       couponCode: 'test-couponCode',
       discountAmount: 10,
-      expirationDate: '12/2023',
-      maximumAmountOfUse: 1,
+      expirationDate: '01/12/2023',
+      availableQuantity: 1,
       type: 0,
-      userId: user.id,
     }
 
     await prismaClient.coupon.create({

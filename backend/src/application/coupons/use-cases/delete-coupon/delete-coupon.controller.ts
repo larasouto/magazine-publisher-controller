@@ -12,7 +12,6 @@ import { CouponNotFoundError } from './errors/CouponNotFoundError'
 import { OneOrMoreCouponNotFoundError } from './errors/OneOrMoreCouponNotFoundError'
 import { DeleteCoupon } from './delete-coupon'
 
-
 type DeleteCouponControllerRequest = {
   ids: string[]
 }

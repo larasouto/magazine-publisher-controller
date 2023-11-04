@@ -1,5 +1,4 @@
 import { describe, expect, test } from 'vitest'
-import { v4 as uuid } from 'uuid'
 import { Coupon } from './coupon'
 
 describe('Entity Coupon', () => {
@@ -7,10 +6,9 @@ describe('Entity Coupon', () => {
     const data: any = {
       couponCode: 'test-couponCode',
       discountAmount: 10,
-      expirationDate: '12/2023',
-      maximumAmountOfUse: 1,
+      expirationDate: '01/12/2023',
+      availableQuantity: 1,
       type: 0,
-      userId: uuid(),
     }
 
     const sut = Coupon.create(data)

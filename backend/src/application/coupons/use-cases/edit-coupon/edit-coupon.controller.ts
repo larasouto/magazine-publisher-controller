@@ -10,9 +10,8 @@ type EditCouponControllerRequest = {
   couponCode: string
   discountAmount: number
   expirationDate: string
-  maximumAmountOfUse: number
+  availableQuantity: number
   type: number
-  userId: string
 }
 
 export class EditCouponController implements Controller {

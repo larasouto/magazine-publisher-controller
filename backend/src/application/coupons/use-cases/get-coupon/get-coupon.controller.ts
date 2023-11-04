@@ -1,13 +1,11 @@
 import { Controller } from '@/core/infra/controller'
 import { HttpResponse, clientError, ok } from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
-import { UserNotFoundError } from './errors/UserNotFoundError'
 import { CouponNotFoundError } from './errors/CouponNotFoundError'
 import { GetCoupon } from './get-coupon'
 
 type GetCouponControllerRequest = {
   couponId: string
-  userId: string
 }
 
 export class GetCouponController implements Controller {
@@ -29,7 +27,6 @@ export class GetCouponController implements Controller {
       const error = result.value
 
       switch (error.constructor) {
-        case UserNotFoundError:
         case CouponNotFoundError:
           return clientError({ type: 'info', message: error.message })
         default:

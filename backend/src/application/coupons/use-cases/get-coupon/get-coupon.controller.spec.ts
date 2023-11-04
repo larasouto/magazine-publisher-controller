@@ -4,35 +4,24 @@ import { UserFactory } from '@/tests/factories/UserFactory'
 import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
-import { PrismaUsersRepository } from '@/application/users/repositories/prisma/PrismaUsersRepository'
-import { IUsersRepository } from '@/application/users/repositories/interfaces/IUsersRepository'
 import { PrismaCouponsRepository } from '../../repositories/prisma/PrismaCouponsRepository'
 import { ICouponsRepository } from '../../repositories/interfaces/ICouponsRepository'
-import { Coupon } from '../../domain/coupon'
 import { CouponFactory } from '@/tests/factories/CouponFactory'
 
 let couponsRepository: ICouponsRepository
-let usersRepository: IUsersRepository
-let coupon: Coupon
 
 describe('Get a coupon (end-to-end)', () => {
-  const { jwt, user } = UserFactory.createAndAuthenticate()
+  const { jwt } = UserFactory.createAndAuthenticate()
+  const coupon = CouponFactory.create()
 
   beforeAll(async () => {
     couponsRepository = new PrismaCouponsRepository()
-    usersRepository = new PrismaUsersRepository()
-    await usersRepository.create(user)
-
-    coupon = CouponFactory.create({ userId: user.id })
     await couponsRepository.create(coupon)
   })
 
   afterAll(async () => {
     await prismaClient.coupon.deleteMany({
       where: { id: coupon.id },
-    })
-    await prismaClient.user.deleteMany({
-      where: { id: user.id },
     })
   })
 

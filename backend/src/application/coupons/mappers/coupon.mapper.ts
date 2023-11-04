@@ -1,4 +1,4 @@
-
+import { Coupon as PersistenceCoupon } from '@prisma/client'
 import { MapperError } from '@/core/errors/MapperErrors'
 import { Coupon } from '../domain/coupon'
 
@@ -9,9 +9,8 @@ export class CouponMapper {
         couponCode: raw.coupon_code,
         discountAmount: raw.discount_amount,
         expirationDate: raw.expiration_date,
-        maximumAmountOfUse: raw.maximum_amount_of_use,
+        availableQuantity: raw.available_quantity,
         type: raw.type,
-        userId: raw.user_id,
       },
       raw.id,
     )
@@ -26,12 +25,11 @@ export class CouponMapper {
   static async toPersistence(coupon: Coupon) {
     return {
       id: coupon.id,
-      couponCode: coupon.props.couponCode,
-      discountAmount: coupon.props.discountAmount,
-      expirationDate: coupon.props.expirationDate,
-      maximumAmountOfUse: coupon.props.maximumAmountOfUse,
+      coupon_code: coupon.props.couponCode,
+      discount_amount: coupon.props.discountAmount,
+      expiration_date: coupon.props.expirationDate,
+      available_quantity: coupon.props.availableQuantity,
       type: coupon.props.type,
-      userId: coupon.props.userId,
     }
   }
 }

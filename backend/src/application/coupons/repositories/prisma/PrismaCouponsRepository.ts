@@ -3,7 +3,6 @@ import { Coupon } from '../../domain/coupon'
 import { CouponMapper } from '../../mappers/coupon.mapper'
 import { ICouponsRepository } from '../interfaces/ICouponsRepository'
 
-
 export class PrismaCouponsRepository implements ICouponsRepository {
   async findById(id: string): Promise<Coupon | null> {
     const coupon = await prismaClient.coupon.findUnique({

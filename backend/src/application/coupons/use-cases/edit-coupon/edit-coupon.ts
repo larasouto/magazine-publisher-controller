@@ -1,6 +1,4 @@
 import { Either, left, right } from '@/core/logic/either'
-import { IUsersRepository } from '@/application/users/repositories/interfaces/IUsersRepository'
-import { UserNotFoundError } from './errors/UserNotFoundErrors'
 import { Coupon } from '../../domain/coupon'
 import { ICouponsRepository } from '../../repositories/interfaces/ICouponsRepository'
 import { CouponNotFoundError } from './errors/CouponNotFoundError'
@@ -10,18 +8,14 @@ type EditCouponRequest = {
   couponCode: string
   discountAmount: number
   expirationDate: string
-  maximumAmountOfUse: number
+  availableQuantity: number
   type: number
-  userId: string
 }
 
 type EditCouponResponse = Either<CouponNotFoundError, Coupon>
 
 export class EditCoupon {
-  constructor(
-    private couponsRepository: ICouponsRepository,
-    private usersRepository: IUsersRepository,
-  ) {}
+  constructor(private couponsRepository: ICouponsRepository) {}
 
   async execute({
     couponId,
@@ -31,12 +25,6 @@ export class EditCoupon {
 
     if (couponOrError.isLeft()) {
       return left(couponOrError.value)
-    }
-
-    const userExists = await this.usersRepository.findById(request.userId)
-
-    if (!userExists) {
-      return left(new UserNotFoundError())
     }
 
     const couponExists = await this.couponsRepository.findById(couponId)

@@ -1,5 +1,4 @@
-import { Coupon } from "../../domain/coupon"
-
+import { Coupon } from '../../domain/coupon'
 
 export interface ICouponsRepository {
   findById(id: string): Promise<Coupon | null>

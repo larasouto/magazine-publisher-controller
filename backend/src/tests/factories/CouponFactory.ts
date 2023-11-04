@@ -1,12 +1,11 @@
 import { Coupon } from '@/application/coupons/domain/coupon'
 
 type CouponOverrides = {
-  couponCode: string
-  discountAmount: number
-  expirationDate: string
-  maximumAmountOfUse: number
-  type: number
-  userId: string
+  couponCode?: string
+  discountAmount?: number
+  expirationDate?: Date
+  availableQuantity?: number
+  type?: number
 }
 
 export class CouponFactory {
@@ -14,10 +13,9 @@ export class CouponFactory {
     const coupon = Coupon.create({
       couponCode: 'test-couponCode3',
       discountAmount: 15,
-      expirationDate: '11/2023',
-      maximumAmountOfUse: 2,
+      expirationDate: new Date(),
+      availableQuantity: 2,
       type: 0,
-      userId: 'test-user-id',
       ...overrides,
     })
 
