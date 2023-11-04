@@ -18,7 +18,7 @@ describe('Create bookstore (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .post('/api/bookstore/new')
+      .post('/api/bookstores/new')
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
@@ -32,7 +32,7 @@ describe('Create bookstore (end-to-end)', () => {
     const data: any = {}
 
     const response = await request(app)
-      .post('/api/bookstore/new')
+      .post('/api/bookstores/new')
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
