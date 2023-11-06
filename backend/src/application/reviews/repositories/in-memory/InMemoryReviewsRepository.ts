@@ -18,12 +18,6 @@ export class InMemoryReviewsRepository implements IReviewsRepository {
     this.reviews.push(review)
   }
 
-  async delete(id: string): Promise<void> {
-    const reviewIndex = this.reviews.findIndex((review) => review.id === id)
-
-    this.reviews.splice(reviewIndex, 1)
-  }
-
   async deleteMany(ids: string[]): Promise<void> {
     ids.forEach((id) => {
       const reviewIndex = this.reviews.findIndex((review) => review.id === id)

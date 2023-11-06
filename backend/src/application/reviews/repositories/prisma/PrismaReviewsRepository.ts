@@ -24,12 +24,6 @@ export class PrismaReviewsRepository implements IReviewsRepository {
     })
   }
 
-  async delete(id: string): Promise<void> {
-    await prismaClient.review.delete({
-      where: { id },
-    })
-  }
-
   async deleteMany(ids: string[]): Promise<void> {
     await prismaClient.review.deleteMany({
       where: { id: { in: ids } },

@@ -6,7 +6,7 @@ type ReviewOverrides = {
   review?: string
   rating?: number
   date?: Date
-  editionId: string
+  editionId?: string
   reviewerId: string
 }
 
