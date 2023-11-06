@@ -11,7 +11,7 @@ type ReviewOverrides = {
 }
 
 export class ReviewFactory {
-  static create(overrides?: ReviewOverrides) {
+  static create(overrides: ReviewOverrides) {
     const { edition, magazine, theme } = EditionFactory.createWithDependencies()
 
     const review = Review.create({
@@ -20,7 +20,6 @@ export class ReviewFactory {
       rating: 5,
       date: new Date(),
       editionId: edition.id,
-      reviewerId: 'test-user-id',
       ...overrides,
     })
 
