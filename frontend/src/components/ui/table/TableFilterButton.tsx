@@ -3,40 +3,36 @@ import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
-  DropdownTrigger,
-  Selection
+  DropdownTrigger
 } from '@nextui-org/react'
-import { Filter } from 'lucide-react'
-import { useTranslation } from 'react-i18next'
+import { Settings2 } from 'lucide-react'
+import { useDataTable } from './context/DataTableProvider'
 
-type TableFilterButtonProps = {
-  type: Selection
-  setType: (keys: Selection) => void
-}
-
-export const TableFilterButton = ({
-  type,
-  setType
-}: TableFilterButtonProps) => {
-  const { t } = useTranslation('table')
+export const TableFilterButton = () => {
+  const { t, filter, toggleFilter } = useDataTable()
 
   return (
     <>
       <Dropdown>
         <DropdownTrigger>
-          <Button className="bg-default-100" isIconOnly>
-            <Filter className="w-5 h-5" />
+          <Button
+            color="default"
+            className="bg-default-100 hover:bg-default-200"
+            isIconOnly
+          >
+            <Settings2 className="text-default-500 w-5 h-5" />
           </Button>
         </DropdownTrigger>
         <DropdownMenu
           disallowEmptySelection
-          selectionMode="single"
+          selectedKeys={Object.keys(filter).filter((key) => filter[key])}
+          onAction={(key) => toggleFilter(key as keyof typeof filter)}
+          selectionMode="multiple"
           aria-label="Select the type of filter"
-          selectedKeys={type}
-          onSelectionChange={setType}
         >
-          <DropdownItem key="first">{t('filter.first_column')}</DropdownItem>
-          <DropdownItem key="all">{t('filter.all_columns')}</DropdownItem>
+          {Object.keys(filter).map((key) => (
+            <DropdownItem key={key}>{t(`filter.toggle.${key}`)}</DropdownItem>
+          ))}
         </DropdownMenu>
       </Dropdown>
     </>
