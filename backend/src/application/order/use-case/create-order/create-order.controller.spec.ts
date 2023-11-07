@@ -130,7 +130,7 @@ describe('Create order (end-to-end)', () => {
       .post('/api/order/new')
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
-    console.log(response.body)
+
     expect(response.status).toBe(StatusCodes.CREATED)
     expect(response.body).toHaveProperty('message')
   })

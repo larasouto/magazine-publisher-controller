@@ -90,6 +90,9 @@ describe('List order (end-to-end)', () => {
     await prismaClient.graphicsOnDistributor.deleteMany({
       where: { id: { contains: graphicsOnDistributor.id } },
     })
+    await prismaClient.bookstore.deleteMany({
+      where: { id: { contains: bookstore.id } },
+    })
     await prismaClient.distributor.deleteMany({
       where: { name: { contains: 'distributor-name' } },
     })

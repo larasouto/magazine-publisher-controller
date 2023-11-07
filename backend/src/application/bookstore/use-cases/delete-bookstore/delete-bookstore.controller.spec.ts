@@ -24,7 +24,7 @@ describe('Delete bookstore (end-to-end)', () => {
     const response = await request(app)
       .delete(`/api/bookstores/${create.id}`)
       .auth(jwt.token, { type: 'bearer' })
-    console.log(response.body)
+
     expect(response.status).toBe(StatusCodes.OK)
     expect(response.body).toHaveProperty('message')
   })

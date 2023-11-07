@@ -7,7 +7,7 @@ import { afterAll, describe, expect, test } from 'vitest'
 
 describe('Create bookstore (end-to-end)', () => {
   afterAll(async () => {
-    await prismaClient.theme.deleteMany()
+    await prismaClient.bookstore.deleteMany()
   })
 
   test('should be able to create a bookstore', async () => {
