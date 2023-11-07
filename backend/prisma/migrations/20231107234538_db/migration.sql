@@ -180,7 +180,7 @@ CREATE TABLE "orders_items" (
 CREATE TABLE "orders" (
     "id" TEXT NOT NULL,
     "customer_id" TEXT NOT NULL,
-    "payment_method" INTEGER NOT NULL,
+    "card_id" TEXT NOT NULL,
     "total_value" DOUBLE PRECISION NOT NULL,
     "address_id" TEXT NOT NULL,
     "status" INTEGER NOT NULL,
@@ -193,9 +193,9 @@ CREATE TABLE "orders" (
 -- CreateTable
 CREATE TABLE "payment_subscriptions" (
     "id" TEXT NOT NULL,
-    "costumer_id" TEXT NOT NULL,
+    "customer_id" TEXT NOT NULL,
     "status" INTEGER NOT NULL,
-    "payment_method" INTEGER NOT NULL,
+    "card_id" TEXT NOT NULL,
     "subscription_id" TEXT NOT NULL,
     "address_id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -219,8 +219,87 @@ CREATE TABLE "advertisings" (
     CONSTRAINT "advertisings_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "payment_advertisings" (
+    "id" TEXT NOT NULL,
+    "customer_id" TEXT NOT NULL,
+    "status" INTEGER NOT NULL,
+    "card_id" TEXT NOT NULL,
+    "advertising_id" TEXT NOT NULL,
+    "address_id" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "payment_advertisings_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "graphics" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
+
+    CONSTRAINT "graphics_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "distributor" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
+    "region" TEXT NOT NULL,
+
+    CONSTRAINT "distributor_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "graphicsOnDistributor" (
+    "id" TEXT NOT NULL,
+    "graphicsId" TEXT NOT NULL,
+    "distributorId" TEXT NOT NULL,
+
+    CONSTRAINT "graphicsOnDistributor_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "order" (
+    "id" TEXT NOT NULL,
+    "receipt_date" TIMESTAMP(3) NOT NULL,
+    "departure_date" TIMESTAMP(3) NOT NULL,
+    "status" TEXT NOT NULL,
+    "delivery_address" TEXT NOT NULL,
+    "example_number" INTEGER NOT NULL,
+    "price" DOUBLE PRECISION NOT NULL,
+    "editon_Id" TEXT NOT NULL,
+    "graphicsDistributor_id" TEXT NOT NULL,
+    "bookstore_id" TEXT NOT NULL,
+
+    CONSTRAINT "order_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "orderReturn" (
+    "id" TEXT NOT NULL,
+    "return_number" INTEGER NOT NULL,
+    "return_date" TIMESTAMP(3) NOT NULL,
+    "order_Id" TEXT NOT NULL,
+
+    CONSTRAINT "orderReturn_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "bookstore" (
+    "id" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
+
+    CONSTRAINT "bookstore_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "graphicsOnDistributor_id_key" ON "graphicsOnDistributor"("id");
 
 -- AddForeignKey
 ALTER TABLE "subscriptions" ADD CONSTRAINT "subscriptions_magazine_id_fkey" FOREIGN KEY ("magazine_id") REFERENCES "magazines"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -250,10 +329,34 @@ ALTER TABLE "orders_items" ADD CONSTRAINT "orders_items_order_id_fkey" FOREIGN K
 ALTER TABLE "orders" ADD CONSTRAINT "orders_customer_id_fkey" FOREIGN KEY ("customer_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "payment_subscriptions" ADD CONSTRAINT "payment_subscriptions_costumer_id_fkey" FOREIGN KEY ("costumer_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "payment_subscriptions" ADD CONSTRAINT "payment_subscriptions_customer_id_fkey" FOREIGN KEY ("customer_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "payment_subscriptions" ADD CONSTRAINT "payment_subscriptions_subscription_id_fkey" FOREIGN KEY ("subscription_id") REFERENCES "subscriptions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "advertisings" ADD CONSTRAINT "advertisings_magazine_id_fkey" FOREIGN KEY ("magazine_id") REFERENCES "magazines"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "payment_advertisings" ADD CONSTRAINT "payment_advertisings_customer_id_fkey" FOREIGN KEY ("customer_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "payment_advertisings" ADD CONSTRAINT "payment_advertisings_advertising_id_fkey" FOREIGN KEY ("advertising_id") REFERENCES "advertisings"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "graphicsOnDistributor" ADD CONSTRAINT "graphicsOnDistributor_graphicsId_fkey" FOREIGN KEY ("graphicsId") REFERENCES "graphics"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "graphicsOnDistributor" ADD CONSTRAINT "graphicsOnDistributor_distributorId_fkey" FOREIGN KEY ("distributorId") REFERENCES "distributor"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "order" ADD CONSTRAINT "order_editon_Id_fkey" FOREIGN KEY ("editon_Id") REFERENCES "editions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "order" ADD CONSTRAINT "order_graphicsDistributor_id_fkey" FOREIGN KEY ("graphicsDistributor_id") REFERENCES "graphicsOnDistributor"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "order" ADD CONSTRAINT "order_bookstore_id_fkey" FOREIGN KEY ("bookstore_id") REFERENCES "bookstore"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "orderReturn" ADD CONSTRAINT "orderReturn_order_Id_fkey" FOREIGN KEY ("order_Id") REFERENCES "order"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
