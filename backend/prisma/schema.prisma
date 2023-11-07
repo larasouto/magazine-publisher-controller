@@ -162,7 +162,7 @@ model Subtitle {
 }
 
 model Edition {
-  id               String      @id
+  id               String          @id
   number           Int
   title            String
   cover_path       String
@@ -172,11 +172,12 @@ model Edition {
   description      String?
   publication_date DateTime
   number_of_copies Int
-  magazine         Magazine    @relation(fields: [magazine_id], references: [id])
+  magazine         Magazine        @relation(fields: [magazine_id], references: [id])
   magazine_id      String
-  created_at       DateTime    @default(now())
-  updated_at       DateTime    @updatedAt
+  created_at       DateTime        @default(now())
+  updated_at       DateTime        @updatedAt
   OrderItem        OrderItem[]
+  GraphicsOrder    GraphicsOrder[]
 
   @@map("editions")
 }
@@ -253,4 +254,71 @@ model PaymentAdvertising {
   updated_at     DateTime    @updatedAt
 
   @@map("payment_advertisings")
+}
+
+model Graphics {
+  id                    String                  @id
+  name                  String
+  address               String
+  graphicsOnDistributor GraphicsOnDistributor[]
+
+  @@map("graphics")
+}
+
+model Distributor {
+  id                    String                  @id
+  name                  String
+  address               String
+  region                String
+  graphicsOnDistributor GraphicsOnDistributor[]
+
+  @@map("distributor")
+}
+
+model GraphicsOnDistributor {
+  id            String          @id @unique
+  graphics      Graphics        @relation(fields: [graphicsId], references: [id])
+  graphicsId    String
+  distributor   Distributor     @relation(fields: [distributorId], references: [id])
+  distributorId String
+  GraphicsOrder GraphicsOrder[]
+
+  @@map("graphicsOnDistributor")
+}
+
+model GraphicsOrder {
+  id                     String                @id
+  receipt_date           DateTime
+  departure_date         DateTime
+  status                 String
+  delivery_address       String
+  example_number         Int
+  price                  Float
+  edition                Edition               @relation(fields: [editon_Id], references: [id])
+  editon_Id              String
+  graphicsDistributor    GraphicsOnDistributor @relation(fields: [graphicsDistributor_id], references: [id])
+  graphicsDistributor_id String
+  bookstore              Bookstore             @relation(fields: [bookstore_id], references: [id])
+  bookstore_id           String
+  orderReturn            GraphicsOrderReturn[]
+
+  @@map("order")
+}
+
+model GraphicsOrderReturn {
+  id            String        @id
+  return_number Int
+  return_date   DateTime
+  order         GraphicsOrder @relation(fields: [order_Id], references: [id])
+  order_Id      String
+
+  @@map("orderReturn")
+}
+
+model Bookstore {
+  id            String          @id
+  address       String
+  GraphicsOrder GraphicsOrder[]
+
+  @@map("bookstore")
 }
