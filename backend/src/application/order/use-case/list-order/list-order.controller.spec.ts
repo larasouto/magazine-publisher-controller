@@ -54,6 +54,11 @@ describe('List order (end-to-end)', () => {
     graphicsId: graphics.id,
   }
 
+  const bookstore: any = {
+    id: uuid(),
+    address: 'address',
+  }
+
   beforeAll(async () => {
     await prismaClient.theme.create({
       data: theme,
@@ -72,6 +77,9 @@ describe('List order (end-to-end)', () => {
     })
     await prismaClient.graphicsOnDistributor.create({
       data: graphicsOnDistributor,
+    })
+    await prismaClient.bookstore.create({
+      data: bookstore,
     })
   })
 
@@ -112,6 +120,7 @@ describe('List order (end-to-end)', () => {
       editon_Id: edition.id,
       graphicsDistributor_id: graphicsOnDistributor.id,
       price: 12,
+      bookstore_id: bookstore.id,
     }
 
     const order2: any = {
