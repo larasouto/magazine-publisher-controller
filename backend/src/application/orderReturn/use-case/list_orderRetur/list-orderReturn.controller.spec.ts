@@ -60,6 +60,11 @@ describe('List orderReturns (end-to-end)', () => {
       graphicsId: graphics.id,
     }
 
+    const bookstore: any = {
+      id: uuid(),
+      address: 'address',
+    }
+
     const order: any = {
       id: uuid(),
       receipt_date: new Date(),
@@ -70,6 +75,7 @@ describe('List orderReturns (end-to-end)', () => {
       editon_Id: edition.id,
       graphicsDistributor_id: graphicsOnDistributor.id,
       price: 12,
+      bookstore_id: bookstore.id,
     }
 
     beforeAll(async () => {
@@ -91,6 +97,9 @@ describe('List orderReturns (end-to-end)', () => {
       await prismaClient.graphicsOnDistributor.create({
         data: graphicsOnDistributor,
       })
+      await prismaClient.bookstore.create({
+        data: bookstore,
+      })
       await prismaClient.order.create({
         data: order,
       })
@@ -105,6 +114,9 @@ describe('List orderReturns (end-to-end)', () => {
       })
       await prismaClient.graphicsOnDistributor.deleteMany({
         where: { id: { equals: graphicsOnDistributor.id } },
+      })
+      await prismaClient.bookstore.deleteMany({
+        where: { id: { contains: bookstore.id } },
       })
       await prismaClient.distributor.deleteMany({
         where: { name: { contains: 'distributor-name' } },

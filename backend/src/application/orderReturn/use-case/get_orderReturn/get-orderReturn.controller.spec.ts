@@ -54,6 +54,11 @@ describe('Get order (end-to-eOnd)', () => {
     graphicsId: graphics.id,
   }
 
+  const bookstore: any = {
+    id: uuid(),
+    address: 'address',
+  }
+
   const order: any = {
     id: uuid(),
     receipt_date: new Date(),
@@ -64,6 +69,7 @@ describe('Get order (end-to-eOnd)', () => {
     editon_Id: edition.id,
     graphicsDistributor_id: graphicsOnDistributor.id,
     price: 12,
+    bookstore_id: bookstore.id,
   }
 
   const create: any = {
@@ -92,6 +98,9 @@ describe('Get order (end-to-eOnd)', () => {
     await prismaClient.graphicsOnDistributor.create({
       data: graphicsOnDistributor,
     })
+    await prismaClient.bookstore.create({
+      data: bookstore,
+    })
     await prismaClient.order.create({
       data: order,
     })
@@ -109,6 +118,9 @@ describe('Get order (end-to-eOnd)', () => {
     })
     await prismaClient.graphicsOnDistributor.deleteMany({
       where: { id: { equals: graphicsOnDistributor.id } },
+    })
+    await prismaClient.bookstore.deleteMany({
+      where: { id: { contains: bookstore.id } },
     })
     await prismaClient.distributor.deleteMany({
       where: { name: { contains: 'distributor-name' } },
@@ -148,7 +160,7 @@ describe('Get order (end-to-eOnd)', () => {
 
     expect(response.status).toBe(StatusCodes.BAD_REQUEST)
   })
-  
+
   test('should not be able to get a order return with no authentication', async () => {
     const response = await request(app)
       .get(`/api/orderReturn/${create.id}`)
@@ -156,7 +168,7 @@ describe('Get order (end-to-eOnd)', () => {
 
     expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
   })
-  
+
   test('should not be able to get a reporter with invalid  orderReturnId', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
