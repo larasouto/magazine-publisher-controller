@@ -53,17 +53,28 @@ export const routes = {
   subscriptions: {
     index: '/subscriptions',
     new: '/subscriptions/new',
-    edit: '/subscriptions/:id/edit'
+    edit: '/subscriptions/:id/edit',
+    plans: '/subscriptions/plans',
+    payment: '/subscriptions/:id/subscribe',
+    payment_list: '/subscriptions/payment-list'
   },
-  distributor: {
-    index: '/distributor',
-    new: '/distributor/new',
-    edit: '/distributor/:id/edit'
+  profile: {
+    addresses: {
+      index: '/profile/addresses',
+      new: '/profile/addresses/new',
+      edit: '/profile/addresses/:id/edit',
+      delete: '/profile/addresses/:id/delete'
+    },
+    cards: {
+      index: '/profile/cards',
+      new: '/profile/cards/new',
+      edit: '/profile/cards/:id/edit',
+      delete: '/profile/cards/:id/delete'
+    }
   },
-  graphics: {
-    index: '/graphics',
-    new: '/graphics/new',
-    edit: '/graphics/:id/edit'
+  orders: {
+    index: '/orders',
+    list: '/orders/list'
   }
 }
 
@@ -87,12 +98,20 @@ export const backend = {
     baseUrl: '/photographers'
   },
   subscriptions: {
-    baseUrl: '/subscriptions'
+    baseUrl: '/subscriptions',
+    payment: {
+      baseUrl: '/payment-subscriptions'
+    }
   },
-  distributor: {
-    baseUrl: '/distributor'
+  profile: {
+    addresses: {
+      baseUrl: '/addresses'
+    },
+    cards: {
+      baseUrl: '/cards'
+    }
   },
-  graphics: {
-    baseUrl: '/graphics'
+  orders: {
+    baseUrl: '/orders'
   }
 }

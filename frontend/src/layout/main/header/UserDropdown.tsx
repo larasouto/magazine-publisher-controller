@@ -1,6 +1,6 @@
 import { Menu } from '@/components/ui/Menu'
 import { useAuth } from '@/hooks/useAuth'
-import { ProfileModal } from '@/pages/users/profile/profile.modal'
+import { routes } from '@/routes/routes'
 import {
   Avatar,
   Dropdown,
@@ -11,12 +11,12 @@ import {
   useDisclosure
 } from '@nextui-org/react'
 import { HelpCircle, LogOut, Settings, UserCircle2 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import parser from 'ua-parser-js'
 
 export const UserDropdown = () => {
   const { signOut } = useAuth()
   const menu = useDisclosure()
-  const profile = useDisclosure()
 
   const handleOs = () => {
     const os = parser(navigator.userAgent).os.name
@@ -57,7 +57,6 @@ export const UserDropdown = () => {
             className="h-14 gap-2"
             textValue="profile"
           >
-            <p className="font-semibold">Signed in as</p>
             <p className="font-semibold">teste@teste.com</p>
           </DropdownItem>
           <DropdownSection title={'Actions'} showDivider>
@@ -65,9 +64,14 @@ export const UserDropdown = () => {
               key="settings"
               endContent={<Settings className="w-5 h-5" />}
               textValue="settings"
-              onClick={profile.onOpen}
             >
-              Profile
+              <Link
+                to={routes.profile.addresses.index}
+                className="h-full w-full"
+                color="foreground"
+              >
+                Profile
+              </Link>
             </DropdownItem>
             <DropdownItem
               key="help_and_feedback"
@@ -102,7 +106,6 @@ export const UserDropdown = () => {
         </DropdownMenu>
       </Dropdown>
       <Menu {...menu} hasSearch />
-      <ProfileModal {...profile} />
     </>
   )
 }

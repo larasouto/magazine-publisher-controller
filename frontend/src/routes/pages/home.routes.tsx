@@ -1,6 +1,6 @@
 import { ComponentLayout } from '@/layout/ComponentLayout'
 import { HomePage } from '@/pages/home/home'
-import { MagazineShow } from '@/pages/home/magazines/magazines.show'
+import { EditionShow } from '@/pages/products/details/editions.show'
 import { AuthGuard } from '@/utils/guard/AuthGuard'
 import { routes } from '@routes'
 import { RouteObject } from 'react-router-dom'
@@ -22,7 +22,7 @@ export const HomeRoutes: RouteObject = {
         },
         {
           path: routes.home.editions,
-          element: <MagazineShow />
+          element: <EditionShow />
         }
       ]
     }

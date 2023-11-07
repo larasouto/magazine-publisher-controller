@@ -1,15 +1,16 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { AuthRoutes } from './pages/auth.routes'
-import { CategoriesRoutes } from './pages/categories.routes'
-import { EditionsRoutes } from './pages/editions.routes'
 import { HomeRoutes } from './pages/home.routes'
-import { MagazineRoutes } from './pages/magazine.routes'
 import { PhotographersRoutes } from './pages/photographers.routes'
+import { CategoriesRoutes } from './pages/product/categories.routes'
+import { EditionsRoutes } from './pages/product/editions.routes'
+import { MagazineRoutes } from './pages/product/magazine.routes'
+import { OrdersRoutes } from './pages/product/orders.routes'
+import { ThemesRoutes } from './pages/product/themes.routes'
+import { AddressesRoutes } from './pages/profile/addresses.routes'
+import { CardsRoutes } from './pages/profile/cards.routes'
 import { ReportersRoutes } from './pages/reporters.routes'
 import { SubscriptionRoutes } from './pages/subscriptions.routes'
-import { ThemesRoutes } from './pages/themes.routes'
-import { DistributorRoutes } from './pages/distributor.routes'
-import { GraphicsRoutes } from './pages/graphics.routes'
 
 /**
  * Criação do 'roteador' da aplicação, responsável por gerenciar
@@ -25,6 +26,7 @@ export const router = createBrowserRouter([
   MagazineRoutes,
   EditionsRoutes,
   SubscriptionRoutes,
-  DistributorRoutes,
-  GraphicsRoutes
+  AddressesRoutes,
+  CardsRoutes,
+  OrdersRoutes
 ])

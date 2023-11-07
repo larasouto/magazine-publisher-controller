@@ -22,8 +22,9 @@ export const useAuth = () => {
       return await promise(api.post(url, data))
     },
     {
-      onSuccess: (response: HttpSignInResponse) => {
+      onSuccess: (response: HttpSignInResponse, { email }) => {
         localStorage.setItem('token', response.token)
+        localStorage.setItem('user', email)
         toast.remove('token-expired')
         navigate(routes.home.index)
       }
@@ -32,6 +33,7 @@ export const useAuth = () => {
 
   const signOut = () => {
     localStorage.removeItem('token')
+    localStorage.removeItem('user')
     navigate(routes.auth.sign_in.index)
   }
 

@@ -1,6 +1,5 @@
 import { create } from 'zustand'
 import { createJSONStorage, devtools, persist } from 'zustand/middleware'
-import { immer } from 'zustand/middleware/immer'
 
 export type CartItem = {
   id: string
@@ -22,12 +21,13 @@ export type CartStoreProps = {
   decrementItem: (id: string) => void
   removeAll: () => void
   getItemQuantity: (id: string) => number
+  getTotalValue: () => number
 }
 
 export const useCartStore = create<CartStoreProps>()(
   devtools(
-    persist(
-      immer<CartStoreProps>(() => ({
+    persist<CartStoreProps>(
+      () => ({
         isOpen: false,
         items: [],
         toggleOpen: () => toggleOpen(),
@@ -37,10 +37,11 @@ export const useCartStore = create<CartStoreProps>()(
         decrementItem: (id) => decrementItem(id),
         removeItem: (id) => removeItem(id),
         removeAll: () => removeAll(),
-        getItemQuantity: (id) => getItemQuantity(id)
-      })),
+        getItemQuantity: (id) => getItemQuantity(id),
+        getTotalValue: () => getTotalValue()
+      }),
       {
-        name: 'cart',
+        name: `cart-${localStorage.getItem('user')}`,
         storage: createJSONStorage(() => localStorage)
       }
     )
@@ -66,6 +67,15 @@ const close = () => {
  */
 const removeAll = () => {
   useCartStore.setState({ items: [] })
+}
+
+/**
+ * Calcula o valor total do carrinho.
+ */
+const getTotalValue = () => {
+  return useCartStore
+    .getState()
+    .items.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0)
 }
 
 const addItem = (item: CartItem) => {
@@ -197,5 +207,6 @@ export const CartStore: Omit<CartStoreProps, 'isOpen' | 'items'> & {
   decrementItem: (id) => useCartStore.getState().decrementItem(id),
   removeItem: (id) => useCartStore.getState().removeItem(id),
   removeAll: () => useCartStore.getState().removeAll(),
-  getItemQuantity: (id) => getItemQuantity(id)
+  getItemQuantity: (id) => getItemQuantity(id),
+  getTotalValue: () => getTotalValue()
 }

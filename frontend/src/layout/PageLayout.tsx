@@ -1,5 +1,6 @@
 import { Loading } from '@/components/Loading'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
+import { cn } from '@nextui-org/react'
 import { Helmet } from 'react-helmet-async'
 import { description } from './meta'
 
@@ -9,6 +10,9 @@ export type PageLayoutProps = {
   breadcrumb?: Array<{ label: string; link?: string }>
   imageSrc?: string
   isLoading?: boolean
+  classNames?: {
+    breadcrumb?: string
+  }
 }
 
 export const PageLayout = ({
@@ -16,7 +20,8 @@ export const PageLayout = ({
   breadcrumb,
   imageSrc,
   children,
-  isLoading = false
+  isLoading = false,
+  classNames
 }: PageLayoutProps) => {
   if (isLoading) {
     return <Loading />
@@ -33,7 +38,7 @@ export const PageLayout = ({
           title={title}
           items={breadcrumb}
           imageSrc={imageSrc ?? false}
-          className="mb-5"
+          className={cn('mb-5', classNames?.breadcrumb)}
         />
       )}
       <main>{children}</main>
