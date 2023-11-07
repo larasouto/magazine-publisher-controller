@@ -14,6 +14,7 @@ describe('Entity Order', () => {
       price: 12,
       editonId: uuid(),
       graphicsDistributorId: uuid(),
+      bookstoreId: uuid(),
     }
 
     const sut = Order.create(data)
@@ -30,6 +31,7 @@ describe('Entity Order', () => {
       price: null,
       editonId: uuid(),
       graphicsDistributorId: uuid(),
+      bookstoreId: uuid(),
     }
 
     const sut = Order.create(data)
