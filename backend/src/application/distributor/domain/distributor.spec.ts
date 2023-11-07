@@ -1,11 +1,11 @@
 import { describe, expect, test } from 'vitest'
 import { Distributor } from './distributor'
 
-describe('Entity Distributor', () => {
-  test('should be able to create a dsitributor', () => {
+describe('Entity distributor', () => {
+  test('should be able to create a theme', () => {
     const data: any = {
-      name: 'Distributor name',
-      addrees: 'Distributor addrees',
+      name: 'name',
+      address: 'address',
       region: 'region',
     }
 
@@ -13,10 +13,10 @@ describe('Entity Distributor', () => {
     expect(sut.isRight()).toBeTruthy()
   })
 
-  test('should not be able to create a dsitributor with invalid data', () => {
+  test('should not be able to create a distributor with invalid data', () => {
     const data: any = {
       name: '',
-      addrees: null,
+      address: null,
       region: null,
     }
 
