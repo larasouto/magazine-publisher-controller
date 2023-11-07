@@ -15,6 +15,7 @@ export const OrderSchema = z.object({
   price: z.coerce.number().nonnegative(),
   editonId: z.string().uuid(),
   graphicsDistributorId: z.string().uuid(),
+  bookstoreId: z.string().uuid(),
 })
 
 export type OrderProps = z.infer<typeof OrderSchema>

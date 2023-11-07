@@ -15,6 +15,7 @@ export class OrderMapper {
         price: raw.price,
         editonId: raw.editon_Id,
         graphicsDistributorId: raw.graphicsDistributor_id,
+        bookstoreId: raw.bookstore_id,
       },
     }
 
@@ -42,6 +43,7 @@ export class OrderMapper {
       price: order.props.price,
       editon_Id: order.props.editonId,
       graphicsDistributor_id: order.props.graphicsDistributorId,
+      bookstore_id: order.props.bookstoreId,
     }
   }
 }
