@@ -54,6 +54,11 @@ describe('Create order (end-to-end)', () => {
     graphicsId: graphics.id,
   }
 
+  const bookstore: any = {
+    id: uuid(),
+    address: 'address',
+  }
+
   beforeAll(async () => {
     await prismaClient.theme.create({
       data: theme,
@@ -73,6 +78,9 @@ describe('Create order (end-to-end)', () => {
     await prismaClient.graphicsOnDistributor.create({
       data: graphicsOnDistributor,
     })
+    await prismaClient.bookstore.create({
+      data: bookstore,
+    })
   })
 
   afterAll(async () => {
@@ -81,6 +89,9 @@ describe('Create order (end-to-end)', () => {
     })
     await prismaClient.graphicsOnDistributor.deleteMany({
       where: { id: { contains: graphicsOnDistributor.id } },
+    })
+    await prismaClient.bookstore.deleteMany({
+      where: { id: { contains: bookstore.id } },
     })
     await prismaClient.distributor.deleteMany({
       where: { name: { contains: 'distributor-name' } },
@@ -112,13 +123,14 @@ describe('Create order (end-to-end)', () => {
       editonId: edition.id,
       graphicsDistributorId: graphicsOnDistributor.id,
       price: 12,
+      bookstoreId: bookstore.id,
     }
 
     const response = await request(app)
       .post('/api/order/new')
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
-
+    console.log(response.body)
     expect(response.status).toBe(StatusCodes.CREATED)
     expect(response.body).toHaveProperty('message')
   })
@@ -150,6 +162,7 @@ describe('Create order (end-to-end)', () => {
       editon_Id: edition.id,
       graphicsDistributor_id: graphicsOnDistributor.id,
       price: 12,
+      bookstoreId: bookstore.id,
     }
 
     const response = await request(app)
@@ -171,6 +184,7 @@ describe('Create order (end-to-end)', () => {
       editon_Id: edition.id,
       graphicsDistributor_id: graphicsOnDistributor.id,
       price: 12,
+      bookstoreId: bookstore.id,
     }
 
     const response = await request(app).post('/api/order/new').send(data)

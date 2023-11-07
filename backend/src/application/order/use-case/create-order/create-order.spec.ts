@@ -25,6 +25,7 @@ describe('Create a order', () => {
       price: 12,
       editonId: uuid(),
       graphicsDistributorId: uuid(),
+      bookstoreId: uuid(),
     }
 
     const response = await createOrder.execute(data)
@@ -44,6 +45,7 @@ describe('Create a order', () => {
       price: null,
       editonId: uuid(),
       graphicsDistributorId: uuid(),
+      bookstoreId: uuid(),
     }
 
     const response = await createOrder.execute(data)
