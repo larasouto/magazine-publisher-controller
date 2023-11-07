@@ -6,6 +6,7 @@ import request from 'supertest'
 import { v4 as uuid } from 'uuid'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { Status } from '../../domain/order.schema'
+import { response } from 'express'
 
 describe('Get order (end-to-eOnd)', () => {
   const theme: any = {
@@ -54,6 +55,11 @@ describe('Get order (end-to-eOnd)', () => {
     graphicsId: graphics.id,
   }
 
+  const bookstore: any = {
+    id: uuid(),
+    address: 'address',
+  }
+
   const order: any = {
     id: uuid(),
     receipt_date: new Date(),
@@ -64,6 +70,7 @@ describe('Get order (end-to-eOnd)', () => {
     editon_Id: edition.id,
     graphicsDistributor_id: graphicsOnDistributor.id,
     price: 12,
+    bookstore_id: bookstore.id,
   }
 
   beforeAll(async () => {
@@ -85,6 +92,9 @@ describe('Get order (end-to-eOnd)', () => {
     await prismaClient.graphicsOnDistributor.create({
       data: graphicsOnDistributor,
     })
+    await prismaClient.bookstore.create({
+      data: bookstore,
+    })
     await prismaClient.order.create({
       data: order,
     })
@@ -96,6 +106,9 @@ describe('Get order (end-to-eOnd)', () => {
     })
     await prismaClient.graphicsOnDistributor.deleteMany({
       where: { id: { contains: graphicsOnDistributor.id } },
+    })
+    await prismaClient.bookstore.deleteMany({
+      where: { id: { contains: bookstore.id } },
     })
     await prismaClient.distributor.deleteMany({
       where: { name: { contains: 'distributor-name' } },

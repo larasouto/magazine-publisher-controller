@@ -25,6 +25,7 @@ describe('Get a order', () => {
       price: 12,
       editonId: uuid(),
       graphicsDistributorId: uuid(),
+      bookstoreId: uuid(),
     }
 
     await ordersRepository.create(data)
