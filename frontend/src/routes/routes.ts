@@ -86,7 +86,7 @@ export const backend = {
     baseUrl: '/categories'
   },
   themes: {
-    baseUrl: '/magazines/themes'
+    baseUrl: '/themes'
   },
   reporters: {
     baseUrl: '/reporters'

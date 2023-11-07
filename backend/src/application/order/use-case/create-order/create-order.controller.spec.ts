@@ -82,7 +82,7 @@ describe('Create order (end-to-end)', () => {
       data: bookstore,
     })
   })
-
+/*
   afterAll(async () => {
     await prismaClient.order.deleteMany({
       where: { delivery_address: 'address' },
@@ -109,7 +109,7 @@ describe('Create order (end-to-end)', () => {
       where: { name: { contains: 'test-theme-name-delete' } },
     })
   })
-
+*/
   test('should be able to create an order', async () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
