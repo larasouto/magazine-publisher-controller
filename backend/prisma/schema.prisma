@@ -309,8 +309,8 @@ model GraphicsOrderReturn {
   id            String        @id
   return_number Int
   return_date   DateTime
-  order         GraphicsOrder @relation(fields: [order_Id], references: [id])
-  order_Id      String
+  graphicsOrder         GraphicsOrder @relation(fields: [graphicsOrder_Id], references: [id])
+  graphicsOrder_Id      String
 
   @@map("orderReturn")
 }
