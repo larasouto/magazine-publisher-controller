@@ -4,10 +4,9 @@ import { Listbookstore } from './list-bookstore'
 
 export class ListBookstoreController implements Controller {
   constructor(private listBookstore: Listbookstore) {}
-
+  
   async handle(): Promise<HttpResponse> {
     const result = await this.listBookstore.execute()
-
-    return ok({ dto: result })
+    return ok({ dto: result.map((bookstore) => bookstore?.toResponseBody()) })
   }
 }
