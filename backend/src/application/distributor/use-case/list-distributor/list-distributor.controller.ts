@@ -7,7 +7,8 @@ export class ListDistributorController implements Controller {
 
   async handle(): Promise<HttpResponse> {
     const result = await this.listDistributors.execute()
-
-    return ok({ dto: result })
+    return ok({
+      dto: result.map((distributor) => distributor?.toResponseBody()),
+    })
   }
 }
