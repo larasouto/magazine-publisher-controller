@@ -8,7 +8,6 @@ export class ListGraphicsController implements Controller {
 
   async handle(): Promise<HttpResponse> {
     const result = await this.listGraphics.execute()
-
-    return ok({ dto: result })
+    return ok({ dto: result.map((graphics) => graphics?.toResponseBody()) })
   }
 }
