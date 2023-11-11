@@ -294,8 +294,8 @@ model GraphicsOrder {
   delivery_address       String
   example_number         Int
   price                  Float
-  edition                Edition               @relation(fields: [editon_Id], references: [id])
-  editon_Id              String
+  edition                Edition               @relation(fields: [edition_Id], references: [id])
+  edition_Id              String
   graphicsDistributor    GraphicsOnDistributor @relation(fields: [graphicsDistributor_id], references: [id])
   graphicsDistributor_id String
   bookstore              Bookstore             @relation(fields: [bookstore_id], references: [id])
