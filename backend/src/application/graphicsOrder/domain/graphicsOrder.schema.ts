@@ -13,7 +13,7 @@ export const GraphicsOrderSchema = z.object({
   deliveryAddress: z.string().max(64),
   exampleNumber: z.number().min(0).max(100000),
   price: z.coerce.number().nonnegative(),
-  editonId: z.string().uuid(),
+  editionId: z.string().uuid(),
   graphicsDistributorId: z.string().uuid(),
   bookstoreId: z.string().uuid(),
 })

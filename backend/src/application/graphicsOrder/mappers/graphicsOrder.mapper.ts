@@ -13,7 +13,7 @@ export class GraphicsOrderMapper {
         deliveryAddress: raw.delivery_address,
         exampleNumber: raw.example_number,
         price: raw.price,
-        editonId: raw.editon_Id,
+        editionId: raw.edition_Id,
         graphicsDistributorId: raw.graphicsDistributor_id,
         bookstoreId: raw.bookstore_id,
       },
@@ -41,7 +41,7 @@ export class GraphicsOrderMapper {
       delivery_address: order.props.deliveryAddress,
       example_number: order.props.exampleNumber,
       price: order.props.price,
-      editon_Id: order.props.editonId,
+      edition_Id: order.props.editionId,
       graphicsDistributor_id: order.props.graphicsDistributorId,
       bookstore_id: order.props.bookstoreId,
     }
