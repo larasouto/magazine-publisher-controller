@@ -75,6 +75,27 @@ export const routes = {
   orders: {
     index: '/orders',
     list: '/orders/list'
+  },
+  bookstores: {
+    index: '/bookstores',
+    new: '/bookstores/new',
+    list: '/bookstores/list',
+    edit: '/bookstores/:id/edit',
+    delete: '/bookstores/:id/delete'
+  },
+  graphics: {
+    index: '/graphics',
+    new: '/graphics/new',
+    list: '/graphics/list',
+    edit: '/graphics/:id/edit',
+    delete: '/graphics/:id/delete'
+  },
+  distributor: {
+    index: '/distributor',
+    new: '/distributor/new',
+    list: '/distributor/list',
+    edit: '/distributor/:id/edit',
+    delete: '/distributor/:id/delete'
   }
 }
 
@@ -113,5 +134,14 @@ export const backend = {
   },
   orders: {
     baseUrl: '/orders'
+  },
+  bookstores: {
+    baseUrl: '/bookstores'
+  },
+  graphics: {
+    baseUrl: '/graphics'
+  },
+  distributor: {
+    baseUrl: '/distributor'
   }
 }
