@@ -10,8 +10,11 @@ let createGraphicsOrderReturn: CreateGraphicsOrderReturn
 
 describe('Create a OrderReturn', () => {
   beforeEach(() => {
-    GraphicsOrdersReturnRepository = new InMemoryGraphicsOrderReturnsRepository()
-    createGraphicsOrderReturn = new CreateGraphicsOrderReturn(GraphicsOrdersReturnRepository)
+    GraphicsOrdersReturnRepository =
+      new InMemoryGraphicsOrderReturnsRepository()
+    createGraphicsOrderReturn = new CreateGraphicsOrderReturn(
+      GraphicsOrdersReturnRepository,
+    )
   })
 
   test('should be able to create a GraphicsOrderReturn', async () => {
@@ -25,7 +28,9 @@ describe('Create a OrderReturn', () => {
     const OrderReturn = response.value as GraphicsOrderReturn
 
     expect(OrderReturn).toBeTruthy()
-    expect(await GraphicsOrdersReturnRepository.findById(OrderReturn.id)).toBeTruthy()
+    expect(
+      await GraphicsOrdersReturnRepository.findById(OrderReturn.id),
+    ).toBeTruthy()
   })
 
   test('should not be able to create a Graphics order return with empty data', async () => {

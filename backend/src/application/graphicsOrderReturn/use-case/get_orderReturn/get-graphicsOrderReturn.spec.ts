@@ -9,8 +9,11 @@ let getGraphicsOrderReturn: GetGraphicsOrderReturn
 
 describe('Get a order', () => {
   beforeEach(() => {
-    graphicsOrdersReturnRepository = new InMemoryGraphicsOrderReturnsRepository()
-    getGraphicsOrderReturn = new GetGraphicsOrderReturn(graphicsOrdersReturnRepository)
+    graphicsOrdersReturnRepository =
+      new InMemoryGraphicsOrderReturnsRepository()
+    getGraphicsOrderReturn = new GetGraphicsOrderReturn(
+      graphicsOrdersReturnRepository,
+    )
   })
 
   test('should be able to get a order return', async () => {

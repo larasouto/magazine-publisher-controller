@@ -295,7 +295,7 @@ model GraphicsOrder {
   example_number         Int
   price                  Float
   edition                Edition               @relation(fields: [edition_Id], references: [id])
-  edition_Id              String
+  edition_Id             String
   graphicsDistributor    GraphicsOnDistributor @relation(fields: [graphicsDistributor_id], references: [id])
   graphicsDistributor_id String
   bookstore              Bookstore             @relation(fields: [bookstore_id], references: [id])
@@ -306,11 +306,11 @@ model GraphicsOrder {
 }
 
 model GraphicsOrderReturn {
-  id            String        @id
-  return_number Int
-  return_date   DateTime
-  graphicsOrder         GraphicsOrder @relation(fields: [graphicsOrder_Id], references: [id])
-  graphicsOrder_Id      String
+  id               String        @id
+  return_number    Int
+  return_date      DateTime
+  graphicsOrder    GraphicsOrder @relation(fields: [graphicsOrder_Id], references: [id])
+  graphicsOrder_Id String
 
   @@map("orderReturn")
 }
