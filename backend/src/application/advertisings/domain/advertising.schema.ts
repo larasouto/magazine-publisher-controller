@@ -1,18 +1,33 @@
 import { z } from 'zod'
 
 export enum AdvertisingCategory {
-  PREMIUM = 0,
-  STANDARD = 1,
-  BASIC = 2,
+  BEGINNING = 0,
+  MIDDLE = 1,
+  END = 2,
+}
+
+export enum AdvertisingType {
+  BANNER = 0,
+  WHOLE_PAGE = 1,
+  DOUBLE_PAGE = 2,
+}
+
+export enum AdvertisingStatus {
+  PENDING = 0,
+  APPROVED = 1,
+  REJECTED = 2,
 }
 
 export const AdvertisingSchema = z.object({
-  name: z.string().min(1).max(64),
+  imagePath: z.string().url(),
+  title: z.string().min(1).max(64),
   description: z.string().min(1).max(255).nullish(),
   category: z.nativeEnum(AdvertisingCategory),
-  numberOfPages: z.coerce.number().nonnegative().int(),
+  type: z.nativeEnum(AdvertisingType),
+  status: z.nativeEnum(AdvertisingStatus),
   price: z.coerce.number().nonnegative(),
   magazineId: z.string().uuid(),
+  userId: z.string().uuid(),
 })
 
 export type AdvertisingProps = z.infer<typeof AdvertisingSchema>

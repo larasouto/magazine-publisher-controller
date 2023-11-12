@@ -6,12 +6,14 @@ import { CreateAdvertising } from './create-advertising'
 import { AdvertisingNotFoundError } from '../get-advertising/errors/AdvertisingNotFoundError'
 
 type CreateAdvertisingControllerRequest = {
-  name: string
+  imagePath: string
+  title: string
   description: string
   category: number
-  numberOfPages: number
+  type: number
   price: number
   magazineId: string
+  userId: string
 }
 
 export class CreateAdvertisingController implements Controller {

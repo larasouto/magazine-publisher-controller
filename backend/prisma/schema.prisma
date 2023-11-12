@@ -24,6 +24,7 @@ model User {
   payment_subscriptions PaymentSubscription[]
   payment_advertisings  PaymentAdvertising[]
   reviews               Review[]
+  advertisings          Advertising[]
 
   @@map("users")
 }
@@ -228,15 +229,19 @@ model PaymentSubscription {
 
 model Advertising {
   id                   String               @id
-  name                 String
+  image_path           String
+  title                String
   description          String?
   category             Int
-  number_of_pages      Int
+  type                 Int
+  status               Int
   created_at           DateTime             @default(now())
   updated_at           DateTime             @updatedAt
   price                Float
   magazine             Magazine             @relation(fields: [magazine_id], references: [id])
   magazine_id          String
+  user                 User                 @relation(fields: [user_id], references: [id])
+  user_id              String
   payment_advertisings PaymentAdvertising[]
 
   @@map("advertisings")
