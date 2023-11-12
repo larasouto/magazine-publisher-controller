@@ -5,6 +5,7 @@ import { makeEnsureAuthenticated } from '../factories/controllers/auth/makeEnsur
 import { makeCreateAdvertisingsController } from '../factories/controllers/advertisings/makeCreateAdvertisingsController'
 import { makeGetAdvertisingController } from '../factories/controllers/advertisings/makeGetAdvertisingController'
 import { makeListAdvertisingsController } from '../factories/controllers/advertisings/makeListAdvertisingsController'
+import { makeEditAdvertisingsController } from '../factories/controllers/advertisings/makeEditAdvertisingsController'
 
 export const advertisings = Router()
 
@@ -13,3 +14,7 @@ advertisings.use(adaptMiddleware(makeEnsureAuthenticated()))
 advertisings.post('/new', adaptRoute(makeCreateAdvertisingsController()))
 advertisings.get('/:advertisingId', adaptRoute(makeGetAdvertisingController()))
 advertisings.get('/', adaptRoute(makeListAdvertisingsController()))
+advertisings.put(
+  '/:advertisingId',
+  adaptRoute(makeEditAdvertisingsController()),
+)
