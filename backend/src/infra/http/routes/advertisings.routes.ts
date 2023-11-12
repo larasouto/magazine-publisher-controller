@@ -6,6 +6,7 @@ import { makeCreateAdvertisingsController } from '../factories/controllers/adver
 import { makeGetAdvertisingController } from '../factories/controllers/advertisings/makeGetAdvertisingController'
 import { makeListAdvertisingsController } from '../factories/controllers/advertisings/makeListAdvertisingsController'
 import { makeEditAdvertisingsController } from '../factories/controllers/advertisings/makeEditAdvertisingsController'
+import { makeUpdateStatusAdvertisingsController } from '../factories/controllers/payment-advertisings/makeUpdateStatusOrdersController'
 
 export const advertisings = Router()
 
@@ -17,4 +18,8 @@ advertisings.get('/', adaptRoute(makeListAdvertisingsController()))
 advertisings.put(
   '/:advertisingId',
   adaptRoute(makeEditAdvertisingsController()),
+)
+advertisings.put(
+  '/:advertisingId',
+  adaptRoute(makeUpdateStatusAdvertisingsController()),
 )
