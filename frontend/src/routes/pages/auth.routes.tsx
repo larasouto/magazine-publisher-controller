@@ -18,6 +18,10 @@ export const AuthRoutes: RouteObject = {
       ),
       children: [
         {
+          path: '/',
+          element: <SignIn />
+        },
+        {
           path: routes.auth.sign_in.index,
           element: <SignIn />
         },
