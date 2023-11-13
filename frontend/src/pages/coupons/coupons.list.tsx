@@ -3,7 +3,8 @@ import { useFetch } from '@/hooks/useFetch'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
 import { useTranslation } from 'react-i18next'
-
+import { CouponsColumns, columns } from './table/coupons.columns'
+import { CouponToolbar } from './coupons.toolbar'
 
 export const CouponsListPage = () => {
   const { t } = useTranslation('coupons')
@@ -26,7 +27,7 @@ export const CouponsListPage = () => {
       <DataTable
         columns={columns}
         data={list?.data ?? []}
-        toolbarButtons={<couponsToolbar />}
+        toolbarButtons={<CouponToolbar />}
       />
     </PageLayout>
   )

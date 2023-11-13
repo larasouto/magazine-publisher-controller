@@ -75,13 +75,13 @@ export const routes = {
   orders: {
     index: '/orders',
     list: '/orders/list'
-  }
-  coupons: {
-    index: '/product/coupons',
-    new: '/product/coupons/new',
-    edit: '/product/coupons/:id/edit',
-    delete: '/product/coupons/:id/delete'
   },
+  coupons: {
+    index: '/coupons',
+    new: '/coupons/new',
+    edit: '/coupons/:id/edit',
+    delete: '/coupons/:id/delete'
+  }
 }
 
 export const backend = {
@@ -119,10 +119,8 @@ export const backend = {
   },
   orders: {
     baseUrl: '/orders'
-  }
-  product:{
-    coupons: {
-      baseUrl: '/coupons'
-    }
   },
+  coupons: {
+    baseUrl: '/coupons'
+  }
 }

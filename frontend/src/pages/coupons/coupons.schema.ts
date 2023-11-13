@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export enum CouponType {
   PERCENTAGE = 0,
-  FIXED_VALUE = 1,
+  FIXED_VALUE = 1
 }
 
 export const CouponSchema = z.object({
@@ -10,8 +10,8 @@ export const CouponSchema = z.object({
   discountAmount: z.coerce.number().positive(),
   expirationDate: z.coerce.date(),
   availableQuantity: z.coerce.number().positive(),
-  type: z.nativeEnum(CouponType),
+  type: z.coerce.number().int()
 })
 
-export type CouponForm = z.infer<typeof CouponSchema>
-export type CouponFormWithId = CouponForm & { id: string }
+export type CouponData = z.infer<typeof CouponSchema>
+export type CouponDataWithId = CouponData & { id: string }

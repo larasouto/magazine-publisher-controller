@@ -4,15 +4,14 @@ import { routes } from '@/routes/routes'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import { CouponsForm } from './coupons.form'
-import { CouponFormWithId } from './coupons.schema'
-
+import { CouponDataWithId } from './coupons.schema'
 
 export const CouponsPage = () => {
   const { t } = useTranslation('coupons')
   const { id } = useParams()
   const title = id ? t('page.edit') : t('page.new')
 
-  const { get } = useFetch<CouponFormWithId>({
+  const { get } = useFetch<CouponDataWithId>({
     baseUrl: routes.coupons.index,
     query: ['coupons'],
     fetch: {

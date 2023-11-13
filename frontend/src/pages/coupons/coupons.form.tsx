@@ -4,21 +4,25 @@ import { PriceIcon } from '@/components/ui/icons/PriceIcon'
 import { useFetch } from '@/hooks/useFetch'
 import { backend } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Input } from '@nextui-org/react'
+import { Input, Select, SelectItem } from '@nextui-org/react'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { CouponForm, CouponFormWithId, CouponSchema } from './coupons.schema'
-import { MagazinesSelect } from './magazines/magazines-select'
+import {
+  CouponData,
+  CouponDataWithId,
+  CouponSchema,
+  CouponType
+} from './coupons.schema'
 
 type CouponsFormProps = {
-  data?: CouponFormWithId
+  data?: CouponDataWithId
 }
 
 export const CouponsForm = ({ data }: CouponsFormProps) => {
   const { t } = useTranslation('Coupons')
 
-  const { create, update } = useFetch<CouponsForm>({
+  const { create, update } = useFetch<CouponData>({
     baseUrl: backend.coupons.baseUrl,
     query: ['coupons'],
     fetch: {
@@ -26,7 +30,7 @@ export const CouponsForm = ({ data }: CouponsFormProps) => {
     }
   })
 
-  const form = useForm<CouponForm>({
+  const form = useForm<CouponData>({
     mode: 'all',
     resolver: zodResolver(CouponSchema),
     defaultValues: data
@@ -40,7 +44,7 @@ export const CouponsForm = ({ data }: CouponsFormProps) => {
     )
   }, [form])
 
-  const onSubmit = async (form: CouponForm) => {
+  const onSubmit = async (form: CouponData) => {
     if (data) {
       await update.mutateAsync(form)
       return
@@ -92,6 +96,30 @@ export const CouponsForm = ({ data }: CouponsFormProps) => {
           />
         </fieldset>
         <fieldset>
+          <Select
+            label={t('form.coupon_type.label')}
+            placeholder={t('form.coupon_type.placeholder')}
+            labelPlacement="outside"
+            defaultSelectedKeys={[String(data?.type ?? 1)]}
+            {...form.register('type')}
+            errorMessage={String(form.formState.errors.type?.message)}
+            disallowEmptySelection
+            isRequired
+          >
+            {Object.values(CouponType)
+              .filter((value) => !isNaN(+value))
+              .map((value) => (
+                <SelectItem key={value} value={value}>
+                  {t(
+                    `form.coupon_type.options.${CouponType[
+                      value
+                    ].toLowerCase()}`
+                  )}
+                </SelectItem>
+              ))}
+          </Select>
+        </fieldset>
+        <fieldset>
           <Input
             type="number"
             label={t('form.available_quantity.label')}
@@ -99,19 +127,6 @@ export const CouponsForm = ({ data }: CouponsFormProps) => {
             errorMessage={form.formState.errors.availableQuantity?.message}
             labelPlacement="outside"
             {...form.register('availableQuantity')}
-            isRequired
-            isClearable
-          />
-        </fieldset>
-        <MagazinesSelect form={form} />
-        <fieldset>
-          <Input
-            className="hidden"
-            label={t('form.cover.label')}
-            placeholder={t('form.cover.placeholder')}
-            errorMessage={form.formState.errors.couponCode?.message}
-            labelPlacement="outside"
-            {...form.register('couponCode')}
             isRequired
             isClearable
           />
