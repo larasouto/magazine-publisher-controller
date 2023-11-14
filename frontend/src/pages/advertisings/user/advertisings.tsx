@@ -6,7 +6,7 @@ import { AdvertisingForm } from './advertisings.form'
 import { AdvertisingDataWithId } from './advertisings.schema'
 
 export const AdvertisingPage = () => {
-  const { id, t, title, breadcrumb } = usePageUtils('advertisings')
+  const { id, breadcrumb } = usePageUtils('advertisings')
 
   const { get } = useFetch<AdvertisingDataWithId>({
     baseUrl: backend.advertisings.baseUrl,
@@ -19,11 +19,11 @@ export const AdvertisingPage = () => {
 
   return (
     <PageLayout
-      title={title({ dynamic: true })}
+      title={id ? 'Editar Propaganda' : 'Nova Propaganda'}
       imageSrc="/banner.jpg"
       isLoading={get.isLoading}
       breadcrumb={breadcrumb({
-        segments: [{ label: t('page.title'), link: routes.advertisings.index }]
+        segments: [{ label: 'Propaganda', link: routes.advertisings.index }]
       })}
     >
       <AdvertisingForm data={get.data} />

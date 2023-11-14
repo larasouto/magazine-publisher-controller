@@ -16,6 +16,7 @@ type AlertModal = ModalProps & {
   textClose?: string
   textAction?: string
   onAction?: () => void
+  icon?: React.ReactNode
 }
 
 export const AlertModal = ({
@@ -24,6 +25,7 @@ export const AlertModal = ({
   textClose,
   textAction,
   onAction,
+  icon = <AlertCircle className="h-6 w-6" />,
   ...props
 }: AlertModal) => {
   const { t } = useTranslation()
@@ -34,7 +36,7 @@ export const AlertModal = ({
         {(onClose) => (
           <>
             <ModalHeader className="flex items-center gap-2">
-              <AlertCircle className="h-6 w-6" />
+              {icon}
               {title}
             </ModalHeader>
             <ModalBody>{children}</ModalBody>

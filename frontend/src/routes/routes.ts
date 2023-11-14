@@ -62,8 +62,13 @@ export const routes = {
     index: '/advertisings',
     new: '/advertisings/new',
     edit: '/advertisings/:id/edit',
-    payment: '/advertisings/:id/advertise',
-    payment_list: '/advertisings/payment-list'
+    payment: '/advertisings/:id/payment',
+    payment_list: '/advertisings/payment-list',
+    view: '/advertisings/:id/view',
+    admin: {
+      index: '/advertisings/admin',
+      status_update: '/advertisings/:id/admin/status'
+    }
   },
   profile: {
     addresses: {
@@ -114,6 +119,9 @@ export const backend = {
     baseUrl: '/advertisings',
     payment: {
       baseUrl: '/payment-advertisings'
+    },
+    admin: {
+      baseUrl: '/advertisings/admin'
     }
   },
 

@@ -10,12 +10,14 @@ import { AdvertisingsActions } from './advertisings.actions'
 
 export type AdvertisingColumns = {
   id: string
+  imagePath: string
   title: string
   description: string
   category: string
   type: string
   status: string
   price: string
+  paid: string
   magazineId: string
 }
 
@@ -49,7 +51,7 @@ export const columns = [
    */
   helper.accessor((row) => row.title, {
     id: 'title',
-    header: () => t('advertisings:form.title.label'),
+    header: () => 'Título',
     cell: ({ row }) => row.getValue('title'),
     enableSorting: true,
     enableHiding: true
@@ -59,7 +61,7 @@ export const columns = [
    */
   helper.accessor((row) => row.description, {
     id: 'description',
-    header: () => t('advertisings:form.description.label'),
+    header: () => 'Descrição',
     cell: ({ row }) => row.getValue('description'),
     enableSorting: true,
     enableHiding: true
@@ -69,23 +71,28 @@ export const columns = [
    */
   helper.accessor((row) => row.type, {
     id: 'type',
-    header: () => t('advertisings:form.advertising_type.label'),
+    header: () => 'Tipo',
     cell: ({ row }) => {
       const status = row.getValue('type') as AdvertisingType
 
-      const colors = {
-        BANNER: 'primary',
-        WHOLE_PAGE: 'default',
-        DOUBLE_PAGE: 'secondary'
+      const mapping = {
+        BANNER: {
+          label: 'Banner',
+          color: 'primary'
+        },
+        WHOLE_PAGE: {
+          label: 'Página inteira',
+          color: 'default'
+        },
+        DOUBLE_PAGE: {
+          label: 'Página dupla',
+          color: 'secondary'
+        }
       }
 
       return (
-        <Chip color={colors[status]}>
-          {t(
-            `advertisings:form.advertising_type.options.${AdvertisingType[
-              status
-            ].toLowerCase()}`
-          )}
+        <Chip color={mapping[AdvertisingType[status]].color}>
+          {mapping[AdvertisingType[status]].label}
         </Chip>
       )
     },
@@ -97,23 +104,28 @@ export const columns = [
    */
   helper.accessor((row) => row.category, {
     id: 'category',
-    header: () => t('advertisings:form.category.label'),
+    header: () => 'Categoria',
     cell: ({ row }) => {
-      const status = row.getValue('frequency') as AdvertisingCategory
+      const status = row.getValue('category') as AdvertisingCategory
 
-      const colors = {
-        BEGINNING: 'primary',
-        MIDDLE: 'default',
-        END: 'danger'
+      const mapping = {
+        BEGINNING: {
+          label: 'Começo',
+          color: 'primary'
+        },
+        MIDDLE: {
+          label: 'Meio',
+          color: 'default'
+        },
+        END: {
+          label: 'Fim',
+          color: 'warning'
+        }
       }
 
       return (
-        <Chip color={colors[status]}>
-          {t(
-            `advertisings:form.category.options.${AdvertisingCategory[
-              status
-            ].toLowerCase()}`
-          )}
+        <Chip color={mapping[AdvertisingCategory[status]].color}>
+          {mapping[AdvertisingCategory[status]].label}
         </Chip>
       )
     },
@@ -125,23 +137,46 @@ export const columns = [
    */
   helper.accessor((row) => row.status, {
     id: 'status',
-    header: () => t('advertisings:form.status.label'),
+    header: () => 'Status',
     cell: ({ row }) => {
       const status = row.getValue('status') as AdvertisingStatus
 
-      const colors = {
-        BEGINNING: 'primary',
-        MIDDLE: 'default',
-        END: 'danger'
+      const mapping = {
+        PENDING: {
+          label: 'Pendente',
+          color: 'default'
+        },
+        APPROVED: {
+          label: 'Aprovado',
+          color: 'success'
+        },
+        REJECTED: {
+          label: 'Rejeitado',
+          color: 'danger'
+        }
       }
 
       return (
-        <Chip color={colors[status]}>
-          {t(
-            `advertisings:form.status.options.${AdvertisingStatus[
-              status
-            ].toLowerCase()}`
-          )}
+        <Chip color={mapping[AdvertisingStatus[status]].color}>
+          {mapping[AdvertisingStatus[status]].label}
+        </Chip>
+      )
+    },
+    enableSorting: true,
+    enableHiding: true
+  }),
+  /**
+   * Paid
+   */
+  helper.accessor((row) => row.paid, {
+    id: 'paid',
+    header: () => 'Pago',
+    cell: ({ row }) => {
+      const status = row.getValue('paid') as boolean
+
+      return (
+        <Chip color={status ? 'success' : 'default'}>
+          {status ? 'Pago' : 'Não Pago'}
         </Chip>
       )
     },

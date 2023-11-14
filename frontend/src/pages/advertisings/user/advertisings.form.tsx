@@ -41,9 +41,11 @@ export const AdvertisingForm = ({ data }: AdvertisingsFormProps) => {
 
   const onSubmit = async (form: AdvertisingData) => {
     if (data) {
+      console.log('update', form)
       await update.mutateAsync(form)
       return
     }
+    console.log('create', form)
     await create.mutateAsync(form)
   }
 
@@ -61,8 +63,8 @@ export const AdvertisingForm = ({ data }: AdvertisingsFormProps) => {
         <GridLayout cols="3">
           <fieldset>
             <Input
-              label={t('form.title.label')}
-              placeholder={t('form.title.placeholder')}
+              label={'Título'}
+              placeholder={'Informe o título da propaganda'}
               errorMessage={form.formState.errors.title?.message}
               labelPlacement="outside"
               {...form.register('title')}
@@ -71,8 +73,8 @@ export const AdvertisingForm = ({ data }: AdvertisingsFormProps) => {
           </fieldset>
           <fieldset>
             <Input
-              label={t('form.description.label')}
-              placeholder={t('form.description.placeholder')}
+              label={'Descrição'}
+              placeholder={'Informe a descrição da propaganda'}
               errorMessage={form.formState.errors.description?.message}
               labelPlacement="outside"
               {...form.register('description')}
@@ -80,8 +82,8 @@ export const AdvertisingForm = ({ data }: AdvertisingsFormProps) => {
           </fieldset>
           <fieldset>
             <Select
-              label={t('form.advertising_type.label')}
-              placeholder={t('form.advertising_type.placeholder')}
+              label={'Tipo'}
+              placeholder={'Selecione o tipo da propaganda'}
               labelPlacement="outside"
               defaultSelectedKeys={[String(data?.type ?? 1)]}
               {...form.register('type')}
@@ -93,23 +95,19 @@ export const AdvertisingForm = ({ data }: AdvertisingsFormProps) => {
                 .filter((value) => !isNaN(+value))
                 .map((value) => (
                   <SelectItem key={value} value={value}>
-                    {t(
-                      `form.advertising_type.options.${AdvertisingType[
-                        value
-                      ].toLowerCase()}`
-                    )}
+                    {AdvertisingType[value]}
                   </SelectItem>
                 ))}
             </Select>
           </fieldset>
           <fieldset>
             <Select
-              label={t('form.advertising_category.label')}
-              placeholder={t('form.advertising_category.placeholder')}
+              label={'Categoria'}
+              placeholder={'Selecione a categoria da propaganda'}
               labelPlacement="outside"
-              defaultSelectedKeys={[String(data?.category ?? 1)]}
+              defaultSelectedKeys={[String(data?.type ?? 1)]}
               {...form.register('category')}
-              errorMessage={String(form.formState.errors.category?.message)}
+              errorMessage={form.formState.errors.category?.message}
               disallowEmptySelection
               isRequired
             >
@@ -130,8 +128,8 @@ export const AdvertisingForm = ({ data }: AdvertisingsFormProps) => {
             <Input
               type="number"
               startContent={<PriceIcon />}
-              label={t('form.price.label')}
-              placeholder={t('form.price.placeholder')}
+              label={'Preço'}
+              placeholder={'Informe o preço da propaganda'}
               errorMessage={form.formState.errors.price?.message}
               labelPlacement="outside"
               {...form.register('price')}
@@ -142,8 +140,8 @@ export const AdvertisingForm = ({ data }: AdvertisingsFormProps) => {
           <fieldset>
             <Input
               className="hidden"
-              label={t('form.image.label')}
-              placeholder={t('form.image.placeholder')}
+              label={'Imagem'}
+              placeholder={'Informe a imagem da propaganda'}
               errorMessage={form.formState.errors.imagePath?.message}
               labelPlacement="outside"
               {...form.register('imagePath')}

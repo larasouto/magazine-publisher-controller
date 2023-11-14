@@ -4,7 +4,7 @@ import { Button, Image } from '@nextui-org/react'
 import { Plus } from 'lucide-react'
 import { ChangeEvent, useEffect, useMemo, useState } from 'react'
 import { UseFormReturn } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
+import toast from 'react-hot-toast'
 import { v4 as uuid } from 'uuid'
 import { AdvertisingData } from '../advertisings.schema'
 
@@ -17,7 +17,6 @@ export const AdvertisingsImage = ({
   form,
   errorMessage
 }: AdvertisingsImageProps) => {
-  const { t } = useTranslation('advertisings')
   const { uploadImage, getImage } = useSupabase()
   const [preview, setPreview] = useState<string>()
 
@@ -48,6 +47,7 @@ export const AdvertisingsImage = ({
       })
 
       if (data) {
+        toast.success(data.path)
         form.setValue('imagePath', data.path)
       }
     }
@@ -56,7 +56,7 @@ export const AdvertisingsImage = ({
   return (
     <div className="relative">
       <div className="rounded-xl">
-        <Format text={t('Capa')} size="sm" isRequired />
+        <Format text={'Imagem'} size="sm" isRequired />
         <Button
           id="image-button"
           type="button"

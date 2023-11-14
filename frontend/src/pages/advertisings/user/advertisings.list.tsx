@@ -6,8 +6,8 @@ import { backend } from '@/routes/routes'
 import { AdvertisingToolbar } from './advertisings.toolbar'
 import { AdvertisingColumns, columns } from './table/advertisings.columns'
 
-export const AdvertisingsListPage = () => {
-  const { title, breadcrumb } = usePageUtils('advertisings')
+export const AdvertisingsUserListPage = () => {
+  const { breadcrumb } = usePageUtils('advertisings')
 
   const { list, removeMany } = useFetch<AdvertisingColumns[]>({
     baseUrl: backend.advertisings.baseUrl,
@@ -19,9 +19,11 @@ export const AdvertisingsListPage = () => {
 
   return (
     <PageLayout
-      title={title()}
+      title={'Propagandas'}
       isLoading={list.isLoading}
-      breadcrumb={breadcrumb()}
+      breadcrumb={breadcrumb({
+        segments: [{ label: 'Propagandas' }]
+      })}
     >
       <DataTable
         columns={columns}
