@@ -14,8 +14,7 @@ const evluations = [
     name: 'Maria da Silva',
     title: 'Bom',
     evaluation: 4,
-    comment:
-      'Bom, espero que sirva para os demais que comprarem também! Hahaha! Muito bom o produto!'
+    comment: 'Achei bom'
   },
   {
     id: 3,
@@ -26,10 +25,10 @@ const evluations = [
   },
   {
     id: 4,
-    name: 'José da Silva',
+    name: 'Carlos Rogério',
     title: 'Ruim',
     evaluation: 1,
-    comment: 'Ruim'
+    comment: 'Péssimo, não percam tempo comprando!'
   }
 ]
 
