@@ -24,7 +24,7 @@ export class DeleteReviewController implements Controller {
     }
 
     const result = await this.deleteReview.execute(request)
-    console.log('result', result)
+
     if (result.isLeft()) {
       const error = result.value
 

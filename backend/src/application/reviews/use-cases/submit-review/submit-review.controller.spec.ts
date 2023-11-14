@@ -24,7 +24,9 @@ let editionsRepository: IEditionRepository
 
 describe('Create review (end-to-end)', () => {
   const { jwt, user } = UserFactory.createAndAuthenticate()
-  const { review, edition, magazine, theme } = ReviewFactory.create()
+  const { review, edition, magazine, theme } = ReviewFactory.create({
+    reviewerId: user.id,
+  })
 
   beforeAll(async () => {
     themesRepository = new PrismaThemesRepository()
