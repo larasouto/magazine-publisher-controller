@@ -11,6 +11,7 @@ import { RouterProvider } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import { Loading } from './components/Loading'
 import { ToasterContainer } from './components/toast/Toaster'
+import { UserDetailsProvider } from './contexts/user-details-provider'
 import { queryClient } from './lib/react-query'
 import { router } from './routes'
 import { useThemeStore } from './stores/useThemeStore'
@@ -21,11 +22,13 @@ export const App = () => {
   return (
     <React.StrictMode>
       <HelmetProvider>
-        <QueryClientProvider client={queryClient}>
-          <Suspense fallback={<Loading />}>
-            <RouterProvider router={router} />
-          </Suspense>
-        </QueryClientProvider>
+        <Suspense fallback={<Loading />}>
+          <QueryClientProvider client={queryClient}>
+            <UserDetailsProvider>
+              <RouterProvider router={router} />
+            </UserDetailsProvider>
+          </QueryClientProvider>
+        </Suspense>
       </HelmetProvider>
       <ToastContainer position="bottom-right" autoClose={2250} theme={theme} />
       <ToasterContainer />
