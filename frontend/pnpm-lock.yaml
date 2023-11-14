@@ -26,6 +26,9 @@ dependencies:
   '@react-input/number-format':
     specifier: ^1.0.20
     version: 1.0.20(@types/react@18.2.31)(react-dom@18.2.0)(react@18.2.0)
+  '@smastrom/react-rating':
+    specifier: ^1.3.2
+    version: 1.3.2(react-dom@18.2.0)(react@18.2.0)
   '@supabase/supabase-js':
     specifier: ^2.38.2
     version: 2.38.2
@@ -2816,6 +2819,16 @@ packages:
   /@sinclair/typebox@0.27.8:
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
     dev: true
+
+  /@smastrom/react-rating@1.3.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Rp3T7modHgJAnAwZxM5VQnkLPBp71/S2vNmp/eP7rVcZWQjx1F+4HfycdACAUbZVl8yV6TszyzUYXr2VVLgN6A==}
+    peerDependencies:
+      react: '>=18'
+      react-dom: '>=18'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /@supabase/functions-js@2.1.5:
     resolution: {integrity: sha512-BNzC5XhCzzCaggJ8s53DP+WeHHGT/NfTsx2wUSSGKR2/ikLFQTBCDzMvGz/PxYMqRko/LwncQtKXGOYp1PkPaw==}

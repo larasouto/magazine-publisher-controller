@@ -4,7 +4,7 @@ import { createJSONStorage, devtools, persist } from 'zustand/middleware'
 export type CartItem = {
   id: string
   title: string
-  description: string
+  description?: string | null
   price: number
   coverPath: string
   quantity?: number
@@ -14,6 +14,7 @@ export type CartStoreProps = {
   isOpen: boolean
   items: CartItem[]
   toggleOpen: () => void
+  open: () => void
   close: () => void
   addItem: (item: CartItem) => void
   removeItem: (id: string) => void
@@ -22,6 +23,7 @@ export type CartStoreProps = {
   removeAll: () => void
   getItemQuantity: (id: string) => number
   getTotalValue: () => number
+  getTotalValueItem: (id: string) => number
 }
 
 export const useCartStore = create<CartStoreProps>()(
@@ -31,6 +33,7 @@ export const useCartStore = create<CartStoreProps>()(
         isOpen: false,
         items: [],
         toggleOpen: () => toggleOpen(),
+        open: () => open(),
         close: () => close(),
         addItem: (item) => addItem(item),
         incrementItem: (id) => incrementItem(id),
@@ -38,7 +41,8 @@ export const useCartStore = create<CartStoreProps>()(
         removeItem: (id) => removeItem(id),
         removeAll: () => removeAll(),
         getItemQuantity: (id) => getItemQuantity(id),
-        getTotalValue: () => getTotalValue()
+        getTotalValue: () => getTotalValue(),
+        getTotalValueItem: (id) => getTotalValueItem(id)
       }),
       {
         name: `cart-${localStorage.getItem('user')}`,
@@ -53,6 +57,13 @@ export const useCartStore = create<CartStoreProps>()(
  */
 const toggleOpen = () => {
   useCartStore.setState((state) => ({ isOpen: !state.isOpen }))
+}
+
+/**
+ * Abre o carrinho.
+ */
+const open = () => {
+  useCartStore.setState({ isOpen: true })
 }
 
 /**
@@ -76,6 +87,23 @@ const getTotalValue = () => {
   return useCartStore
     .getState()
     .items.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0)
+}
+
+/**
+ * Calcula o valor total do item.
+ * @param id ID do item.
+ */
+const getTotalValueItem = (id: string) => {
+  /**
+   * Verifica se o item já existe no carrinho e,
+   * caso exista, retorna o item.
+   */
+  const item = useCartStore.getState().items.find((item) => item.id === id)
+
+  /**
+   * Caso exista, retorna o valor total do item.
+   */
+  return item?.price * (item?.quantity || 1) || 0
 }
 
 const addItem = (item: CartItem) => {
@@ -201,6 +229,7 @@ export const CartStore: Omit<CartStoreProps, 'isOpen' | 'items'> & {
   isOpen: () => useCartStore.getState().isOpen,
   items: () => useCartStore.getState().items,
   toggleOpen: () => useCartStore.getState().toggleOpen(),
+  open: () => useCartStore.getState().open(),
   close: () => useCartStore.getState().close(),
   addItem: (item) => useCartStore.getState().addItem(item),
   incrementItem: (id) => useCartStore.getState().incrementItem(id),
@@ -208,5 +237,6 @@ export const CartStore: Omit<CartStoreProps, 'isOpen' | 'items'> & {
   removeItem: (id) => useCartStore.getState().removeItem(id),
   removeAll: () => useCartStore.getState().removeAll(),
   getItemQuantity: (id) => getItemQuantity(id),
-  getTotalValue: () => getTotalValue()
+  getTotalValue: () => getTotalValue(),
+  getTotalValueItem: (id) => getTotalValueItem(id)
 }
