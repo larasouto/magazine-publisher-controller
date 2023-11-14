@@ -203,6 +203,8 @@ model Order {
   total_value Float
   address_id  String
   status      Int
+  coupon      Coupon?      @relation(fields: [coupon_id], references: [id])
+  coupon_id   String?
   created_at  DateTime    @default(now())
   updated_at  DateTime    @updatedAt
 
@@ -262,6 +264,7 @@ model Coupon {
   expiration_date    DateTime
   available_quantity Int
   type               Int
+  orders             Order[]
   created_at         DateTime @default(now())
   updated_at         DateTime @updatedAt
 

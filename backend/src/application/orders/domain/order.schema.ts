@@ -12,6 +12,7 @@ export const OrderSchema = z.object({
   addressId: z.string().uuid(),
   cardId: z.string().uuid(),
   customerId: z.string().uuid(),
+  couponId: z.string().uuid().nullish(),
 })
 
 export type OrderProps = z.infer<typeof OrderSchema>

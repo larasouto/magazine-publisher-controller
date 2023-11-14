@@ -7,6 +7,8 @@ import { IAddressesRepository } from '@/application/addresses/repositories/inter
 import { AddressNotFoundError } from './errors/AddressNotFoundError'
 import { ICardsRepository } from '@/application/cards/repositories/interfaces/ICardsRepository'
 import { CardNotFoundError } from './errors/CardNotFoundError'
+import { S } from 'vitest/dist/reporters-5f784f42'
+import { ICouponsRepository } from '@/application/coupons/repositories/interfaces/ICouponsRepository'
 
 type CreateOrderRequest = {
   status: number
@@ -18,6 +20,7 @@ type CreateOrderRequest = {
   }[]
   userId: string
   totalValue: number
+  couponId: string
 }
 
 type CreateOrderResponse = Either<Error, Order>
@@ -28,10 +31,11 @@ export class CreateOrder {
     private usersRepository: IUsersRepository,
     private addressRepository: IAddressesRepository,
     private cardRepository: ICardsRepository,
+    private couponRepository: ICouponsRepository
   ) {}
 
   async execute({
-    userId: customerId,
+    userId: customerId, couponId,
     ...request
   }: CreateOrderRequest): Promise<CreateOrderResponse> {
     const orderOrError = Order.create({ ...request, customerId })

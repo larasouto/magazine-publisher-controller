@@ -47,6 +47,7 @@ describe('UpdateStatus a order (end-to-end)', () => {
   const order1 = OrderFactory.create({
     status: OrderStatus.APPROVED,
     customerId: user.id,
+    couponId: user.id,
     addressId: address.id,
     cardId: card.id,
   })
@@ -54,6 +55,7 @@ describe('UpdateStatus a order (end-to-end)', () => {
   const order2 = OrderFactory.create({
     status: OrderStatus.CANCELED,
     customerId: user.id,
+    couponId: user.id,
     addressId: address.id,
     cardId: card.id,
   })

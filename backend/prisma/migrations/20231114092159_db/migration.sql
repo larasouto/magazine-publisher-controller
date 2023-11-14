@@ -184,6 +184,7 @@ CREATE TABLE "orders" (
     "total_value" DOUBLE PRECISION NOT NULL,
     "address_id" TEXT NOT NULL,
     "status" INTEGER NOT NULL,
+    "coupon_id" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
@@ -238,12 +239,11 @@ CREATE TABLE "coupons" (
     "id" TEXT NOT NULL,
     "coupon_code" TEXT NOT NULL,
     "discount_amount" INTEGER NOT NULL,
-    "expiration_date" TEXT NOT NULL,
-    "maximum_amount_of_use" INTEGER NOT NULL,
+    "expiration_date" TIMESTAMP(3) NOT NULL,
+    "available_quantity" INTEGER NOT NULL,
     "type" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
-    "user_id" TEXT NOT NULL,
 
     CONSTRAINT "coupons_pkey" PRIMARY KEY ("id")
 );
@@ -279,6 +279,9 @@ ALTER TABLE "orders_items" ADD CONSTRAINT "orders_items_order_id_fkey" FOREIGN K
 ALTER TABLE "orders" ADD CONSTRAINT "orders_customer_id_fkey" FOREIGN KEY ("customer_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "orders" ADD CONSTRAINT "orders_coupon_id_fkey" FOREIGN KEY ("coupon_id") REFERENCES "coupons"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "payment_subscriptions" ADD CONSTRAINT "payment_subscriptions_customer_id_fkey" FOREIGN KEY ("customer_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -292,6 +295,3 @@ ALTER TABLE "payment_advertisings" ADD CONSTRAINT "payment_advertisings_customer
 
 -- AddForeignKey
 ALTER TABLE "payment_advertisings" ADD CONSTRAINT "payment_advertisings_advertising_id_fkey" FOREIGN KEY ("advertising_id") REFERENCES "advertisings"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "coupons" ADD CONSTRAINT "coupons_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
