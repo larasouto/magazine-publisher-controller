@@ -1,4 +1,5 @@
 import { Advertising } from '../../domain/advertising'
+import { AdvertisingStatus } from '../../domain/advertising.schema'
 import { IAdvertisingsRepository } from '../interfaces/IAdvertisingsRepository'
 
 export class InMemoryAdvertisingsRepository implements IAdvertisingsRepository {
@@ -40,5 +41,22 @@ export class InMemoryAdvertisingsRepository implements IAdvertisingsRepository {
 
   async list(): Promise<Advertising[]> {
     return this.advertisings
+  }
+
+  async updateStatus(id: string, newStatus: AdvertisingStatus): Promise<void> {
+    const advertisingIndex = this.advertisings.findIndex(
+      (paymentSubscription) => paymentSubscription.id === id,
+    )
+
+    if (advertisingIndex !== -1) {
+      const paymentSubscription = {
+        ...this.advertisings[advertisingIndex],
+        status: newStatus,
+      }
+
+      this.advertisings[advertisingIndex] = Advertising.create({
+        ...paymentSubscription.props,
+      }).value as Advertising
+    }
   }
 }
