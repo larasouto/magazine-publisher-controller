@@ -32,7 +32,7 @@ export const Advertising = () => {
           </Button>
         </div>
       </section>
-      <section className="flex items-center justify-between px-10 py-2 bg-[#7b75aa] dark:bg-[#3a0778]/40 rounded-b-xl lg:py-0">
+      <section className="flex items-center justify-between px-10 py-2 bg-[#7b75aa] dark:bg-[#3a0778]/40 rounded-b-xl lg:py-0 gap-2">
         <Image
           className="hidden sm:inline-flex py-2 w-48"
           src="/ad.jpg"
@@ -51,7 +51,7 @@ export const Advertising = () => {
         </div>
         <Button
           size="md"
-          className="text-xl bg-gradient-to-tr from-[#fee803] to-[#706810] text-black shadow-lg w-fit"
+          className="text-xl bg-gradient-to-tr from-[#fee803] to-[#fee803] text-black shadow-lg w-fit"
           onClick={() => navigate(routes.advertisings.new)}
         >
           Solicite agora!
