@@ -47,7 +47,7 @@ export const UserDetailsProvider = ({ children }: UserDetailsProviderProps) => {
   )
 }
 
-export const useDetails = () => {
+export const useUserDetails = () => {
   const context = useContext(UserDetailsContext)
 
   if (!context) {
