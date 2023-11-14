@@ -7,7 +7,7 @@ export const HomePage = () => {
     <>
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-8">
-          <div className="h-full bg-[#7b75aa] dark:bg-[#18181c] rounded-b-3xl">
+          <div className="h-full bg-[#7b75aa] dark:bg-[#18181c] rounded-b-xl">
             <Advertising />
           </div>
         </div>

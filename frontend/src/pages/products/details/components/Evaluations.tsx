@@ -1,7 +1,7 @@
 import { Divider } from '@nextui-org/react'
 import { Rating } from '@smastrom/react-rating'
 
-const evluations = [
+const evaluations = [
   {
     id: 1,
     name: 'João da Silva',
@@ -29,16 +29,38 @@ const evluations = [
     title: 'Ruim',
     evaluation: 1,
     comment: 'Péssimo, não percam tempo comprando!'
+  },
+  {
+    id: 5,
+    name: 'Ana Paola',
+    title: 'Interessante!',
+    evaluation: 5,
+    comment: 'Super interessante, recomendo!'
   }
 ]
 
 export const Evaluations = () => {
+  const averageEvaluation = evaluations.reduce(
+    (acc, evaluation) => acc + evaluation.evaluation,
+    0
+  )
+
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="mt-5 text-2xl font-bold">Avaliações</h1>
+      <div>
+        <h1 className="mt-5 text-2xl font-bold">Avaliações</h1>
+        <div className="flex gap-2">
+          <h3>Média das Avaliações</h3>
+          <Rating
+            className="w-28"
+            value={averageEvaluation / evaluations.length}
+            readOnly
+          />
+        </div>
+      </div>
       <Divider className="mb-2" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {evluations.map((evaluation) => (
+        {evaluations.map((evaluation) => (
           <div
             key={evaluation.id}
             className="flex flex-col bg-default-50 rounded-lg p-5 gap-2"

@@ -10,6 +10,7 @@ import toast from 'react-hot-toast'
 
 type UserDetailsContextProps = {
   user: UserDetails | null
+  isLoading: boolean
   isAdmin: () => boolean
   isUser: () => boolean
   hasRole: (role: UserRole) => boolean
@@ -35,6 +36,7 @@ type UserDetailsProviderProps = {
 
 export const UserDetailsProvider = ({ children }: UserDetailsProviderProps) => {
   const [user, setUser] = useState<UserDetails | null>(null)
+  const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
     if (!user) {
@@ -45,6 +47,7 @@ export const UserDetailsProvider = ({ children }: UserDetailsProviderProps) => {
           setUser(null)
           toast.error('Não foi possível carregar os dados do usuário')
         })
+        .finally(() => setLoading(false))
     }
   }, [user])
 
@@ -60,7 +63,8 @@ export const UserDetailsProvider = ({ children }: UserDetailsProviderProps) => {
         user,
         isAdmin: roles.isAdmin,
         isUser: roles.isUser,
-        hasRole: roles.hasRole
+        hasRole: roles.hasRole,
+        isLoading
       }}
     >
       {children}
