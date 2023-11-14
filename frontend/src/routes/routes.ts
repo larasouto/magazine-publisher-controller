@@ -70,6 +70,12 @@ export const routes = {
       status_update: '/advertisings/:id/admin/status'
     }
   },
+  adPrices: {
+    index: '/ad-prices',
+    new: '/ad-prices/new',
+    edit: '/ad-prices/:id/edit',
+    delete: '/ad-prices/:id/delete'
+  },
   profile: {
     addresses: {
       index: '/profile/addresses',
@@ -124,7 +130,9 @@ export const backend = {
       baseUrl: '/advertisings/admin'
     }
   },
-
+  adPrices: {
+    baseUrl: '/ad-prices'
+  },
   profile: {
     addresses: {
       baseUrl: '/addresses'

@@ -1,6 +1,5 @@
 import { SubmitButton } from '@/components/SubmitButton'
 import { GridLayout } from '@/components/ui/Grid'
-import { PriceIcon } from '@/components/ui/icons/PriceIcon'
 import { useFetch } from '@/hooks/useFetch'
 import { backend, routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -49,6 +48,36 @@ export const AdvertisingForm = ({ data }: AdvertisingsFormProps) => {
     await create.mutateAsync(form)
   }
 
+  const category = {
+    BEGINNING: {
+      label: 'Começo',
+      color: 'primary'
+    },
+    MIDDLE: {
+      label: 'Meio',
+      color: 'default'
+    },
+    END: {
+      label: 'Fim',
+      color: 'warning'
+    }
+  }
+
+  const type = {
+    BANNER: {
+      label: 'Banner',
+      color: 'primary'
+    },
+    WHOLE_PAGE: {
+      label: 'Página inteira',
+      color: 'default'
+    },
+    DOUBLE_PAGE: {
+      label: 'Página dupla',
+      color: 'secondary'
+    }
+  }
+
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
@@ -95,7 +124,7 @@ export const AdvertisingForm = ({ data }: AdvertisingsFormProps) => {
                 .filter((value) => !isNaN(+value))
                 .map((value) => (
                   <SelectItem key={value} value={value}>
-                    {AdvertisingType[value]}
+                    {type[AdvertisingType[value]].label}
                   </SelectItem>
                 ))}
             </Select>
@@ -115,26 +144,10 @@ export const AdvertisingForm = ({ data }: AdvertisingsFormProps) => {
                 .filter((value) => !isNaN(+value))
                 .map((value) => (
                   <SelectItem key={value} value={value}>
-                    {t(
-                      `form.advertising_category.options.${AdvertisingCategory[
-                        value
-                      ].toLowerCase()}`
-                    )}
+                    {category[AdvertisingCategory[value]].label}
                   </SelectItem>
                 ))}
             </Select>
-          </fieldset>
-          <fieldset>
-            <Input
-              type="number"
-              startContent={<PriceIcon />}
-              label={'Preço'}
-              placeholder={'Informe o preço da propaganda'}
-              errorMessage={form.formState.errors.price?.message}
-              labelPlacement="outside"
-              {...form.register('price')}
-              isRequired
-            />
           </fieldset>
           <MagazinesSelect form={form} />
           <fieldset>
