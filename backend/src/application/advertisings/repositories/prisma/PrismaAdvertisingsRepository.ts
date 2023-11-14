@@ -45,9 +45,16 @@ export class PrismaAdvertisingsRepository implements IAdvertisingsRepository {
   }
 
   async updateStatus(id: string, newStatus: number): Promise<void> {
-    await prismaClient.paymentSubscription.update({
+    await prismaClient.advertising.update({
       where: { id },
       data: { status: newStatus },
+    })
+  }
+
+  async updatePayment(id: string): Promise<void> {
+    await prismaClient.advertising.update({
+      where: { id },
+      data: { paid: true },
     })
   }
 }

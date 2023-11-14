@@ -13,6 +13,8 @@ export class AdvertisingMapper {
         type: raw.type,
         status: raw.status,
         price: raw.price,
+        extraInfo: raw.extra_information,
+        paid: raw.paid,
         magazineId: raw.magazine_id,
         userId: raw.user_id,
       },
@@ -36,6 +38,8 @@ export class AdvertisingMapper {
       type: advertising.props.type,
       status: advertising.props.status,
       price: advertising.props.price,
+      extra_information: advertising.props.extraInfo,
+      paid: advertising.props.paid,
       magazine_id: advertising.props.magazineId,
       user_id: advertising.props.userId,
     }

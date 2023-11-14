@@ -59,4 +59,21 @@ export class InMemoryAdvertisingsRepository implements IAdvertisingsRepository {
       }).value as Advertising
     }
   }
+
+  async updatePayment(id: string): Promise<void> {
+    const advertisingIndex = this.advertisings.findIndex(
+      (paymentSubscription) => paymentSubscription.id === id,
+    )
+
+    if (advertisingIndex !== -1) {
+      const paymentSubscription = {
+        ...this.advertisings[advertisingIndex],
+        paid: true,
+      }
+
+      this.advertisings[advertisingIndex] = Advertising.create({
+        ...paymentSubscription.props,
+      }).value as Advertising
+    }
+  }
 }
