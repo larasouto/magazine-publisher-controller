@@ -1,21 +1,21 @@
 import { EditionFormWithId } from '@/pages/editions/editions.schema'
 import { useCartStore } from '@/stores/useCartStore'
 import { Button } from '@nextui-org/react'
-import { Minus, Plus, ShoppingCart } from 'lucide-react'
+import { Minus, Plus, ShoppingCart, Trash } from 'lucide-react'
 
 type DetailsButtonsProps = {
   data?: EditionFormWithId
 }
 
 export const DetailsButtons = ({ data }: DetailsButtonsProps) => {
-  const [addItem, decrementItem, getItemQuantity, openCart] = useCartStore(
-    (state) => [
+  const [addItem, removeItem, decrementItem, getItemQuantity, openCart] =
+    useCartStore((state) => [
       state.addItem,
+      state.removeItem,
       state.decrementItem,
       state.getItemQuantity,
       state.open
-    ]
-  )
+    ])
 
   return (
     <div className="flex flex-col gap-5">
@@ -37,7 +37,15 @@ export const DetailsButtons = ({ data }: DetailsButtonsProps) => {
         >
           <Plus className="w-4 h-4" />
         </Button>
-        unid.
+        <span>unid.</span>
+        <Button
+          color="danger"
+          className="flex-grow min-w-unit-7 w-unit-7 h-unit-7"
+          onClick={() => removeItem(data?.id)}
+          isIconOnly
+        >
+          <Trash className="w-4 h-4" />
+        </Button>
       </div>
       <div className="flex justify-start">
         <Button

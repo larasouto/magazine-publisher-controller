@@ -31,7 +31,7 @@ export const EditionShow = () => {
       isLoading={isLoading}
     >
       <section className="flex flex-col gap-2">
-        <div className="flex gap-4 md:gap-6">
+        <div className="flex flex-col xs:flex-row gap-4 md:gap-6">
           <div className="flex items-center justify-center bg-default-50 rounded-xl p-0 md:py-7 w-1/3 h-full">
             <Image
               src={getImage({ path: data?.coverPath ?? '' })}
