@@ -1,21 +1,17 @@
-import { Format } from '@/components/ui/label/Format'
 import { useFetch } from '@/hooks/useFetch'
 import { usePageUtils } from '@/hooks/usePageTranslation'
 import { useSupabase } from '@/hooks/useSupabase'
 import { PageLayout } from '@/layout/PageLayout'
 import { EditionFormWithId } from '@/pages/editions/editions.schema'
 import { backend } from '@/routes/routes'
-import { useCartStore } from '@/stores/useCartStore'
-import { Button, Divider, Image } from '@nextui-org/react'
-import { Minus, Plus } from 'lucide-react'
+import { Divider, Image } from '@nextui-org/react'
+import { DetailsButtons } from './components/DetailsButtons'
+import { DetailsEdition } from './components/DetailsEdition'
+import { Evaluations } from './components/Evaluations'
 
 export const EditionShow = () => {
-  const { id, title, breadcrumb } = usePageUtils('editions')
+  const { id, breadcrumb } = usePageUtils('editions')
   const { getImage } = useSupabase()
-
-  const [incrementItem, decrementItem, getItemQuantity] = useCartStore(
-    (state) => [state.incrementItem, state.decrementItem, state.getItemQuantity]
-  )
 
   const {
     get: { data, isLoading }
@@ -29,46 +25,31 @@ export const EditionShow = () => {
   })
 
   return (
-    <PageLayout title={title()} breadcrumb={breadcrumb()} isLoading={isLoading}>
+    <PageLayout
+      title={'Visualizar Edição'}
+      breadcrumb={breadcrumb()}
+      isLoading={isLoading}
+    >
       <section className="flex flex-col gap-2">
-        <div className="flex gap-32">
-          <div className="flex items-center justify-center bg-default-100 rounded-xl w-96 h-96">
+        <div className="flex gap-4 md:gap-6">
+          <div className="flex items-center justify-center bg-default-50 rounded-xl p-0 md:py-7 w-1/3 h-full">
             <Image
               src={getImage({ path: data?.coverPath ?? '' })}
               classNames={{
-                wrapper: 'w-64',
+                wrapper: 'w-72',
                 img: 'w-full object-cover'
               }}
             />
           </div>
-          <div className="flex flex-col gap-2 flex-grow">
-            <h1 className="text-4xl">{data?.title}</h1>
-            <p>{data?.description}</p>
+          <div className="flex flex-col w-2/3 gap-2">
+            <DetailsEdition data={data} />
             <Divider />
-            <p>{<Format text={String(data?.price)} type="price" />}</p>
-            <Divider />
-            <div className="flex gap-2">
-              <Button
-                color="primary"
-                onClick={() => decrementItem(data?.id ?? '')}
-                className="min-w-unit-7 w-unit-7 h-unit-7"
-                isIconOnly
-              >
-                <Minus className="w-4 h-4" />
-              </Button>
-              {getItemQuantity(data?.id ?? '')}
-              <Button
-                color="primary"
-                className="flex-grow min-w-unit-7 w-unit-7 h-unit-7"
-                onClick={() => incrementItem(data?.id ?? '')}
-                isIconOnly
-              >
-                <Plus className="w-4 h-4" />
-              </Button>
-              unid.
-            </div>
+            <DetailsButtons data={data} />
           </div>
         </div>
+        <section>
+          <Evaluations />
+        </section>
       </section>
     </PageLayout>
   )
