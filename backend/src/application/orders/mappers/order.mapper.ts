@@ -11,6 +11,7 @@ export class OrderMapper {
         addressId: raw.address_id,
         cardId: raw.card_id,
         customerId: raw.customer_id,
+        couponId: raw.coupon_id,
       },
       raw.id,
     )
@@ -30,6 +31,7 @@ export class OrderMapper {
       address_id: order.props.addressId,
       card_id: order.props.cardId,
       customer_id: order.props.customerId,
+      coupon_id: order.props.couponId,
     }
   }
 }

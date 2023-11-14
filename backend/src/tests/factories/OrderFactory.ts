@@ -6,6 +6,7 @@ type OrderOverrides = {
   status?: number
   addressId?: string
   cardId: string
+  couponId?: string
   customerId: string
 }
 
@@ -17,6 +18,7 @@ export class OrderFactory {
       addressId: 'test-address-id',
       cardId: 'test-card-id',
       customerId: 'test-customer-id',
+      couponId: 'test-coupon-id',
       ...overrides,
     })
 

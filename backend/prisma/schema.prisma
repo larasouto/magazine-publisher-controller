@@ -206,6 +206,8 @@ model Order {
   total_value Float
   address_id  String
   status      Int
+  coupon      Coupon?      @relation(fields: [coupon_id], references: [id])
+  coupon_id   String?
   created_at  DateTime    @default(now())
   updated_at  DateTime    @updatedAt
 
@@ -262,6 +264,19 @@ model PaymentAdvertising {
   @@map("payment_advertisings")
 }
 
+model Coupon {
+  id                 String   @id
+  coupon_code        String
+  discount_amount    Int
+  expiration_date    DateTime
+  available_quantity Int
+  type               Int
+  orders             Order[]
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+
+  @@map("coupons")
+  
 model Review {
   id          String   @id
   title       String

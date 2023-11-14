@@ -44,6 +44,7 @@ describe('List orders (end-to-end)', () => {
   const card = CardFactory.create({ userId: user.id })
   const order = OrderFactory.create({
     customerId: user.id,
+    couponId: user.id,
     addressId: address.id,
     cardId: card.id,
   })

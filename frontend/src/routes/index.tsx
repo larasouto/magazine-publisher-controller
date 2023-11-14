@@ -12,6 +12,7 @@ import { AddressesRoutes } from './pages/profile/addresses.routes'
 import { CardsRoutes } from './pages/profile/cards.routes'
 import { ReportersRoutes } from './pages/reporters.routes'
 import { SubscriptionRoutes } from './pages/subscriptions.routes'
+import { CouponsRoutes } from './pages/coupons.routes'
 
 /**
  * Criação do 'roteador' da aplicação, responsável por gerenciar
@@ -30,5 +31,6 @@ export const router = createBrowserRouter([
   AddressesRoutes,
   CardsRoutes,
   OrdersRoutes,
+  CouponsRoutes
   AdvertisingsRoutes
 ])

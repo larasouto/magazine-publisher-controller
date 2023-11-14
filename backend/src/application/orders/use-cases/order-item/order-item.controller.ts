@@ -5,6 +5,7 @@ import { t } from 'i18next'
 import { CreateOrder } from './order-item'
 import { AddressNotFoundError } from './errors/AddressNotFoundError'
 import { CustomerNotFoundError } from './errors/CustomerNotFoundError'
+import { CouponNotFoundError } from '@/application/coupons/use-cases/delete-coupon/errors/CouponNotFoundError'
 
 type CreateOrderControllerRequest = {
   totalValue: number
@@ -43,6 +44,7 @@ export class CreateOrderController implements Controller {
       switch (error.constructor) {
         case AddressNotFoundError:
         case CustomerNotFoundError:
+        case CouponNotFoundError:
           return clientError({ type: 'info', message: error.message })
         default:
           return clientError(error)

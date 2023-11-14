@@ -7,6 +7,7 @@ describe('Entity Order', () => {
     const data: any = {
       id: uuid(),
       customerId: uuid(),
+      couponId: uuid(),
       addressId: uuid(),
       items: [
         {

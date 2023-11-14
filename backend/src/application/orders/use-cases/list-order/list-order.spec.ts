@@ -69,12 +69,14 @@ describe('List orders', () => {
     const data1 = OrderFactory.create({
       addressId: magazine.id,
       customerId: user.id,
+      couponId: user.id,
       cardId: card.id,
     })
 
     const data2 = OrderFactory.create({
       addressId: magazine.id,
       customerId: user.id,
+      couponId: user.id,
       cardId: card.id,
     })
 
@@ -92,6 +94,7 @@ describe('List orders', () => {
 
     expect(response[0].props.totalValue).toBe(data1.props.totalValue)
     expect(response[1].props.customerId).toBe(data2.props.customerId)
+    expect(response[2].props.couponId).toBe(data2.props.couponId)
   })
 
   test('should return an empty list if no orders exist', async () => {

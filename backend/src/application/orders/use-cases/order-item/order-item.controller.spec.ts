@@ -57,6 +57,9 @@ describe('Create order (end-to-end)', () => {
     await prismaClient.order.deleteMany({
       where: { customer_id: user.id },
     })
+    await prismaClient.order.deleteMany({
+      where: { coupon_id: user.id },
+    })
     await prismaClient.address.deleteMany({
       where: { id: address.id },
     })
