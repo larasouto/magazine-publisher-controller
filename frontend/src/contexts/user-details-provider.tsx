@@ -10,15 +10,23 @@ import toast from 'react-hot-toast'
 
 type UserDetailsContextProps = {
   user: UserDetails | null
+  isAdmin: () => boolean
+  isUser: () => boolean
+  hasRole: (role: UserRole) => boolean
 }
 
 const UserDetailsContext = createContext<UserDetailsContextProps | null>(null)
+
+enum UserRole {
+  USER = 0,
+  ADMIN = 1
+}
 
 type UserDetails = {
   id: string
   name: string
   email: string
-  role: string
+  role: UserRole
 }
 
 type UserDetailsProviderProps = {
@@ -40,8 +48,21 @@ export const UserDetailsProvider = ({ children }: UserDetailsProviderProps) => {
     }
   }, [user])
 
+  const roles = {
+    isAdmin: () => user?.role === UserRole.ADMIN,
+    isUser: () => user?.role === UserRole.USER,
+    hasRole: (role: UserRole) => user?.role === role
+  }
+
   return (
-    <UserDetailsContext.Provider value={{ user }}>
+    <UserDetailsContext.Provider
+      value={{
+        user,
+        isAdmin: roles.isAdmin,
+        isUser: roles.isUser,
+        hasRole: roles.hasRole
+      }}
+    >
       {children}
     </UserDetailsContext.Provider>
   )
