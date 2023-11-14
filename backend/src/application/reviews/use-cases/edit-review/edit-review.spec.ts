@@ -53,11 +53,11 @@ describe('Edit a review', () => {
       editionId: edition.id,
       userId: user.id,
     })
-    console.log(updatedReview)
+
     expect(updatedReview.isRight()).toBeTruthy()
 
     const _review = await reviewsRepository.findById(review.id)
-    console.log(_review)
+
     expect(_review).toStrictEqual(updatedReview.value)
   })
 

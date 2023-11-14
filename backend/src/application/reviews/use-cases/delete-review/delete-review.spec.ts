@@ -3,19 +3,22 @@ import { beforeEach, describe, expect, test } from 'vitest'
 import { InMemoryReviewsRepository } from '../../repositories/in-memory/InMemoryReviewsRepository'
 import { IReviewsRepository } from '../../repositories/interfaces/IReviewsRepository'
 import { DeleteReview } from './delete-review'
+import { User } from '@/application/users/domain/user'
+import { UserFactory } from '@/tests/factories/UserFactory'
 
 let reviewsRepository: IReviewsRepository
 let deleteReview: DeleteReview
 
 describe('Delete review', () => {
+  const user = UserFactory.create()
   beforeEach(() => {
     reviewsRepository = new InMemoryReviewsRepository()
     deleteReview = new DeleteReview(reviewsRepository)
   })
 
   test('should delete a review', async () => {
-    const { review: review1 } = ReviewFactory.create()
-    const { review: review2 } = ReviewFactory.create()
+    const { review: review1 } = ReviewFactory.create({ reviewerId: user.id })
+    const { review: review2 } = ReviewFactory.create({ reviewerId: user.id })
 
     await reviewsRepository.create(review1)
     await reviewsRepository.create(review2)
@@ -29,7 +32,7 @@ describe('Delete review', () => {
   })
 
   test('should not delete a non-existing review', async () => {
-    const { review } = ReviewFactory.create()
+    const { review } = ReviewFactory.create({ reviewerId: user.id })
     await reviewsRepository.create(review)
 
     const response = await deleteReview.execute({

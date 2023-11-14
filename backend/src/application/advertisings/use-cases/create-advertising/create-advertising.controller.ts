@@ -12,6 +12,7 @@ type CreateAdvertisingControllerRequest = {
   category: number
   type: number
   price: number
+  paid: boolean
   magazineId: string
   userId: string
 }

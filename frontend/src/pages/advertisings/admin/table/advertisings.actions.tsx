@@ -12,7 +12,7 @@ import {
   Link,
   useDisclosure
 } from '@nextui-org/react'
-import { Copy, FileSignature, MoreHorizontal, Trash } from 'lucide-react'
+import { Copy, FileSignature, MoreHorizontal } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { AdvertisingColumns } from './advertisings.columns'
 
@@ -22,7 +22,7 @@ type AdvertisingsActionsProps = {
 
 export const AdvertisingsActions = ({ row }: AdvertisingsActionsProps) => {
   const { t } = useTranslation()
-  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const { isOpen, onOpenChange } = useDisclosure()
 
   const { removeMany } = useFetch<AdvertisingColumns>({
     baseUrl: backend.advertisings.baseUrl,
@@ -43,21 +43,17 @@ export const AdvertisingsActions = ({ row }: AdvertisingsActionsProps) => {
         </DropdownTrigger>
         <DropdownMenu aria-label="dropdown reporter">
           <DropdownSection title={t('table.actions')}>
-            <DropdownItem textValue="edit">
+            <DropdownItem textValue="status_update">
               <Link
-                href={replaceParams(routes.advertisings.edit, [row.id])}
+                href={replaceParams(routes.advertisings.admin.status_update, [
+                  row.id
+                ])}
                 color="foreground"
                 className="flex gap-2"
               >
                 <FileSignature className="w-5 h-5" />
-                {t('btn.edit')}
+                Visualizar propaganda
               </Link>
-            </DropdownItem>
-            <DropdownItem onClick={onOpen} textValue="delete" showDivider>
-              <span className="flex gap-2 text-danger">
-                <Trash className="w-5 h-5" />
-                {t('btn.delete')}
-              </span>
             </DropdownItem>
           </DropdownSection>
           <DropdownItem

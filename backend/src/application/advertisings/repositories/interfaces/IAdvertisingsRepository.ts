@@ -7,4 +7,5 @@ export interface IAdvertisingsRepository {
   update(advertising: Advertising): Promise<void>
   deleteMany(ids: string[]): Promise<void>
   updateStatus(id: string, status: number): Promise<void>
+  updatePayment(id: string): Promise<void>
 }

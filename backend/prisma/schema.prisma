@@ -238,6 +238,8 @@ model Advertising {
   created_at           DateTime             @default(now())
   updated_at           DateTime             @updatedAt
   price                Float
+  extra_information    String?
+  paid                 Boolean              @default(false)
   magazine             Magazine             @relation(fields: [magazine_id], references: [id])
   magazine_id          String
   user                 User                 @relation(fields: [user_id], references: [id])

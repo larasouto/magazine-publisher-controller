@@ -3,7 +3,6 @@ import { MagazineColumns } from '@/pages/magazines/table/magazines.columns'
 import { backend } from '@/routes/routes'
 import { Select, SelectItem } from '@nextui-org/react'
 import { UseFormReturn } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
 import { AdvertisingData } from '../advertisings.schema'
 
 type MagazinesSelectProps = {
@@ -11,8 +10,6 @@ type MagazinesSelectProps = {
 }
 
 export const MagazinesSelect = ({ form }: MagazinesSelectProps) => {
-  const { t } = useTranslation('advertisings')
-
   const { list } = useFetch<MagazineColumns[]>({
     baseUrl: backend.magazines.baseUrl,
     query: ['magazines'],
@@ -25,8 +22,8 @@ export const MagazinesSelect = ({ form }: MagazinesSelectProps) => {
     <fieldset>
       <Select
         items={list?.data ?? []}
-        label={t('form.magazine.label')}
-        placeholder={t('form.magazine.placeholder')}
+        label={'Revista'}
+        placeholder={'Selecione uma revista'}
         labelPlacement="outside"
         {...form.register('magazineId')}
         defaultSelectedKeys={

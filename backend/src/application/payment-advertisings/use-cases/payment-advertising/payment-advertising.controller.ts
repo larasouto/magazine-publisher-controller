@@ -1,7 +1,6 @@
 import { Controller } from '@/core/infra/controller'
 import { HttpResponse, clientError, created } from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
-import { t } from 'i18next'
 import { CreatePaymentAdvertising } from './payment-advertising'
 import { AdvertisingNotFoundError } from '@/application/advertisings/use-cases/get-advertising/errors/AdvertisingNotFoundError'
 import { AddressNotFoundError } from './errors/AddressNotFoundError'
@@ -46,6 +45,9 @@ export class CreatePaymentAdvertisingController implements Controller {
       }
     }
 
-    return created({ message: t('paymentAdvertising.created') })
+    return created({
+      message: 'Pagamento realizado com sucesso!',
+      dto: result.value.toResponseBody(),
+    })
   }
 }

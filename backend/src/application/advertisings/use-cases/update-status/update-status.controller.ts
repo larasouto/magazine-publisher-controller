@@ -7,6 +7,7 @@ import { UpdateStatusAdvertising } from './update-status'
 type UpdateStatusAdvertisingControllerRequest = {
   advertisingId: string
   status: number
+  extraInfo: string
 }
 
 export class UpdateStatusAdvertisingController implements Controller {

@@ -5,17 +5,13 @@ import { AdvertisingNotFoundError } from './errors/AdvertisingNotFoundError'
 type UpdateStatusAdvertisingRequest = {
   advertisingId: string
   status: number
+  extraInfo: string
 }
 
-type UpdateStatusAdvertisingResponse = Either<
-  AdvertisingNotFoundError,
-  null
->
+type UpdateStatusAdvertisingResponse = Either<AdvertisingNotFoundError, null>
 
 export class UpdateStatusAdvertising {
-  constructor(
-    private advertisingsRepository: IAdvertisingsRepository,
-  ) {}
+  constructor(private advertisingsRepository: IAdvertisingsRepository) {}
 
   async execute({
     advertisingId,
@@ -28,10 +24,7 @@ export class UpdateStatusAdvertising {
       return left(new AdvertisingNotFoundError())
     }
 
-    await this.advertisingsRepository.updateStatus(
-      advertisingId,
-      status,
-    )
+    await this.advertisingsRepository.updateStatus(advertisingId, status)
 
     return right(null)
   }
