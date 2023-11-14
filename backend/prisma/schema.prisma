@@ -9,38 +9,40 @@ datasource db {
 }
 
 model User {
-  id                  String                @id
-  name                String
-  email               String                @unique
-  password            String
-  phone               String?
-  role                Int                   @default(0)
-  created_at          DateTime              @default(now())
-  updated_at          DateTime              @updatedAt
-  addresses           Address[]
-  cards               Card[]
-  subscriptions       Subscription[]
-  Order               Order[]
-  PaymentSubscription PaymentSubscription[]
-  PaymentAdvertising  PaymentAdvertising[]
+  id                    String                @id
+  name                  String
+  email                 String                @unique
+  password              String
+  phone                 String?
+  role                  Int                   @default(0)
+  created_at            DateTime              @default(now())
+  updated_at            DateTime              @updatedAt
+  addresses             Address[]
+  cards                 Card[]
+  subscriptions         Subscription[]
+  orders                Order[]
+  payment_subscriptions PaymentSubscription[]
+  payment_advertisings  PaymentAdvertising[]
+  reviews               Review[]
+  advertisings          Advertising[]
 
   @@map("users")
 }
 
 model Subscription {
-  id                  String                @id
-  name                String
-  description         String
-  type                Int
-  frequency           Int
-  price               Float
-  magazine            Magazine              @relation(fields: [magazine_id], references: [id])
-  magazine_id         String
-  created_at          DateTime              @default(now())
-  updated_at          DateTime              @updatedAt
-  user                User                  @relation(fields: [user_id], references: [id])
-  user_id             String
-  PaymentSubscription PaymentSubscription[]
+  id                    String                @id
+  name                  String
+  description           String
+  type                  Int
+  frequency             Int
+  price                 Float
+  magazine              Magazine              @relation(fields: [magazine_id], references: [id])
+  magazine_id           String
+  created_at            DateTime              @default(now())
+  updated_at            DateTime              @updatedAt
+  user                  User                  @relation(fields: [user_id], references: [id])
+  user_id               String
+  payment_subscriptions PaymentSubscription[]
 
   @@map("subscriptions")
 }
@@ -176,7 +178,8 @@ model Edition {
   magazine_id      String
   created_at       DateTime    @default(now())
   updated_at       DateTime    @updatedAt
-  OrderItem        OrderItem[]
+  order_items      OrderItem[]
+  reviews          Review[]
 
   @@map("editions")
 }
@@ -227,17 +230,21 @@ model PaymentSubscription {
 }
 
 model Advertising {
-  id                 String               @id
-  name               String
-  description        String?
-  category           Int
-  number_of_pages    Int
-  created_at         DateTime             @default(now())
-  updated_at         DateTime             @updatedAt
-  price              Float
-  magazine           Magazine             @relation(fields: [magazine_id], references: [id])
-  magazine_id        String
-  PaymentAdvertising PaymentAdvertising[]
+  id                   String               @id
+  image_path           String
+  title                String
+  description          String?
+  category             Int
+  type                 Int
+  status               Int
+  created_at           DateTime             @default(now())
+  updated_at           DateTime             @updatedAt
+  price                Float
+  magazine             Magazine             @relation(fields: [magazine_id], references: [id])
+  magazine_id          String
+  user                 User                 @relation(fields: [user_id], references: [id])
+  user_id              String
+  payment_advertisings PaymentAdvertising[]
 
   @@map("advertisings")
 }
@@ -269,4 +276,18 @@ model Coupon {
   updated_at         DateTime @updatedAt
 
   @@map("coupons")
+  
+model Review {
+  id          String   @id
+  title       String
+  review      String
+  rating      Int
+  edition     Edition  @relation(fields: [edition_id], references: [id])
+  edition_id  String
+  reviewer    User     @relation(fields: [reviewer_id], references: [id])
+  reviewer_id String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map("reviews")
 }

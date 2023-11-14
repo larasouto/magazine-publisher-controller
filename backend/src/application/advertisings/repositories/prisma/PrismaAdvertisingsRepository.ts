@@ -43,4 +43,11 @@ export class PrismaAdvertisingsRepository implements IAdvertisingsRepository {
     const advertisings = await prismaClient.advertising.findMany()
     return advertisings.map(AdvertisingMapper.toDomain)
   }
+
+  async updateStatus(id: string, newStatus: number): Promise<void> {
+    await prismaClient.paymentSubscription.update({
+      where: { id },
+      data: { status: newStatus },
+    })
+  }
 }

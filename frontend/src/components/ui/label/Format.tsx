@@ -12,6 +12,9 @@ type FormatProps = ComponentProps<'span'> & {
     price?: Intl.NumberFormatOptions
   }
   size?: 'xs' | 'sm' | 'md' | 'lg'
+  noPadding?: boolean
+  appendStart?: string | React.ReactNode
+  appendEnd?: string | React.ReactNode
 }
 
 export const Format = ({
@@ -21,6 +24,9 @@ export const Format = ({
   options,
   className,
   size = 'md',
+  noPadding = false,
+  appendStart,
+  appendEnd,
   ...props
 }: FormatProps) => {
   return (
@@ -31,7 +37,8 @@ export const Format = ({
           'text-xs': size === 'xs',
           'text-sm': size === 'sm',
           'text-base': size === 'md',
-          'text-lg': size === 'lg'
+          'text-lg': size === 'lg',
+          'p-0': noPadding
         },
         className
       )}
@@ -39,8 +46,22 @@ export const Format = ({
       {...props}
     >
       {type === 'text' && text}
-      {type === 'price' && <FormatPrice toFormat={text} {...options?.price} />}
-      {type === 'date' && <FormatDate date={text} {...options?.date} />}
+      {type === 'price' && (
+        <FormatPrice
+          toFormat={text}
+          appendStart={appendStart}
+          appendEnd={appendEnd}
+          {...options?.price}
+        />
+      )}
+      {type === 'date' && (
+        <FormatDate
+          date={text}
+          appendStart={appendStart}
+          appendEnd={appendEnd}
+          {...options?.date}
+        />
+      )}
     </span>
   )
 }

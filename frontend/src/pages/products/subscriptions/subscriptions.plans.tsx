@@ -5,6 +5,7 @@ import { backend, routes } from '@/routes/routes'
 import { replaceParams } from '@/utils/replace-params'
 import { Button, Chip, Link, cn } from '@nextui-org/react'
 import { WalletCards } from 'lucide-react'
+import { GetMagazine } from './subscriptions.get-magazine'
 
 export const SubscriptionsPlan = () => {
   const { list } = useFetch<SubscriptionColumns[]>({
@@ -29,7 +30,7 @@ export const SubscriptionsPlan = () => {
               key={item.id}
               className="flex flex-col justify-between gap-6 rounded-3xl bg-default-50 p-5"
             >
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col justify-between gap-4">
                 <div className="flex justify-between items-center">
                   <h1
                     className={cn('text-xl font-extrabold', {
@@ -50,17 +51,26 @@ export const SubscriptionsPlan = () => {
                 </div>
                 <p>{item.description}</p>
               </div>
-              <Link
-                href={replaceParams(routes.subscriptions.payment, [item.id])}
-                color="foreground"
-              >
-                <Button fullWidth color="primary" className="flexitems-center">
-                  <WalletCards className="w-5 h-5" />
-                  <span className="flex items-center gap-2">
-                    <span>Assinar </span>
-                  </span>
-                </Button>
-              </Link>
+              <div className="flex flex-col gap-3">
+                <Chip size="sm" className="w-full self-end">
+                  <GetMagazine id={item.magazineId} />
+                </Chip>
+                <Link
+                  href={replaceParams(routes.subscriptions.payment, [item.id])}
+                  color="foreground"
+                >
+                  <Button
+                    fullWidth
+                    color="primary"
+                    className="flex items-center"
+                  >
+                    <WalletCards className="w-5 h-5" />
+                    <span className="flex items-center gap-2">
+                      <span>Assinar </span>
+                    </span>
+                  </Button>
+                </Link>
+              </div>
             </div>
           ))}
         </div>

@@ -6,8 +6,8 @@ type AddressOverrides = {
   city?: string
   state?: string
   zip?: string
-  userId?: string
   complement?: string
+  userId: string
 }
 
 export class AddressFactory {

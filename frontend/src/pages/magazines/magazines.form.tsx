@@ -23,7 +23,7 @@ export const MagazinesForm = ({ data }: MagazinesFormProps) => {
 
   const { create, update } = useFetch<MagazineForm>({
     baseUrl: backend.magazines.baseUrl,
-    query: ['magazines'],
+    query: ['magazines', 'subscriptions'],
     redirectTo: routes.magazines.index,
     fetch: {
       id: data?.id

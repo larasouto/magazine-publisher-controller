@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
+import { AdvertisingsRoutes } from './pages/advertisings.routes'
 import { AuthRoutes } from './pages/auth.routes'
 import { HomeRoutes } from './pages/home.routes'
 import { PhotographersRoutes } from './pages/photographers.routes'
@@ -31,4 +32,5 @@ export const router = createBrowserRouter([
   CardsRoutes,
   OrdersRoutes,
   CouponsRoutes
+  AdvertisingsRoutes
 ])
