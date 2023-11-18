@@ -46,6 +46,7 @@ export const OrdersForm = ({ data }: MagazinesFormProps) => {
       'items',
       CartStore.items().map((item) => ({
         editionId: item.id,
+        couponId: item.id,
         quantity: item.quantity ?? 1
       }))
     )

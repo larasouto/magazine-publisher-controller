@@ -17,6 +17,7 @@ export const OrderSchema = z.object({
   status: z.coerce.number().int().default(OrderStatus.PENDING),
   addressId: z.string().uuid(),
   cardId: z.string().uuid(),
+  couponId: z.string().uuid().nullish(),
   items: z.array(
     z.object({
       editionId: z.string().uuid(),
