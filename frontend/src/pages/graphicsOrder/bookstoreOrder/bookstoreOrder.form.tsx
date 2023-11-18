@@ -11,9 +11,11 @@ import { BookstoreSelect } from './bookstore/bookstore-select'
 import {
   BookstoreOrderForm,
   BookstoreOrdersFormWithId,
-  BookstoreOrdersSchema
+  BookstoreOrdersSchema,
+  Status
 } from './bookstoreOrder.schema'
 import { EditionsSelect } from './editions/editions-select'
+import { GraphocsOnDistributorSelect } from './graphicsOnDistributor/graphicsOnDistributor'
 
 type BookstoreOrdersFormProps = {
   data?: BookstoreOrdersFormWithId
@@ -31,10 +33,13 @@ export const BookstoreOrdersForm = ({ data }: BookstoreOrdersFormProps) => {
     }
   })
 
-  const form = useForm<BookstoreOrderForm>({
+ const form = useForm<BookstoreOrderForm>({
     mode: 'all',
     resolver: zodResolver(BookstoreOrdersSchema),
-    defaultValues: data
+    defaultValues: {
+      ...data,
+      status: Status.onHold,
+    }
   })
 
   const onSubmit = async (form: BookstoreOrderForm) => {
@@ -63,15 +68,7 @@ export const BookstoreOrdersForm = ({ data }: BookstoreOrdersFormProps) => {
           />
         </fieldset>
         <BookstoreSelect form={form} />
-        <fieldset>
-          <Input
-            label={t('form.deliveryAddress.label')}
-            placeholder={t('form.deliveryAddress.placeholder')}
-            errorMessage={form.formState.errors.deliveryAddress?.message}
-            labelPlacement="outside"
-            {...form.register('deliveryAddress')}
-          />
-        </fieldset>
+        <GraphocsOnDistributorSelect form={form} />
         <fieldset>
           <Controller
             control={form.control}

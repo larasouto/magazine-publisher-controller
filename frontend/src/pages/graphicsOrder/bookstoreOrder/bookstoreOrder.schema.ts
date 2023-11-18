@@ -1,10 +1,10 @@
 import { z } from 'zod'
 
 export enum Status {
-  onHold = 'on hold',
-  inPreparation = 'in preparation',
-  onMyWay = 'on my way',
-  deliv = 'delivered'
+  onHold = 'on hold', // em espera
+  inPreparation = 'in preparation', // em preparação
+  onMyWay = 'on my way', // esta a caminho
+  deliv = 'delivered' // entregue
 }
 
 export const BookstoreOrdersSchema = z.object({

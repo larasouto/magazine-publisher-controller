@@ -19,7 +19,7 @@ export const BookstoreOrdersListPage = () => {
 
   return (
     <PageLayout
-      title={title()}
+      title={title()} 
       isLoading={list.isLoading}
       breadcrumb={breadcrumb()}
     >

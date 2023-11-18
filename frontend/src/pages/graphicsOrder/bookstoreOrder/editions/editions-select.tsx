@@ -1,10 +1,10 @@
-import { UseFormReturn } from "react-hook-form"
-import { BookstoreOrderForm } from "../bookstoreOrder.schema"
-import { useTranslation } from "react-i18next"
-import { useFetch } from "@/hooks/useFetch"
-import { EditionColumns } from "@/pages/editions/table/editions.columns"
-import { backend } from "@/routes/routes"
-import { Select, SelectItem } from "@nextui-org/react"
+import { UseFormReturn } from 'react-hook-form'
+import { BookstoreOrderForm } from '../bookstoreOrder.schema'
+import { useTranslation } from 'react-i18next'
+import { useFetch } from '@/hooks/useFetch'
+import { backend } from '@/routes/routes'
+import { Select, SelectItem } from '@nextui-org/react'
+import { EditionFormWithId } from '@/pages/editions/editions.schema'
 
 type EditionsSelectProps = {
   form: UseFormReturn<BookstoreOrderForm>
@@ -13,14 +13,13 @@ type EditionsSelectProps = {
 export const EditionsSelect = ({ form }: EditionsSelectProps) => {
   const { t } = useTranslation('bookstores')
 
-  const { list } = useFetch<EditionColumns[]>({
+  const { list } = useFetch<EditionFormWithId[]>({
     baseUrl: backend.editions.baseUrl,
     query: ['editions'],
     fetch: {
       list: true
     }
   })
-  
 
   return (
     <fieldset>
@@ -31,7 +30,9 @@ export const EditionsSelect = ({ form }: EditionsSelectProps) => {
         labelPlacement="outside"
         {...form.register('editionId')}
         defaultSelectedKeys={
-          form.getValues('editionId') ? [form.getValues('editionId')] : undefined
+          form.getValues('editionId')
+            ? [form.getValues('editionId')]
+            : undefined
         }
         isLoading={list.isLoading}
         disallowEmptySelection
@@ -39,12 +40,12 @@ export const EditionsSelect = ({ form }: EditionsSelectProps) => {
         isRequired
       >
         {(edition) => (
-          <SelectItem key={edition.id} textValue={edition.number}>
+          <SelectItem key={edition.id} textValue={edition.title}>
             <div className="flex gap-2 items-center">
               <div className="flex flex-col">
-                <span className="text-small">{edition.number}</span>
+                <span className="text-small">{edition.title}</span>
                 <span className="text-tiny text-default-500">
-                  {edition.number}
+                  {edition.title}
                 </span>
               </div>
             </div>
