@@ -6,8 +6,8 @@ type OrderOverrides = {
   status?: number
   addressId?: string
   cardId: string
-  customerId?: string
   couponId?: string
+  customerId: string
 }
 
 export class OrderFactory {

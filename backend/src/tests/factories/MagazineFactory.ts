@@ -1,15 +1,13 @@
 import { Magazine } from '@/application/magazines/domain/magazine'
-import {
-  MagazineProps,
-  PublicationPeriod,
-} from '@/application/magazines/domain/magazine.schema'
+import { PublicationPeriod } from '@/application/magazines/domain/magazine.schema'
+import { ThemeFactory } from './ThemeFactory'
 
 type MagazineOverrides = {
   name?: string
   description?: string
   publicationPeriod?: PublicationPeriod
   yearFounded?: number
-  themeId?: string
+  themeId: string
 }
 
 export class MagazineFactory {
@@ -24,5 +22,20 @@ export class MagazineFactory {
     })
 
     return magazine.value as Magazine
+  }
+
+  static createWithDependencies(overrides?: MagazineOverrides) {
+    const theme = ThemeFactory.create()
+
+    const magazine = Magazine.create({
+      name: 'test-magazine-name',
+      description: 'test-magazine-description',
+      publicationPeriod: PublicationPeriod.MONTHLY,
+      yearFounded: new Date().getFullYear(),
+      themeId: theme.id,
+      ...overrides,
+    })
+
+    return { magazine: magazine.value as Magazine, theme }
   }
 }

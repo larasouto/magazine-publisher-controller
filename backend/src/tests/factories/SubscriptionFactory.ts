@@ -12,7 +12,7 @@ type SubscriptionOverrides = {
   frequency?: SubscriptionFrequency
   price?: number
   magazineId?: string
-  userId?: string
+  userId: string
 }
 
 export class SubscriptionFactory {
