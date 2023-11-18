@@ -270,7 +270,7 @@ CREATE TABLE "order" (
     "delivery_address" TEXT NOT NULL,
     "example_number" INTEGER NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
-    "editon_Id" TEXT NOT NULL,
+    "edition_Id" TEXT NOT NULL,
     "graphicsDistributor_id" TEXT NOT NULL,
     "bookstore_id" TEXT NOT NULL,
 
@@ -282,7 +282,7 @@ CREATE TABLE "orderReturn" (
     "id" TEXT NOT NULL,
     "return_number" INTEGER NOT NULL,
     "return_date" TIMESTAMP(3) NOT NULL,
-    "order_Id" TEXT NOT NULL,
+    "graphicsOrder_Id" TEXT NOT NULL,
 
     CONSTRAINT "orderReturn_pkey" PRIMARY KEY ("id")
 );
@@ -290,6 +290,7 @@ CREATE TABLE "orderReturn" (
 -- CreateTable
 CREATE TABLE "bookstore" (
     "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "address" TEXT NOT NULL,
 
     CONSTRAINT "bookstore_pkey" PRIMARY KEY ("id")
@@ -350,7 +351,7 @@ ALTER TABLE "graphicsOnDistributor" ADD CONSTRAINT "graphicsOnDistributor_graphi
 ALTER TABLE "graphicsOnDistributor" ADD CONSTRAINT "graphicsOnDistributor_distributorId_fkey" FOREIGN KEY ("distributorId") REFERENCES "distributor"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "order" ADD CONSTRAINT "order_editon_Id_fkey" FOREIGN KEY ("editon_Id") REFERENCES "editions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "order" ADD CONSTRAINT "order_edition_Id_fkey" FOREIGN KEY ("edition_Id") REFERENCES "editions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "order" ADD CONSTRAINT "order_graphicsDistributor_id_fkey" FOREIGN KEY ("graphicsDistributor_id") REFERENCES "graphicsOnDistributor"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -359,4 +360,4 @@ ALTER TABLE "order" ADD CONSTRAINT "order_graphicsDistributor_id_fkey" FOREIGN K
 ALTER TABLE "order" ADD CONSTRAINT "order_bookstore_id_fkey" FOREIGN KEY ("bookstore_id") REFERENCES "bookstore"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "orderReturn" ADD CONSTRAINT "orderReturn_order_Id_fkey" FOREIGN KEY ("order_Id") REFERENCES "order"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "orderReturn" ADD CONSTRAINT "orderReturn_graphicsOrder_Id_fkey" FOREIGN KEY ("graphicsOrder_Id") REFERENCES "order"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

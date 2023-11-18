@@ -15,6 +15,7 @@ describe('Delete a bookstore', () => {
   test('should be able to delete a bookstore', async () => {
     const data: any = {
       address: 'bookstore-address-delete',
+      name: 'bookstore-name',
     }
 
     await bookstoresRepository.create(data)

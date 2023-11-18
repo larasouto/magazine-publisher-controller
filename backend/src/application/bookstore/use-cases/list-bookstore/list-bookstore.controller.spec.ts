@@ -24,6 +24,7 @@ describe('List boookstores (end-to-end)', () => {
     const data: any = {
       id: uuid(),
       address: 'test-boookstore-address',
+      name: 'bookstore-name',
     }
 
     await prismaClient.bookstore.create({

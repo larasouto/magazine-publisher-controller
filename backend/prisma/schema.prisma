@@ -317,6 +317,7 @@ model GraphicsOrderReturn {
 
 model Bookstore {
   id            String          @id
+  name          String
   address       String
   GraphicsOrder GraphicsOrder[]
 

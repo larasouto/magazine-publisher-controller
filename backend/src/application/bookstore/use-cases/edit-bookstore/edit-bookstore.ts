@@ -6,6 +6,7 @@ import { IBookstoreRepository } from '../../repositories/interfaces/IBookstoresR
 type EditBookstoreRequest = {
   bookstoreId: string
   address: string
+  name: string
 }
 
 type EditBookstoreResponse = Either<BookstoreNotFoundError, Bookstore>

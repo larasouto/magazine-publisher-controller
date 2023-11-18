@@ -15,6 +15,7 @@ describe('Create bookstore (end-to-end)', () => {
 
     const data: any = {
       address: 'bookstore-address',
+      name: 'bookstore-name',
     }
 
     const response = await request(app)

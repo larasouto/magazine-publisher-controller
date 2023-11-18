@@ -16,6 +16,7 @@ describe('Create a bookstore', () => {
   test('should be able to create a bookstore', async () => {
     const data: any = {
       address: 'bookstore-address',
+      name: 'bookstore-name',
     }
 
     const response = await createBookstore.execute(data)

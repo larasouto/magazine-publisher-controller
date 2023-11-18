@@ -4,6 +4,7 @@ import { IBookstoreRepository } from '../../repositories/interfaces/IBookstoresR
 
 type CreateBookstoreRequest = {
   address: string
+  name: string
 }
 
 type CreateBookstoreResponse = Either<Error, Bookstore>

@@ -10,6 +10,7 @@ describe('Edit bookstore (end-to-end)', () => {
   const create = {
     id: uuid(),
     address: 'test-bookstore',
+    name: 'bookstore-name',
   }
 
   beforeAll(async () => {
@@ -29,6 +30,7 @@ describe('Edit bookstore (end-to-end)', () => {
 
     const data: any = {
       address: 'bookstore-address-updated',
+      name: 'bookstore-name',
     }
 
     const response = await request(app)

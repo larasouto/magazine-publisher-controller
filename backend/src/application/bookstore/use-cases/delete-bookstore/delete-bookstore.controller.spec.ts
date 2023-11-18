@@ -10,6 +10,7 @@ describe('Delete bookstore (end-to-end)', () => {
   const create = {
     id: uuid(),
     address: 'bookstore-delete-address-delete',
+    name: 'bookstore-name',
   }
 
   beforeAll(async () => {

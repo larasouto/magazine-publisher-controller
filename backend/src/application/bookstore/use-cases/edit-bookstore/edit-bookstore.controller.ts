@@ -8,6 +8,7 @@ import { BookstoreNotFoundError } from './errors/BookstoreNotFoundError'
 type EditbookstoreControllerRequest = {
   bookstoreId: string
   address: string
+  name: string
 }
 
 export class EditbookstoreController implements Controller {

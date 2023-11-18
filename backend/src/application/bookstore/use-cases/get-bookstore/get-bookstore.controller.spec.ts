@@ -10,6 +10,7 @@ describe('Get a bookstore (end-to-end)', () => {
   const create = {
     id: uuid(),
     address: 'test-bookstore-create',
+    name: 'bookstore-name',
   }
 
   beforeAll(async () => {

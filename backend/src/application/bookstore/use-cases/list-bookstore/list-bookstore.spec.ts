@@ -18,30 +18,32 @@ describe('List bookstores', () => {
 
   test('should list all bookstores', async () => {
     const data1 = {
-      address: 'theme-address',
+      address: 'bookstore-address',
+      name: 'bookstore-name',
     }
 
     const data2 = {
-      address: 'second-theme-address',
+      address: 'second-bookstore-address',
+      name: 'secund-bookstore-name',
     }
 
     const response1 = await createBookstore.execute(data1)
-    const theme1 = response1.value as Bookstore
+    const bookstore1 = response1.value as Bookstore
 
     const response2 = await createBookstore.execute(data2)
-    const theme2 = response2.value as Bookstore
+    const bookstore2 = response2.value as Bookstore
 
-    expect(theme1).toBeTruthy()
-    expect(await bookstoresRepository.findById(theme1.id)).toBeTruthy()
+    expect(bookstore1).toBeTruthy()
+    expect(await bookstoresRepository.findById(bookstore1.id)).toBeTruthy()
 
-    expect(theme2).toBeTruthy()
-    expect(await bookstoresRepository.findById(theme2.id)).toBeTruthy()
+    expect(bookstore2).toBeTruthy()
+    expect(await bookstoresRepository.findById(bookstore2.id)).toBeTruthy()
 
     const response = await listBookstores.execute()
     expect(response.length).toBe(2)
 
-    expect(response[0].props.address).toBe(theme1.props.address)
-    expect(response[1].props.address).toBe(theme2.props.address)
+    expect(response[0].props.address).toBe(bookstore1.props.address)
+    expect(response[1].props.address).toBe(bookstore2.props.address)
   })
 
   test('should return an empty list if no bookstores exist', async () => {

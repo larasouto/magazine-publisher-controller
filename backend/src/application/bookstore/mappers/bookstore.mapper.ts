@@ -7,6 +7,7 @@ export class BookstoreMapper {
     const bookstore: Pick<Bookstore, 'props'> = {
       props: {
         address: raw.address,
+        name: raw.name,
       },
     }
 
@@ -27,7 +28,7 @@ export class BookstoreMapper {
     return {
       id: bookstore.id,
       address: bookstore.props.address,
-
+      name: bookstore.props.name,
     }
   }
 }

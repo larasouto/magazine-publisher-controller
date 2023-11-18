@@ -17,6 +17,7 @@ describe('Get a bookstore', () => {
     const data: any = {
       id: uuid(),
       address: 'bookstore-address',
+      name: 'bookstore-name',
     }
 
     await bookstoresRepository.create(data)

@@ -6,6 +6,7 @@ import { CreateBookstore } from './create-bookstore'
 
 type CreateBookstoreControllerRequest = {
   address: string
+  name: string
 }
 
 export class CreateBookstoreController implements Controller {

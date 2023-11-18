@@ -1,8 +1,8 @@
 import { v4 as uuid } from 'uuid'
 import { beforeEach, describe, expect, test } from 'vitest'
 import { InMemoryBookstoresRepository } from '../../repositories/in-memory/InMemoryBookstoresRepository'
-import { EditBookstore } from './edit-bookstore'
 import { IBookstoreRepository } from '../../repositories/interfaces/IBookstoresRepository'
+import { EditBookstore } from './edit-bookstore'
 
 let bookstoresRepository: IBookstoreRepository
 let editBookstore: EditBookstore
@@ -17,6 +17,7 @@ describe('Create a bookstore', () => {
     const data: any = {
       id: uuid(),
       address: 'bookstore-address',
+      name: 'bookstore-name',
     }
 
     await bookstoresRepository.create(data)
@@ -25,44 +26,7 @@ describe('Create a bookstore', () => {
     const updatedBookstore = await editBookstore.execute({
       bookstoreId: data.id,
       address: 'bookstore-address-updated',
-    })
-    expect(updatedBookstore.isRight()).toBeTruthy()
-
-    const bookstore = await bookstoresRepository.findById(data.id)
-    expect(bookstore).toEqual(updatedBookstore.value)
-  })
-
-  test('should be able to update only the address in a bookstore', async () => {
-    const data: any = {
-      id: uuid(),
-      address: 'bookstore-address',
-    }
-
-    await bookstoresRepository.create(data)
-    expect(await bookstoresRepository.findById(data.id)).toBeTruthy()
-
-    const updatedBookstore = await editBookstore.execute({
-      bookstoreId: data.id,
-      address: 'bookstore-address-updated',
-    })
-    expect(updatedBookstore.isRight()).toBeTruthy()
-
-    const bookstore = await bookstoresRepository.findById(data.id)
-    expect(bookstore).toEqual(updatedBookstore.value)
-  })
-
-  test('should be able to update only the description in a bookstore', async () => {
-    const data: any = {
-      id: uuid(),
-      address: 'bookstore-address',
-    }
-
-    await bookstoresRepository.create(data)
-    expect(await bookstoresRepository.findById(data.id)).toBeTruthy()
-
-    const updatedBookstore = await editBookstore.execute({
-      bookstoreId: data.id,
-      address: 'test-bookstore',
+      name: 'bookstore-name',
     })
     expect(updatedBookstore.isRight()).toBeTruthy()
 
@@ -74,6 +38,7 @@ describe('Create a bookstore', () => {
     const data: any = {
       id: uuid(),
       address: 'bookstore-address',
+      name: 'bookstore-name',
     }
 
     await bookstoresRepository.create(data)
@@ -82,6 +47,7 @@ describe('Create a bookstore', () => {
     const updatedBookstore = await editBookstore.execute({
       bookstoreId: data.id,
       address: '',
+      name: '',
     })
     expect(updatedBookstore.isLeft()).toBeTruthy()
   })
