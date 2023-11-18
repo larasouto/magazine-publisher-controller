@@ -6,6 +6,7 @@ import { BookstoresActions } from './bookstores.actions'
 export type BookstoresColumns = {
   id: string
   address: string
+  name: string
 }
 
 const helper = createColumnHelper<BookstoresColumns>()
@@ -33,6 +34,17 @@ export const columns = [
     enableSorting: false,
     enableHiding: false
   }),
+  /**
+   * name
+   */
+  helper.accessor((row) => row.name, {
+    id: 'name',
+    header: () => t('bookstores:form.name.label'),
+    cell: ({ row }) => row.getValue('name'),
+    enableSorting: true,
+    enableHiding: true
+  }),
+  /**
   /**
    * address
    */

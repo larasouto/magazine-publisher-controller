@@ -45,6 +45,16 @@ export const BookstoresForm = ({ data }: BookstoresFormProps) => {
       noValidate
     >
       <GridLayout cols="1">
+      <fieldset>
+          <Input
+            label={t('form.name.label')}
+            placeholder={t('form.name.placeholder')}
+            errorMessage={form.formState.errors.name?.message}
+            labelPlacement="outside"
+            {...form.register('name')}
+            isRequired
+          />
+        </fieldset>
         <fieldset>
           <Input
             label={t('form.address.label')}
