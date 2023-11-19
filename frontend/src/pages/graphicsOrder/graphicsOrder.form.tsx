@@ -12,9 +12,9 @@ import {
   GraphicsOrdersSchema
 } from './graphicsOrder.schema'
 import { DatePicker } from '@/components/ui/date-picker/DatePicker'
-import { GraphocsOnDistributorSelect } from './select/GraphicsOnDistributor'
 import { BookstoreSelect } from './select/bookstores'
 import { EditionsSelect } from './select/editions'
+import { GraphocsOnDistributorSelect } from './select/graphicsOnDistributor'
 
 type GraphicsOrdersFormProps = {
   data?: GraphicsOrdersFormWithId

@@ -16,6 +16,7 @@ import { CardsRoutes } from './pages/profile/cards.routes'
 import { ReportersRoutes } from './pages/reporters.routes'
 import { SubscriptionRoutes } from './pages/subscriptions.routes'
 import { GraphicsOrdersRoutes } from './pages/grapihcsOrders.routes'
+import { GraphicsOrdersReturnsRoutes } from './pages/grapihcsOrdersReturns.routes'
 
 /**
  * Criação do 'roteador' da aplicação, responsável por gerenciar
@@ -39,5 +40,6 @@ export const router = createBrowserRouter([
   DistributorRoutes,
   GraphocsOnDistributorsRoutes,
   GraphicsOrdersRoutes,
+  GraphicsOrdersReturnsRoutes,
   
 ])
