@@ -39,13 +39,13 @@ export const GraphocsOnDistributorSelect = ({ form }: GraphocsOnDistributorSelec
         errorMessage={form.formState.errors.graphicsDistributorId?.message}
         isRequired
       >
-        {(edition) => (
-          <SelectItem key={edition.id} textValue={edition.id}>
+        {(graphicsOnDistributor) => (
+          <SelectItem key={graphicsOnDistributor.id} textValue={graphicsOnDistributor.id}>
             <div className="flex gap-2 items-center">
               <div className="flex flex-col">
-                <span className="text-small">{edition.id}</span>
+                <span className="text-small">{graphicsOnDistributor.id}</span>
                 <span className="text-tiny text-default-500">
-                  {edition.id}
+                  {graphicsOnDistributor.id}
                 </span>
               </div>
             </div>
