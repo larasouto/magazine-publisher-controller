@@ -40,7 +40,7 @@ export const EditionsSelect = ({ form }: EditionsSelectProps) => {
         isRequired
       >
         {(edition) => (
-          <SelectItem key={edition.title} textValue={edition.title}>
+          <SelectItem key={edition.id} textValue={edition.title}>
             <div className="flex gap-2 items-center">
               <div className="flex flex-col">
                 <span className="text-small">{edition.title}</span>

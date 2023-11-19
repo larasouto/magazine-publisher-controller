@@ -1,10 +1,10 @@
-import { UseFormReturn } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { useFetch } from "@/hooks/useFetch"
-import { backend } from "@/routes/routes"
-import { Select, SelectItem } from "@nextui-org/react"
-import { BookstoresColumns } from "@/pages/bookstore/table/bookstores.columns"
-import { GraphicsOrderForm } from "../graphicsOrder.schema"
+import { UseFormReturn } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { useFetch } from '@/hooks/useFetch'
+import { backend } from '@/routes/routes'
+import { Select, SelectItem } from '@nextui-org/react'
+import { BookstoresColumns } from '@/pages/bookstore/table/bookstores.columns'
+import { GraphicsOrderForm } from '../graphicsOrder.schema'
 
 type BookstoreSelectProps = {
   form: UseFormReturn<GraphicsOrderForm>
@@ -30,7 +30,9 @@ export const BookstoreSelect = ({ form }: BookstoreSelectProps) => {
         labelPlacement="outside"
         {...form.register('bookstoreId')}
         defaultSelectedKeys={
-          form.getValues('bookstoreId') ? [form.getValues('bookstoreId')] : undefined
+          form.getValues('bookstoreId')
+            ? [form.getValues('bookstoreId')]
+            : undefined
         }
         isLoading={list.isLoading}
         disallowEmptySelection
@@ -38,7 +40,7 @@ export const BookstoreSelect = ({ form }: BookstoreSelectProps) => {
         isRequired
       >
         {(bookstore) => (
-          <SelectItem key={bookstore.name} textValue={bookstore.name}>
+          <SelectItem key={bookstore.id} textValue={bookstore.name}>
             <div className="flex gap-2 items-center">
               <div className="flex flex-col">
                 <span className="text-small">{bookstore.name}</span>

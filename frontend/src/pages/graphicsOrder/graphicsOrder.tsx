@@ -23,7 +23,9 @@ export const GraphicsOrdersPage = () => {
       imageSrc="/banner.jpg"
       isLoading={get.isLoading}
       breadcrumb={breadcrumb({
-        segments: [{ label: t('page.title'), link: routes.graphicsOrders.index }]
+        segments: [
+          { label: t('page.title'), link: routes.graphicsOrders.index }
+        ]
       })}
     >
       <GraphicsOrdersForm data={get.data} />

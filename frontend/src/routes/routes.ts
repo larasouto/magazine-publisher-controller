@@ -97,19 +97,19 @@ export const routes = {
     edit: '/distributor/:id/edit',
     delete: '/distributor/:id/delete'
   },
-  graphicsOrders: {
-    index: '/graphicsOrders',
-    new: '/graphicsOrders/new',
-    list: '/graphicsOrders/list',
-    edit: '/graphicsOrders/:id/edit',
-    delete: '/graphicsOrders/:id/delete'
-  },
   graphicsOnDistributor: {
     index: '/graphicsOnDistributor',
     new: '/graphicsOnDistributor/new',
     list: '/graphicsOnDistributor/list',
     edit: '/graphicsOnDistributor/:id/edit',
     delete: '/graphicsOnDistributor/:id/delete'
+  },
+  graphicsOrders: {
+    index: '/graphicsOrders',
+    new: '/graphicsOrders/new',
+    list: '/graphicsOrders/list',
+    edit: '/graphicsOrders/:id/edit',
+    delete: '/graphicsOrders/:id/delete'
   },
   graphicsOrderReturn: {
     index: '/graphicsOrderReturn',

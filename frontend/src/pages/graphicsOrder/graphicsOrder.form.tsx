@@ -9,8 +9,8 @@ import { useTranslation } from 'react-i18next'
 import {
   GraphicsOrderForm,
   GraphicsOrdersFormWithId,
-  GraphicsOrdersSchema
-} from './graphicsOrder.schema'
+  GraphicsOrdersSchema,
+  Status} from './graphicsOrder.schema'
 import { DatePicker } from '@/components/ui/date-picker/DatePicker'
 import { BookstoreSelect } from './select/bookstores'
 import { EditionsSelect } from './select/editions'
@@ -35,7 +35,11 @@ export const GraphicsOrdersForm = ({ data }: GraphicsOrdersFormProps) => {
   const form = useForm<GraphicsOrderForm>({
     mode: 'all',
     resolver: zodResolver(GraphicsOrdersSchema),
-    defaultValues: data
+    defaultValues: {
+      ...data,
+     status: Status.onHold,
+     price: 0
+    }
   })
 
   const onSubmit = async (form: GraphicsOrderForm) => {
@@ -55,16 +59,16 @@ export const GraphicsOrdersForm = ({ data }: GraphicsOrdersFormProps) => {
       <GridLayout cols="3">
         <EditionsSelect form={form} />
         <fieldset>
-            <Input
-              type="number"
-              label={t('form.exampleNumber.label')}
-              placeholder={t('form.exampleNumber.placeholder')}
-              errorMessage={form.formState.errors.exampleNumber?.message}
-              labelPlacement="outside"
-              {...form.register('exampleNumber')}
-              isRequired
-            />
-          </fieldset>
+          <Input
+            type="number"
+            label={t('form.exampleNumber.label')}
+            placeholder={t('form.exampleNumber.placeholder')}
+            errorMessage={form.formState.errors.exampleNumber?.message}
+            labelPlacement="outside"
+            {...form.register('exampleNumber', { valueAsNumber: true })}
+            isRequired
+          />
+        </fieldset>
         <BookstoreSelect form={form} />
         <fieldset>
           <Input

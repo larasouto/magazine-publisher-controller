@@ -116,7 +116,7 @@ describe('Get graphicsOrder (end-to-end)', () => {
     graphicsOrderId.push(graphicsOrder.id)
 
     const response = await request(app)
-      .get('/api/graphicsOrder')
+      .get('/api/graphicsOrders')
       .auth(jwt.token, { type: 'bearer' })
 
     expect(response.status).toBe(StatusCodes.OK)
@@ -126,7 +126,7 @@ describe('Get graphicsOrder (end-to-end)', () => {
   })
 
   test('should not be able to list order without authentication', async () => {
-    const response = await request(app).get(`/api/graphicsOrder`).send()
+    const response = await request(app).get(`/api/graphicsOrders`).send()
     expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
   })
 })

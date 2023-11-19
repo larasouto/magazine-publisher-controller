@@ -112,7 +112,7 @@ describe('Get graphicsOrder (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .get(`/api/graphicsOrder/${graphicsOrder.id}-complement`)
+      .get(`/api/graphicsOrders/${graphicsOrder.id}-complement`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 
@@ -121,7 +121,7 @@ describe('Get graphicsOrder (end-to-end)', () => {
 
   test('should not be able to get a order with no authentication', async () => {
     const response = await request(app)
-      .get(`/api/graphicsOrder/${graphicsOrder.id}`)
+      .get(`/api/graphicsOrders/${graphicsOrder.id}`)
       .send()
 
     expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
@@ -131,7 +131,7 @@ describe('Get graphicsOrder (end-to-end)', () => {
     const { jwt } = UserFactory.createAndAuthenticate()
 
     const response = await request(app)
-      .get(`/api/graphicsOrder/${null}`)
+      .get(`/api/graphicsOrders/${null}`)
       .auth(jwt.token, { type: 'bearer' })
       .send()
 

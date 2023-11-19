@@ -39,7 +39,7 @@ let distributorRepository: IDistributorRepository
 let graphicsOnDistributorRepository: IGraphicsOnDistributorRepository
 let bookstoreRepository: IBookstoreRepository
 
-describe('Create graphicsOrder (end-to-end)', () => {
+describe('Create graphicsOrders (end-to-end)', () => {
   const { jwt, user } = UserFactory.createAndAuthenticate()
   const theme = ThemeFactory.create()
   const magazine = MagazineFactory.create({ themeId: theme.id })
@@ -117,7 +117,7 @@ describe('Create graphicsOrder (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .post('/api/graphicsOrder/new')
+      .post('/api/graphicsOrders/new')
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
     console.log(response.body)
@@ -131,7 +131,7 @@ describe('Create graphicsOrder (end-to-end)', () => {
     const data: any = {}
 
     const response = await request(app)
-      .post('/api/graphicsOrder/new')
+      .post('/api/graphicsOrders/new')
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
@@ -156,7 +156,7 @@ describe('Create graphicsOrder (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .post('/api/graphicsOrder/new')
+      .post('/api/graphicsOrders/new')
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
@@ -181,7 +181,7 @@ describe('Create graphicsOrder (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .post('/api/graphicsOrder/new')
+      .post('/api/graphicsOrders/new')
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
@@ -206,7 +206,7 @@ describe('Create graphicsOrder (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .post('/api/graphicsOrder/new')
+      .post('/api/graphicsOrders/new')
       .auth(jwt.token, { type: 'bearer' })
       .send(data)
 
@@ -228,7 +228,7 @@ describe('Create graphicsOrder (end-to-end)', () => {
     }
 
     const response = await request(app)
-      .post('/api/graphicsOrder/new')
+      .post('/api/graphicsOrders/new')
       .send(data)
 
     expect(response.status).toBe(StatusCodes.UNAUTHORIZED)
