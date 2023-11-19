@@ -103,7 +103,7 @@ export const SubscriptionForm = ({ data }: SubscriptionsFormProps) => {
             labelPlacement="outside"
             defaultSelectedKeys={[String(data?.type ?? 1)]}
             {...form.register('type')}
-            errorMessage={form.formState.errors.type?.message}
+            errorMessage={String(form.formState.errors.type?.message)}
             disallowEmptySelection
             isRequired
           >

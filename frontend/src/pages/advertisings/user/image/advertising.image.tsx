@@ -4,7 +4,6 @@ import { Button, Image } from '@nextui-org/react'
 import { Plus } from 'lucide-react'
 import { ChangeEvent, useEffect, useMemo, useState } from 'react'
 import { UseFormReturn } from 'react-hook-form'
-import toast from 'react-hot-toast'
 import { v4 as uuid } from 'uuid'
 import { AdvertisingData } from '../advertisings.schema'
 
@@ -47,7 +46,6 @@ export const AdvertisingsImage = ({
       })
 
       if (data) {
-        toast.success(data.path)
         form.setValue('imagePath', data.path)
       }
     }

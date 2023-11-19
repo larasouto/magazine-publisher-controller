@@ -15,6 +15,7 @@ import { advertisings } from './advertisings.routes'
 import { payments } from './payment-subscriptions.routes'
 import { paymentsAd } from './payment-advertisings.routes'
 import { reviews } from './reviews.routes'
+import { adPrices } from './ad-prices.routes'
 import { bookstore } from './bookstore.routes'
 import { distributor } from './distributor.routes'
 import { graphics } from './graphics.routes'
@@ -40,6 +41,7 @@ router.use('/advertisings', advertisings)
 router.use('/payment-subscriptions', payments)
 router.use('/payment-advertisings', paymentsAd)
 router.use('/editions/reviews', reviews)
+router.use('/ad-prices', adPrices)
 router.use('/bookstores', bookstore)
 router.use('/distributor', distributor)
 router.use('/graphics', graphics)

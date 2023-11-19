@@ -15,8 +15,8 @@ import {
   AdvertisingStatus,
   AdvertisingType
 } from '../advertisings.schema'
-import { AdvertisingsImage } from '../image/advertising.image'
 import { MagazinesSelect } from '../magazines/magazines-select'
+import { AdvertisingsImageView } from './image/advertising.image'
 
 type AdvertisingsFormProps = {
   data?: AdvertisingDataWithId
@@ -55,7 +55,7 @@ export const AdvertisingViewForm = ({ data }: AdvertisingsFormProps) => {
       noValidate
     >
       <GridLayout className="grid grid-cols-1 lg:grid-cols-[auto_1fr]">
-        <AdvertisingsImage form={form} />
+        <AdvertisingsImageView form={form} />
         <GridLayout cols="3">
           <fieldset>
             <Input
@@ -106,7 +106,7 @@ export const AdvertisingViewForm = ({ data }: AdvertisingsFormProps) => {
               isReadOnly
             />
           </fieldset>
-          <MagazinesSelect form={form} />
+          <MagazinesSelect form={form} isView />
           <fieldset>
             <Input
               label={'Motivo'}

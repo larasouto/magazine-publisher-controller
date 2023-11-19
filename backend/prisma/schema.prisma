@@ -148,6 +148,7 @@ model Magazine {
   editions           Edition[]
   subscriptions      Subscription[]
   advertisings       Advertising[]
+  AdPrice            AdPrice[]
 
   @@map("magazines")
 }
@@ -263,6 +264,22 @@ model PaymentAdvertising {
   updated_at     DateTime    @updatedAt
 
   @@map("payment_advertisings")
+}
+
+model AdPrice {
+  id                String   @id
+  banner_price      Float
+  whole_page_price  Float
+  double_page_price Float
+  beggining_price   Float
+  middle_price      Float
+  end_price         Float
+  magazine          Magazine @relation(fields: [magazine_id], references: [id])
+  magazine_id       String
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+
+  @@map("ad_prices")
 }
 
 model Review {
