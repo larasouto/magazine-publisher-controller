@@ -16,6 +16,7 @@ import { GraphicsRoutes } from './pages/graphics.routes'
 import { DistributorRoutes } from './pages/distributor.routes'
 import { BookstoresOrderRoutes } from './pages/graphicsOrder/bookstoreOrder.routes'
 import { GraphocsOnDistributorsRoutes } from './pages/graphicsOnDistributor.routes'
+import { BookstoresOrderReturnRoutes } from './pages/graphicsOrder/bookstoreOrderReturn.routes'
 
 /**
  * Criação do 'roteador' da aplicação, responsável por gerenciar
@@ -39,4 +40,5 @@ export const router = createBrowserRouter([
   DistributorRoutes,
   BookstoresOrderRoutes,
   GraphocsOnDistributorsRoutes,
+  BookstoresOrderReturnRoutes,
 ])

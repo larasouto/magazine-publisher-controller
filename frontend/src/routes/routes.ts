@@ -110,6 +110,13 @@ export const routes = {
     list: '/graphicsOnDistributor/list',
     edit: '/graphicsOnDistributor/:id/edit',
     delete: '/graphicsOnDistributor/:id/delete'
+  },
+  bookstoreOrderReturn: {
+    index: '/bookstoreOrderReturn',
+    new: '/bookstoreOrderReturn/new',
+    list: '/bookstoreOrderReturn/list',
+    edit: '/bookstoreOrderReturn/:id/edit',
+    delete: '/bookstoreOrderReturn/:id/delete'
   }
 }
 
@@ -163,5 +170,8 @@ export const backend = {
   },
   graphicsOnDistributor: {
     baseUrl: '/graphicsOnDistributor'
+  },
+  bookstoreOrderReturn: {
+    baseUrl: '/graphicsOrderReturn'
   }
 }
