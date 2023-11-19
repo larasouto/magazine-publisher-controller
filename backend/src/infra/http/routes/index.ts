@@ -16,6 +16,12 @@ import { payments } from './payment-subscriptions.routes'
 import { paymentsAd } from './payment-advertisings.routes'
 import { reviews } from './reviews.routes'
 import { adPrices } from './ad-prices.routes'
+import { bookstore } from './bookstore.routes'
+import { distributor } from './distributor.routes'
+import { graphics } from './graphics.routes'
+import { graphicsOrder } from './graphicsOrder.routes'
+import { graphicsOrderRetur } from './graphicsOrderReturn.routes'
+import { graphicsOnDistributor } from './graphicsOnDistributor.routes'
 
 export const router = Router()
 
@@ -36,3 +42,9 @@ router.use('/payment-subscriptions', payments)
 router.use('/payment-advertisings', paymentsAd)
 router.use('/editions/reviews', reviews)
 router.use('/ad-prices', adPrices)
+router.use('/bookstores', bookstore)
+router.use('/distributor', distributor)
+router.use('/graphics', graphics)
+router.use('/graphicsOrders', graphicsOrder)
+router.use('/graphicsOrderReturn', graphicsOrderRetur)
+router.use('/graphicsOnDistributor', graphicsOnDistributor)
