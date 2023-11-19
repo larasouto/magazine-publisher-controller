@@ -1,17 +1,17 @@
 import { UseFormReturn } from 'react-hook-form'
-import { BookstoreOrderForm } from '../bookstoreOrder.schema'
 import { useTranslation } from 'react-i18next'
 import { useFetch } from '@/hooks/useFetch'
 import { backend } from '@/routes/routes'
 import { Select, SelectItem } from '@nextui-org/react'
 import { EditionFormWithId } from '@/pages/editions/editions.schema'
+import { GraphicsOrderForm } from '../graphicsOrder.schema'
 
 type EditionsSelectProps = {
-  form: UseFormReturn<BookstoreOrderForm>
+  form: UseFormReturn<GraphicsOrderForm>
 }
 
 export const EditionsSelect = ({ form }: EditionsSelectProps) => {
-  const { t } = useTranslation('bookstores')
+  const { t } = useTranslation('editions')
 
   const { list } = useFetch<EditionFormWithId[]>({
     baseUrl: backend.editions.baseUrl,

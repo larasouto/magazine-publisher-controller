@@ -3,15 +3,15 @@ import { useFetch } from '@/hooks/useFetch'
 import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
-import { BookstoreOrdersColumns, columns } from './table/bookstoreOrder.columns'
-import { BookstoreOrdersToolbar } from './bookstoreOrder.toolbar'
+import { GraphicsOrdersColumns, columns } from './table/graphicsOrder.columns'
+import { GraphicsOrdersToolbar } from './graphicsOrder.toolbar'
 
-export const BookstoreOrdersListPage = () => {
-  const { title, breadcrumb } = usePageUtils('bookstoreOrders')
+export const GraphicsOrdersListPage = () => {
+  const { title, breadcrumb } = usePageUtils('graphicsOrders')
 
-  const { list } = useFetch<BookstoreOrdersColumns[]>({
-    baseUrl: backend.bookstoreOrders.baseUrl,
-    query: ['bookstoreOrders'],
+  const { list } = useFetch<GraphicsOrdersColumns[]>({
+    baseUrl: backend.graphicsOrders.baseUrl,
+    query: ['graphicsOrders'],
     fetch: {
       list: true
     }
@@ -19,14 +19,14 @@ export const BookstoreOrdersListPage = () => {
 
   return (
     <PageLayout
-      title={title()} 
+      title={title()}
       isLoading={list.isLoading}
       breadcrumb={breadcrumb()}
     >
       <DataTable
         columns={columns}
         data={list?.data ?? []}
-        toolbarButtons={<BookstoreOrdersToolbar />}
+        toolbarButtons={<GraphicsOrdersToolbar />}
       />
     </PageLayout>
   )

@@ -1,48 +1,44 @@
 import { SubmitButton } from '@/components/SubmitButton'
 import { GridLayout } from '@/components/ui/Grid'
-import { DatePicker } from '@/components/ui/date-picker/DatePicker'
 import { useFetch } from '@/hooks/useFetch'
 import { backend, routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@nextui-org/react'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { BookstoreSelect } from './bookstore/bookstore-select'
 import {
-  BookstoreOrderForm,
-  BookstoreOrdersFormWithId,
-  BookstoreOrdersSchema,
-  Status
-} from './bookstoreOrder.schema'
-import { EditionsSelect } from './editions/editions-select'
-import { GraphocsOnDistributorSelect } from './graphicsOnDistributor/graphicsOnDistributor'
+  GraphicsOrderForm,
+  GraphicsOrdersFormWithId,
+  GraphicsOrdersSchema
+} from './graphicsOrder.schema'
+import { DatePicker } from '@/components/ui/date-picker/DatePicker'
+import { GraphocsOnDistributorSelect } from './select/GraphicsOnDistributor'
+import { BookstoreSelect } from './select/bookstores'
+import { EditionsSelect } from './select/editions'
 
-type BookstoreOrdersFormProps = {
-  data?: BookstoreOrdersFormWithId
+type GraphicsOrdersFormProps = {
+  data?: GraphicsOrdersFormWithId
 }
 
-export const BookstoreOrdersForm = ({ data }: BookstoreOrdersFormProps) => {
-  const { t } = useTranslation('bookstoreOrders')
+export const GraphicsOrdersForm = ({ data }: GraphicsOrdersFormProps) => {
+  const { t } = useTranslation('graphicsOrders')
 
-  const { create, update } = useFetch<BookstoreOrderForm>({
-    baseUrl: backend.bookstoreOrders.baseUrl,
-    query: ['bookstoreOrders'],
-    redirectTo: routes.bookstoreOrders.index,
+  const { create, update } = useFetch<GraphicsOrderForm>({
+    baseUrl: backend.graphicsOrders.baseUrl,
+    query: ['graphicsOrders'],
+    redirectTo: routes.graphicsOrders.index,
     fetch: {
       id: data?.id
     }
   })
 
- const form = useForm<BookstoreOrderForm>({
+  const form = useForm<GraphicsOrderForm>({
     mode: 'all',
-    resolver: zodResolver(BookstoreOrdersSchema),
-    defaultValues: {
-      ...data,
-      status: Status.onHold,
-    }
+    resolver: zodResolver(GraphicsOrdersSchema),
+    defaultValues: data
   })
 
-  const onSubmit = async (form: BookstoreOrderForm) => {
+  const onSubmit = async (form: GraphicsOrderForm) => {
     if (data) {
       await update.mutateAsync(form)
       return

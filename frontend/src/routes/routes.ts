@@ -97,12 +97,12 @@ export const routes = {
     edit: '/distributor/:id/edit',
     delete: '/distributor/:id/delete'
   },
-  bookstoreOrders: {
-    index: '/bookstoreOrders',
-    new: '/bookstoreOrders/new',
-    list: '/bookstoreOrders/list',
-    edit: '/bookstoreOrders/:id/edit',
-    delete: '/bookstoreOrders/:id/delete'
+  graphicsOrders: {
+    index: '/graphicsOrders',
+    new: '/graphicsOrders/new',
+    list: '/graphicsOrders/list',
+    edit: '/graphicsOrders/:id/edit',
+    delete: '/graphicsOrders/:id/delete'
   },
   graphicsOnDistributor: {
     index: '/graphicsOnDistributor',
@@ -111,12 +111,12 @@ export const routes = {
     edit: '/graphicsOnDistributor/:id/edit',
     delete: '/graphicsOnDistributor/:id/delete'
   },
-  bookstoreOrderReturn: {
-    index: '/bookstoreOrderReturn',
-    new: '/bookstoreOrderReturn/new',
-    list: '/bookstoreOrderReturn/list',
-    edit: '/bookstoreOrderReturn/:id/edit',
-    delete: '/bookstoreOrderReturn/:id/delete'
+  graphicsOrderReturn: {
+    index: '/graphicsOrderReturn',
+    new: '/graphicsOrderReturn/new',
+    list: '/graphicsOrderReturn/list',
+    edit: '/graphicsOrderReturn/:id/edit',
+    delete: '/graphicsOrderReturn/:id/delete'
   }
 }
 
@@ -165,13 +165,13 @@ export const backend = {
   distributor: {
     baseUrl: '/distributor'
   },
-  bookstoreOrders: {
+  graphicsOrders: {
     baseUrl: '/graphicsOrders'
   },
   graphicsOnDistributor: {
     baseUrl: '/graphicsOnDistributor'
   },
-  bookstoreOrderReturn: {
+  graphicsOrderReturn: {
     baseUrl: '/graphicsOrderReturn'
   }
 }

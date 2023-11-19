@@ -1,13 +1,13 @@
 import { UseFormReturn } from "react-hook-form"
-import { BookstoreOrderForm } from "../bookstoreOrder.schema"
 import { useTranslation } from "react-i18next"
 import { useFetch } from "@/hooks/useFetch"
 import { backend } from "@/routes/routes"
 import { Select, SelectItem } from "@nextui-org/react"
 import { BookstoresColumns } from "@/pages/bookstore/table/bookstores.columns"
+import { GraphicsOrderForm } from "../graphicsOrder.schema"
 
 type BookstoreSelectProps = {
-  form: UseFormReturn<BookstoreOrderForm>
+  form: UseFormReturn<GraphicsOrderForm>
 }
 
 export const BookstoreSelect = ({ form }: BookstoreSelectProps) => {

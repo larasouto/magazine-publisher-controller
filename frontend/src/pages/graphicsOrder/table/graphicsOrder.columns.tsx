@@ -1,10 +1,10 @@
 import { Checkbox } from '@nextui-org/react'
 import { createColumnHelper } from '@tanstack/react-table'
 import { t } from 'i18next'
-import { BookstoreOrdersActions } from './bookstoreOrder.actions'
-import { Status } from '../bookstoreOrder.schema'
+import { GraphicsOrdersActions } from './graphicsOrder.actions'
+import { Status } from '../graphicsOrder.schema'
 
-export type BookstoreOrdersColumns = {
+export type GraphicsOrdersColumns = {
   id: string
   exampleNumber: number
   status: Status
@@ -13,7 +13,7 @@ export type BookstoreOrdersColumns = {
   graphicsDistributorId: string
 }
 
-const helper = createColumnHelper<BookstoreOrdersColumns>()
+const helper = createColumnHelper<GraphicsOrdersColumns>()
 
 export const columns = [
   /**
@@ -54,7 +54,7 @@ export const columns = [
    */
   helper.display({
     id: 'actions',
-    cell: ({ row }) => <BookstoreOrdersActions row={row.original} />,
+    cell: ({ row }) => <GraphicsOrdersActions row={row.original} />,
     enableSorting: false,
     enableHiding: false
   })

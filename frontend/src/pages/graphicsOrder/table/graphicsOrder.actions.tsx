@@ -14,19 +14,19 @@ import {
 } from '@nextui-org/react'
 import { Copy, FileSignature, MoreHorizontal, Trash } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { BookstoreOrdersColumns } from './bookstoreOrder.columns'
+import { GraphicsOrdersColumns } from './graphicsOrder.columns'
 
-type BookstoreOrdersActionsProps = {
-  row: BookstoreOrdersColumns
+type GraphicsOrdersActionsProps = {
+  row: GraphicsOrdersColumns
 }
 
-export const BookstoreOrdersActions = ({ row }: BookstoreOrdersActionsProps) => {
+export const GraphicsOrdersActions = ({ row }: GraphicsOrdersActionsProps) => {
   const { t } = useTranslation()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
-  const { remove } = useFetch<BookstoreOrdersColumns>({
-    baseUrl: backend.themes.baseUrl,
-    query: ['themes']
+  const { remove } = useFetch<GraphicsOrdersColumns>({
+    baseUrl: backend.graphicsOrders.baseUrl,
+    query: ['graphicsOrders']
   })
 
   const handleDelete = async () => {
@@ -45,7 +45,7 @@ export const BookstoreOrdersActions = ({ row }: BookstoreOrdersActionsProps) => 
           <DropdownSection title={t('table.actions')}>
             <DropdownItem textValue="edit">
               <Link
-                href={replaceParams(routes.themes.edit, [row.id])}
+                href={replaceParams(routes.graphicsOrders.edit, [row.id])}
                 color="foreground"
                 className="flex gap-2"
               >

@@ -4,14 +4,14 @@ import { backend } from '@/routes/routes'
 import { Select, SelectItem } from '@nextui-org/react'
 import { UseFormReturn } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { BookstoreOrderForm } from '../bookstoreOrder.schema'
+import { GraphicsOrderForm } from '../graphicsOrder.schema'
 
 type GraphocsOnDistributorSelectProps = {
-  form: UseFormReturn<BookstoreOrderForm>
+  form: UseFormReturn<GraphicsOrderForm>
 }
 
 export const GraphocsOnDistributorSelect = ({ form }: GraphocsOnDistributorSelectProps) => {
-  const { t } = useTranslation('graphicsOnDistributor')
+  const { t } = useTranslation('graphicsOrder')
 
   const { list } = useFetch<GraphocsOnDistributorsFormWithId[]>({
     baseUrl: backend.graphicsOnDistributor.baseUrl,
