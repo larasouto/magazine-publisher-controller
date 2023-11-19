@@ -1,10 +1,13 @@
+import { JobOpportunity } from '@prisma/client'
+import { IJobOpportunityRepository } from '../interfaces/IJobOpportunitiesRepository'
+
 export class InMemoryJobOpportunitiesRepository
   implements IJobOpportunityRepository
 {
   constructor(public jobOpportunity: JobOpportunity[] = []) {}
 
   async findById(id: string): Promise<JobOpportunity | null> {
-    const jobOpportunity = this.jobOpportunities.find(
+    const jobOpportunity = this.jobOpportunity.find(
       (jobOpportunity) => jobOpportunity.id === id,
     )
 
@@ -47,20 +50,5 @@ export class InMemoryJobOpportunitiesRepository
 
   async list(): Promise<jobOpportunity[]> {
     return this.jobOpportunities
-  }
-
-  async inactivate(id: string): Promise<void> {
-    const jobOpportunityIndex = this.jobOpportunities.findIndex(
-      (jobOpportunity) => jobOpportunity.id === id,
-    )
-
-    const jobOpportunity = {
-      ...this.jobOpportunities[jobOpportunityIndex],
-      status: JobOpportunityStatus.INACTIVE,
-    }
-
-    this.jobOpportunities[jobOpportunityIndex] = JobOpportunity.create({
-      ...jobOpportunity.props,
-    }).value as JobOpportunity
   }
 }

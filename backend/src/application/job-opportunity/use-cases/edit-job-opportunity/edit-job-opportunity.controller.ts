@@ -1,12 +1,12 @@
 import { Controller } from '@/core/infra/controller'
-import { HttpResponse, clientError, created } from '@/core/infra/http-response'
+import { HttpResponse, clientError, ok } from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
 import { t } from 'i18next'
-import { CreateJobOpportunity } from './create-job-opportunity'
+import { EditJobOpportunity } from './edit-job-opportunity'
+import { JobOpportunityNotFoundError } from './errors/JobOpportunityNotFoundError'
 
-
-type CreateJobOpportunityControllerRequest = {
-  avatar?: string
+type EditJobOpportunityControllerRequest = {
+  jobOpportunityId: string
   office: string
   requirements: string
   hours: string
@@ -25,14 +25,14 @@ type CreateJobOpportunityControllerRequest = {
   position_held: string
   company_contact: string
 }
-export class CreateJobOpportunityController implements Controller {
+export class EditJobOpportunityController implements Controller {
   constructor(
-    private readonly validator: Validator<CreateJobOpportunityControllerRequest>,
-    private createJobOpportunity: CreateJobOpportunity,
+    private readonly validator: Validator<EditJobOpportunityControllerRequest>,
+    private editJobOpportunity: EditJobOpportunity,
   ) {}
 
   async handle(
-    request: CreateJobOpportunityControllerRequest,
+    request: EditJobOpportunityControllerRequest,
   ): Promise<HttpResponse> {
     const validated = this.validator.validate(request)
 
@@ -40,17 +40,19 @@ export class CreateJobOpportunityController implements Controller {
       return clientError(validated.value)
     }
 
-    const result = await this.createJobOpportunity.execute(request)
+    const result = await this.editJobOpportunity.execute(request)
 
     if (result.isLeft()) {
       const error = result.value
 
       switch (error.constructor) {
+        case JobOpportunityNotFoundError:
+          return clientError({ type: 'info', message: error.message })
         default:
           return clientError(error)
       }
     }
 
-    return created({ message: t('item.created') })
+    return ok({ message: t('jobOpportunity.updated') })
   }
 }

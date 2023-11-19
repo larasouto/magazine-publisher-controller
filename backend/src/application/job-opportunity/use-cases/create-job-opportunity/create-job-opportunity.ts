@@ -31,17 +31,17 @@ export class CreateJobOpportunity {
   async execute(
     request: CreateJobOpportunityRequest,
   ): Promise<CreateJobOpportunityResponse> {
-    const photographerOrError = JobOpportunity.create({
+    const jobOpportunityOrError = JobOpportunity.create({
       ...request,
       status: request.status as unknown as JobOpportunityStatus,
     })
 
-    if (photographerOrError.isLeft()) {
-      return left(photographerOrError.value)
+    if (jobOpportunityOrError.isLeft()) {
+      return left(jobOpportunityOrError.value)
     }
 
     const user = jobOpportunityOrError.value
-    await this.JobOpportunitiesRepository.create(user)
+    await this.jobOpportunitiesRepository.create(user)
 
     return right(user)
   }

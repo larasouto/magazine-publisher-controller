@@ -16,11 +16,11 @@ jobOpportunities.put(
   adaptRoute(makeEditJobOpportunityController()),
 )
 jobOpportunities.get(
-  '/:photographerId',
+  '/:jobOpportunityId',
   adaptRoute(makeGetJobOpportunityController()),
 )
 jobOpportunities.get('/', adaptRoute(makeListJobOpportunitiesController()))
 jobOpportunities.delete(
-  '/:photographerId',
+  '/:jobOpportunityId',
   adaptRoute(makeInactivateJobOpportunitiesController()),
 )
