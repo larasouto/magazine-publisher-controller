@@ -11,7 +11,6 @@ import { RouterProvider } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import { Loading } from './components/Loading'
 import { ToasterContainer } from './components/toast/Toaster'
-import { UserDetailsProvider } from './contexts/user-details-provider'
 import { queryClient } from './lib/react-query'
 import { router } from './routes'
 import { useThemeStore } from './stores/useThemeStore'
@@ -24,9 +23,7 @@ export const App = () => {
       <HelmetProvider>
         <Suspense fallback={<Loading />}>
           <QueryClientProvider client={queryClient}>
-            <UserDetailsProvider>
-              <RouterProvider router={router} />
-            </UserDetailsProvider>
+            <RouterProvider router={router} />
           </QueryClientProvider>
         </Suspense>
       </HelmetProvider>

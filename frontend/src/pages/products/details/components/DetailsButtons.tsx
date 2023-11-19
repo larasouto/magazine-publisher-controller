@@ -1,7 +1,7 @@
 import { EditionFormWithId } from '@/pages/editions/editions.schema'
 import { useCartStore } from '@/stores/useCartStore'
 import { Button } from '@nextui-org/react'
-import { Minus, Plus, ShoppingCart, Trash } from 'lucide-react'
+import { Minus, Plus, RotateCcw, ShoppingCart } from 'lucide-react'
 
 type DetailsButtonsProps = {
   data?: EditionFormWithId
@@ -44,7 +44,7 @@ export const DetailsButtons = ({ data }: DetailsButtonsProps) => {
           onClick={() => removeItem(data?.id)}
           isIconOnly
         >
-          <Trash className="w-4 h-4" />
+          <RotateCcw className="w-4 h-4" />
         </Button>
       </div>
       <div className="flex justify-start">
