@@ -2,6 +2,10 @@ import { UserDetailsProvider } from '@/contexts/user-details-provider'
 import { createBrowserRouter } from 'react-router-dom'
 import { AdvertisingsRoutes } from './pages/advertisings.routes'
 import { AuthRoutes } from './pages/auth.routes'
+import { BookstoresRoutes } from './pages/bookstores.routes'
+import { DistributorRoutes } from './pages/distributor.routes'
+import { GraphicsRoutes } from './pages/graphics.routes'
+import { GraphocsOnDistributorsRoutes } from './pages/graphicsOnDistributor.routes'
 import { HomeRoutes } from './pages/home.routes'
 import { PhotographersRoutes } from './pages/photographers.routes'
 import { CategoriesRoutes } from './pages/product/categories.routes'
@@ -13,6 +17,8 @@ import { AddressesRoutes } from './pages/profile/addresses.routes'
 import { CardsRoutes } from './pages/profile/cards.routes'
 import { ReportersRoutes } from './pages/reporters.routes'
 import { SubscriptionRoutes } from './pages/subscriptions.routes'
+import { GraphicsOrdersRoutes } from './pages/grapihcsOrders.routes'
+import { GraphicsOrdersReturnsRoutes } from './pages/grapihcsOrdersReturns.routes'
 
 /**
  * Criação do 'roteador' da aplicação, responsável por gerenciar
@@ -35,7 +41,13 @@ export const router = createBrowserRouter([
       AddressesRoutes,
       CardsRoutes,
       OrdersRoutes,
-      AdvertisingsRoutes
+      AdvertisingsRoutes,
+      BookstoresRoutes,
+      GraphicsRoutes,
+      DistributorRoutes,
+      GraphocsOnDistributorsRoutes,
+      GraphicsOrdersRoutes,
+      GraphicsOrdersReturnsRoutes,
     ]
   }
 ])
