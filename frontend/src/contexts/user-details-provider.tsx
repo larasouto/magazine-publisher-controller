@@ -1,12 +1,7 @@
 import { api } from '@/services/api'
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState
-} from 'react'
+import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
+import { Outlet, useLocation } from 'react-router-dom'
 
 type UserDetailsContextProps = {
   user: UserDetails | null
@@ -30,26 +25,29 @@ type UserDetails = {
   role: UserRole
 }
 
-type UserDetailsProviderProps = {
-  children: ReactNode
-}
-
-export const UserDetailsProvider = ({ children }: UserDetailsProviderProps) => {
+export const UserDetailsProvider = () => {
   const [user, setUser] = useState<UserDetails | null>(null)
   const [isLoading, setLoading] = useState(true)
+  const location = useLocation()
+
+  const isGuestPage = useMemo(() => {
+    return ['/sign-in', '/sign-up'].includes(location.pathname)
+  }, [location.pathname])
 
   useEffect(() => {
-    if (!user) {
+    if (!user && !isGuestPage) {
       api
         .get('/auth/me')
         .then((res) => setUser(res.data.dto))
         .catch(() => {
           setUser(null)
-          toast.error('Não foi possível carregar os dados do usuário')
+          toast.error('Não foi possível carregar os dados do usuário', {
+            id: 'error-user-details'
+          })
         })
         .finally(() => setLoading(false))
     }
-  }, [user])
+  }, [user, isGuestPage])
 
   const roles = {
     isAdmin: () => user?.role === UserRole.ADMIN,
@@ -67,7 +65,7 @@ export const UserDetailsProvider = ({ children }: UserDetailsProviderProps) => {
         isLoading
       }}
     >
-      {children}
+      <Outlet />
     </UserDetailsContext.Provider>
   )
 }

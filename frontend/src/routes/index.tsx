@@ -1,3 +1,4 @@
+import { UserDetailsProvider } from '@/contexts/user-details-provider'
 import { createBrowserRouter } from 'react-router-dom'
 import { AdPricesRoutes } from './pages/ad-prices.routes'
 import { AdvertisingsRoutes } from './pages/advertisings.routes'
@@ -19,18 +20,23 @@ import { SubscriptionRoutes } from './pages/subscriptions.routes'
  * as rotas da aplicação.
  */
 export const router = createBrowserRouter([
-  AuthRoutes,
-  HomeRoutes,
-  CategoriesRoutes,
-  ReportersRoutes,
-  PhotographersRoutes,
-  ThemesRoutes,
-  MagazineRoutes,
-  EditionsRoutes,
-  SubscriptionRoutes,
-  AddressesRoutes,
-  CardsRoutes,
-  OrdersRoutes,
-  AdvertisingsRoutes,
-  AdPricesRoutes
+  {
+    path: '/',
+    element: <UserDetailsProvider />,
+    children: [
+      AuthRoutes,
+      HomeRoutes,
+      CategoriesRoutes,
+      ReportersRoutes,
+      PhotographersRoutes,
+      ThemesRoutes,
+      MagazineRoutes,
+      EditionsRoutes,
+      SubscriptionRoutes,
+      AddressesRoutes,
+      CardsRoutes,
+      OrdersRoutes,
+      AdvertisingsRoutes
+    ]
+  }
 ])

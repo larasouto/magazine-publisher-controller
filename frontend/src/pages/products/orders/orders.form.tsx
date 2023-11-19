@@ -50,6 +50,7 @@ export const OrdersForm = ({ data }: MagazinesFormProps) => {
       }))
     )
     form.setValue('totalValue', CartStore.getTotalValue())
+    form.trigger()
   }, [form])
 
   const onSubmit = async (form: OrdersData) => {
@@ -64,8 +65,8 @@ export const OrdersForm = ({ data }: MagazinesFormProps) => {
           status: Math.floor(Math.random() * 3)
         })
         CartStore.removeAll()
-      }, 2000)
-    }, 1000)
+      }, 2500)
+    }, 1500)
   }
 
   return (
