@@ -2,11 +2,15 @@ import { Checkbox } from '@nextui-org/react'
 import { createColumnHelper } from '@tanstack/react-table'
 import { t } from 'i18next'
 import { BookstoreOrdersActions } from './bookstoreOrder.actions'
+import { Status } from '../bookstoreOrder.schema'
 
 export type BookstoreOrdersColumns = {
   id: string
-  name: string
-  description: string
+  exampleNumber: number
+  status: Status
+  editionId: string
+  bookstoreId: string
+  graphicsDistributorId: string
 }
 
 const helper = createColumnHelper<BookstoreOrdersColumns>()
@@ -35,22 +39,13 @@ export const columns = [
     enableHiding: false
   }),
   /**
-   * Name
-   */
-  helper.accessor((row) => row.name, {
-    id: 'name',
-    header: () => t('themes:form.name.label'),
-    cell: ({ row }) => row.getValue('name'),
-    enableSorting: true,
-    enableHiding: true
-  }),
   /**
-   * Description
+   * address
    */
-  helper.accessor((row) => row.description, {
-    id: 'description',
-    header: () => t('themes:form.description.label'),
-    cell: ({ row }) => row.getValue('description'),
+  helper.accessor((row) => row.id, {
+    id: 'id',
+    header: () => t('bookstores:form.id.label'),
+    cell: ({ row }) => row.getValue('id'),
     enableSorting: true,
     enableHiding: true
   }),

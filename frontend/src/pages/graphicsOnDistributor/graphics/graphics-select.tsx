@@ -40,7 +40,7 @@ export const GraphicsSelect = ({ form }: GraphicsSelectProps) => {
         isRequired
       >
         {(edition) => (
-          <SelectItem key={edition.id} textValue={edition.name}>
+          <SelectItem key={edition.name} textValue={edition.name}>
             <div className="flex gap-2 items-center">
               <div className="flex flex-col">
                 <span className="text-small">{edition.name}</span>

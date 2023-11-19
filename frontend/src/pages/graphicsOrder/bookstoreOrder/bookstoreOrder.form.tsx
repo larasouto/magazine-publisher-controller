@@ -59,15 +59,27 @@ export const BookstoreOrdersForm = ({ data }: BookstoreOrdersFormProps) => {
       <GridLayout cols="3">
         <EditionsSelect form={form} />
         <fieldset>
+            <Input
+              type="number"
+              label={t('form.exampleNumber.label')}
+              placeholder={t('form.exampleNumber.placeholder')}
+              errorMessage={form.formState.errors.exampleNumber?.message}
+              labelPlacement="outside"
+              {...form.register('exampleNumber')}
+              isRequired
+            />
+          </fieldset>
+        <BookstoreSelect form={form} />
+        <fieldset>
           <Input
-            label={t('form.exampleNumber.label')}
-            placeholder={t('form.exampleNumber.placeholder')}
-            errorMessage={form.formState.errors.exampleNumber?.message}
+            label={t('form.deliveryAddress.label')}
+            placeholder={t('form.deliveryAddress.placeholder')}
+            errorMessage={form.formState.errors.deliveryAddress?.message}
             labelPlacement="outside"
-            {...form.register('exampleNumber')}
+            {...form.register('deliveryAddress')}
+            isRequired
           />
         </fieldset>
-        <BookstoreSelect form={form} />
         <GraphocsOnDistributorSelect form={form} />
         <fieldset>
           <Controller
@@ -93,7 +105,7 @@ export const BookstoreOrdersForm = ({ data }: BookstoreOrdersFormProps) => {
         fnResetButton={form.reset}
         isLoading={create.isLoading || update.isLoading}
       >
-        {data ? t('common:btn.edit') : t('common:btn.confirm')}
+        {data ? t('common:btn.edit') : t('common:btn.save')}
       </SubmitButton>
     </form>
   )

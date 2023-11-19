@@ -38,7 +38,7 @@ export const BookstoreSelect = ({ form }: BookstoreSelectProps) => {
         isRequired
       >
         {(bookstore) => (
-          <SelectItem key={bookstore.id} textValue={bookstore.name}>
+          <SelectItem key={bookstore.name} textValue={bookstore.name}>
             <div className="flex gap-2 items-center">
               <div className="flex flex-col">
                 <span className="text-small">{bookstore.name}</span>
