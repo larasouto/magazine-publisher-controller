@@ -43,7 +43,7 @@ export class CreatePaymentAdvertising {
       return left(paymentAdvertisingOrError.value)
     }
 
-    const advertising = this.advertisingsRepository.findById(
+    const advertising = await this.advertisingsRepository.findById(
       request.advertisingId,
     )
 
@@ -71,6 +71,10 @@ export class CreatePaymentAdvertising {
 
     const paymentAdvertising = paymentAdvertisingOrError.value
     await this.paymentAdvertisingsRepository.create(paymentAdvertising)
+
+    if (!advertising.props.paid) {
+      await this.advertisingsRepository.updatePayment(advertising.id)
+    }
 
     return right(paymentAdvertising)
   }

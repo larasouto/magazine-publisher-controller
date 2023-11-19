@@ -6,12 +6,17 @@ export class AdvertisingMapper {
   static toDomain(raw: PersistenceAdvertising) {
     const advertisingOrError = Advertising.create(
       {
-        name: raw.name,
+        imagePath: raw.image_path,
+        title: raw.title,
         description: raw.description,
         category: raw.category,
-        numberOfPages: raw.number_of_pages,
+        type: raw.type,
+        status: raw.status,
         price: raw.price,
+        extraInfo: raw.extra_information,
+        paid: raw.paid,
         magazineId: raw.magazine_id,
+        userId: raw.user_id,
       },
       raw.id,
     )
@@ -26,12 +31,17 @@ export class AdvertisingMapper {
   static async toPersistence(advertising: Advertising) {
     return {
       id: advertising.id,
-      name: advertising.props.name,
+      image_path: advertising.props.imagePath,
+      title: advertising.props.title,
       description: advertising.props.description,
       category: advertising.props.category,
-      number_of_pages: advertising.props.numberOfPages,
+      type: advertising.props.type,
+      status: advertising.props.status,
       price: advertising.props.price,
+      extra_information: advertising.props.extraInfo,
+      paid: advertising.props.paid,
       magazine_id: advertising.props.magazineId,
+      user_id: advertising.props.userId,
     }
   }
 }

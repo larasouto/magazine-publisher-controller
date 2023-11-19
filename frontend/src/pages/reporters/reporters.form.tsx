@@ -1,4 +1,5 @@
 import { SubmitButton } from '@/components/SubmitButton'
+import { RichEditor } from '@/components/editor/RichEditor'
 import { GridLayout } from '@/components/ui/Grid'
 import { DatePicker } from '@/components/ui/date-picker/DatePicker'
 import { useFetch } from '@/hooks/useFetch'
@@ -166,6 +167,25 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
             />
           </fieldset>
         )}
+      </GridLayout>
+      <GridLayout cols="1">
+        <fieldset>
+          <Controller
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <RichEditor
+                label={'Nome'}
+                placeholder={'Digite seu nome'}
+                errorMessage={form.formState.errors.name?.message}
+                limit={100}
+                isFixed
+                as="textarea-5"
+                {...field}
+              />
+            )}
+          />
+        </fieldset>
       </GridLayout>
       <SubmitButton
         isEdit={!!data}

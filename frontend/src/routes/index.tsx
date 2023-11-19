@@ -1,4 +1,6 @@
+import { UserDetailsProvider } from '@/contexts/user-details-provider'
 import { createBrowserRouter } from 'react-router-dom'
+import { AdvertisingsRoutes } from './pages/advertisings.routes'
 import { AuthRoutes } from './pages/auth.routes'
 import { BookstoresRoutes } from './pages/bookstores.routes'
 import { DistributorRoutes } from './pages/distributor.routes'
@@ -23,23 +25,29 @@ import { GraphicsOrdersReturnsRoutes } from './pages/grapihcsOrdersReturns.route
  * as rotas da aplicação.
  */
 export const router = createBrowserRouter([
-  AuthRoutes,
-  HomeRoutes,
-  CategoriesRoutes,
-  ReportersRoutes,
-  PhotographersRoutes,
-  ThemesRoutes,
-  MagazineRoutes,
-  EditionsRoutes,
-  SubscriptionRoutes,
-  AddressesRoutes,
-  CardsRoutes,
-  OrdersRoutes,
-  BookstoresRoutes,
-  GraphicsRoutes,
-  DistributorRoutes,
-  GraphocsOnDistributorsRoutes,
-  GraphicsOrdersRoutes,
-  GraphicsOrdersReturnsRoutes,
-  
+  {
+    path: '/',
+    element: <UserDetailsProvider />,
+    children: [
+      AuthRoutes,
+      HomeRoutes,
+      CategoriesRoutes,
+      ReportersRoutes,
+      PhotographersRoutes,
+      ThemesRoutes,
+      MagazineRoutes,
+      EditionsRoutes,
+      SubscriptionRoutes,
+      AddressesRoutes,
+      CardsRoutes,
+      OrdersRoutes,
+      AdvertisingsRoutes,
+      BookstoresRoutes,
+      GraphicsRoutes,
+      DistributorRoutes,
+      GraphocsOnDistributorsRoutes,
+      GraphicsOrdersRoutes,
+      GraphicsOrdersReturnsRoutes,
+    ]
+  }
 ])

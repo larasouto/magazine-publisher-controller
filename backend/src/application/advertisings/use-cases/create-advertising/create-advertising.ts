@@ -3,14 +3,18 @@ import { Advertising } from '../../domain/advertising'
 import { IAdvertisingsRepository } from '../../repositories/interfaces/IAdvertisingsRepository'
 import { IMagazineRepository } from '@/application/magazines/repositories/interfaces/IMagazineRepository'
 import { MagazineNotFoundError } from './errors/MagazineNotFoundError'
+import { AdvertisingStatus } from '../../domain/advertising.schema'
 
 type CreateAdvertisingRequest = {
-  name: string
+  imagePath: string
+  title: string
   description?: string
   category: number
-  numberOfPages: number
+  type: number
   price: number
+  paid: boolean
   magazineId: string
+  userId: string
 }
 
 type CreateAdvertisingResponse = Either<Error, Advertising>
@@ -24,7 +28,10 @@ export class CreateAdvertising {
   async execute(
     request: CreateAdvertisingRequest,
   ): Promise<CreateAdvertisingResponse> {
-    const advertisingOrError = Advertising.create(request)
+    const advertisingOrError = Advertising.create({
+      ...request,
+      status: AdvertisingStatus.PENDING,
+    })
 
     if (advertisingOrError.isLeft()) {
       return left(advertisingOrError.value)

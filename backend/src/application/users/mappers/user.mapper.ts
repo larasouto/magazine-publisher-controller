@@ -8,10 +8,11 @@ import {
 import { t } from 'i18next'
 import { User } from '../domain/user'
 
-export type UserDetails = PersistenceUser & {
-  addresses: PersistenceAddress[]
-  cards: PersistenceCard[]
-  subscriptions: PersistenceSubscription[]
+export type UserDetails = {
+  id: string
+  name: string
+  email: string
+  role: number
 }
 
 export class UserMapper {
@@ -51,12 +52,12 @@ export class UserMapper {
     }
   }
 
-  static toUserDetails(user: UserDetails): UserDetails {
+  static toUserDetails(user: PersistenceUser): UserDetails {
     return {
-      ...user,
-      addresses: user.addresses,
-      cards: user.cards,
-      subscriptions: user.subscriptions,
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
     }
   }
 }

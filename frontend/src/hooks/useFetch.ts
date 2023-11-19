@@ -16,6 +16,7 @@ type FetchProps = {
     id?: string
     get?: boolean | UseQueryOptions
     list?: boolean | UseQueryOptions
+    me?: boolean | UseQueryOptions
   }
   redirectTo?: string
 }
@@ -66,6 +67,22 @@ export const useFetch = <T>({
     },
     {
       enabled: !!fetch?.get
+    }
+  )
+
+  /**
+   * Método para buscar as informações do usuário logado.
+   */
+  const me = useQuery<T>(
+    query,
+    async () => {
+      return await api
+        .get(`auth/me`)
+        .then((res) => res.data?.dto)
+        .catch((err) => toast.error(err.message))
+    },
+    {
+      enabled: !!fetch?.me
     }
   )
 
@@ -186,5 +203,5 @@ export const useFetch = <T>({
     }
   )
 
-  return { create, update, remove, removeMany, get, list }
+  return { create, update, remove, removeMany, get, list, me }
 }

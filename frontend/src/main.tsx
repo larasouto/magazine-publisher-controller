@@ -1,3 +1,4 @@
+import '@smastrom/react-rating/style.css'
 import 'react-toastify/dist/ReactToastify.css'
 import './i18n'
 import './index.css'
@@ -20,11 +21,11 @@ export const App = () => {
   return (
     <React.StrictMode>
       <HelmetProvider>
-        <QueryClientProvider client={queryClient}>
-          <Suspense fallback={<Loading />}>
+        <Suspense fallback={<Loading />}>
+          <QueryClientProvider client={queryClient}>
             <RouterProvider router={router} />
-          </Suspense>
-        </QueryClientProvider>
+          </QueryClientProvider>
+        </Suspense>
       </HelmetProvider>
       <ToastContainer position="bottom-right" autoClose={2250} theme={theme} />
       <ToasterContainer />

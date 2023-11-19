@@ -1,4 +1,5 @@
 import { prismaClient } from '@/infra/prisma/client'
+import { User as PersistenceUser } from '@prisma/client'
 import { User } from '../../domain/user'
 import { UserDetails, UserMapper } from '../../mappers/user.mapper'
 import { IUsersRepository } from '../interfaces/IUsersRepository'
@@ -19,10 +20,11 @@ export class PrismaUsersRepository implements IUsersRepository {
   async getDetails(id: string): Promise<UserDetails | null> {
     const user = await prismaClient.user.findUnique({
       where: { id },
-      include: {
-        addresses: true,
-        cards: true,
-        subscriptions: true,
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
       },
     })
 
@@ -30,7 +32,7 @@ export class PrismaUsersRepository implements IUsersRepository {
       return null
     }
 
-    return UserMapper.toUserDetails(user)
+    return UserMapper.toUserDetails(user as PersistenceUser)
   }
 
   async findByEmail(email: string): Promise<User | null> {

@@ -10,7 +10,13 @@ import {
   DropdownTrigger,
   useDisclosure
 } from '@nextui-org/react'
-import { HelpCircle, LogOut, Settings, UserCircle2 } from 'lucide-react'
+import {
+  HelpCircle,
+  LogOut,
+  Megaphone,
+  Settings,
+  UserCircle2
+} from 'lucide-react'
 import { Link } from 'react-router-dom'
 import parser from 'ua-parser-js'
 
@@ -70,7 +76,20 @@ export const UserDropdown = () => {
                 className="h-full w-full"
                 color="foreground"
               >
-                Profile
+                Perfil
+              </Link>
+            </DropdownItem>
+            <DropdownItem
+              key="advertisings"
+              endContent={<Megaphone className="w-5 h-5" />}
+              textValue="advertisings"
+            >
+              <Link
+                to={routes.advertisings.index}
+                className="h-full w-full"
+                color="foreground"
+              >
+                Propagandas
               </Link>
             </DropdownItem>
             <DropdownItem
@@ -78,7 +97,7 @@ export const UserDropdown = () => {
               endContent={<HelpCircle className="w-5 h-5" />}
               textValue="help_and_feedback"
             >
-              Help & Feedback
+              Ajuda & Feedback
             </DropdownItem>
           </DropdownSection>
           <DropdownSection showDivider>
