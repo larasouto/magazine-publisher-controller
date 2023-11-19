@@ -14,8 +14,8 @@ export const MagazinesSelect = ({ form }: MagazinesSelectProps) => {
   const { t } = useTranslation('subscriptions')
 
   const { list } = useFetch<MagazineColumns[]>({
-    baseUrl: backend.adPrices.baseUrl,
-    query: ['ad-prices'],
+    baseUrl: backend.magazines.baseUrl,
+    query: ['magazines'],
     fetch: {
       list: true
     }
@@ -24,7 +24,7 @@ export const MagazinesSelect = ({ form }: MagazinesSelectProps) => {
   return (
     <fieldset>
       <Select
-        items={list?.data ?? []}
+        items={list.data ?? []}
         label={t('form.magazine.label')}
         placeholder={t('form.magazine.placeholder')}
         labelPlacement="outside"

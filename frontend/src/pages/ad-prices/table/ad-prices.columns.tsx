@@ -39,21 +39,21 @@ export const columns = [
     enableHiding: false
   }),
   /**
-   * Name
+   * Beginning price
    */
-  helper.accessor((row) => row.bannerPrice, {
-    id: 'name',
-    header: () => t('AdPrices:form.name.label'),
-    cell: ({ row }) => row.getValue('name'),
+  helper.accessor((row) => row.beginningPrice, {
+    id: 'beginningPrice',
+    header: () => 'Preço início',
+    cell: ({ row }) => row.getValue('beginningPrice'),
     enableSorting: true,
     enableHiding: true
   }),
   /**
-   * Description
+   * Banner price
    */
   helper.accessor((row) => row.bannerPrice, {
     id: 'description',
-    header: () => t('AdPrices:form.description.label'),
+    header: () => 'Preço do banner',
     cell: ({ row }) => row.getValue('description'),
     enableSorting: true,
     enableHiding: true
