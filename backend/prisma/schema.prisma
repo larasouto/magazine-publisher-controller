@@ -278,6 +278,7 @@ model Review {
   updated_at  DateTime @updatedAt
 
   @@map("reviews")
+}
 
 model Graphics {
   id                    String                  @id
