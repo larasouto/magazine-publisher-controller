@@ -6,7 +6,7 @@ import { CardsForm } from './cards.form'
 import { CardDataWithId } from './cards.schema'
 
 export const CardsPage = () => {
-  const { id, t, title, breadcrumb } = usePageUtils('cards')
+  const { id, breadcrumb } = usePageUtils('cards')
 
   const { get } = useFetch<CardDataWithId>({
     baseUrl: backend.profile.cards.baseUrl,
@@ -19,11 +19,12 @@ export const CardsPage = () => {
 
   return (
     <PageLayout
-      title={title({ dynamic: true })}
+      title={id ? 'Editar Cartão' : 'Novo Cartão'}
       classNames={{ breadcrumb: 'mt-0' }}
       isLoading={get.isLoading}
       breadcrumb={breadcrumb({
-        segments: [{ label: t('page.title'), link: routes.profile.cards.index }]
+        home: { label: 'Perfil' },
+        segments: [{ label: 'Cartões', link: routes.profile.cards.index }]
       })}
     >
       <CardsForm data={get.data} />

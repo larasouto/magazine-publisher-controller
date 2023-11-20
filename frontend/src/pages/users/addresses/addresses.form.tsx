@@ -7,12 +7,12 @@ import { Input } from '@nextui-org/react'
 import { InputMask } from '@react-input/mask'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { useTabs } from '../context/address.context'
 import {
   AddressesData,
   AddressesDataWithId,
   AddressesSchema
 } from './addresses.schema'
-import { useAddress } from './context/address.context'
 import { SelectState } from './select/addresses.states'
 
 type AddressesFormProps = {
@@ -21,7 +21,7 @@ type AddressesFormProps = {
 
 export const AddressesForm = ({ data }: AddressesFormProps) => {
   const { t } = useTranslation('addresses')
-  const { setSelected } = useAddress()
+  const { setSelected } = useTabs()
 
   const form = useForm({
     mode: 'all',

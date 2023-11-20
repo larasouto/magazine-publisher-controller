@@ -1,5 +1,5 @@
 import { routes } from '@/routes/routes'
-import { Wallet, Warehouse } from 'lucide-react'
+import { ShoppingBag, Wallet, Warehouse } from 'lucide-react'
 
 type ProfileManage = {
   id: string
@@ -18,6 +18,13 @@ export const profile: ProfileManage[] = [
     id: 'options',
     title: 'Opções',
     children: [
+      {
+        id: 'my-purchases',
+        title: () => 'Minhas Compras',
+        description: () => 'Gerencie suas compras',
+        icon: <ShoppingBag className="w-5 h-5" />,
+        link: routes.profile['my-purchases'].index
+      },
       {
         id: 'addresses',
         title: () => 'Endereços',

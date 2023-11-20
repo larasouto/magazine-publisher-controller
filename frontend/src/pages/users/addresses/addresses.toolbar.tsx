@@ -2,11 +2,11 @@ import { routes } from '@/routes/routes'
 import { Button, Link } from '@nextui-org/react'
 import { PlusIcon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { useAddress } from './context/address.context'
+import { useTabs } from '../context/address.context'
 
 export const AddressesToolbar = () => {
   const { t } = useTranslation('addresses')
-  const { setSelected } = useAddress()
+  const { setSelected } = useTabs()
 
   return (
     <Link
