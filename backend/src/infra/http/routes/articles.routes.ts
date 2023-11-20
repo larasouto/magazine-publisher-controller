@@ -4,9 +4,11 @@ import { Router } from 'express'
 import { makeEnsureAuthenticated } from '../factories/controllers/auth/makeEnsureAuthenticated'
 import { makeCreateArticlesController } from '../factories/controllers/articles/makeCreateArticlesController'
 import { makeEditArticlesController } from '../factories/controllers/articles/makeEditArticlesController'
+import { makeDeleteArticlesController } from '../factories/controllers/articles/makeDeleteArticlesCOntroller'
 export const articles = Router()
 
 articles.use(adaptMiddleware(makeEnsureAuthenticated()))
 
 articles.post('/new', adaptRoute(makeCreateArticlesController()))
 articles.post('/:articleId/edit', adaptRoute(makeEditArticlesController()))
+articles.delete('/:articleId', adaptRoute(makeDeleteArticlesController()))
