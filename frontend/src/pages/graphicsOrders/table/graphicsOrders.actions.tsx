@@ -25,7 +25,7 @@ export const GraphicsOrdersActions = ({ row }: GraphicsOrdersActionsProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   const { remove } = useFetch<GraphicsOrdersColumns>({
-    baseUrl: backend.graphicsOrder.baseUrl,
+    baseUrl: backend.graphicsOrders.baseUrl,
     query: ['graphicsOrders']
   })
 

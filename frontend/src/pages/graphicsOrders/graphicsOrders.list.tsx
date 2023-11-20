@@ -11,7 +11,7 @@ export const GraphicsOrdersListPage = () => {
   const { title, breadcrumb } = usePageUtils('graphicsOrders')
 
   const { list } = useFetch<GraphicsOrdersColumns[]>({
-    baseUrl: backend.graphicsOrder.baseUrl,
+    baseUrl: backend.graphicsOrders.baseUrl,
     query: ['graphicsOrders'],
     fetch: {
       list: true

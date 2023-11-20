@@ -10,8 +10,8 @@ export const GraphicsOrdersPage = () => {
   const { id, t, title, breadcrumb } = usePageUtils('graphicsOrder')
 
   const { get } = useFetch<GraphicsOrdersFormWithId>({
-    baseUrl: backend.graphicsOrder.baseUrl,
-    query: ['graphicsOrder'],
+    baseUrl: backend.graphicsOrders.baseUrl,
+    query: ['graphicsOrders'],
     fetch: {
       id,
       get: true

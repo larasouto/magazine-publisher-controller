@@ -4,7 +4,7 @@ import { useFetch } from '@/hooks/useFetch'
 import { backend } from '@/routes/routes'
 import { Select, SelectItem } from '@nextui-org/react'
 import { EditionFormWithId } from '@/pages/editions/editions.schema'
-import { GraphicsOrderForm } from '../graphicsOrder.schema'
+import { GraphicsOrderForm } from '../graphicsOrders.schema'
 
 type EditionsSelectProps = {
   form: UseFormReturn<GraphicsOrderForm>

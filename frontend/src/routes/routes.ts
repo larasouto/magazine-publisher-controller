@@ -98,18 +98,16 @@ export const routes = {
     delete: '/distributor/:id/delete'
   },
   graphicsOrders: {
-    index: '/graphicsOrder',
-    new: '/graphicsOrder/new',
-    list: '/graphicsOrder/list',
-    edit: '/graphicsOrder/:id/edit',
-    delete: '/graphicsOrder/:id/delete'
+    index: '/graphicsOrders',
+    new: '/graphicsOrders/new',
+    list: '/graphicsOrders/list',
+    edit: '/graphicsOrders/:id/edit',
   },
   graphicsOrderReturn: {
     index: '/graphicsOrderReturn',
     new: '/graphicsOrderReturn/new',
     list: '/graphicsOrderReturn/list',
     edit: '/graphicsOrderReturn/:id/edit',
-    delete: '/graphicsOrderReturn/:id/delete'
   },
   graphicsOnDistributor: {
     index: '/graphicsOnDistributor',
@@ -165,7 +163,7 @@ export const backend = {
   distributor: {
     baseUrl: '/distributor'
   },
-  graphicsOrder: {
+  graphicsOrders: {
     baseUrl: '/graphicsOrders'
   },
   graphicsOnDistributor: {
