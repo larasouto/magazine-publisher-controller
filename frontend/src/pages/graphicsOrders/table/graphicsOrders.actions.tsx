@@ -14,7 +14,7 @@ import {
 } from '@nextui-org/react'
 import { Copy, FileSignature, MoreHorizontal, Trash } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { GraphicsOrdersColumns } from './graphicsOrder.columns'
+import { GraphicsOrdersColumns } from './graphicsOrders.columns'
 
 type GraphicsOrdersActionsProps = {
   row: GraphicsOrdersColumns
@@ -25,7 +25,7 @@ export const GraphicsOrdersActions = ({ row }: GraphicsOrdersActionsProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   const { remove } = useFetch<GraphicsOrdersColumns>({
-    baseUrl: backend.graphicsOrders.baseUrl,
+    baseUrl: backend.graphicsOrder.baseUrl,
     query: ['graphicsOrders']
   })
 

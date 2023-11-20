@@ -6,15 +6,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@nextui-org/react'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import {
-  GraphicsOrderForm,
-  GraphicsOrdersFormWithId,
-  GraphicsOrdersSchema,
-  Status} from './graphicsOrder.schema'
+;import { GraphicsOrderForm, GraphicsOrdersFormWithId, GraphicsOrdersSchema } from './graphicsOrders.schema'
+import { GraphocsOnDistributorSelect } from './select/graphicsOnDistributor'
 import { DatePicker } from '@/components/ui/date-picker/DatePicker'
 import { BookstoreSelect } from './select/bookstores'
 import { EditionsSelect } from './select/editions'
-import { GraphocsOnDistributorSelect } from './select/graphicsOnDistributor'
+('./graphicsOrders.schema')
 
 type GraphicsOrdersFormProps = {
   data?: GraphicsOrdersFormWithId
@@ -24,7 +21,7 @@ export const GraphicsOrdersForm = ({ data }: GraphicsOrdersFormProps) => {
   const { t } = useTranslation('graphicsOrders')
 
   const { create, update } = useFetch<GraphicsOrderForm>({
-    baseUrl: backend.graphicsOrders.baseUrl,
+    baseUrl: backend.graphicsOrder.baseUrl,
     query: ['graphicsOrders'],
     redirectTo: routes.graphicsOrders.index,
     fetch: {
@@ -35,11 +32,7 @@ export const GraphicsOrdersForm = ({ data }: GraphicsOrdersFormProps) => {
   const form = useForm<GraphicsOrderForm>({
     mode: 'all',
     resolver: zodResolver(GraphicsOrdersSchema),
-    defaultValues: {
-      ...data,
-     status: Status.onHold,
-     price: 0
-    }
+    defaultValues: data
   })
 
   const onSubmit = async (form: GraphicsOrderForm) => {

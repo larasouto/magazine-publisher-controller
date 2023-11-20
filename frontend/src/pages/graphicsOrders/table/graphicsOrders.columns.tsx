@@ -1,8 +1,9 @@
 import { Checkbox } from '@nextui-org/react'
 import { createColumnHelper } from '@tanstack/react-table'
 import { t } from 'i18next'
-import { GraphicsOrdersActions } from './graphicsOrder.actions'
-import { Status } from '../graphicsOrder.schema'
+import { Status } from '../graphicsOrders.schema'
+import { GraphicsOrdersActions } from './graphicsOrders.actions'
+
 
 export type GraphicsOrdersColumns = {
   id: string

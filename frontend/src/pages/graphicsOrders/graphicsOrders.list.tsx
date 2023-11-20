@@ -3,14 +3,15 @@ import { useFetch } from '@/hooks/useFetch'
 import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
-import { GraphicsOrdersColumns, columns } from './table/graphicsOrder.columns'
-import { GraphicsOrdersToolbar } from './graphicsOrder.toolbar'
+import { GraphicsOrdersColumns, columns } from './table/graphicsOrders.columns'
+import { GraphicsOrdersToolbar } from './graphicsOrders.toolbar'
+
 
 export const GraphicsOrdersListPage = () => {
   const { title, breadcrumb } = usePageUtils('graphicsOrders')
 
   const { list } = useFetch<GraphicsOrdersColumns[]>({
-    baseUrl: backend.graphicsOrders.baseUrl,
+    baseUrl: backend.graphicsOrder.baseUrl,
     query: ['graphicsOrders'],
     fetch: {
       list: true

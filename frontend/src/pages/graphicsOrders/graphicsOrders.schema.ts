@@ -19,6 +19,5 @@ export const GraphicsOrdersSchema = z.object({
   bookstoreId: z.string().uuid()
 })
 
-
 export type GraphicsOrderForm = z.infer<typeof GraphicsOrdersSchema>
 export type GraphicsOrdersFormWithId = GraphicsOrderForm & { id: string }
