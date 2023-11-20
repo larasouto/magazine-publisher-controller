@@ -3,8 +3,8 @@ import { useFetch } from '@/hooks/useFetch'
 import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
-import { GraphicsOrdersColumns, columns } from './table/graphicsOrder.columns'
 import { GraphicsOrdersToolbar } from './graphicsOrder.toolbar'
+import { GraphicsOrdersColumns, columns } from './table/graphicsOrder.columns'
 
 export const GraphicsOrdersListPage = () => {
   const { title, breadcrumb } = usePageUtils('graphicsOrders')
@@ -26,7 +26,7 @@ export const GraphicsOrdersListPage = () => {
       <DataTable
         columns={columns}
         data={list?.data ?? []}
-        toolbarButtons={<GraphicsOrdersToolbar />}
+        toolbar={<GraphicsOrdersToolbar />}
       />
     </PageLayout>
   )

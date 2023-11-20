@@ -3,8 +3,8 @@ import { useFetch } from '@/hooks/useFetch'
 import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
-import { GraphicsColumns, columns } from './table/graphics.columns'
 import { GraphicsToolbar } from './graphics.toolbar'
+import { GraphicsColumns, columns } from './table/graphics.columns'
 
 export const GraphicsListPage = () => {
   const { title, breadcrumb } = usePageUtils('graphics')
@@ -26,7 +26,7 @@ export const GraphicsListPage = () => {
       <DataTable
         columns={columns}
         data={list?.data ?? []}
-        toolbarButtons={<GraphicsToolbar />}
+        toolbar={<GraphicsToolbar />}
       />
     </PageLayout>
   )

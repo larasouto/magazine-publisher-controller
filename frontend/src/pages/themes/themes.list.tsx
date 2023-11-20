@@ -26,7 +26,7 @@ export const ThemesListPage = () => {
       <DataTable
         columns={columns}
         data={list?.data ?? []}
-        toolbarButtons={<ThemesToolbar />}
+        toolbar={<ThemesToolbar />}
       />
     </PageLayout>
   )

@@ -3,8 +3,8 @@ import { useFetch } from '@/hooks/useFetch'
 import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
-import { DistributorColumns, columns } from './table/distributor.columns'
 import { DistributorToolbar } from './distributor.toolbar'
+import { DistributorColumns, columns } from './table/distributor.columns'
 
 export const DistributorListPage = () => {
   const { title, breadcrumb } = usePageUtils('distributor')
@@ -26,7 +26,7 @@ export const DistributorListPage = () => {
       <DataTable
         columns={columns}
         data={list?.data ?? []}
-        toolbarButtons={<DistributorToolbar />}
+        toolbar={<DistributorToolbar />}
       />
     </PageLayout>
   )

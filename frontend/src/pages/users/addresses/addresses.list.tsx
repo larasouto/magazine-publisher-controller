@@ -27,7 +27,7 @@ export const AddressesListPage = () => {
       <DataTable
         columns={columns}
         data={list?.data ?? []}
-        toolbarButtons={<AddressesToolbar />}
+        toolbar={<AddressesToolbar />}
       />
     </PageLayout>
   )
