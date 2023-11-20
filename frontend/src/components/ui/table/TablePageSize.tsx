@@ -1,22 +1,17 @@
-import { Table } from '@tanstack/react-table'
-import { useTranslation } from 'react-i18next'
+import { useDataTable } from './context/DataTableProvider'
 
-type TablePageSizeProps<TData> = {
-  table: Table<TData>
-}
-
-export const TablePageSize = <TData,>({ table }: TablePageSizeProps<TData>) => {
-  const { t } = useTranslation('table')
+export const TablePageSize = () => {
+  const { table } = useDataTable()
 
   return (
     <div className="flex justify-between items-center">
       <span className="text-default-400 text-small">
-        {t('total_of', { lines: table.getFilteredRowModel().rows.length })}
+        Total de {table.getFilteredRowModel().rows.length} linhas
       </span>
       <label className="flex items-center text-default-400 text-small">
-        {t('rows_per_page')}
+        Linhas por página:
         <select
-          className="bg-transparent outline-none text-default-400 text-small"
+          className="bg-transparent outline-none text-default-400 text-small hover:text-primary focus:text-primary focus-visible:text-primary"
           value={table.getState().pagination.pageSize}
           onChange={(e) => table.setPageSize(+e.target.value)}
         >
