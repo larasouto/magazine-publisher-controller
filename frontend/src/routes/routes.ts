@@ -166,7 +166,7 @@ export const backend = {
     baseUrl: '/distributor'
   },
   graphicsOrder: {
-    baseUrl: '/graphicsOrder'
+    baseUrl: '/graphicsOrders'
   },
   graphicsOnDistributor: {
     baseUrl: '/graphicsOnDistributor'

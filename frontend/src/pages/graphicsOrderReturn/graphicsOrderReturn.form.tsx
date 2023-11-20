@@ -8,6 +8,7 @@ import { Input } from '@nextui-org/react'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { GraphicsOrdersReturnForm, GraphicsOrdersReturnsFormWithId, GraphicsOrdersReturnsSchema } from './graphicsOrderReturn.schema'
+import { GraphicsOrderSelect } from './select/graphicsOrder'
 
 type GraphicsOrdersReturnsReturnFormProps = {
   data?: GraphicsOrdersReturnsFormWithId
@@ -46,14 +47,16 @@ export const GraphicsOrdersReturnsForm = ({ data }: GraphicsOrdersReturnsReturnF
       noValidate
     >
       <GridLayout cols="2">
-      
-        <fieldset>
+      <GraphicsOrderSelect form={form} />
+      <fieldset>
           <Input
+            type="number"
             label={t('form.returnNumber.label')}
             placeholder={t('form.returnNumber.placeholder')}
             errorMessage={form.formState.errors.returnNumber?.message}
             labelPlacement="outside"
-            {...form.register('returnNumber')}
+            {...form.register('returnNumber', { valueAsNumber: true })}
+            isRequired
           />
         </fieldset>
         <fieldset>

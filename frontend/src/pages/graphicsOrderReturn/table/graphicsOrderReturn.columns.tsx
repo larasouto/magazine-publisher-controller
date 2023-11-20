@@ -1,15 +1,13 @@
 import { Checkbox } from '@nextui-org/react'
 import { createColumnHelper } from '@tanstack/react-table'
 import { t } from 'i18next'
-import { Status } from '../graphicsOrderReturn.schema'
+import { GraphicsOrdersReturnsActions } from './graphicsOrderReturn.actions'
 
 export type GraphicsOrdersReturnColumns = {
   id: string
-  exampleNumber: number
-  status: Status
-  editionId: string
-  bookstoreId: string
-  graphicsDistributorId: string
+  graphicsOrderId: string
+  returnDate: Date
+  returnNumber: number
 }
 
 const helper = createColumnHelper<GraphicsOrdersReturnColumns>()
@@ -37,14 +35,43 @@ export const columns = [
     enableSorting: false,
     enableHiding: false
   }),
-  /**
-  /**
-   * address
+    /**
+   * id
    */
-  helper.accessor((row) => row.id, {
-    id: 'id',
-    header: () => t('bookstores:form.id.label'),
-    cell: ({ row }) => row.getValue('id'),
+    helper.accessor((row) => row.id, {
+      id: 'id',
+      header: () => t('bookstores:form.id.label'),
+      cell: ({ row }) => row.getValue('id'),
+      enableSorting: true,
+      enableHiding: true
+    }),
+  /**
+   * graphicsOrderId
+   */
+  helper.accessor((row) => row.graphicsOrderId, {
+    id: 'graphicsOrderId',
+    header: () => t('bookstores:form.graphicsOrderId.label'),
+    cell: ({ row }) => row.getValue('graphicsOrderId'),
+    enableSorting: true,
+    enableHiding: true
+  }),
+  /**
+   * returnDate
+   */
+  helper.accessor((row) => row.returnDate, {
+    id: 'returnDate',
+    header: () => t('bookstores:form.returnDate.label'),
+    cell: ({ row }) => row.getValue('returnDate'),
+    enableSorting: true,
+    enableHiding: true
+  }),
+  /**
+   * returnNumber
+   */
+  helper.accessor((row) => row.returnNumber, {
+    id: 'returnNumber',
+    header: () => t('bookstores:form.ireturnNumberd.label'),
+    cell: ({ row }) => row.getValue('returnNumber'),
     enableSorting: true,
     enableHiding: true
   }),
@@ -53,7 +80,7 @@ export const columns = [
    */
   helper.display({
     id: 'actions',
-    cell: ({ row }) => <GraphicsOrdersReturnActions row={row.original} />,
+    cell: ({ row }) => <GraphicsOrdersReturnsActions row={row.original} />,
     enableSorting: false,
     enableHiding: false
   })

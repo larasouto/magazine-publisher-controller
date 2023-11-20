@@ -14,20 +14,20 @@ import {
 } from '@nextui-org/react'
 import { Copy, FileSignature, MoreHorizontal, Trash } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { GraphicsOrdersReturnsColumns } from './graphicsOrderReturn.columns'
-import { GraphicsOrdersColumns } from '@/pages/graphicsOrder/table/graphicsOrder.columns'
+import { GraphicsOrdersReturnColumns } from './graphicsOrderReturn.columns'
+
 
 type GraphicsOrdersReturnsActionsProps = {
-  row: GraphicsOrdersReturnsColumns
+  row: GraphicsOrdersReturnColumns
 }
 
 export const GraphicsOrdersReturnsActions = ({ row }: GraphicsOrdersReturnsActionsProps) => {
   const { t } = useTranslation()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
-  const { remove } = useFetch<GraphicsOrdersColumns>({
-    baseUrl: backend.graphicsOrders.baseUrl,
-    query: ['graphicsOrders']
+  const { remove } = useFetch<GraphicsOrdersReturnColumns>({
+    baseUrl: backend.graphicsOrderReturn.baseUrl,
+    query: ['graphicsOrderReturns']
   })
 
   const handleDelete = async () => {
@@ -46,7 +46,7 @@ export const GraphicsOrdersReturnsActions = ({ row }: GraphicsOrdersReturnsActio
           <DropdownSection title={t('table.actions')}>
             <DropdownItem textValue="edit">
               <Link
-                href={replaceParams(routes.graphicsOrders.edit, [row.id])}
+                href={replaceParams(routes.graphicsOrderReturn.edit, [row.id])}
                 color="foreground"
                 className="flex gap-2"
               >
