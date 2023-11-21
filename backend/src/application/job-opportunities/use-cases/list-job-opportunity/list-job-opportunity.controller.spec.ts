@@ -28,19 +28,6 @@ describe('List job opportunities (end-to-end)', () => {
       requirements: 'tetJobOp4',
       hours: '5',
       wage: '4.000',
-      name: 'testCandidate4',
-      age: '24',
-      maritalStatus: 'Single4',
-      nationality: 'Brazil4',
-      email: 'testcandidate4@email.com',
-      phone: '(44) 38429-8894',
-      address: 'test-address4',
-      academicEducation: 'test-academic-education4',
-      intendedSalary: '2.440',
-      desiredJobTitle: 'test-desired-job-title4',
-      companyName: 'test-company-name4',
-      positionHeld: 'test-position-held4',
-      companyContact: '(55) 86347-4729',
     }
 
     await prismaClient.jobOpportunity.create({

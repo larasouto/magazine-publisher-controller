@@ -11,19 +11,6 @@ type EditJobOpportunityControllerRequest = {
   requirements: string
   hours: string
   wage: string
-  name: string
-  age: string
-  marital_status: string
-  nationality: string
-  email: string
-  phone: string
-  address: string
-  academic_education: string
-  intended_salary: string
-  desired_job_title: string
-  company_name: string
-  position_held: string
-  company_contact: string
 }
 export class EditJobOpportunityController implements Controller {
   constructor(

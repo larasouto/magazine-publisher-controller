@@ -21,19 +21,6 @@ describe('List jobOpportunities', () => {
       requirements: 'tetJobOp11',
       hours: '6',
       wage: '3.000',
-      name: 'test-new-jobOpportunity-candidate',
-      age: '27',
-      maritalStatus: 'Single11',
-      nationality: 'Brazil11',
-      email: 'test-newjobOpportunity@email.com',
-      phone: '(11) 84285-6872',
-      address: 'test-address11',
-      academicEducation: 'test-academic-education11',
-      intendedSalary: '2.100',
-      desiredJobTitle: 'test-desired-job-title11',
-      companyName: 'test-company-name11',
-      positionHeld: 'test-position-held11',
-      companyContact: '(67) 93222-7659',
     }
 
     const data2 = {
@@ -41,19 +28,6 @@ describe('List jobOpportunities', () => {
       requirements: 'tetJobOp4',
       hours: '5',
       wage: '4.000',
-      name: 'testCandidate4',
-      age: '24',
-      maritalStatus: 'Single4',
-      nationality: 'Brazil4',
-      email: 'testcandidate4@email.com',
-      phone: '(44) 38429-8894',
-      address: 'test-address4',
-      academicEducation: 'test-academic-education4',
-      intendedSalary: '2.440',
-      desiredJobTitle: 'test-desired-job-title4',
-      companyName: 'test-company-name4',
-      positionHeld: 'test-position-held4',
-      companyContact: '(55) 86347-4729',
     }
 
     const response1 = await createJobOpportunity.execute(data1)

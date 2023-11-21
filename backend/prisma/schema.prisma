@@ -262,19 +262,6 @@ model JobOpportunity {
   requirements   String
   hours          Int
   wage           Int
-  name           String
-  age            Int
-  marital_status String
-  nationality    String
-  email          String
-  phone          String
-  address        String
-  academic_education String
-  intended_salary     Int
-  desired_job_title   String
-  company_name    String
-  position_held   String
-  company_contact   String
   created_at     DateTime  @default(now())
   updated_at     DateTime  @updatedAt
 
