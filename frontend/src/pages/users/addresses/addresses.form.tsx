@@ -39,7 +39,6 @@ export const AddressesForm = ({ data }: AddressesFormProps) => {
   })
 
   const onSubmit = async (form: AddressesDataWithId) => {
-    console.table(form)
     if (data) {
       await update.mutateAsync(form)
       setSelected('list')

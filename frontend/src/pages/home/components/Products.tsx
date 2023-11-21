@@ -61,7 +61,9 @@ export const Products = ({ ...props }: ProductsProps) => {
           <div className="flex flex-col items-center justify-center border p-3 border-dashed rounded-lg border-foreground-300 gap-2">
             <h1 className="text-2xl font-bold">Nenhum produto encontrado</h1>
             <p className="text-sm text-gray-500">
-              Verifique se o termo pesquisado está correto
+              {data.length === 0
+                ? 'Nenhum produto foi identificado no sistema'
+                : 'Verifique se o termo pesquisado está correto'}
             </p>
           </div>
         )}
