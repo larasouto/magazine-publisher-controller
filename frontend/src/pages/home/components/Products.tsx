@@ -3,10 +3,10 @@ import { useFetch } from '@/hooks/useFetch'
 import { useSupabase } from '@/hooks/useSupabase'
 import { CartItem, CartStore } from '@/stores/useCartStore'
 import { replaceParams } from '@/utils/replace-params'
-import { Button, Image } from '@nextui-org/react'
+import { Button, Image, Input } from '@nextui-org/react'
 import i18next from 'i18next'
-import { ShoppingCart } from 'lucide-react'
-import { ComponentProps } from 'react'
+import { Search, ShoppingCart } from 'lucide-react'
+import { ComponentProps, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -18,6 +18,7 @@ export const Products = ({ ...props }: ProductsProps) => {
   const { t } = useTranslation('cart')
   const { getImage } = useSupabase()
   const navigate = useNavigate()
+  const [search, setSearch] = useState('')
 
   const {
     list: { data, isLoading }
@@ -37,12 +38,37 @@ export const Products = ({ ...props }: ProductsProps) => {
     return null
   }
 
+  const filtered =
+    search.length > 0
+      ? data.filter((product) =>
+          product.title.toLowerCase().includes(search.toLowerCase())
+        )
+      : data
+
   return (
     <>
+      <div className="mt-5">
+        <Input
+          placeholder="Pesquisar"
+          labelPlacement="outside"
+          startContent={<Search className="w-5 h-5" />}
+          value={search}
+          onValueChange={setSearch}
+          classNames={{ input: 'min-w-full sm:min-w-[420px]' }}
+        />
+      </div>
       <section {...props}>
         <h1 className="text-3xl font-bold mb-7 mt-2">Revistas para você</h1>
+        {filtered?.length === 0 && (
+          <div className="flex flex-col items-center justify-center border p-3 border-dashed rounded-lg border-foreground-300 gap-2">
+            <h1 className="text-2xl font-bold">Nenhum produto encontrado</h1>
+            <p className="text-sm text-gray-500">
+              Verifique se o termo pesquisado está correto
+            </p>
+          </div>
+        )}
         <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4">
-          {data?.map((product) => (
+          {filtered?.map((product) => (
             <div key={product.id} className="bg-default-100 rounded-xl group">
               <Image
                 src={getImage({ path: product.coverPath })}
