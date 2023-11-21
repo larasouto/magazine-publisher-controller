@@ -76,6 +76,13 @@ export const routes = {
     edit: '/ad-prices/:id/edit',
     delete: '/ad-prices/:id/delete'
   },
+  articles: {
+    index: '/articles',
+    new: '/articles/new',
+    edit: '/articles/:id/edit',
+    delete: '/articles/:id/delete',
+    view: '/articles/:id/view'
+  },
   profile: {
     addresses: {
       index: '/profile/addresses',
@@ -185,6 +192,9 @@ export const backend = {
     cards: {
       baseUrl: '/cards'
     }
+  },
+  articles: {
+    baseUrl: '/articles'
   },
   orders: {
     baseUrl: '/orders'

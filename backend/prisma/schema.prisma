@@ -82,11 +82,12 @@ model Address {
 }
 
 model Category {
-  id          String   @id
+  id          String    @id
   name        String
   description String?
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  articles    Article[]
 
   @@map("categories")
 }
@@ -98,39 +99,42 @@ model Theme {
   magazines   Magazine[]
   created_at  DateTime   @default(now())
   updated_at  DateTime   @updatedAt
+  articles    Article[]
 
   @@map("themes")
 }
 
 model Reporter {
-  id             String    @id
-  name           String
-  email          String
-  phone          String?
-  cpf            String
-  specialty      String
-  status         String
-  entry_date     DateTime
-  departure_date DateTime?
-  created_at     DateTime  @default(now())
-  updated_at     DateTime  @updatedAt
+  id                String            @id
+  name              String
+  email             String
+  phone             String?
+  cpf               String
+  specialty         String
+  status            String
+  entry_date        DateTime
+  departure_date    DateTime?
+  reporter_articles ReporterArticle[]
+  created_at        DateTime          @default(now())
+  updated_at        DateTime          @updatedAt
 
   @@map("reporters")
 }
 
 model Photographer {
-  avatar         String?
-  id             String    @id
-  name           String
-  email          String
-  phone          String?
-  cpf            String
-  specialty      String
-  status         String
-  entry_date     DateTime
-  departure_date DateTime?
-  created_at     DateTime  @default(now())
-  updated_at     DateTime  @updatedAt
+  avatar                String?
+  id                    String                @id
+  name                  String
+  email                 String
+  phone                 String?
+  cpf                   String
+  specialty             String
+  status                String
+  entry_date            DateTime
+  departure_date        DateTime?
+  photographer_articles PhotographerArticle[]
+  created_at            DateTime              @default(now())
+  updated_at            DateTime              @updatedAt
 
   @@map("photographers")
 }
@@ -177,11 +181,12 @@ model Edition {
   number_of_copies Int
   magazine         Magazine        @relation(fields: [magazine_id], references: [id])
   magazine_id      String
-  created_at       DateTime    @default(now())
-  updated_at       DateTime    @updatedAt
+  created_at       DateTime        @default(now())
+  updated_at       DateTime        @updatedAt
   order_items      OrderItem[]
   reviews          Review[]
   GraphicsOrder    GraphicsOrder[]
+  articles         Article[]
 
   @@map("editions")
 }
@@ -363,4 +368,52 @@ model Bookstore {
   GraphicsOrder GraphicsOrder[]
 
   @@map("bookstore")
+}
+
+model Article {
+  id                    String                @id
+  image_path            String
+  title                 String
+  subtitle              String
+  text                  String
+  edition               Edition               @relation(fields: [edition_id], references: [id])
+  edition_id            String
+  category              Category              @relation(fields: [category_id], references: [id])
+  category_id           String
+  theme                 Theme                 @relation(fields: [theme_id], references: [id])
+  theme_id              String
+  photographer_articles PhotographerArticle[]
+  reporter_articles     ReporterArticle[]
+  number_of_pages       Int
+  initial_page          Int
+  final_page            Int
+  is_top_seller         Boolean               @default(false)
+  created_at            DateTime              @default(now())
+  updated_at            DateTime              @updatedAt
+
+  @@map("article")
+}
+
+model PhotographerArticle {
+  article         Article      @relation(fields: [article_id], references: [id])
+  article_id      String
+  photographer    Photographer @relation(fields: [photographer_id], references: [id])
+  photographer_id String
+  created_at      DateTime     @default(now())
+  updated_at      DateTime     @updatedAt
+
+  @@id([article_id, photographer_id])
+  @@map("article_photographer")
+}
+
+model ReporterArticle {
+  article     Article  @relation(fields: [article_id], references: [id])
+  article_id  String
+  reporter    Reporter @relation(fields: [reporter_id], references: [id])
+  reporter_id String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@id([article_id, reporter_id])
+  @@map("article_reporter")
 }

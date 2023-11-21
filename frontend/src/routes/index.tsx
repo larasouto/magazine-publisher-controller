@@ -1,7 +1,8 @@
 import { UserDetailsProvider } from '@/contexts/user-details-provider'
 import { createBrowserRouter } from 'react-router-dom'
-import { AdPricesRoutes } from './pages/ad-prices.routes'
 import { AdvertisingsRoutes } from './pages/advertisings.routes'
+import { AdPricesRoutes } from './pages/ad-prices.routes'
+import { ArticlesRoutes } from './pages/articles.routes'
 import { AuthRoutes } from './pages/auth.routes'
 import { BookstoresRoutes } from './pages/bookstores.routes'
 import { DistributorRoutes } from './pages/distributor.routes'
@@ -50,6 +51,8 @@ export const router = createBrowserRouter([
       GraphocsOnDistributorsRoutes,
       GraphicsOrdersRoutes,
       GraphicsOrdersReturnsRoutes,
+      ArticlesRoutes,
+      AdPricesRoutes,
       MyPurchasesRoutes
     ]
   }

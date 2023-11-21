@@ -1,9 +1,10 @@
 import { MapperError } from '@/core/errors/MapperErrors'
 import { Order as PersistenceOrder } from '@prisma/client'
 import { Order } from '../domain/order'
+import { OrderItemProps } from '../domain/order.schema'
 
 export class OrderMapper {
-  static toDomain(raw: PersistenceOrder) {
+  static toDomain(raw: PersistenceOrder, orderItems?: OrderItemProps[]) {
     const orderOrError = Order.create(
       {
         totalValue: raw.total_value,
@@ -11,6 +12,7 @@ export class OrderMapper {
         addressId: raw.address_id,
         cardId: raw.card_id,
         customerId: raw.customer_id,
+        orderItems,
       },
       raw.id,
     )

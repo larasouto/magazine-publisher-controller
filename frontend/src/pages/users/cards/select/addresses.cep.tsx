@@ -40,9 +40,6 @@ export const SelectCep = ({ form }: SelectAddressStateProps) => {
       render={({ field }) => (
         <Combobox
           field={field}
-          afterChange={(e) => {
-            form.setValue('street', e)
-          }}
           label={t('form.state.label')}
           placeholder={t('form.state.placeholder')}
           errorMessage={form.formState.errors.state?.message}

@@ -16,8 +16,6 @@ export const OrdersListPage = () => {
     }
   })
 
-  console.log(list.data)
-
   return (
     <PageLayout
       title={title()}

@@ -5,8 +5,8 @@ export const NavbarCenter = () => {
   return (
     <NavbarContent className="hidden sm:flex gap-4 center" justify="center">
       <NavbarItem>
-        <Link color="foreground" href={routes.categories.index}>
-          Categorias
+        <Link color="foreground" href={routes.articles.index}>
+          Mais vendidos
         </Link>
       </NavbarItem>
       <NavbarItem>
@@ -16,7 +16,7 @@ export const NavbarCenter = () => {
       </NavbarItem>
       <NavbarItem>
         <Link color="foreground" href={routes.subscriptions.plans}>
-          Assinatura
+          Assinaturas
         </Link>
       </NavbarItem>
     </NavbarContent>
