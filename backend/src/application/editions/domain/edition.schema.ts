@@ -11,6 +11,7 @@ export const EditionSchema = z.object({
   numberOfCopies: z.coerce.number().positive().int(),
   numberOfPages: z.coerce.number().positive().int(),
   magazineId: z.string().uuid(),
+  isTopSeller: z.boolean(),
 })
 
 export type EditionProps = z.infer<typeof EditionSchema>

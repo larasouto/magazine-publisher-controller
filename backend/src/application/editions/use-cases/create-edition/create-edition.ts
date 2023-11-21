@@ -13,6 +13,7 @@ type CreateEditionRequest = {
   numberOfCopies: number
   numberOfPages: number
   magazineId: string
+  isTopSeller: boolean
 }
 
 type CreateEditionResponse = Either<Error, Edition>

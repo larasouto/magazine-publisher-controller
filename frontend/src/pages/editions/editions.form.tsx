@@ -5,7 +5,7 @@ import { PriceIcon } from '@/components/ui/icons/PriceIcon'
 import { useFetch } from '@/hooks/useFetch'
 import { backend } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Input } from '@nextui-org/react'
+import { Checkbox, Input } from '@nextui-org/react'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { EditionsCover } from './cover/editions.cover'
@@ -166,6 +166,24 @@ export const EditionsForm = ({ data }: EditionsFormProps) => {
             />
           </fieldset>
         </GridLayout>
+        {data && (
+          <GridLayout cols="1">
+            <fieldset>
+              <Controller
+                control={form.control}
+                name="isTopSeller"
+                render={({ field }) => (
+                  <Checkbox
+                    checked={field.value}
+                    onChange={(e) => field.onChange(e.target.checked)}
+                  >
+                    Reportagem de Capa
+                  </Checkbox>
+                )}
+              />
+            </fieldset>
+          </GridLayout>
+        )}
       </GridLayout>
       <SubmitButton
         isEdit={!!data}

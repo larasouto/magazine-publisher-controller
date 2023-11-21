@@ -13,7 +13,8 @@ export const EditionSchema = z.object({
   publicationDate: z.coerce.date(),
   numberOfCopies: z.coerce.number().positive().int(),
   numberOfPages: z.coerce.number().positive().int(),
-  magazineId: z.string().uuid()
+  magazineId: z.string().uuid(),
+  isTopSeller: z.boolean().default(false)
 })
 
 export type EditionForm = z.infer<typeof EditionSchema>

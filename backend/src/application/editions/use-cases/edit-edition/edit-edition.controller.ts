@@ -18,6 +18,7 @@ type EditEditionControllerRequest = {
   numberOfPages: number
   magazineId: string
   subtitles: string[]
+  isTopSeller: boolean
 }
 
 export class EditEditionController implements Controller {

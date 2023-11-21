@@ -15,6 +15,7 @@ type EditEditionRequest = {
   numberOfCopies: number
   numberOfPages: number
   magazineId: string
+  isTopSeller: boolean
 }
 
 type EditEditionResponse = Either<EditionNotFoundError, Edition>

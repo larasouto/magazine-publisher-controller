@@ -187,6 +187,7 @@ model Edition {
   reviews          Review[]
   GraphicsOrder    GraphicsOrder[]
   articles         Article[]
+  is_top_seller    Boolean         @default(false)
 
   @@map("editions")
 }
