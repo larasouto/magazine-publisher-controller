@@ -4,7 +4,10 @@ import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
 import { GraphocsOnDistributorsToolbar } from './graphicsOnDistributor.toolbar'
-import { GraphocsOnDistributorsColumns, columns } from './table/graphicsOnDistributor.columns'
+import {
+  GraphocsOnDistributorsColumns,
+  columns
+} from './table/graphicsOnDistributor.columns'
 
 export const GraphocsOnDistributorsListPage = () => {
   const { title, breadcrumb } = usePageUtils('graphicsOnDistributor')
@@ -26,7 +29,7 @@ export const GraphocsOnDistributorsListPage = () => {
       <DataTable
         columns={columns}
         data={list?.data ?? []}
-        toolbarButtons={<GraphocsOnDistributorsToolbar />}
+        toolbar={<GraphocsOnDistributorsToolbar />}
       />
     </PageLayout>
   )

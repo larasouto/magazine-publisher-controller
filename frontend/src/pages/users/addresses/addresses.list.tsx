@@ -21,13 +21,13 @@ export const AddressesListPage = () => {
     <PageLayout
       title={title()}
       isLoading={list.isLoading}
-      breadcrumb={breadcrumb()}
+      breadcrumb={breadcrumb({ home: { label: 'Perfil' } })}
       classNames={{ breadcrumb: 'mt-0' }}
     >
       <DataTable
         columns={columns}
         data={list?.data ?? []}
-        toolbarButtons={<AddressesToolbar />}
+        toolbar={<AddressesToolbar />}
       />
     </PageLayout>
   )

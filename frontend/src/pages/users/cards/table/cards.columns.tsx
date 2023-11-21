@@ -44,7 +44,7 @@ export const columns = [
    */
   helper.accessor((row) => row.holder, {
     id: 'holder',
-    header: () => t('reporters:form.holder.label'),
+    header: () => 'Titular',
     cell: ({ row }) => row.getValue('holder') as string,
     enableSorting: true,
     enableHiding: true

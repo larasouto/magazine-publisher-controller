@@ -19,6 +19,7 @@ import { OrdersRoutes } from './pages/product/orders.routes'
 import { ThemesRoutes } from './pages/product/themes.routes'
 import { AddressesRoutes } from './pages/profile/addresses.routes'
 import { CardsRoutes } from './pages/profile/cards.routes'
+import { MyPurchasesRoutes } from './pages/profile/my-purchases.routes'
 import { ReportersRoutes } from './pages/reporters.routes'
 import { SubscriptionRoutes } from './pages/subscriptions.routes'
 
@@ -51,7 +52,8 @@ export const router = createBrowserRouter([
       GraphicsOrdersRoutes,
       GraphicsOrdersReturnsRoutes,
       ArticlesRoutes,
-      AdPricesRoutes
+      AdPricesRoutes,
+      MyPurchasesRoutes
     ]
   }
 ])

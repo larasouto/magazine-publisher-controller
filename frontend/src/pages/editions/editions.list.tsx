@@ -26,7 +26,7 @@ export const EditionsListPage = () => {
       <DataTable
         columns={columns}
         data={list?.data ?? []}
-        toolbarButtons={<EditionToolbar />}
+        toolbar={<EditionToolbar />}
       />
     </PageLayout>
   )

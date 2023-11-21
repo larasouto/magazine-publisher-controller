@@ -26,8 +26,8 @@ export const SubscriptionsListPage = () => {
       <DataTable
         columns={columns}
         data={list?.data ?? []}
-        toolbarButtons={<SubscriptionToolbar />}
-        fn={removeMany.mutateAsync}
+        toolbar={<SubscriptionToolbar />}
+        asyncFn={removeMany.mutateAsync}
       />
     </PageLayout>
   )

@@ -28,8 +28,8 @@ export const AdvertisingsUserListPage = () => {
       <DataTable
         columns={columns}
         data={list?.data ?? []}
-        toolbarButtons={<AdvertisingToolbar />}
-        fn={removeMany.mutateAsync}
+        toolbar={<AdvertisingToolbar />}
+        asyncFn={removeMany.mutateAsync}
       />
     </PageLayout>
   )
