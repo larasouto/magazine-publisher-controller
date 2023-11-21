@@ -8,6 +8,7 @@ import { CategoryNotFoundError } from './errors/CategoryNotFoundError'
 import { EditionNotFoundError } from './errors/EditionNotFoundError'
 
 type CreateArticleControllerRequest = {
+  imagePath: string
   title: string
   subtitle: string
   text: string
@@ -19,6 +20,7 @@ type CreateArticleControllerRequest = {
   finalPage: number
   reporters: string[]
   photographers: string[]
+  isTopSeller: boolean
 }
 
 export class CreateArticleController implements Controller {

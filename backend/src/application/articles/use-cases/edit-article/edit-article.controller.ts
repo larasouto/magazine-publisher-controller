@@ -10,6 +10,7 @@ import { ThemeNotFoundError } from './errors/ThemeNotFoundError'
 
 type EditArticleControllerRequest = {
   articleId: string
+  imagePath: string
   title: string
   subtitle: string
   text: string
@@ -21,6 +22,7 @@ type EditArticleControllerRequest = {
   finalPage: number
   reporters: string[]
   photographers: string[]
+  isTopSeller: boolean
 }
 
 export class EditArticleController implements Controller {

@@ -10,6 +10,7 @@ import { IThemeRepository } from '@/application/themes/repositories/interfaces/I
 import { ICategoryRepository } from '@/application/categories/repositories/interfaces/ICategoryRepository'
 
 type CreateArticleRequest = {
+  imagePath: string
   title: string
   subtitle: string
   text: string
@@ -21,6 +22,7 @@ type CreateArticleRequest = {
   finalPage: number
   reporters: string[]
   photographers: string[]
+  isTopSeller: boolean
 }
 
 type CreateArticleResponse = Either<Error, Article>
@@ -68,7 +70,11 @@ export class CreateArticle {
     }
 
     const article = articleOrError.value
-    await this.articlesRepository.create(article)
+    await this.articlesRepository.create(
+      article,
+      request.reporters,
+      request.photographers,
+    )
 
     return right(article)
   }

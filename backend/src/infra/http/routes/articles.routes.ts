@@ -13,7 +13,7 @@ export const articles = Router()
 articles.use(adaptMiddleware(makeEnsureAuthenticated()))
 
 articles.post('/new', adaptRoute(makeCreateArticlesController()))
-articles.post('/:articleId/edit', adaptRoute(makeEditArticlesController()))
+articles.put('/:articleId/edit', adaptRoute(makeEditArticlesController()))
 articles.delete('/:articleId', adaptRoute(makeDeleteArticlesController()))
 articles.get('/', adaptRoute(makeListArticlesController()))
 articles.get('/:articleId', adaptRoute(makeGetArticleController()))

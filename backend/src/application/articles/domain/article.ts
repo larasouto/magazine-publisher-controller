@@ -1,11 +1,7 @@
 import { Entity } from '@/core/domain/entity'
 import { ZodValidationError } from '@/core/domain/errors/ZodValidationError'
 import { Either, left, right } from '@/core/logic/either'
-import {
-  ArticleItemsProps,
-  ArticleProps,
-  ArticleSchema,
-} from './article.schema'
+import { ArticleProps, ArticleSchema } from './article.schema'
 
 export class Article extends Entity<ArticleProps> {
   private constructor(props: ArticleProps, id?: string) {

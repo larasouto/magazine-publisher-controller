@@ -372,6 +372,7 @@ model Bookstore {
 
 model Article {
   id                    String                @id
+  image_path            String
   title                 String
   subtitle              String
   text                  String
@@ -386,6 +387,7 @@ model Article {
   number_of_pages       Int
   initial_page          Int
   final_page            Int
+  is_top_seller         Boolean               @default(false)
   created_at            DateTime              @default(now())
   updated_at            DateTime              @updatedAt
 

@@ -11,6 +11,7 @@ import { EditionNotFoundError } from './errors/EditionNotFoundError'
 
 type EditArticleRequest = {
   articleId: string
+  imagePath: string
   title: string
   subtitle: string
   text: string
@@ -22,6 +23,7 @@ type EditArticleRequest = {
   finalPage: number
   reporters: string[]
   photographers: string[]
+  isTopSeller: boolean
 }
 
 type EditArticleResponse = Either<ArticleNotFoundError, Article>
@@ -31,7 +33,7 @@ export class EditArticle {
     private articlesRepository: IArticlesRepository,
     private themesRepository: IThemeRepository,
     private categoriesRepository: ICategoryRepository,
-    private editonRepository: IEditionRepository,
+    private editionRepository: IEditionRepository,
   ) {}
 
   async execute({
@@ -58,7 +60,7 @@ export class EditArticle {
       return left(new CategoryNotFoundError())
     }
 
-    const editionExists = await this.editonRepository.findById(
+    const editionExists = await this.editionRepository.findById(
       request.editionId,
     )
 
@@ -73,7 +75,11 @@ export class EditArticle {
     }
 
     const article = articleOrError.value
-    await this.articlesRepository.update(article)
+    await this.articlesRepository.update(
+      article,
+      request.reporters,
+      request.photographers,
+    )
 
     return right(article)
   }
