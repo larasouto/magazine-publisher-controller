@@ -75,7 +75,13 @@ export const routes = {
   orders: {
     index: '/orders',
     list: '/orders/list'
-  }
+  },
+  jobOpportunities: {
+    index: '/jobOpportunities',
+    new: '/jobOpportunities/new',
+    edit: '/jobOpportunities/:id/edit',
+    delete: '/jobOpportunities/:id/delete'
+  },
 }
 
 export const backend = {
@@ -113,5 +119,8 @@ export const backend = {
   },
   orders: {
     baseUrl: '/orders'
+  }
+  jobOpportunities: {
+    baseUrl: '/jobOpportunities'
   }
 }
