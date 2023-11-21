@@ -12,12 +12,12 @@ type CreateOrderRequest = {
   status: number
   addressId: string
   cardId: string
+  userId: string
+  totalValue: number
   items: {
     editionId: string
     quantity: number
   }[]
-  userId: string
-  totalValue: number
 }
 
 type CreateOrderResponse = Either<Error, Order>
@@ -59,7 +59,7 @@ export class CreateOrder {
     }
 
     const order = orderOrError.value
-    await this.ordersRepository.create(order)
+    await this.ordersRepository.create(order, request.items)
 
     return right(order)
   }
