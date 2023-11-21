@@ -3,7 +3,7 @@ import { api } from '@/services/api'
 import { Controller, UseFormReturn } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
-import { AddressesDataWithId } from '../cards.schema'
+import { AddressesDataWithId } from '../../addresses/addresses.schema'
 
 type SelectAddressStateProps = {
   form: UseFormReturn<AddressesDataWithId>
@@ -40,9 +40,6 @@ export const SelectCep = ({ form }: SelectAddressStateProps) => {
       render={({ field }) => (
         <Combobox
           field={field}
-          afterChange={(e) => {
-            form.setValue('street', e)
-          }}
           label={t('form.state.label')}
           placeholder={t('form.state.placeholder')}
           errorMessage={form.formState.errors.state?.message}
