@@ -264,7 +264,7 @@ CREATE TABLE "graphicsOnDistributor" (
 -- CreateTable
 CREATE TABLE "order" (
     "id" TEXT NOT NULL,
-    "receipt_date" TIMESTAMP(3) NOT NULL,
+    "receipt_date" TIMESTAMP(3),
     "departure_date" TIMESTAMP(3) NOT NULL,
     "status" TEXT NOT NULL,
     "delivery_address" TEXT NOT NULL,
