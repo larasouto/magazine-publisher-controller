@@ -3,8 +3,8 @@ import { useFetch } from '@/hooks/useFetch'
 import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
-import { BookstoresColumns, columns } from './table/bookstores.columns'
 import { BookstoresToolbar } from './bookstores.toolbar'
+import { BookstoresColumns, columns } from './table/bookstores.columns'
 
 export const BookstoresListPage = () => {
   const { title, breadcrumb } = usePageUtils('bookstores')
@@ -26,9 +26,8 @@ export const BookstoresListPage = () => {
       <DataTable
         columns={columns}
         data={list?.data ?? []}
-        toolbarButtons={<BookstoresToolbar />}
+        toolbar={<BookstoresToolbar />}
       />
     </PageLayout>
-
   )
 }

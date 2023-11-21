@@ -3,7 +3,7 @@ import { GridLayout } from '@/components/ui/Grid'
 import { useFetch } from '@/hooks/useFetch'
 import { backend, routes } from '@/routes/routes'
 import { api } from '@/services/api'
-import { CartStore } from '@/stores/useCartStore'
+import { CartStore, useCartStore } from '@/stores/useCartStore'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Divider, Link, cn } from '@nextui-org/react'
 import { Eraser } from 'lucide-react'
@@ -25,6 +25,8 @@ type MagazinesFormProps = {
 }
 
 export const OrdersForm = ({ data }: MagazinesFormProps) => {
+  const [getTotalValue] = useCartStore((state) => [state.getTotalValue])
+
   const { create } = useFetch<OrdersData>({
     baseUrl: backend.orders.baseUrl,
     query: ['orders'],
@@ -49,8 +51,6 @@ export const OrdersForm = ({ data }: MagazinesFormProps) => {
         quantity: item.quantity ?? 1
       }))
     )
-    form.setValue('totalValue', CartStore.getTotalValue())
-    form.trigger()
   }, [form])
 
   const onSubmit = async (form: OrdersData) => {
@@ -90,6 +90,10 @@ export const OrdersForm = ({ data }: MagazinesFormProps) => {
             'cursor-not-allowed': CartStore.items().length === 0
           })}
           isDisabled={CartStore.items().length === 0}
+          onPress={() => {
+            form.setValue('totalValue', getTotalValue())
+            toast.success(getTotalValue(), { id: 'mock-payment' })
+          }}
         >
           Finalizar Compra
         </SubmitButton>

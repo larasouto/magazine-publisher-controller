@@ -23,6 +23,7 @@ export const AddressesPage = () => {
       classNames={{ breadcrumb: 'mt-0' }}
       isLoading={get.isLoading}
       breadcrumb={breadcrumb({
+        home: { label: 'Perfil' },
         segments: [
           { label: t('page.title'), link: routes.profile.addresses.index }
         ]

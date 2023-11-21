@@ -3,7 +3,7 @@ import { api } from '@/services/api'
 import { Controller, UseFormReturn } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
-import { AddressesDataWithId } from '../cards.schema'
+import { AddressesDataWithId } from '../../addresses/addresses.schema'
 
 type SelectAddressStateProps = {
   form: UseFormReturn<AddressesDataWithId>

@@ -31,7 +31,7 @@ export const UserDetailsProvider = () => {
   const location = useLocation()
 
   const isGuestPage = useMemo(() => {
-    return ['/sign-in', '/sign-up'].includes(location.pathname)
+    return ['/', '/sign-in', '/sign-up'].includes(location.pathname)
   }, [location.pathname])
 
   useEffect(() => {

@@ -2,16 +2,16 @@ import { DataTable } from '@/components/ui/table/DataTable'
 import { useFetch } from '@/hooks/useFetch'
 import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
-import { backend } from '@/routes/routes'
+import { backend, routes } from '@/routes/routes'
 import { CardsToolbar } from './cards.toolbar'
 import { CardsColumns, columns } from './table/cards.columns'
 
 export const CardsListPage = () => {
-  const { title, breadcrumb } = usePageUtils('Cards')
+  const { breadcrumb } = usePageUtils()
 
   const { list } = useFetch<CardsColumns[]>({
     baseUrl: backend.profile.cards.baseUrl,
-    query: ['Cards'],
+    query: ['cards'],
     fetch: {
       list: true
     }
@@ -19,15 +19,18 @@ export const CardsListPage = () => {
 
   return (
     <PageLayout
-      title={title()}
+      title={'Cartões'}
       isLoading={list.isLoading}
-      breadcrumb={breadcrumb()}
+      breadcrumb={breadcrumb({
+        home: { label: 'Perfil' },
+        segments: [{ label: 'Cartões', link: routes.profile.cards.index }]
+      })}
       classNames={{ breadcrumb: 'mt-0' }}
     >
       <DataTable
         columns={columns}
         data={list?.data ?? []}
-        toolbarButtons={<CardsToolbar />}
+        toolbar={<CardsToolbar />}
       />
     </PageLayout>
   )

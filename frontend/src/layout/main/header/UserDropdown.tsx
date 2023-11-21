@@ -1,4 +1,5 @@
 import { Menu } from '@/components/ui/Menu'
+import { useUserDetails } from '@/contexts/user-details-provider'
 import { useAuth } from '@/hooks/useAuth'
 import { routes } from '@/routes/routes'
 import {
@@ -15,13 +16,14 @@ import {
   LogOut,
   Megaphone,
   Settings,
+  ShoppingBag,
   UserCircle2
 } from 'lucide-react'
-import { Link } from 'react-router-dom'
 import parser from 'ua-parser-js'
 
 export const UserDropdown = () => {
   const { signOut } = useAuth()
+  const { isAdmin } = useUserDetails()
   const menu = useDisclosure()
 
   const handleOs = () => {
@@ -70,27 +72,17 @@ export const UserDropdown = () => {
               key="settings"
               endContent={<Settings className="w-5 h-5" />}
               textValue="settings"
+              href={routes.profile.addresses.index}
             >
-              <Link
-                to={routes.profile.addresses.index}
-                className="h-full w-full"
-                color="foreground"
-              >
-                Perfil
-              </Link>
+              Perfil
             </DropdownItem>
             <DropdownItem
               key="advertisings"
               endContent={<Megaphone className="w-5 h-5" />}
               textValue="advertisings"
+              href={routes.advertisings.index}
             >
-              <Link
-                to={routes.advertisings.index}
-                className="h-full w-full"
-                color="foreground"
-              >
-                Propagandas
-              </Link>
+              Propagandas
             </DropdownItem>
             <DropdownItem
               key="help_and_feedback"
@@ -100,17 +92,29 @@ export const UserDropdown = () => {
               Ajuda & Feedback
             </DropdownItem>
           </DropdownSection>
-          <DropdownSection showDivider>
-            <DropdownItem
-              key="logout"
-              color="primary"
-              onClick={menu.onOpen}
-              textValue="logout"
-              shortcut={handleOs()}
-            >
-              Manage
-            </DropdownItem>
-          </DropdownSection>
+          {isAdmin() &&
+            ((
+              <DropdownSection showDivider>
+                <DropdownItem
+                  key="dashboard"
+                  color="primary"
+                  onClick={menu.onOpen}
+                  textValue="dashboard"
+                  shortcut={handleOs()}
+                >
+                  Painel de Controle
+                </DropdownItem>
+              </DropdownSection>
+            ) as any)}
+          <DropdownItem
+            key="buy"
+            endContent={<ShoppingBag className="w-5 h-5" />}
+            textValue="buy"
+            showDivider
+            href={routes.profile['my-purchases'].index}
+          >
+            Minhas Compras
+          </DropdownItem>
           <DropdownSection>
             <DropdownItem
               key="logout"
@@ -119,7 +123,7 @@ export const UserDropdown = () => {
               onClick={signOut}
               textValue="logout"
             >
-              Log Out
+              Deslogar
             </DropdownItem>
           </DropdownSection>
         </DropdownMenu>

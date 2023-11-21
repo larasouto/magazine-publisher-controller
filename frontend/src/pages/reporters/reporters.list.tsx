@@ -26,7 +26,7 @@ export const ReporterListPage = () => {
       <DataTable
         columns={columns}
         data={list?.data ?? []}
-        toolbarButtons={<ReportersToolbar />}
+        toolbar={<ReportersToolbar />}
       />
     </PageLayout>
   )

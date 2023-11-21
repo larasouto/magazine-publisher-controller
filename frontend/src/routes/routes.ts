@@ -88,6 +88,9 @@ export const routes = {
       new: '/profile/cards/new',
       edit: '/profile/cards/:id/edit',
       delete: '/profile/cards/:id/delete'
+    },
+    'my-purchases': {
+      index: '/profile/my-purchases'
     }
   },
   orders: {
