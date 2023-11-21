@@ -288,8 +288,8 @@ model GraphicsOnDistributor {
 
 model GraphicsOrder {
   id                     String                @id
-  receipt_date           DateTime
-  departure_date         DateTime?
+  receipt_date           DateTime?
+  departure_date         DateTime
   status                 String
   delivery_address       String
   example_number         Int

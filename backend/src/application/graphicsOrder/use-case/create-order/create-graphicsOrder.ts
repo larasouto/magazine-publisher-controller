@@ -4,7 +4,7 @@ import { IGraphicsOrderRepository } from '../../repositories/interfaces/IGraphic
 import { Status } from '../../domain/graphicsOrder.schema'
 
 type CreateGraphicsOrderRequest = {
-  receiptDate: Date
+  receiptDate?: Date
   departureDate: Date
   status: Status
   deliveryAddress: string
@@ -18,20 +18,21 @@ type CreateGraphicsOrderRequest = {
 type CreateGraphicsOrderResponse = Either<Error, GraphicsOrder>
 
 export class CreateGraphicsOrder {
-  static execute(data: any) {
-    throw new Error('Method not implemented.')
-  }
-  constructor(private graphicsOrdersRepository: IGraphicsOrderRepository) {}
+  constructor(private graphicsOrderRepository: IGraphicsOrderRepository) {}
 
-  async execute(request: CreateGraphicsOrderRequest): Promise<CreateGraphicsOrderResponse> {
-    const orderOrError = GraphicsOrder.create(request)
+  async execute(
+    request: CreateGraphicsOrderRequest,
+  ): Promise<CreateGraphicsOrderResponse> {
+    const orderOrError = GraphicsOrder.create({
+      ...request,
+    })
 
     if (orderOrError.isLeft()) {
       return left(orderOrError.value)
     }
 
     const order = orderOrError.value
-    await this.graphicsOrdersRepository.create(order)
+    await this.graphicsOrderRepository.create(order)
 
     return right(order)
   }

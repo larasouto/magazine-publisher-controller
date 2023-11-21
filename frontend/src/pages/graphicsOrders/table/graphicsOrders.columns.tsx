@@ -4,7 +4,6 @@ import { t } from 'i18next'
 import { Status } from '../graphicsOrders.schema'
 import { GraphicsOrdersActions } from './graphicsOrders.actions'
 
-
 export type GraphicsOrdersColumns = {
   id: string
   exampleNumber: number
@@ -41,12 +40,62 @@ export const columns = [
   }),
   /**
   /**
-   * address
+   * id
    */
   helper.accessor((row) => row.id, {
     id: 'id',
     header: () => t('bookstores:form.id.label'),
     cell: ({ row }) => row.getValue('id'),
+    enableSorting: true,
+    enableHiding: true
+  }),
+  /**
+   * bookstoreId
+   */
+  helper.accessor((row) => row.bookstoreId, {
+    id: 'bookstoreId',
+    header: () => t('bookstores:form.bookstoreId.label'),
+    cell: ({ row }) => row.getValue('bookstoreId'),
+    enableSorting: true,
+    enableHiding: true
+  }),
+  /**
+   * editionId
+   */
+  helper.accessor((row) => row.id, {
+    id: 'editionId',
+    header: () => t('bookstores:form.editionId.label'),
+    cell: ({ row }) => row.getValue('editionId'),
+    enableSorting: true,
+    enableHiding: true
+  }),
+  /**
+   * graphicsDistributorId
+   */
+  helper.accessor((row) => row.graphicsDistributorId, {
+    id: 'graphicsDistributorId',
+    header: () => t('bookstores:form.graphicsDistributorId.label'),
+    cell: ({ row }) => row.getValue('graphicsDistributorId'),
+    enableSorting: true,
+    enableHiding: true
+  }),
+  /**
+   * exampleNumber
+   */
+  helper.accessor((row) => row.exampleNumber, {
+    id: 'exampleNumber',
+    header: () => t('bookstores:form.exampleNumber.label'),
+    cell: ({ row }) => row.getValue('exampleNumber'),
+    enableSorting: true,
+    enableHiding: true
+  }),
+  /**
+   * status
+   */
+  helper.accessor((row) => row.status, {
+    id: 'status',
+    header: () => t('bookstores:form.status.label'),
+    cell: ({ row }) => row.getValue('status'),
     enableSorting: true,
     enableHiding: true
   }),

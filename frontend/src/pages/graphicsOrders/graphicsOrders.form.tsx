@@ -40,7 +40,8 @@ export const GraphicsOrdersForm = ({ data }: GraphicsOrdersFormProps) => {
     defaultValues: {
       ...data,
       status: Status.onHold,
-      price: 0
+      price: 0,
+      receiptDate: null,
     }
   })
 
@@ -86,11 +87,11 @@ export const GraphicsOrdersForm = ({ data }: GraphicsOrdersFormProps) => {
         <fieldset>
           <Controller
             control={form.control}
-            name="receiptDate"
+            name="departureDate"
             render={({ field }) => (
               <DatePicker
                 field={field}
-                label={t('form.receiptDate.label')}
+                label={t('form.departureDate.label')}
                 mode="single"
                 selected={field.value}
                 onSelect={field.onChange}

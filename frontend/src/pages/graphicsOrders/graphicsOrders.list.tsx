@@ -5,7 +5,7 @@ import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
 import { GraphicsOrdersColumns, columns } from './table/graphicsOrders.columns'
 import { GraphicsOrdersToolbar } from './graphicsOrders.toolbar'
-
+import { ColumnDef } from '@tanstack/react-table'
 
 export const GraphicsOrdersListPage = () => {
   const { title, breadcrumb } = usePageUtils('graphicsOrders')
@@ -18,6 +18,8 @@ export const GraphicsOrdersListPage = () => {
     }
   })
 
+  const adjustedColumns: ColumnDef<GraphicsOrdersColumns, number>[] = columns as ColumnDef<GraphicsOrdersColumns, number>[];
+
   return (
     <PageLayout
       title={title()}
@@ -25,7 +27,7 @@ export const GraphicsOrdersListPage = () => {
       breadcrumb={breadcrumb()}
     >
       <DataTable
-        columns={columns}
+        columns={adjustedColumns}
         data={list?.data ?? []}
         toolbarButtons={<GraphicsOrdersToolbar />}
       />

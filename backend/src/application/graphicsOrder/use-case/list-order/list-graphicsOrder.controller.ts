@@ -7,6 +7,9 @@ export class ListGraphicsOrderController implements Controller {
 
   async handle(): Promise<HttpResponse> {
     const result = await this.listGraphicsOrders.execute()
-    return ok({ dto: result.map((graphicsOrder) => graphicsOrder?.toResponseBody()) })
+
+    return ok({
+      dto: result.map((graphicsOrder) => graphicsOrder.toResponseBody()),
+    })
   }
 }

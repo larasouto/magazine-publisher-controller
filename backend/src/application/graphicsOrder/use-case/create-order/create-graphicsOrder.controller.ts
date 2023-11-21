@@ -2,11 +2,11 @@ import { Controller } from '@/core/infra/controller'
 import { HttpResponse, clientError, created } from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
 import { t } from 'i18next'
-import { CreateGraphicsOrder } from './create-graphicsOrder'
 import { Status } from '../../domain/graphicsOrder.schema'
+import { CreateGraphicsOrder } from './create-graphicsOrder'
 
 type CreateGraphicsOrderControllerRequest = {
-  receiptDate: Date
+  receiptDate?: Date
   departureDate: Date
   status: Status
   deliveryAddress: string
@@ -23,7 +23,9 @@ export class CreateGraphicsOrderController implements Controller {
     private createGraphicsOrder: CreateGraphicsOrder,
   ) {}
 
-  async handle(request: CreateGraphicsOrderControllerRequest): Promise<HttpResponse> {
+  async handle(
+    request: CreateGraphicsOrderControllerRequest,
+  ): Promise<HttpResponse> {
     const validated = this.validator.validate(request)
 
     if (validated.isLeft()) {

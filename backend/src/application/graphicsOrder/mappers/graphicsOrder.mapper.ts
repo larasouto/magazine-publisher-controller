@@ -5,7 +5,7 @@ import { GraphicsOrder as PersistenceGraphicsOrder } from '@prisma/client'
 
 export class GraphicsOrderMapper {
   static toDomain(raw: PersistenceGraphicsOrder) {
-    const order: Pick<GraphicsOrder, 'props'> = {
+    const hraphicsOrders: Pick<GraphicsOrder, 'props'> = {
       props: {
         receiptDate: raw.receipt_date,
         departureDate: raw.departure_date,
@@ -19,31 +19,31 @@ export class GraphicsOrderMapper {
       },
     }
 
-    const orderOrError = GraphicsOrder.create(order.props, raw.id)
+    const hraphicsOrdersOrError = GraphicsOrder.create(hraphicsOrders.props, raw.id)
 
-    if (orderOrError.isLeft()) {
-      throw new MapperError(orderOrError.value.message)
+    if (hraphicsOrdersOrError.isLeft()) {
+      throw new MapperError(hraphicsOrdersOrError.value.message)
     }
 
-    if (orderOrError.isRight()) {
-      return orderOrError.value
+    if (hraphicsOrdersOrError.isRight()) {
+      return hraphicsOrdersOrError.value
     }
 
     return null
   }
 
-  static async toPersistence(order: GraphicsOrder) {
+  static async toPersistence(hraphicsOrders: GraphicsOrder) {
     return {
-      id: order.id,
-      receipt_date: order.props.receiptDate,
-      departure_date: order.props.departureDate,
-      status: order.props.status,
-      delivery_address: order.props.deliveryAddress,
-      example_number: order.props.exampleNumber,
-      price: order.props.price,
-      edition_Id: order.props.editionId,
-      graphicsDistributor_id: order.props.graphicsDistributorId,
-      bookstore_id: order.props.bookstoreId,
+      id: hraphicsOrders.id,
+      receipt_date: hraphicsOrders.props.receiptDate,
+      departure_date: hraphicsOrders.props.departureDate,
+      status: hraphicsOrders.props.status,
+      delivery_address: hraphicsOrders.props.deliveryAddress,
+      example_number: hraphicsOrders.props.exampleNumber,
+      price: hraphicsOrders.props.price,
+      edition_Id: hraphicsOrders.props.editionId,
+      graphicsDistributor_id: hraphicsOrders.props.graphicsDistributorId,
+      bookstore_id: hraphicsOrders.props.bookstoreId,
     }
   }
 }
