@@ -81,11 +81,11 @@ export const Products = ({ ...props }: ProductsProps) => {
                   navigate(replaceParams(routes.home.editions, [product.id]))
                 }
               />
-              <div className="flex flex-col gap-2 p-3">
-                <div className="flex items-center gap-2 justify-between">
+              <div className="flex flex-col justify-between min-h-[170px] gap-2 p-3">
+                <div className="flex flex-col gap-2 justify-between">
                   <h1 className="text-lg truncate">{product.title}</h1>
+                  <p className="text-sm line-clamp-2">{product.description}</p>
                 </div>
-                <p className="text-sm line-clamp-2">{product.description}</p>
                 <Button
                   color="primary"
                   variant="solid"
