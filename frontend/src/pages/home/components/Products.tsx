@@ -47,18 +47,16 @@ export const Products = ({ ...props }: ProductsProps) => {
 
   return (
     <>
-      <div className="mt-5">
+      <section {...props}>
+        <h1 className="text-3xl font-bold mb-4 mt-2">Revistas para você</h1>
         <Input
           placeholder="Pesquisar"
           labelPlacement="outside"
           startContent={<Search className="w-5 h-5" />}
           value={search}
           onValueChange={setSearch}
-          classNames={{ input: 'min-w-full sm:min-w-[420px]' }}
+          classNames={{ input: 'min-w-full sm:min-w-[420px]', base: 'mb-6' }}
         />
-      </div>
-      <section {...props}>
-        <h1 className="text-3xl font-bold mb-7 mt-2">Revistas para você</h1>
         {filtered?.length === 0 && (
           <div className="flex flex-col items-center justify-center border p-3 border-dashed rounded-lg border-foreground-300 gap-2">
             <h1 className="text-2xl font-bold">Nenhum produto encontrado</h1>
