@@ -1,10 +1,11 @@
 import { SubmitButton } from '@/components/SubmitButton'
+import { RichEditor } from '@/components/editor/RichEditor'
 import { GridLayout } from '@/components/ui/Grid'
 import { useFetch } from '@/hooks/useFetch'
 import { backend, routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@nextui-org/react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import {
   ArticleData,
@@ -14,6 +15,8 @@ import {
 import { CategoriesSelect } from './categories/categories-select'
 import { EditionsSelect } from './editions/editions-select'
 import { ArticlesImage } from './image/articles.images'
+import { PhotographersSelect } from './photographers/photographers-select'
+import { ReportersSelect } from './reporters/reporters-select'
 import { ThemesSelect } from './themes/themes-select'
 
 type ArticlesFormProps = {
@@ -40,11 +43,9 @@ export const ArticleForm = ({ data }: ArticlesFormProps) => {
 
   const onSubmit = async (form: ArticleData) => {
     if (data) {
-      console.log('update', form)
       await update.mutateAsync(form)
       return
     }
-    console.log('create', form)
     await create.mutateAsync(form)
   }
 
@@ -54,82 +55,90 @@ export const ArticleForm = ({ data }: ArticlesFormProps) => {
       className="flex flex-col gap-3"
       noValidate
     >
-      <GridLayout className="grid grid-cols-1 lg:grid-cols-[auto_1fr]">
-        <ArticlesImage
-          form={form}
-          errorMessage={form.formState.errors.imagePaths?.message}
-        />
-        <GridLayout cols="3">
-          <fieldset>
-            <Input
-              label={'Título'}
-              placeholder={'Informe o título da reportagem'}
-              errorMessage={form.formState.errors.title?.message}
-              labelPlacement="outside"
-              {...form.register('title')}
-              isRequired
-            />
-          </fieldset>
-          <fieldset>
-            <Input
-              label={'Subtítulo'}
-              placeholder={'Informe o subtítulo da propaganda'}
-              errorMessage={form.formState.errors.subtitle?.message}
-              labelPlacement="outside"
-              {...form.register('subtitle')}
-            />
-          </fieldset>
-          <fieldset>
-            <Input
-              label={'Texto'}
-              placeholder={'Informe o texto da propaganda'}
-              errorMessage={form.formState.errors.text?.message}
-              labelPlacement="outside"
-              {...form.register('text')}
-            />
-          </fieldset>
-          <fieldset>
-            <Input
-              label={'Número de páginas'}
-              placeholder={'Informe o número de páginas da reportagem'}
-              errorMessage={form.formState.errors.numberOfPages?.message}
-              labelPlacement="outside"
-              {...form.register('subtitle')}
-            />
-          </fieldset>
-          <fieldset>
-            <Input
-              label={'Página inicial'}
-              placeholder={'Informe a página incial da propaganda'}
-              errorMessage={form.formState.errors.subtitle?.message}
-              labelPlacement="outside"
-              {...form.register('subtitle')}
-            />
-          </fieldset>
-          <fieldset>
-            <Input
-              label={'Página final'}
-              placeholder={'Informe a página final da propaganda'}
-              errorMessage={form.formState.errors.subtitle?.message}
-              labelPlacement="outside"
-              {...form.register('subtitle')}
-            />
-          </fieldset>
-          <EditionsSelect form={form} />
-          <ThemesSelect form={form} />
-          <CategoriesSelect form={form} />
-          <fieldset>
-            <Input
-              className="hidden"
-              label={'Imagens'}
-              placeholder={'Informe as imagens e gráficos da propaganda'}
-              errorMessage={form.formState.errors.imagePaths?.message}
-              labelPlacement="outside"
-              {...form.register('imagePaths')}
-              isRequired
-            />
-          </fieldset>
-        </GridLayout>
+      <ArticlesImage
+        form={form}
+        errorMessage={form.formState.errors.imagePath?.message}
+      />
+      <GridLayout cols="2">
+        <fieldset>
+          <Input
+            label={'Título'}
+            placeholder={'Informe o título da reportagem'}
+            errorMessage={form.formState.errors.title?.message}
+            labelPlacement="outside"
+            {...form.register('title')}
+            isRequired
+          />
+        </fieldset>
+        <fieldset>
+          <Input
+            label={'Subtítulo'}
+            placeholder={'Informe o subtítulo da reportagem'}
+            errorMessage={form.formState.errors.subtitle?.message}
+            labelPlacement="outside"
+            {...form.register('subtitle')}
+            isRequired
+          />
+        </fieldset>
+      </GridLayout>
+      <GridLayout cols="1">
+        <fieldset>
+          <Controller
+            control={form.control}
+            name="text"
+            render={({ field }) => (
+              <RichEditor
+                label={'Texto'}
+                placeholder={'Informe o texto da reportagem'}
+                errorMessage={form.formState.errors.text?.message}
+                limit={2000}
+                isFixed
+                as="textarea-5"
+                {...field}
+              />
+            )}
+          />
+        </fieldset>
+      </GridLayout>
+      <GridLayout cols="2">
+        <fieldset>
+          <Input
+            type="number"
+            label={'Número de páginas'}
+            placeholder={'Informe o número de páginas da reportagem'}
+            errorMessage={form.formState.errors.numberOfPages?.message}
+            labelPlacement="outside"
+            {...form.register('numberOfPages')}
+            isRequired
+          />
+        </fieldset>
+        <fieldset>
+          <Input
+            type="number"
+            label={'Página inicial'}
+            placeholder={'Informe a página incial da reportagen'}
+            errorMessage={form.formState.errors.initialPage?.message}
+            labelPlacement="outside"
+            {...form.register('initialPage')}
+            isRequired
+          />
+        </fieldset>
+        <fieldset>
+          <Input
+            type="number"
+            label={'Página final'}
+            placeholder={'Informe a página final da reportagem'}
+            errorMessage={form.formState.errors.finalPage?.message}
+            labelPlacement="outside"
+            {...form.register('finalPage')}
+            isRequired
+          />
+        </fieldset>
+        <EditionsSelect form={form} />
+        <ThemesSelect form={form} />
+        <CategoriesSelect form={form} />
+        <ReportersSelect form={form} />
+        <PhotographersSelect form={form} />
       </GridLayout>
       <SubmitButton
         isEdit={!!data}

@@ -1,18 +1,15 @@
 import { useFetch } from '@/hooks/useFetch'
+import { CategoryColumns } from '@/pages/categories/table/categories.columns'
 import { backend } from '@/routes/routes'
 import { Select, SelectItem } from '@nextui-org/react'
 import { UseFormReturn } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
 import { ArticleData } from '../articles.schema'
-import { CategoryColumns } from '@/pages/categories/table/categories.columns'
 
 type CategoriesSelectProps = {
   form: UseFormReturn<ArticleData>
 }
 
 export const CategoriesSelect = ({ form }: CategoriesSelectProps) => {
-  const { t } = useTranslation('magazines')
-
   const { list } = useFetch<CategoryColumns[]>({
     baseUrl: backend.categories.baseUrl,
     query: ['categories'],
@@ -25,12 +22,14 @@ export const CategoriesSelect = ({ form }: CategoriesSelectProps) => {
     <fieldset>
       <Select
         items={list?.data ?? []}
-        label={t('form.category.label')}
-        placeholder={t('form.category.placeholder')}
+        label={'Categoria'}
+        placeholder={'Selecione uma categoria'}
         labelPlacement="outside"
         {...form.register('categoryId')}
         defaultSelectedKeys={
-          form.getValues('categoryId') ? [form.getValues('categoryId')] : undefined
+          form.getValues('categoryId')
+            ? [form.getValues('categoryId')]
+            : undefined
         }
         isLoading={list.isLoading}
         disallowEmptySelection

@@ -11,9 +11,9 @@ export type ArticleColumns = {
   editionId: string
   categoryId: string
   themeId: string
-  numberOfPages: number
-  initialPage: number
-  finalPage: number
+  numberOfPages: string
+  initialPage: string
+  finalPage: string
   reporters: string[]
   photographers: string[]
 }
@@ -57,9 +57,19 @@ export const columns = [
    * Subtitle
    */
   helper.accessor((row) => row.subtitle, {
-    id: 'subtile',
+    id: 'subtitle',
     header: () => 'Subtítulo',
     cell: ({ row }) => row.getValue('subtitle'),
+    enableSorting: true,
+    enableHiding: true
+  }),
+  /**
+   * Number of pages
+   */
+  helper.accessor((row) => row.numberOfPages, {
+    id: 'numberOfPages',
+    header: () => 'Número de páginas',
+    cell: ({ row }) => row.getValue('numberOfPages'),
     enableSorting: true,
     enableHiding: true
   }),

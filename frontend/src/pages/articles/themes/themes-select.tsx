@@ -3,7 +3,6 @@ import { ThemesColumns } from '@/pages/themes/table/themes.columns'
 import { backend } from '@/routes/routes'
 import { Select, SelectItem } from '@nextui-org/react'
 import { UseFormReturn } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
 import { ArticleData } from '../articles.schema'
 
 type ThemesSelectProps = {
@@ -11,8 +10,6 @@ type ThemesSelectProps = {
 }
 
 export const ThemesSelect = ({ form }: ThemesSelectProps) => {
-  const { t } = useTranslation('magazines')
-
   const { list } = useFetch<ThemesColumns[]>({
     baseUrl: backend.themes.baseUrl,
     query: ['themes'],
@@ -25,8 +22,8 @@ export const ThemesSelect = ({ form }: ThemesSelectProps) => {
     <fieldset>
       <Select
         items={list?.data ?? []}
-        label={t('form.theme.label')}
-        placeholder={t('form.theme.placeholder')}
+        label={'Tema'}
+        placeholder={'Selecione um tema'}
         labelPlacement="outside"
         {...form.register('themeId')}
         defaultSelectedKeys={
