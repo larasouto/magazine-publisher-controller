@@ -5,7 +5,7 @@ import {  GraphocsOnDistributorsActions } from './graphicsOnDistributor.actions'
 
 export type  GraphocsOnDistributorsColumns = {
   id: string
-  grapihcsId: string
+  graphicsId: string
   distributorId: string
 }
 
@@ -34,6 +34,16 @@ export const columns = [
     enableSorting: false,
     enableHiding: false
   }),
+    /**
+   * id
+   */
+    helper.accessor((row) => row.id, {
+      id: 'id',
+      header: () => t('graphicsOnDistributor:form.id.label'),
+      cell: ({ row }) => row.getValue('id'),
+      enableSorting: true,
+      enableHiding: true
+    }),
   /**
    * distributorId
    */
@@ -45,12 +55,12 @@ export const columns = [
     enableHiding: true
   }),
   /**
-   * grapihcsId
+   * graphicsId
    */
-  helper.accessor((row) => row.grapihcsId, {
-    id: 'grapihcsId',
-    header: () => t('graphicsOnDistributor:form.grapihcsId.label'),
-    cell: ({ row }) => row.getValue('grapihcsId'),
+  helper.accessor((row) => row.graphicsId, {
+    id: 'graphicsId',
+    header: () => t('graphicsOnDistributor:form.graphicsId.label'),
+    cell: ({ row }) => row.getValue('graphicsId'),
     enableSorting: true,
     enableHiding: true
   }),
