@@ -54,7 +54,7 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
         <fieldset>
           <Input
             label={t('form.name.label')}
-            placeholder={t('form.name.placeholder')}
+            placeholder={'Informe o nome do candidato'}
             errorMessage={form.formState.errors.name?.message}
             labelPlacement="outside"
             {...form.register('name')}
@@ -65,7 +65,7 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
           <Input
             type="email"
             label={t('form.email.label')}
-            placeholder={t('form.email.placeholder')}
+            placeholder={' '}
             errorMessage={form.formState.errors.email?.message}
             labelPlacement="outside"
             {...form.register('email')}
@@ -78,7 +78,7 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
             replacement={{ _: /\d/ }}
             component={Input}
             label={t('form.phone.label')}
-            placeholder={t('form.phone.placeholder')}
+            placeholder={' '}
             errorMessage={form.formState.errors.phone?.message}
             labelPlacement="outside"
             {...form.register('phone')}
@@ -90,7 +90,7 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
             replacement={{ _: /\d/ }}
             component={Input}
             label={t('form.cpf.label')}
-            placeholder={t('form.cpf.placeholder')}
+            placeholder={' '}
             errorMessage={form.formState.errors.cpf?.message}
             labelPlacement="outside"
             {...form.register('cpf')}
@@ -99,8 +99,8 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
         </fieldset>
         <fieldset>
           <Input
-            label={t('form.specialty.label')}
-            placeholder={t('form.specialty.placeholder')}
+            label={t('Experiência profissional')}
+            placeholder={' '}
             errorMessage={form.formState.errors.specialty?.message}
             labelPlacement="outside"
             {...form.register('specialty')}
@@ -110,7 +110,7 @@ export const ReportersForm = ({ data }: CategoriesFormProps) => {
         <fieldset>
           <Select
             label={t('form.status.label')}
-            placeholder={t('form.status.placeholder')}
+            placeholder={' '}
             labelPlacement="outside"
             defaultSelectedKeys={[data?.status ?? 'ACTIVE']}
             {...form.register('status')}

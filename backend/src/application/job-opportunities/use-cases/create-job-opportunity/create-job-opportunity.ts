@@ -1,13 +1,13 @@
 import { Either, left, right } from '@/core/logic/either'
-import { JobOpportunity } from '@prisma/client'
 import { IJobOpportunityRepository } from '../../repositories/interfaces/IJobOpportunitiesRepository'
+import { JobOpportunity } from '../../domain/job-opportunity'
 
 type CreateJobOpportunityRequest = {
   avatar?: string
   office: string
   requirements: string
-  hours: string
-  wage: string
+  hours: number
+  wage: number
 }
 
 type CreateJobOpportunityResponse = Either<Error, JobOpportunity>
@@ -20,16 +20,15 @@ export class CreateJobOpportunity {
   ): Promise<CreateJobOpportunityResponse> {
     const jobOpportunityOrError = JobOpportunity.create({
       ...request,
-      status: request.status as unknown as JobOpportunityStatus,
     })
 
     if (jobOpportunityOrError.isLeft()) {
       return left(jobOpportunityOrError.value)
     }
 
-    const user = jobOpportunityOrError.value
-    await this.jobOpportunitiesRepository.create(user)
+    const job = jobOpportunityOrError.value
+    await this.jobOpportunitiesRepository.create(job)
 
-    return right(user)
+    return right(job)
   }
 }

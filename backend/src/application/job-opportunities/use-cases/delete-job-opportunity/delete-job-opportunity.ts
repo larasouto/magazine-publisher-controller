@@ -4,18 +4,17 @@ import { JobOpportunityNotFoundError } from './errors/JobOpportunityNotFoundErro
 
 
 type DeleteJobOpportunityRequest = {
-  magazineId: string
+  jobOpportunityId: string
 }
 
-type DeleteMagazineResponse = Either<JobOpportunityNotFoundError, null>
+type DeleteJobOpportunityResponse = Either<JobOpportunityNotFoundError, null>
 
-export class DeleteMagazine {
-  jobOpportunitiesRepository: any
-  constructor(private magazinesRepository: IJobOpportunityRepository) {}
+export class DeleteJobOpportunity {
+  constructor(private jobOpportunitiesRepository: IJobOpportunityRepository) {}
 
   async execute({
-    magazineId,
-  }: DeleteJobOpportunityRequest): Promise<DeleteMagazineResponse> {
+    jobOpportunityId,
+  }: DeleteJobOpportunityRequest): Promise<DeleteJobOpportunityResponse> {
     const jobOpportunityExists = await this.jobOpportunitiesRepository.findById(jobOpportunityId)
 
     if (!jobOpportunityExists) {

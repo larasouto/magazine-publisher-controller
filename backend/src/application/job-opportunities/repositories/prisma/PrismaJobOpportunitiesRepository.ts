@@ -1,6 +1,7 @@
 import { prismaClient } from '@/infra/prisma/client'
 import { IJobOpportunityRepository } from '../interfaces/IJobOpportunitiesRepository'
-import { JobOpportunity } from '@prisma/client'
+import { JobOpportunity } from '../../domain/job-opportunity'
+import { JobOpportunityMapper } from '../../mappers/job-opportunity.mapper'
 
 export class PrismaJobOpportunitiesRepository
   implements IJobOpportunityRepository
@@ -21,10 +22,7 @@ export class PrismaJobOpportunitiesRepository
     const data = await JobOpportunityMapper.toPersistence(jobOpportunity)
 
     await prismaClient.jobOpportunity.create({
-      data: {
-        ...data,
-        status: data.status,
-      },
+      data
     })
   }
 
@@ -52,12 +50,5 @@ export class PrismaJobOpportunitiesRepository
   async list(): Promise<JobOpportunity[]> {
     const jobOpportunities = await prismaClient.jobOpportunity.findMany()
     return jobOpportunities.map(JobOpportunityMapper.toDomain)
-  }
-
-  async inactivate(id: string): Promise<void> {
-    await prismaClient.jobOpportunity.update({
-      where: { id },
-      data: { status: 'INACTIVE', departure_date: new Date() },
-    })
   }
 }

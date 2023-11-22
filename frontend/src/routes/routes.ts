@@ -22,10 +22,10 @@ export const routes = {
     delete: '/categories/:id/delete'
   },
   reporters: {
-    index: '/reporters',
-    new: '/reporters/new',
-    edit: '/reporters/:id/edit',
-    delete: '/reporters/:id/delete'
+    index: '/candidates',
+    new: '/candidates/new',
+    edit: '/candidates/:id/edit',
+    delete: '/candidates/:id/delete'
   },
   photographers: {
     index: '/photographers',
@@ -119,7 +119,7 @@ export const backend = {
   },
   orders: {
     baseUrl: '/orders'
-  }
+  },
   jobOpportunities: {
     baseUrl: '/jobOpportunities'
   }

@@ -7,7 +7,7 @@ import { ReportersToolbar } from './reporter.toolbar'
 import { ReporterColumns, columns } from './table/reporters.columns'
 
 export const ReporterListPage = () => {
-  const { title, breadcrumb } = usePageUtils('reporters')
+  const { breadcrumb } = usePageUtils('reporters')
 
   const { list } = useFetch<ReporterColumns[]>({
     baseUrl: backend.reporters.baseUrl,
@@ -19,9 +19,12 @@ export const ReporterListPage = () => {
 
   return (
     <PageLayout
-      title={title()}
+      title={'Candidatos'}
       isLoading={list.isLoading}
-      breadcrumb={breadcrumb()}
+      breadcrumb={breadcrumb({
+        segments: [{label: 'Candidatos'}]
+      })}
+
     >
       <DataTable
         columns={columns}

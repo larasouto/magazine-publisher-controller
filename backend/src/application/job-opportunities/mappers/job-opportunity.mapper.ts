@@ -1,11 +1,10 @@
-import { raw } from 'express'
-import { read } from 'fs'
 import { t } from 'i18next'
-import { JobOpportunitty } from '../domain/job-opportunity'
+import { JobOpportunity } from '../domain/job-opportunity'
+import { JobOpportunity as PersistenceJobOpportunity } from '@prisma/client'
 
-export class JobOpportunittyMapper {
-  static toDomain(raw: PersistenceJobOpportunitty) {
-    const JobOpportunittyOrError = JobOpportunitty.create(
+export class JobOpportunityMapper {
+  static toDomain(raw: PersistenceJobOpportunity) {
+    const jobOpportunityOrError = JobOpportunity.create(
       {
         office: raw.office,
         requirements: raw.requirements,
@@ -15,20 +14,20 @@ export class JobOpportunittyMapper {
       raw.id,
     )
 
-    if (jobOpportunittyOrError.isLeft()) {
+    if (jobOpportunityOrError.isLeft()) {
       throw new Error(t('errors.invalid_Photographer'))
     }
 
-    return jobOpportunittyOrError.value
+    return jobOpportunityOrError.value
   }
 
-  static async toPersistence(jobOpportunitty: JobOpportunitty) {
+  static async toPersistence(jobOpportunity: JobOpportunity) {
     return {
-      id: jobOpportunitty.id,
-      office: jobOpportunitty.props.office,
-      requirements: jobOpportunitty.props.requirements,
-      hours: jobOpportunitty.props.hours,
-      wage: jobOpportunitty.props.wage,
+      id: jobOpportunity.id,
+      office: jobOpportunity.props.office,
+      requirements: jobOpportunity.props.requirements,
+      hours: jobOpportunity.props.hours,
+      wage: jobOpportunity.props.wage,
     }
   }
 }

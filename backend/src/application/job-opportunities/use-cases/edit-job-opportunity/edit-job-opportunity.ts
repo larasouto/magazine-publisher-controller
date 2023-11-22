@@ -1,13 +1,15 @@
 import { Either, left, right } from '@/core/logic/either'
 import { IJobOpportunityRepository } from '../../repositories/interfaces/IJobOpportunitiesRepository'
 import { JobOpportunityNotFoundError } from './errors/JobOpportunityNotFoundError'
+import { JobOpportunity } from '../../domain/job-opportunity'
 
 
 type EditJobOpportunityRequest = {
+  jobOpportunityId: string
   office: string
   requirements: string
-  hours: string
-  wage: string
+  hours: number
+  wage: number
 }
 
 type EditJobOpportunityResponse = Either<JobOpportunityNotFoundError, JobOpportunity>
@@ -20,7 +22,7 @@ export class EditJobOpportunity {
     ...request
   }: EditJobOpportunityRequest): Promise<EditJobOpportunityResponse> {
     const jobOpportunityOrError = JobOpportunity.create(
-      { ...request, status: request.status as unknown as JobOpportunityStatus },
+      { ...request },
       jobOpportunityId,
     )
 

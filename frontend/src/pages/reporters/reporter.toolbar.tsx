@@ -9,7 +9,7 @@ export const ReportersToolbar = () => {
   return (
     <Link href={routes.reporters.new}>
       <Button color="primary" endContent={<PlusIcon />}>
-        {t('page.new')}
+        {t('Novo candidato')}
       </Button>
     </Link>
   )

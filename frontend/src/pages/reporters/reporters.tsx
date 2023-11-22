@@ -6,7 +6,7 @@ import { ReportersForm } from './reporters.form'
 import { ReporterFormWithId } from './reporters.schema'
 
 export const ReportersPage = () => {
-  const { id, t, title, breadcrumb } = usePageUtils('reporters')
+  const { id, t, breadcrumb } = usePageUtils('reporters')
 
   const { get } = useFetch<ReporterFormWithId>({
     baseUrl: backend.reporters.baseUrl,
@@ -19,11 +19,11 @@ export const ReportersPage = () => {
 
   return (
     <PageLayout
-      title={title({ dynamic: true })}
+      title={id ? 'Editar candidato': 'Criar candidato'}
       imageSrc="/banner.jpg"
       isLoading={get.isLoading}
       breadcrumb={breadcrumb({
-        segments: [{ label: t('page.title'), link: routes.reporters.index }]
+        segments: [{ label: t('Candidatos'), link: routes.reporters.index }]
       })}
     >
       <ReportersForm data={get.data} />

@@ -1,15 +1,19 @@
 import { SubmitButton } from '@/components/SubmitButton'
 import { GridLayout } from '@/components/ui/Grid'
-import { DatePicker } from '@/components/ui/date-picker/DatePicker'
+import { PriceIcon } from '@/components/ui/icons/PriceIcon'
 import { useFetch } from '@/hooks/useFetch'
 import { backend } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Input, Select, SelectItem } from '@nextui-org/react'
-import { InputMask } from '@react-input/mask'
-import { Controller, useForm } from 'react-hook-form'
+import { Input } from '@nextui-org/react'
+import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { JobOpportunityForm, JobOpportunityFormWithId, JobOpportunitySchema } from './jobOpportunities.schema'
 
-export const JobOpportunitiesForm = ({ data }: JobOpportunityFormProps) => {
+type JobOpportunitiesFormProps = {
+  data?: JobOpportunityFormWithId
+}
+
+export const JobOpportunitiesForm = ({ data }: JobOpportunitiesFormProps) => {
   const { t } = useTranslation('jobOpportunities')
 
   const { create, update } = useFetch<JobOpportunityForm>({
@@ -43,8 +47,8 @@ export const JobOpportunitiesForm = ({ data }: JobOpportunityFormProps) => {
       <GridLayout cols="3">
         <fieldset>
           <Input
-            label={t('form.office.label')}
-            placeholder={t('form.office.placeholder')}
+            label={'Cargo'}
+            placeholder={'Informe o cargo'}
             errorMessage={form.formState.errors.office?.message}
             labelPlacement="outside"
             {...form.register('office')}
@@ -54,8 +58,8 @@ export const JobOpportunitiesForm = ({ data }: JobOpportunityFormProps) => {
         <fieldset>
           <Input
             type="requirements"
-            label={t('form.requirements.label')}
-            placeholder={t('form.requirements.placeholder')}
+            label={'Requisitos da vaga'}
+            placeholder={'Informe os requisitos da vaga'}
             errorMessage={form.formState.errors.requirements?.message}
             labelPlacement="outside"
             {...form.register('requirements')}
@@ -65,8 +69,8 @@ export const JobOpportunitiesForm = ({ data }: JobOpportunityFormProps) => {
         <fieldset>
             <Input
               type="hours"
-              label={t('form.hours.label')}
-              placeholder={t('form.hours.placeholder')}
+              label={'Carga horária'}
+              placeholder={'Informe a carga horária'}
               errorMessage={form.formState.errors.hours?.message}
               labelPlacement="outside"
               {...form.register('hours')}
@@ -77,8 +81,8 @@ export const JobOpportunitiesForm = ({ data }: JobOpportunityFormProps) => {
           <Input
             type="wage"
             startContent={<PriceIcon />}
-            label={t('form.price.label')}
-            placeholder={t('form.price.placeholder')}
+            label={'Faixa salarial'}
+            placeholder={'Informe a faixa salarial'}
             errorMessage={form.formState.errors.wage?.message}
             labelPlacement="outside"
             {...form.register('wage')}

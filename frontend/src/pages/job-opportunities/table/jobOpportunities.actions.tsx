@@ -23,7 +23,7 @@ export const JobOpportunityActions = ({ row }: JobOpportunityActionsProps) => {
 
   const { remove: inactivate } = useFetch<JobOpportunityColumns>({
     baseUrl: backend.jobOpportunities.baseUrl,
-    query: ['jobOpportunities']
+    query: ['JobOpportunities']
   })
 
   const handleDelete = async () => {

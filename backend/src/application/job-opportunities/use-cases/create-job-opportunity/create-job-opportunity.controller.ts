@@ -9,8 +9,8 @@ type CreateJobOpportunityControllerRequest = {
   avatar?: string
   office: string
   requirements: string
-  hours: string
-  wage: string
+  hours: number
+  wage: number
 }
 export class CreateJobOpportunityController implements Controller {
   constructor(

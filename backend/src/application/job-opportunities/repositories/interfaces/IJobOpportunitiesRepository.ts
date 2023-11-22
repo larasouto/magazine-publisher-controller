@@ -1,4 +1,4 @@
-import { JobOpportunity } from '@prisma/client'
+import { JobOpportunity } from "../../domain/job-opportunity"
 
 export interface IJobOpportunityRepository {
   findById(id: string): Promise<JobOpportunity | null>
@@ -7,5 +7,4 @@ export interface IJobOpportunityRepository {
   delete(id: string): Promise<void>
   deleteMany(ids: string[]): Promise<void>
   list(): Promise<JobOpportunity[]>
-  inactivate(id: string): Promise<void>
 }

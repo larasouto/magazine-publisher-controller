@@ -3,6 +3,7 @@ import { HttpResponse, clientError, ok } from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
 import { t } from 'i18next'
 import { JobOpportunityNotFoundError } from './errors/JobOpportunityNotFoundError'
+import { DeleteJobOpportunity } from './delete-job-opportunity'
 
 
 type DeleteJobOpportunityControllerRequest = {

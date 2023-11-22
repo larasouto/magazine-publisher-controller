@@ -3,13 +3,15 @@ import { useFetch } from '@/hooks/useFetch'
 import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
+import { JobOpportunitiesToolbar } from './jobOpportunities.toolbar'
+import { JobOpportunityColumns, columns } from './table/jobOpportunities.columns'
 
 
 export const JobOpportunitiesListPage = () => {
   const { title, breadcrumb } = usePageUtils('JobOpportunities')
 
   const { list } = useFetch<JobOpportunityColumns[]>({
-    baseUrl: backend.JobOpportunities.baseUrl,
+    baseUrl: backend.jobOpportunities.baseUrl,
     query: ['JobOpportunities'],
     fetch: {
       list: true
@@ -18,9 +20,11 @@ export const JobOpportunitiesListPage = () => {
 
   return (
     <PageLayout
-      title={title()}
+      title={'Vagas de emprego'}
       isLoading={list.isLoading}
-      breadcrumb={breadcrumb()}
+      breadcrumb={breadcrumb({
+        segments: [{ label: 'Vagas de emprego'}]
+      })}
     >
       <DataTable
         columns={columns}

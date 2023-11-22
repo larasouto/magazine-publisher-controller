@@ -43,41 +43,42 @@ export const items: MenuProps[] = [
   {
     id: 'editions',
     icon: <Shapes />,
-    title: t('item.editions.title', { ns: 'menu' }),
-    description: t('item.editions.description', { ns: 'menu' }),
+    title: t('Edições', { ns: 'menu' }),
+    description: t('Gerencia as edições da suas revista', { ns: 'menu' }),
     border: 'border-amber-600',
     link: routes.editions.index
   },
   {
-    id: 'test-2',
+    id: 'job',
     icon: <Shapes />,
-    title: t('item.categories.title', { ns: 'menu' }),
-    description: t('item.categories.description', { ns: 'menu' }),
+    title: t('Vagas de Emprego', { ns: 'menu' }),
+    description: t('Gerencie as vagas de emprego disponíveis', { ns: 'menu' }),
     border: 'border-rose-800',
-    link: routes.categories.index
+    link: routes.jobOpportunities.index
+  },
+  {
+    id: 'candidates',
+    icon: <Shapes />,
+    title: t('Candidatos', { ns: 'menu' }),
+    description: t('Gerencia todos os candidatos a vagas de emprego', { ns: 'menu' }),
+    border: 'border-amber-900',
+    link: routes.reporters.index
   },
   {
     id: 'test-3',
     icon: <Shapes />,
-    title: t('item.categories.title', { ns: 'menu' }),
-    description: t('item.categories.description', { ns: 'menu' }),
-    border: 'border-amber-900',
-    link: routes.categories.index
+    title: t('Propagandas', { ns: 'menu' }),
+    description: t('Gerencie suas propagandas', { ns: 'menu' }),
+    border: 'border-amber-600',
+    link: routes.jobOpportunities.index
   },
   {
     id: 'test-4',
     icon: <Shapes />,
-    title: t('item.categories.title', { ns: 'menu' }),
-    description: t('item.categories.description', { ns: 'menu' }),
+    title: t('Reportagens', { ns: 'menu' }),
+    description: t('Gerencia todas as reportagens da suas edições', { ns: 'menu' }),
     border: 'border-zinc-600',
     link: routes.categories.index
   },
-  {
-    id: 'test-5',
-    icon: <Shapes />,
-    title: t('item.categories.title', { ns: 'menu' }),
-    description: t('item.categories.description', { ns: 'menu' }),
-    border: 'border-emerald-600',
-    link: routes.categories.index
-  }
+
 ]

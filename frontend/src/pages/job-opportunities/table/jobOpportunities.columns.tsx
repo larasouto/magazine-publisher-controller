@@ -41,7 +41,7 @@ export const columns = [
    */
   helper.accessor((row) => row.office, {
     id: 'office',
-    header: () => t('jobOpportunities:form.office.label'),
+    header: () => t('Cargo'),
     cell: ({ row }) => row.getValue('office'),
     enableSorting: true,
     enableHiding: true
@@ -51,7 +51,7 @@ export const columns = [
    */
   helper.accessor((row) => row.requirements, {
     id: 'requirements',
-    header: () => t('jobOpportunities:form.requirements.label'),
+    header: () => t('Requisitos'),
     cell: ({ row }) => row.getValue('requirements'),
     enableSorting: true,
     enableHiding: true
@@ -61,7 +61,7 @@ export const columns = [
    */
     helper.accessor((row) => row.hours, {
       id: 'hours',
-      header: () => t('jobOpportunities:form.hours.label'),
+      header: () => t('Carga horária'),
       cell: ({ row }) => row.getValue('hours'),
       enableSorting: true,
       enableHiding: true
@@ -71,7 +71,7 @@ export const columns = [
    */
       helper.accessor((row) => row.wage, {
         id: 'wage',
-        header: () => t('jobOpportunities:form.wage.label'),
+        header: () => t('Faixa salarial'),
         cell: ({ row }) => row.getValue('wage'),
         enableSorting: true,
         enableHiding: true
