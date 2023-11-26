@@ -8,6 +8,7 @@ export type CartItem = {
   price: number
   coverPath: string
   quantity?: number
+  isTopSeller?: boolean
 }
 
 export type CartStoreProps = {

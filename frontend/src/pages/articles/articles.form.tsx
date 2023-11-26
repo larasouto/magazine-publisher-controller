@@ -4,7 +4,7 @@ import { GridLayout } from '@/components/ui/Grid'
 import { useFetch } from '@/hooks/useFetch'
 import { backend, routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Input } from '@nextui-org/react'
+import { Checkbox, Input } from '@nextui-org/react'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import {
@@ -140,6 +140,24 @@ export const ArticleForm = ({ data }: ArticlesFormProps) => {
         <ReportersSelect form={form} />
         <PhotographersSelect form={form} />
       </GridLayout>
+      {data && (
+        <GridLayout cols="1">
+          <fieldset>
+            <Controller
+              control={form.control}
+              name="isTopSeller"
+              render={({ field }) => (
+                <Checkbox
+                  checked={field.value}
+                  onChange={(e) => field.onChange(e.target.checked)}
+                >
+                  Reportagem de Capa
+                </Checkbox>
+              )}
+            />
+          </fieldset>
+        </GridLayout>
+      )}
       <SubmitButton
         isEdit={!!data}
         fnResetButton={form.reset}

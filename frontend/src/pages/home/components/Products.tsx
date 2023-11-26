@@ -3,10 +3,10 @@ import { useFetch } from '@/hooks/useFetch'
 import { useSupabase } from '@/hooks/useSupabase'
 import { CartItem, CartStore } from '@/stores/useCartStore'
 import { replaceParams } from '@/utils/replace-params'
-import { Button, Image, Input } from '@nextui-org/react'
+import { Button, Chip, Image, Input } from '@nextui-org/react'
 import i18next from 'i18next'
 import { Search, ShoppingCart } from 'lucide-react'
-import { ComponentProps, useState } from 'react'
+import { ComponentProps, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -28,6 +28,10 @@ export const Products = ({ ...props }: ProductsProps) => {
     fetch: {
       list: true
     }
+  })
+
+  useEffect(() => {
+    console.log(data)
   })
 
   if (isLoading) {
@@ -70,19 +74,31 @@ export const Products = ({ ...props }: ProductsProps) => {
         <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4">
           {filtered?.map((product) => (
             <div key={product.id} className="bg-default-100 rounded-xl group">
-              <Image
-                src={getImage({ path: product.coverPath })}
-                width={340}
-                height={340}
-                classNames={{
-                  zoomedWrapper: 'h-64 w-full rounded-none rounded-t-xl',
-                  img: 'w-full sm:h-full rounded-none object-cover hover:scale-105 hover:cursor-pointer'
-                }}
-                isZoomed
-                onClick={() =>
-                  navigate(replaceParams(routes.home.editions, [product.id]))
-                }
-              />
+              <div className="relative">
+                <Image
+                  src={getImage({ path: product.coverPath })}
+                  width={340}
+                  height={340}
+                  classNames={{
+                    zoomedWrapper: 'h-64 w-full rounded-none rounded-t-xl',
+                    img: 'w-full sm:h-full rounded-none object-cover hover:scale-105 hover:cursor-pointer'
+                  }}
+                  isZoomed
+                  onClick={() =>
+                    navigate(replaceParams(routes.home.editions, [product.id]))
+                  }
+                />
+                {product.isTopSeller && (
+                  <Chip
+                    color="danger"
+                    variant="solid"
+                    size="sm"
+                    className="absolute z-50 top-2 right-2"
+                  >
+                    Mais vendidas
+                  </Chip>
+                )}
+              </div>
               <div className="flex flex-col justify-between min-h-[170px] gap-2 p-3">
                 <div className="flex flex-col gap-2 justify-between">
                   <h1 className="text-lg truncate">{product.title}</h1>

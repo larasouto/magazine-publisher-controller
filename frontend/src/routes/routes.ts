@@ -81,7 +81,8 @@ export const routes = {
     new: '/articles/new',
     edit: '/articles/:id/edit',
     delete: '/articles/:id/delete',
-    view: '/articles/:id/view'
+    view: '/articles/:id/view',
+    best_seller: '/articles/best-seller'
   },
   profile: {
     addresses: {
