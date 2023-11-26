@@ -2,11 +2,13 @@ import { adaptMiddleware } from '@/core/infra/adapters/express-middleware-adapte
 import { makeEnsureAuthenticated } from '../factories/controllers/auth/makeEnsureAuthenticated'
 import { Router } from 'express'
 import { adaptRoute } from '@/core/infra/adapters/express-route-adapter'
-import { makeCreateSubscriptionsController } from '../factories/controllers/subscriptions/makeCreateSubscriptionController'
-import { makeDeleteSubscriptionsController } from '../factories/controllers/subscriptions/makeDeleteSubscriptionController'
-import { makeListSubscriptionsController } from '../factories/controllers/subscriptions/makeListSubscriptionController'
-import { makeGetSubscriptionController } from '../factories/controllers/subscriptions/makeGetSubscriptionController'
-import { makeEditSubscriptionsController } from '../factories/controllers/subscriptions/makeEditSubscriptionController'
+import { makeCreateSubscriptionsController } from '../factories/controllers/subscriptions/admin/makeCreateSubscriptionController'
+import { makeDeleteSubscriptionsController } from '../factories/controllers/subscriptions/admin/makeDeleteSubscriptionController'
+import { makeListSubscriptionsController } from '../factories/controllers/subscriptions/admin/makeListSubscriptionController'
+import { makeGetSubscriptionController } from '../factories/controllers/subscriptions/admin/makeGetSubscriptionController'
+import { makeEditSubscriptionsController } from '../factories/controllers/subscriptions/admin/makeEditSubscriptionController'
+import { makeCancelSubscriptionsController } from '../factories/controllers/subscriptions/user/makeRenewSubscriptionController'
+import { makeRenewSubscriptionsController } from '../factories/controllers/subscriptions/user/makeCancelSubscriptionController'
 
 export const subscriptions = Router()
 
@@ -22,4 +24,12 @@ subscriptions.get(
 subscriptions.put(
   '/:subscriptionId/edit',
   adaptRoute(makeEditSubscriptionsController()),
+)
+subscriptions.put(
+  '/:subscriptionId/cancel',
+  adaptRoute(makeCancelSubscriptionsController()),
+)
+subscriptions.put(
+  '/:subscriptionId/renew',
+  adaptRoute(makeRenewSubscriptionsController()),
 )
