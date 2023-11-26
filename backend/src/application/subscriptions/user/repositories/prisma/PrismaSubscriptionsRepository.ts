@@ -1,5 +1,4 @@
 import { prismaClient } from '@/infra/prisma/client'
-
 import { Subscription } from '../../domain/subscription'
 import { SubscriptionStatus } from '../../domain/subscription.schema'
 import { SubscriptionMapper } from '../../mappers/subscription.mapper'

@@ -5,6 +5,8 @@ import { adaptRoute } from '@/core/infra/adapters/express-route-adapter'
 import { makeCreateSubscriptionsController } from '../factories/controllers/subscriptions/admin/makeCreateSubscriptionController'
 import { makeDeleteSubscriptionsController } from '../factories/controllers/subscriptions/admin/makeDeleteSubscriptionController'
 import { makeListSubscriptionsController } from '../factories/controllers/subscriptions/admin/makeListSubscriptionController'
+import { makeListSubscriptionsController as makeListUserSubscriptionsController } from '../factories/controllers/subscriptions/user/makeListSubscriptionController'
+import { makeGetSubscriptionController as makeGetUserSubscriptionController } from '../factories/controllers/subscriptions/user/makeGetSubscriptionController'
 import { makeGetSubscriptionController } from '../factories/controllers/subscriptions/admin/makeGetSubscriptionController'
 import { makeEditSubscriptionsController } from '../factories/controllers/subscriptions/admin/makeEditSubscriptionController'
 import { makeCancelSubscriptionsController } from '../factories/controllers/subscriptions/user/makeRenewSubscriptionController'
@@ -32,4 +34,14 @@ subscriptions.put(
 subscriptions.put(
   '/:subscriptionId/renew',
   adaptRoute(makeRenewSubscriptionsController()),
+)
+
+subscriptions.get(
+  '/my-subscriptions',
+  adaptRoute(makeListUserSubscriptionsController()),
+)
+
+subscriptions.get(
+  '/my-subscriptions/:subscriptionId',
+  adaptRoute(makeGetUserSubscriptionController()),
 )
