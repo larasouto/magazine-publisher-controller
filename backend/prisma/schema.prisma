@@ -267,3 +267,25 @@ model JobOpportunity {
 
   @@map("job_opportunities")
 }
+
+model Candidate {
+  id          String      @id
+  avatar      String?
+  name       String
+  age        Int
+  maritalStatus String
+  nationality String
+  email String
+  phone String
+  address String
+  academicEducation String
+  intendedSalary Float
+  desiredJobTitle String
+  companyName String
+  positionHeld String
+  companyContact String
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @updatedAt
+
+  @@map("candidates")
+}

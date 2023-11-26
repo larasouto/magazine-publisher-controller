@@ -247,6 +247,29 @@ CREATE TABLE "job_opportunities" (
     CONSTRAINT "job_opportunities_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "candidates" (
+    "id" TEXT NOT NULL,
+    "avatar" TEXT,
+    "name" TEXT NOT NULL,
+    "age" INTEGER NOT NULL,
+    "maritalStatus" TEXT NOT NULL,
+    "nationality" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "phone" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
+    "academicEducation" TEXT NOT NULL,
+    "intendedSalary" DOUBLE PRECISION NOT NULL,
+    "desiredJobTitle" TEXT NOT NULL,
+    "companyName" TEXT NOT NULL,
+    "positionHeld" TEXT NOT NULL,
+    "companyContact" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "candidates_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
