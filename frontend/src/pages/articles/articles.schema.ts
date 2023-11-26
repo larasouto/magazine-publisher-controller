@@ -3,8 +3,8 @@ import { z } from 'zod'
 export const ArticleSchema = z.object({
   imagePath: z.string(),
   title: z.string().min(1).max(64),
-  subtitle: z.string().min(1).max(64),
-  text: z.string().min(1).max(255),
+  subtitle: z.string().min(1).max(255),
+  text: z.string().min(1),
   editionId: z.string().uuid(),
   categoryId: z.string().uuid(),
   themeId: z.string().uuid(),

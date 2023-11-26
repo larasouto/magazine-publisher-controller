@@ -47,6 +47,7 @@ export const EditionShow = () => {
             <DetailsButtons data={data} />
           </div>
         </div>
+        <section></section>
         <section>
           <Evaluations />
         </section>
