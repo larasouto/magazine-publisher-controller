@@ -25,8 +25,8 @@ export const EditionsSelect = ({ form }: EditionsSelectProps) => {
     <fieldset>
       <Select
         items={list?.data ?? []}
-        label={t('form.edition.label')}
-        placeholder={t('form.edition.placeholder')}
+        label={t('Edição')}
+        placeholder={t('informe o nome da edição')}
         labelPlacement="outside"
         {...form.register('editionId')}
         defaultSelectedKeys={

@@ -64,8 +64,8 @@ export const GraphicsOrdersForm = ({ data }: GraphicsOrdersFormProps) => {
         <fieldset>
           <Input
             type="number"
-            label={t('form.exampleNumber.label')}
-            placeholder={t('form.exampleNumber.placeholder')}
+            label={t('Numero de exemplares')}
+            placeholder={t('informe o numero de exemplares')}
             errorMessage={form.formState.errors.exampleNumber?.message}
             labelPlacement="outside"
             {...form.register('exampleNumber', { valueAsNumber: true })}
@@ -75,8 +75,8 @@ export const GraphicsOrdersForm = ({ data }: GraphicsOrdersFormProps) => {
         <BookstoreSelect form={form} />
         <fieldset>
           <Input
-            label={t('form.deliveryAddress.label')}
-            placeholder={t('form.deliveryAddress.placeholder')}
+            label={t('Endereço de entrega')}
+            placeholder={t('infomre o endereço de entrega')}
             errorMessage={form.formState.errors.deliveryAddress?.message}
             labelPlacement="outside"
             {...form.register('deliveryAddress')}
@@ -91,7 +91,7 @@ export const GraphicsOrdersForm = ({ data }: GraphicsOrdersFormProps) => {
             render={({ field }) => (
               <DatePicker
                 field={field}
-                label={t('form.departureDate.label')}
+                label={t('Data de solicitação')}
                 mode="single"
                 selected={field.value}
                 onSelect={field.onChange}

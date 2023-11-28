@@ -25,8 +25,8 @@ export const BookstoreSelect = ({ form }: BookstoreSelectProps) => {
     <fieldset>
       <Select
         items={list?.data ?? []}
-        label={t('form.bookstore.label')}
-        placeholder={t('form.bookstore.placeholder')}
+        label={t('Banca')}
+        placeholder={t('informe o nome da banca')}
         labelPlacement="outside"
         {...form.register('bookstoreId')}
         defaultSelectedKeys={

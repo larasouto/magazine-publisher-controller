@@ -26,8 +26,8 @@ export const GraphocsOnDistributorSelect = ({ form }: GraphocsOnDistributorSelec
     <fieldset>
       <Select
         items={list?.data ?? []}
-        label={t('form.graphicsDistributorId.label')}
-        placeholder={t('form.graphicsDistributorId.placeholder')}
+        label={t('Grafica e distribuidora')}
+        placeholder={t('informe o id da grafica com a distribuidora')}
         labelPlacement="outside"
         {...form.register('graphicsDistributorId')}
         defaultSelectedKeys={

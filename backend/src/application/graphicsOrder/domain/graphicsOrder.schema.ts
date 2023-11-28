@@ -7,7 +7,7 @@ export enum Status {
 }
 
 export const GraphicsOrderSchema = z.object({
-  receiptDate: z.coerce.date().optional(),
+  receiptDate: z.coerce.date().nullable(),
   departureDate: z.coerce.date(),
   status: z.nativeEnum(Status),
   deliveryAddress: z.string().max(64),
