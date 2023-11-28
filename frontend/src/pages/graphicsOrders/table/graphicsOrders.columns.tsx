@@ -44,7 +44,7 @@ export const columns = [
    */
   helper.accessor((row) => row.id, {
     id: 'id',
-    header: () => t('bookstores:form.id.label'),
+    header: () => t('Id do pedido'),
     cell: ({ row }) => row.getValue('id'),
     enableSorting: true,
     enableHiding: true
@@ -54,7 +54,7 @@ export const columns = [
    */
   helper.accessor((row) => row.bookstoreId, {
     id: 'bookstoreId',
-    header: () => t('bookstores:form.bookstoreId.label'),
+    header: () => t('Nome da grafica'),
     cell: ({ row }) => row.getValue('bookstoreId'),
     enableSorting: true,
     enableHiding: true
@@ -64,7 +64,7 @@ export const columns = [
    */
   helper.accessor((row) => row.id, {
     id: 'editionId',
-    header: () => t('bookstores:form.editionId.label'),
+    header: () => t('Nome da edição'),
     cell: ({ row }) => row.getValue('editionId'),
     enableSorting: true,
     enableHiding: true
@@ -74,7 +74,7 @@ export const columns = [
    */
   helper.accessor((row) => row.graphicsDistributorId, {
     id: 'graphicsDistributorId',
-    header: () => t('bookstores:form.graphicsDistributorId.label'),
+    header: () => t('Id da grafica com a distribuidora'),
     cell: ({ row }) => row.getValue('graphicsDistributorId'),
     enableSorting: true,
     enableHiding: true
@@ -84,7 +84,7 @@ export const columns = [
    */
   helper.accessor((row) => row.exampleNumber, {
     id: 'exampleNumber',
-    header: () => t('bookstores:form.exampleNumber.label'),
+    header: () => t('Numero de exemplares'),
     cell: ({ row }) => row.getValue('exampleNumber'),
     enableSorting: true,
     enableHiding: true
@@ -94,7 +94,7 @@ export const columns = [
    */
   helper.accessor((row) => row.status, {
     id: 'status',
-    header: () => t('bookstores:form.status.label'),
+    header: () => t('Status do pedido'),
     cell: ({ row }) => row.getValue('status'),
     enableSorting: true,
     enableHiding: true

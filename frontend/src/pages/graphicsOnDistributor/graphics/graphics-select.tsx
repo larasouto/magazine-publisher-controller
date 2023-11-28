@@ -25,8 +25,8 @@ export const GraphicsSelect = ({ form }: GraphicsSelectProps) => {
     <fieldset>
       <Select
         items={list?.data ?? []}
-        label={t('form.name.label')}
-        placeholder={t('form.name.placeholder')}
+        label={t('Nome da Grafica')}
+        placeholder={t('informe o nome da grafica')}
         labelPlacement="outside"
         {...form.register('graphicsId')}
         defaultSelectedKeys={

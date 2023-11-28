@@ -25,8 +25,8 @@ export const DistributorSelect = ({ form }: DistributorSelectProps) => {
     <fieldset>
       <Select
         items={list?.data ?? []}
-        label={t('form.name.label')}
-        placeholder={t('form.name.placeholder')}
+        label={t('Nome da Distribuidora')}
+        placeholder={t('informe o nome da distribuidora')}
         labelPlacement="outside"
         {...form.register('distributorId')}
         defaultSelectedKeys={

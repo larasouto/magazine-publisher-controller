@@ -35,25 +35,26 @@ export const columns = [
     enableHiding: false
   }),
   /**
+   * name
+   */
+  helper.accessor((row) => row.name, {
+    id: 'name',
+    header: () => t('Nome'),
+    cell: ({ row }) => row.getValue('name'),
+    enableSorting: true,
+    enableHiding: true
+  }),
+  /**
    * address
    */
   helper.accessor((row) => row.address, {
     id: 'address',
-    header: () => t('graphics:form.address.label'),
+    header: () => t('Endereço'),
     cell: ({ row }) => row.getValue('address'),
     enableSorting: true,
     enableHiding: true
   }),
-    /**
-   * name
-   */
-    helper.accessor((row) => row.name, {
-      id: 'name',
-      header: () => t('graphics:form.name.label'),
-      cell: ({ row }) => row.getValue('name'),
-      enableSorting: true,
-      enableHiding: true
-    }),
+
   /**
    * Actions
    */
