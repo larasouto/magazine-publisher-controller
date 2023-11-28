@@ -40,7 +40,7 @@ export const columns = [
    */
   helper.accessor((row) => row.address, {
     id: 'address',
-    header: () => t('graphics:form.address.label'),
+    header: () => t('Endereço'),
     cell: ({ row }) => row.getValue('address'),
     enableSorting: true,
     enableHiding: true
@@ -50,7 +50,7 @@ export const columns = [
    */
   helper.accessor((row) => row.name, {
     id: 'name',
-    header: () => t('graphics:form.name.label'),
+    header: () => t('Nome'),
     cell: ({ row }) => row.getValue('name'),
     enableSorting: true,
     enableHiding: true
@@ -60,7 +60,7 @@ export const columns = [
    */
   helper.accessor((row) => row.region, {
     id: 'region',
-    header: () => t('graphics:form.region.label'),
+    header: () => t('Região'),
     cell: ({ row }) => row.getValue('region'),
     enableSorting: true,
     enableHiding: true

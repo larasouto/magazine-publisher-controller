@@ -47,8 +47,8 @@ export const DistributorForm = ({ data }: DistributorFormProps) => {
       <GridLayout cols="1">
         <fieldset>
           <Input
-            label={t('form.name.label')}
-            placeholder={t('form.name.placeholder')}
+            label={t('Nome')}
+            placeholder={t('informe o nome')}
             errorMessage={form.formState.errors.name?.message}
             labelPlacement="outside"
             {...form.register('name')}
@@ -57,8 +57,8 @@ export const DistributorForm = ({ data }: DistributorFormProps) => {
         </fieldset>
         <fieldset>
           <Input
-            label={t('form.address.label')}
-            placeholder={t('form.address.placeholder')}
+            label={t('Endereço')}
+            placeholder={t('informe o endereço')}
             errorMessage={form.formState.errors.address?.message}
             labelPlacement="outside"
             {...form.register('address')}
@@ -67,8 +67,8 @@ export const DistributorForm = ({ data }: DistributorFormProps) => {
         </fieldset>
         <fieldset>
           <Input
-            label={t('form.region.label')}
-            placeholder={t('form.region.placeholder')}
+            label={t('Região')}
+            placeholder={t('informe a região')}
             errorMessage={form.formState.errors.region?.message}
             labelPlacement="outside"
             {...form.register('region')}
