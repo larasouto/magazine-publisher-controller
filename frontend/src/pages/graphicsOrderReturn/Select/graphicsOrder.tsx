@@ -14,7 +14,7 @@ export const GraphicsOrderSelect = ({ form }: GraphicsOrderSelectProps) => {
   const { t } = useTranslation('graphicsOrder')
 
   const { list } = useFetch<GraphicsOrdersFormWithId[]>({
-    baseUrl: backend.graphicsOrder.baseUrl,
+    baseUrl: backend.graphicsOrders.baseUrl,
     query: ['graphicsOrder'],
     fetch: {
       list: true
@@ -25,8 +25,8 @@ export const GraphicsOrderSelect = ({ form }: GraphicsOrderSelectProps) => {
     <fieldset>
       <Select
         items={list?.data ?? []}
-        label={t('form.graphicsOrder.label')}
-        placeholder={t('form.graphicsOrder.placeholder')}
+        label={t('Id do pedido')}
+        placeholder={t('selecione o id do pedido')}
         labelPlacement="outside"
         {...form.register('graphicsOrderId')}
         defaultSelectedKeys={

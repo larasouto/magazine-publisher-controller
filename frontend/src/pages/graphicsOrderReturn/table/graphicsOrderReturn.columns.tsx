@@ -40,7 +40,7 @@ export const columns = [
    */
     helper.accessor((row) => row.id, {
       id: 'id',
-      header: () => t('bookstores:form.id.label'),
+      header: () => t('Id do retorno do pedido'),
       cell: ({ row }) => row.getValue('id'),
       enableSorting: true,
       enableHiding: true
@@ -50,7 +50,7 @@ export const columns = [
    */
   helper.accessor((row) => row.graphicsOrderId, {
     id: 'graphicsOrderId',
-    header: () => t('bookstores:form.graphicsOrderId.label'),
+    header: () => t('Id do pedido'),
     cell: ({ row }) => row.getValue('graphicsOrderId'),
     enableSorting: true,
     enableHiding: true
@@ -60,7 +60,7 @@ export const columns = [
    */
   helper.accessor((row) => row.returnDate, {
     id: 'returnDate',
-    header: () => t('bookstores:form.returnDate.label'),
+    header: () => t('Data de retorno'),
     cell: ({ row }) => row.getValue('returnDate'),
     enableSorting: true,
     enableHiding: true
@@ -70,7 +70,7 @@ export const columns = [
    */
   helper.accessor((row) => row.returnNumber, {
     id: 'returnNumber',
-    header: () => t('bookstores:form.ireturnNumberd.label'),
+    header: () => t('Numero de exemplares'),
     cell: ({ row }) => row.getValue('returnNumber'),
     enableSorting: true,
     enableHiding: true

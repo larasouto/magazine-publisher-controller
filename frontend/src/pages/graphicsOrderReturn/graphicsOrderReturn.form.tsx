@@ -8,7 +8,7 @@ import { Input } from '@nextui-org/react'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { GraphicsOrdersReturnForm, GraphicsOrdersReturnsFormWithId, GraphicsOrdersReturnsSchema } from './graphicsOrderReturn.schema'
-import { GraphicsOrderSelect } from './select/graphicsOrder'
+import { GraphicsOrderSelect } from './Select/graphicsOrder'
 
 type GraphicsOrdersReturnsReturnFormProps = {
   data?: GraphicsOrdersReturnsFormWithId
@@ -51,8 +51,8 @@ export const GraphicsOrdersReturnsForm = ({ data }: GraphicsOrdersReturnsReturnF
       <fieldset>
           <Input
             type="number"
-            label={t('form.returnNumber.label')}
-            placeholder={t('form.returnNumber.placeholder')}
+            label={t('Numero de exemplares')}
+            placeholder={t('informe o numero de exemplares')}
             errorMessage={form.formState.errors.returnNumber?.message}
             labelPlacement="outside"
             {...form.register('returnNumber', { valueAsNumber: true })}
@@ -66,7 +66,7 @@ export const GraphicsOrdersReturnsForm = ({ data }: GraphicsOrdersReturnsReturnF
             render={({ field }) => (
               <DatePicker
                 field={field}
-                label={t('form.returnDate.label')}
+                label={t('Data de retorno')}
                 mode="single"
                 selected={field.value}
                 onSelect={field.onChange}
