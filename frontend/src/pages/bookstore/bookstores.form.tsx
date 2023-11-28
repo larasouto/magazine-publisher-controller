@@ -47,8 +47,8 @@ export const BookstoresForm = ({ data }: BookstoresFormProps) => {
       <GridLayout cols="1">
       <fieldset>
           <Input
-            label={t('form.name.label')}
-            placeholder={t('form.name.placeholder')}
+            label={t('Nome')}
+            placeholder={t('Informe o nome')}
             errorMessage={form.formState.errors.name?.message}
             labelPlacement="outside"
             {...form.register('name')}
@@ -57,8 +57,8 @@ export const BookstoresForm = ({ data }: BookstoresFormProps) => {
         </fieldset>
         <fieldset>
           <Input
-            label={t('form.address.label')}
-            placeholder={t('form.address.placeholder')}
+            label={t('Endereço')}
+            placeholder={t('informe o endereço')}
             errorMessage={form.formState.errors.address?.message}
             labelPlacement="outside"
             {...form.register('address')}

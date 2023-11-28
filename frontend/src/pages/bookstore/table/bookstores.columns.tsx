@@ -39,7 +39,7 @@ export const columns = [
    */
   helper.accessor((row) => row.name, {
     id: 'name',
-    header: () => t('bookstores:form.name.label'),
+    header: () => t('Nome'),
     cell: ({ row }) => row.getValue('name'),
     enableSorting: true,
     enableHiding: true
@@ -50,7 +50,7 @@ export const columns = [
    */
   helper.accessor((row) => row.address, {
     id: 'address',
-    header: () => t('bookstores:form.address.label'),
+    header: () => t('Endereço'),
     cell: ({ row }) => row.getValue('address'),
     enableSorting: true,
     enableHiding: true
