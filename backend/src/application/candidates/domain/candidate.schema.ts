@@ -7,7 +7,7 @@ export const CandidateSchema = z.object({
   maritalStatus: z.string().min(2).max(20),
   nationality: z.string().min(2).max(20),
   email: z.string().email(),
-  phone: z.string().nullish(),
+  phone: z.number(),
   address: z.string().min(2).max(64),
   academicEducation: z.string().min(2).max(64),
   intendedSalary: z.coerce.number().nonnegative(),

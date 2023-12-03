@@ -256,14 +256,15 @@ model PaymentAdvertising {
 }
 
 model JobOpportunity {
-  avatar         String?
-  id             String    @id
-  office         String
-  requirements   String
-  hours          Int
-  wage           Int
-  created_at     DateTime  @default(now())
-  updated_at     DateTime  @updatedAt
+  avatar               String?
+  id                   String    @id
+  office               String
+  requirements         String
+  hours                Int
+  wage                 Int
+  created_at           DateTime  @default(now())
+  updated_at           DateTime  @updatedAt
+  candidateJobOpportunity CandidateJobOpportunity[]
 
   @@map("job_opportunities")
 }
@@ -271,21 +272,33 @@ model JobOpportunity {
 model Candidate {
   id          String      @id
   avatar      String?
-  name       String
-  age        Int
-  maritalStatus String
+  pdf_path    String
+  name        String
+  age         Int
+  marital_status String
   nationality String
-  email String
-  phone String
-  address String
-  academicEducation String
-  intendedSalary Float
-  desiredJobTitle String
-  companyName String
-  positionHeld String
-  companyContact String
+  email       String
+  phone       Int
+  address     String
+  academic_education String
+  intended_salary Float
+  desired_job_title String
+  company_name String
+  position_held String
+  company_contact String
   created_at     DateTime  @default(now())
   updated_at     DateTime  @updatedAt
+  candidateJobOpportunity CandidateJobOpportunity[]
 
   @@map("candidates")
+}
+
+model CandidateJobOpportunity {
+  id String @id
+  candidate  Candidate @relation(fields: [candidate_id], references: [id])
+  candidate_id String
+  job_opportunity JobOpportunity @relation(fields: [job_opportunity_id], references: [id]) 
+  job_opportunity_id String
+
+  @@map("candidateJobOpportunity")
 }

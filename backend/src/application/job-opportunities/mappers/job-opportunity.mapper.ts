@@ -15,7 +15,7 @@ export class JobOpportunityMapper {
     )
 
     if (jobOpportunityOrError.isLeft()) {
-      throw new Error(t('errors.invalid_Photographer'))
+      throw new Error(t('errors.invalid_JobOpportunity'))
     }
 
     return jobOpportunityOrError.value

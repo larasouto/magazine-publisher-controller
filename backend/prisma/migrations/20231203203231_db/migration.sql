@@ -251,23 +251,33 @@ CREATE TABLE "job_opportunities" (
 CREATE TABLE "candidates" (
     "id" TEXT NOT NULL,
     "avatar" TEXT,
+    "pdf_path" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "age" INTEGER NOT NULL,
-    "maritalStatus" TEXT NOT NULL,
+    "marital_status" TEXT NOT NULL,
     "nationality" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "phone" TEXT NOT NULL,
+    "phone" INTEGER NOT NULL,
     "address" TEXT NOT NULL,
-    "academicEducation" TEXT NOT NULL,
-    "intendedSalary" DOUBLE PRECISION NOT NULL,
-    "desiredJobTitle" TEXT NOT NULL,
-    "companyName" TEXT NOT NULL,
-    "positionHeld" TEXT NOT NULL,
-    "companyContact" TEXT NOT NULL,
+    "academic_education" TEXT NOT NULL,
+    "intended_salary" DOUBLE PRECISION NOT NULL,
+    "desired_job_title" TEXT NOT NULL,
+    "company_name" TEXT NOT NULL,
+    "position_held" TEXT NOT NULL,
+    "company_contact" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "candidates_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "candidateJobOpportunity" (
+    "id" TEXT NOT NULL,
+    "candidate_id" TEXT NOT NULL,
+    "job_opportunity_id" TEXT NOT NULL,
+
+    CONSTRAINT "candidateJobOpportunity_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -314,3 +324,9 @@ ALTER TABLE "payment_advertisings" ADD CONSTRAINT "payment_advertisings_customer
 
 -- AddForeignKey
 ALTER TABLE "payment_advertisings" ADD CONSTRAINT "payment_advertisings_advertising_id_fkey" FOREIGN KEY ("advertising_id") REFERENCES "advertisings"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "candidateJobOpportunity" ADD CONSTRAINT "candidateJobOpportunity_candidate_id_fkey" FOREIGN KEY ("candidate_id") REFERENCES "candidates"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "candidateJobOpportunity" ADD CONSTRAINT "candidateJobOpportunity_job_opportunity_id_fkey" FOREIGN KEY ("job_opportunity_id") REFERENCES "job_opportunities"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

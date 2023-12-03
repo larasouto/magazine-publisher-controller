@@ -2,13 +2,14 @@ import { prismaClient } from '@/infra/prisma/client'
 import { Candidate } from '../../domain/candidate'
 import { CandidateMapper } from '../../mappers/candidate.mapper'
 import { ICandidatesRepository } from '../interfaces/ICandidatesRepository'
+import { jobOpportunities } from '@/infra/http/routes/job-opportunities.routes'
 
 export class PrismaCandidatesRepository implements ICandidatesRepository {
   async findById(id: string): Promise<Candidate | null> {
     const candidate = await prismaClient.candidate.findUnique({
       where: { id },
       include: {
-        jobOpportunities_candidates: { include: { jobOpportunities: true } },
+        candidateJobOpportunity: { include: { job_opportunity: true } },
       },
     })
 
@@ -18,22 +19,22 @@ export class PrismaCandidatesRepository implements ICandidatesRepository {
 
     return CandidateMapper.toDomain(
       candidate,
-      candidate.jobOpportunities_candidates.map((ra) => ra.jobOpportunities.id),
+      candidate.candidateJobOpportunity.map((ra) => ra.job_opportunity_id),
     )
   }
 
   async create(
     candidate: Candidate,
-    jobOpportunities: string[],
+    job_opportunity: string[],
   ): Promise<void> {
     const data = await CandidateMapper.toPersistence(candidate)
 
     await prismaClient.candidate.create({
       data: {
         ...data,
-        jobOpportunity_candidates: {
-          create: jobOpportunities.map((jobOpportunity) => ({
-            jobOpportunity: { connect: { id: jobOpportunity } },
+        candidateJobOpportunity: {
+          create: jobOpportunities.map((JobOpportunity) => ({
+            jobOpportunities: { connect: { id: JobOpportunity } },
           })),
         },
       },
@@ -56,16 +57,16 @@ export class PrismaCandidatesRepository implements ICandidatesRepository {
       where: { id: candidate.id },
       data: {
         ...data,
-        jobOpportunity_candidates: {
+        candidateJobOpportunity: {
           deleteMany: [
             { candidate_id: candidate.id },
-            { jobOpportunity_id: { notIn: jobOpportunities } },
+            { job_opportunity_id: { notIn: jobOpportunities } },
           ],
-          create: jobOpportunities.map((jobOpportunity) => ({
-            jobOpportunity: { connect: { id: jobOpportunity } },
+          create: jobOpportunities.map((JobOpportunity) => ({
+            jobOpportunity: { connect: { id: JobOpportunity } },
           })),
         },
-      },
+        },
     })
   }
 
