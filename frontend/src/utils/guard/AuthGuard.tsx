@@ -1,37 +1,29 @@
 import { useAuth } from '@/hooks/useAuth'
 import { useToken } from '@/hooks/useToken'
-import { useEffect, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useTranslation } from 'react-i18next'
 
 type AuthGuardProps = {
   children: React.ReactNode
 }
 
+export const AG_EXPIRED_TOKEN_ID = 'token-expired'
+
 export const AuthGuard = ({ children }: AuthGuardProps) => {
-  const isMounted = useRef(false)
-  const { t } = useTranslation('errors')
-  const { token, isExpired } = useToken()
+  const [isMounted, setMounted] = useState(false)
+  const { isExpired } = useToken()
   const { signOut } = useAuth()
 
   useEffect(() => {
-    if (isMounted.current) {
-      return
-    }
-    isMounted.current = true
-
-    if (!token) {
-      signOut()
-    }
-
     if (isExpired()) {
-      toast.error(t('session.is_expired'), {
-        id: 'token-expired',
+      toast.error('Sessão expirada. Por favor, entre novamente.', {
+        id: AG_EXPIRED_TOKEN_ID,
         duration: Infinity
       })
       signOut()
     }
-  }, [t, token, isExpired, signOut])
+    setMounted(true)
+  }, [isExpired, signOut])
 
-  return <>{children}</>
+  return <>{isMounted && children}</>
 }
