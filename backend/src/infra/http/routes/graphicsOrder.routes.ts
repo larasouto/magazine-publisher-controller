@@ -5,6 +5,7 @@ import { makeEnsureAuthenticated } from '../factories/controllers/auth/makeEnsur
 import { makeCreateGraphicsOrderController } from '../factories/controllers/graphicsOrder/makeCreateGraphicsOrderController'
 import { makeListGraphicsOrderController } from '../factories/controllers/graphicsOrder/makeListGraphicsOrderController'
 import { makeGetGraphicsOrderController } from '../factories/controllers/graphicsOrder/makeGetGraphicsOrderController'
+import { makeEditGraphicsOrderController } from '../factories/controllers/graphicsOrder/makeEditGraphicsController'
 
 export const graphicsOrder = Router()
 
@@ -12,4 +13,11 @@ graphicsOrder.use(adaptMiddleware(makeEnsureAuthenticated()))
 
 graphicsOrder.post('/new', adaptRoute(makeCreateGraphicsOrderController()))
 graphicsOrder.get('/', adaptRoute(makeListGraphicsOrderController()))
-graphicsOrder.get('/:graphicsOrderId', adaptRoute(makeGetGraphicsOrderController()))
+graphicsOrder.get(
+  '/:graphicsOrderId',
+  adaptRoute(makeGetGraphicsOrderController()),
+)
+graphicsOrder.put(
+  '/:graphicsId/edit',
+  adaptRoute(makeEditGraphicsOrderController()),
+)

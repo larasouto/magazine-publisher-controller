@@ -6,7 +6,7 @@ import { Status } from '../../domain/graphicsOrder.schema'
 import { CreateGraphicsOrder } from './create-graphicsOrder'
 
 type CreateGraphicsOrderControllerRequest = {
-  receiptDate?: Date
+  receiptDate: Date
   departureDate: Date
   status: Status
   deliveryAddress: string

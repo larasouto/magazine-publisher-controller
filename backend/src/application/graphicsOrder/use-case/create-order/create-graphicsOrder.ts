@@ -4,7 +4,7 @@ import { IGraphicsOrderRepository } from '../../repositories/interfaces/IGraphic
 import { Status } from '../../domain/graphicsOrder.schema'
 
 type CreateGraphicsOrderRequest = {
-  receiptDate?: Date
+  receiptDate: Date
   departureDate: Date
   status: Status
   deliveryAddress: string

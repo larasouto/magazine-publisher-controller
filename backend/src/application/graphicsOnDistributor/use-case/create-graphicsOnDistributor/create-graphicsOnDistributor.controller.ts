@@ -5,8 +5,8 @@ import { t } from 'i18next'
 import { CreateGraphicsOnDistributor } from './create-graphicsOnDistributor'
 
 type CreateGraphicsOnDistributorControllerRequest = {
-  graphicsOnDistributorId: string
-  distributorId: string
+  graphicsId: string;
+  distributorId: string;
 }
 
 export class CreateGraphicsOnDistributorController implements Controller {

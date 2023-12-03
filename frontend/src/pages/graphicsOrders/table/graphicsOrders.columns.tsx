@@ -1,4 +1,4 @@
-import { Checkbox } from '@nextui-org/react'
+import { Checkbox, Chip } from '@nextui-org/react'
 import { createColumnHelper } from '@tanstack/react-table'
 import { t } from 'i18next'
 import { Status } from '../graphicsOrders.schema'
@@ -89,16 +89,33 @@ export const columns = [
     enableSorting: true,
     enableHiding: true
   }),
-  /**
-   * status
-   */
-  helper.accessor((row) => row.status, {
-    id: 'status',
-    header: () => t('Status do pedido'),
-    cell: ({ row }) => row.getValue('status'),
-    enableSorting: true,
-    enableHiding: true
-  }),
+/**
+ * status
+ */
+helper.accessor((row) => row.status, {
+  id: 'status',
+  header: () => t('Status do pedido'),
+  cell: ({ row }) => {
+    const status = row.getValue('status') as string
+
+    const colors = {
+      onHold: 'success',
+      inPreparation: 'danger',
+      onMyWay: 'default',
+      deliv: 'secondary'
+    }
+
+    const statusColor = colors[status] || 'default' // Padrão para status desconhecidos
+
+    return (
+      <Chip color={statusColor}>
+        {t(`status do pedido.${status.toLowerCase()}`)}
+      </Chip>
+    )
+  },
+  enableSorting: true,
+  enableHiding: true
+}),
   /**
    * Actions
    */

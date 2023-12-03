@@ -302,7 +302,7 @@ model GraphicsOrder {
   bookstore_id           String
   orderReturn            GraphicsOrderReturn[]
 
-  @@map("order")
+  @@map("graphicsOrder")
 }
 
 model GraphicsOrderReturn {
@@ -312,7 +312,7 @@ model GraphicsOrderReturn {
   graphicsOrder    GraphicsOrder @relation(fields: [graphicsOrder_Id], references: [id])
   graphicsOrder_Id String
 
-  @@map("orderReturn")
+  @@map("graphicsOrderReturn")
 }
 
 model Bookstore {

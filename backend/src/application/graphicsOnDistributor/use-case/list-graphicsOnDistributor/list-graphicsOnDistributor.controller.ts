@@ -12,3 +12,5 @@ export class ListGraphicsOnDistributorController implements Controller {
     return ok({ dto: result.map((graphicsOnDistributor) => graphicsOnDistributor?.toResponseBody()) })
   }
 }
+
+
