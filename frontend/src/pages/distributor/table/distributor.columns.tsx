@@ -1,4 +1,4 @@
-import { Checkbox } from '@nextui-org/react'
+import { Checkbox, Chip } from '@nextui-org/react'
 import { createColumnHelper } from '@tanstack/react-table'
 import { t } from 'i18next'
 import { DistributorActions } from './distributor.actions'
@@ -60,8 +60,20 @@ export const columns = [
    */
   helper.accessor((row) => row.region, {
     id: 'region',
-    header: () => t('Região'),
-    cell: ({ row }) => row.getValue('region'),
+    header: () => t('Regiao'),
+    cell: ({ row }) => {
+      const region = row.getValue('region') as string
+
+      const colors = {
+        Norte: 'success',
+        Nordeste: 'danger',
+        Sul: 'primary',
+        Sudeste: 'default',
+        Centro_Oeste: 'secondary'
+      }
+
+      return <Chip color={colors[region]}>{t(`${region.toLowerCase()}`)}</Chip>
+    },
     enableSorting: true,
     enableHiding: true
   }),

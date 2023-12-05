@@ -3,10 +3,15 @@ import { GridLayout } from '@/components/ui/Grid'
 import { useFetch } from '@/hooks/useFetch'
 import { backend, routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Input } from '@nextui-org/react'
+import { Input, Select, SelectItem } from '@nextui-org/react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { DistributorsForm, DistributorsFormWithId, DistributorsSchema } from './distributor.schema'
+import {
+  DistributorsForm,
+  DistributorsFormWithId,
+  DistributorsSchema,
+  Region
+} from './distributor.schema'
 
 type DistributorFormProps = {
   data?: DistributorsFormWithId
@@ -66,14 +71,21 @@ export const DistributorForm = ({ data }: DistributorFormProps) => {
           />
         </fieldset>
         <fieldset>
-          <Input
-            label={t('Região')}
-            placeholder={t('informe a região')}
-            errorMessage={form.formState.errors.region?.message}
+          <Select
+            label={t('Regiao')}
+            placeholder={t('Selecione a Regiao')}
             labelPlacement="outside"
+            defaultSelectedKeys={[data?.region ?? 'ACTIVE']}
             {...form.register('region')}
+            disallowEmptySelection
             isRequired
-          />
+          >
+            {Object.keys(Region).map((key) => (
+              <SelectItem key={key} value={key}>
+                {t(`Região ${key.toLowerCase()}`)}
+              </SelectItem>
+            ))}
+          </Select>
         </fieldset>
       </GridLayout>
       <SubmitButton
