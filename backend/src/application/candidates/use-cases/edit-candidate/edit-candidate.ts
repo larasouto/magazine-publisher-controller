@@ -1,11 +1,8 @@
+import { IJobOpportunityRepository } from '@/application/job-opportunities/repositories/interfaces/IJobOpportunitiesRepository'
 import { Either, left, right } from '@/core/logic/either'
 import { Candidate } from '../../domain/candidate'
 import { ICandidatesRepository } from '../../repositories/interfaces/ICandidatesRepository'
 import { CandidateNotFoundError } from './errors/CandidateNotFoundError'
-import { IJobOpportunityRepository } from '@/application/job-opportunities/repositories/interfaces/IJobOpportunitiesRepository'
-import { JobOpportunityNotFoundError } from './errors/JobOpportunityNotFoundError'
-
-
 
 type EditCandidateRequest = {
   candidateId: string
@@ -15,12 +12,11 @@ type EditCandidateRequest = {
   maritalStatus: string
   nationality: string
   email: string
-  phone: string
+  phone: number
   address: string
   academicEducation: string
   intendedSalary: number
   desiredJobTitle: string
-  jobOpportunities: string[]
   companyName: string
   positionHeld: string
   companyContact: string
@@ -31,7 +27,6 @@ type EditCandidateResponse = Either<CandidateNotFoundError, Candidate>
 export class EditCandidate {
   constructor(
     private candidatesRepository: ICandidatesRepository,
-    private jobOpportunitiesRepository: IJobOpportunityRepository,
   ) {}
 
   async execute({
@@ -44,23 +39,15 @@ export class EditCandidate {
       return left(candidateOrError.value)
     }
 
-    const jobOpportunityExists = await this.jobOpportunitiesRepository.findById(request.jobOpportunityId)
-
-    if (!jobOpportunityExists) {
-      return left(new JobOpportunityNotFoundError())
-    }
-
-    const candidateExists = await this.candidatesRepository.findById(candidateId)
+    const candidateExists =
+      await this.candidatesRepository.findById(candidateId)
 
     if (!candidateExists) {
       return left(new CandidateNotFoundError())
     }
 
     const candidate = candidateOrError.value
-    await this.candidatesRepository.update(
-      candidate,
-      request.jobOpportunities,
-    )
+    await this.candidatesRepository.update(candidate)
 
     return right(candidate)
   }

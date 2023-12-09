@@ -1,3 +1,4 @@
+import { JobOpportunity } from "../../domain/job-opportunity"
 import { IJobOpportunityRepository } from "../../repositories/interfaces/IJobOpportunitiesRepository"
 
 type ListJobOpportunitiesResponse = JobOpportunity[]

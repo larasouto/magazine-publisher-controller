@@ -1,54 +1,54 @@
-import { JobOpportunity } from '@prisma/client'
-import { IJobOpportunityRepository } from '../interfaces/IJobOpportunitiesRepository'
+import { prismaClient } from '@/infra/prisma/client';
+import { IJobOpportunityRepository } from '../interfaces/IJobOpportunitiesRepository';
+import { JobOpportunity } from '../../domain/job-opportunity';
+import { JobOpportunityMapper } from '../../mappers/job-opportunity.mapper';
 
-export class InMemoryJobOpportunitiesRepository
+export class PrismaJobOpportunitiesRepository
   implements IJobOpportunityRepository
 {
-  constructor(public jobOpportunity: JobOpportunity[] = []) {}
-
   async findById(id: string): Promise<JobOpportunity | null> {
-    const jobOpportunity = this.jobOpportunity.find(
-      (jobOpportunity) => jobOpportunity.id === id,
-    )
+    const jobOpportunity = await prismaClient.jobOpportunity.findUnique({
+      where: { id },
+    });
 
     if (!jobOpportunity) {
-      return null
+      return null;
     }
 
-    return jobOpportunity
+    return JobOpportunityMapper.toDomain(jobOpportunity);
   }
 
   async create(jobOpportunity: JobOpportunity): Promise<void> {
-    this.jobOpportunities.push(jobOpportunity)
+    const data = await JobOpportunityMapper.toPersistence(jobOpportunity);
+
+    await prismaClient.jobOpportunity.create({
+      data,
+    });
   }
 
   async delete(id: string): Promise<void> {
-    const jobOpportunityIndex = this.jobOpportunities.findIndex(
-      (jobOpportunity) => jobOpportunity.id === id,
-    )
-
-    this.jobOpportunities.splice(jobOpportunityIndex, 1)
+    await prismaClient.jobOpportunity.delete({
+      where: { id },
+    });
   }
 
   async deleteMany(ids: string[]): Promise<void> {
-    ids.forEach((id) => {
-      const jobOpportunityIndex = this.jobOpportunities.findIndex(
-        (jobOpportunity) => jobOpportunity.id === id,
-      )
-
-      this.jobOpportunities.splice(jobOpportunityIndex, 1)
-    })
+    await prismaClient.jobOpportunity.deleteMany({
+      where: { id: { in: ids } },
+    });
   }
 
   async update(jobOpportunity: JobOpportunity): Promise<void> {
-    const jobOpportunityIndex = this.jobOpportunities.findIndex(
-      (jobOpportunity) => jobOpportunity.id === jobOpportunity.id,
-    )
+    const data = await JobOpportunityMapper.toPersistence(jobOpportunity);
 
-    this.jobOpportunities[jobOpportunityIndex] = jobOpportunity
+    await prismaClient.jobOpportunity.update({
+      where: { id: jobOpportunity.id },
+      data,
+    });
   }
 
-  async list(): Promise<jobOpportunity[]> {
-    return this.jobOpportunities
+  async list(): Promise<JobOpportunity[]> {
+    const jobOpportunities = await prismaClient.jobOpportunity.findMany();
+    return jobOpportunities.map(JobOpportunityMapper.toDomain);
   }
 }

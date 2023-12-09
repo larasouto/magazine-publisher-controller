@@ -1,17 +1,13 @@
-import { CandidateJobOpportunity } from "@prisma/client"
-import { ICandidateJobOpportunityRepository } from "../../repositories/interfaces/ICandidateJobOpportunitiesRepository"
+import { CandidateJobOpportunity } from '../../domain/candidateJobOpportunity'
+import { ICandidateJobOpportunityRepository } from '../../repositories/interfaces/ICandidateJobOpportunitiesRepository'
 
-export type ListCandidateJobOpportunityResponse = (CandidateJobOpportunity | null)[];
+type ListCandidateJobOpportunitiesResponse = (CandidateJobOpportunity | null)[];
 
-export class ListCandidateJobOpportunity {
-  constructor(private candidateJobOpportunityRepository: ICandidateJobOpportunityRepository) {}
+export class listCandidateJobOpportunities {
+  constructor(private candidateJobOpportunitiesRepository: ICandidateJobOpportunityRepository) {}
 
-  async execute(): Promise<ListCandidateJobOpportunityResponse> {
-    const candidateJobOpportunities = await this.candidateJobOpportunityRepository.list();
-    const filteredCandidateJobOpportunities = candidateJobOpportunities.filter(
-      (candidateJobOpportunity) => candidateJobOpportunity !== null,
-    ) as ListCandidateJobOpportunityResponse;
-
-    return filteredCandidateJobOpportunities;
+  async execute(): Promise<ListCandidateJobOpportunitiesResponse> {
+    const candidateJobOpportunities = await this.candidateJobOpportunitiesRepository.list()
+    return candidateJobOpportunities
   }
 }

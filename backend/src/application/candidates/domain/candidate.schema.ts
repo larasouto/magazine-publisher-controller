@@ -14,13 +14,7 @@ export const CandidateSchema = z.object({
   desiredJobTitle: z.string().min(2).max(64),
   companyName: z.string().min(2).max(64),
   positionHeld: z.string().min(2).max(64),
-  companyContact: z.string().nullish(),
-  jobOpportunities: z.array(z.string().uuid()),
-})
-
-export const CandidateItemsSchema = z.object({
-  jobOpportunities: z.array(z.string().uuid()),
+  companyContact: z.string(),
 })
 
 export type CandidateProps = z.infer<typeof CandidateSchema>
-export type CandidateItemsProps = z.infer<typeof CandidateItemsSchema>

@@ -4,7 +4,6 @@ import { Validator } from '@/core/infra/validator'
 import { t } from 'i18next'
 import { EditCandidate } from './edit-candidate'
 import { CandidateNotFoundError } from './errors/CandidateNotFoundError'
-import { JobOpportunityNotFoundError } from './errors/JobOpportunityNotFoundError'
 
 type EditCandidateControllerRequest = {
   candidateId: string
@@ -14,12 +13,11 @@ type EditCandidateControllerRequest = {
   maritalStatus: string
   nationality: string
   email: string
-  phone: string
+  phone: number
   address: string
   academicEducation: string
   intendedSalary: number
   desiredJobTitle: string
-  jobOpportunities: string[]
   companyName: string
   positionHeld: string
   companyContact: string
@@ -45,7 +43,6 @@ export class EditCandidateController implements Controller {
 
       switch (error.constructor) {
         case CandidateNotFoundError:
-        case JobOpportunityNotFoundError:
           return clientError({ type: 'info', message: error.message })
         default:
           return clientError(error)

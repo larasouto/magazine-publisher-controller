@@ -12,7 +12,7 @@ type CreateCandidateControllerRequest = {
   maritalStatus: string
   nationality: string
   email: string
-  phone: string
+  phone: number
   address: string
   academicEducation: string
   intendedSalary: number

@@ -8,9 +8,7 @@ export function makeEditCandidatesController(): Controller {
   const prismaCandidatesRepository = new PrismaCandidatesRepository()
 
 
-  const useCaseEditCandidate = new EditCandidate(
-    prismaCandidatesRepository,
-  )
+  const useCaseEditCandidate = new EditCandidate( prismaCandidatesRepository,)
 
   const validator = new ValidatorCompositor([])
 

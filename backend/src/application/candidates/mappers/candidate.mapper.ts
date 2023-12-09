@@ -1,13 +1,9 @@
 import { MapperError } from '@/core/errors/MapperErrors'
 import { Candidate as PersistenceCandidate } from '@prisma/client'
 import { Candidate } from '../domain/candidate'
-import { jobOpportunities } from '@/infra/http/routes/job-opportunities.routes'
 
 export class CandidateMapper {
-  static toDomain(
-    raw: PersistenceCandidate,
-    jobOpportunities: string[],
-  ) {
+  static toDomain(raw: PersistenceCandidate) {
     const candidateOrError = Candidate.create(
       {
         pdfPath: raw.pdf_path,
@@ -24,7 +20,7 @@ export class CandidateMapper {
         companyName: raw.company_name,
         positionHeld: raw.position_held,
         companyContact: raw.company_contact,
-        jobOpportunities: jobOpportunities,
+        //jobOpportunities: raw.jobOpportunities,
       },
       raw.id,
     )
@@ -53,7 +49,7 @@ export class CandidateMapper {
       company_name: candidate.props.companyName,
       position_held: candidate.props.positionHeld,
       company_contact: candidate.props.companyContact,
-      jobOpportunities: jobOpportunities,
+      //jobOpportunities: candidate.props.jobOpportunities,
     }
   }
 }
