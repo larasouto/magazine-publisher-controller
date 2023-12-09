@@ -19,7 +19,6 @@ export type CandidateColumns = {
   companyName: string
   positionHeld: string
   companyContact: string
-  jobOpportunities: string[]
 }
 
 const helper = createColumnHelper<CandidateColumns>()

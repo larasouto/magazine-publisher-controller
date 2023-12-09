@@ -15,7 +15,6 @@ export const CandidateSchema = z.object({
   companyName: z.string().min(2).max(64),
   positionHeld: z.string().min(2).max(64),
   companyContact: z.string().nullish(),
-  jobOpportunities: z.array(z.string().uuid()),
 })
 
 export type CandidateData = z.infer<typeof CandidateSchema>

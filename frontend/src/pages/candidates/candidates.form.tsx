@@ -11,10 +11,8 @@ import {
   CandidateDataWithId,
   CandidateSchema
 } from './candidates.schema'
-import { JobOpportunitiesSelect } from './job-opportunities/jobOpportunities-select'
 import { CandidatesPdf } from './pdf/candidates.pdfs'
 import { PriceIcon } from '@/components/ui/icons/PriceIcon'
-
 
 type CandidatesFormProps = {
   data?: CandidateDataWithId
@@ -65,7 +63,7 @@ export const CandidateForm = ({ data }: CandidatesFormProps) => {
               errorMessage={form.formState.errors.name?.message}
               labelPlacement="outside"
               {...form.register('name')}
-              isReadOnly
+              readOnly
             />
           </fieldset>
           <fieldset>
@@ -76,11 +74,9 @@ export const CandidateForm = ({ data }: CandidatesFormProps) => {
               errorMessage={form.formState.errors.age?.message}
               labelPlacement="outside"
               {...form.register('age')}
-              isReadOnly
+              readOnly
             />
           </fieldset>
-        </GridLayout>
-        <GridLayout cols="3">
           <fieldset>
             <Input
               label={'Estado civil'}
@@ -88,10 +84,9 @@ export const CandidateForm = ({ data }: CandidatesFormProps) => {
               errorMessage={form.formState.errors.maritalStatus?.message}
               labelPlacement="outside"
               {...form.register('maritalStatus')}
-              isReadOnly
+              readOnly
             />
           </fieldset>
-          <GridLayout cols="3">
           <fieldset>
             <Input
               label={'Nacionalidade'}
@@ -99,10 +94,9 @@ export const CandidateForm = ({ data }: CandidatesFormProps) => {
               errorMessage={form.formState.errors.nationality?.message}
               labelPlacement="outside"
               {...form.register('nationality')}
-              isReadOnly
+              readOnly
             />
           </fieldset>
-          <GridLayout cols="3">
           <fieldset>
             <Input
               label={'Email'}
@@ -110,7 +104,7 @@ export const CandidateForm = ({ data }: CandidatesFormProps) => {
               errorMessage={form.formState.errors.email?.message}
               labelPlacement="outside"
               {...form.register('email')}
-              isReadOnly
+              readOnly
             />
           </fieldset>
           <fieldset>
@@ -121,7 +115,7 @@ export const CandidateForm = ({ data }: CandidatesFormProps) => {
               errorMessage={form.formState.errors.phone?.message}
               labelPlacement="outside"
               {...form.register('phone')}
-              isReadOnly
+              readOnly
             />
           </fieldset>
           <fieldset>
@@ -131,7 +125,7 @@ export const CandidateForm = ({ data }: CandidatesFormProps) => {
               errorMessage={form.formState.errors.address?.message}
               labelPlacement="outside"
               {...form.register('address')}
-              isReadOnly
+              readOnly
             />
           </fieldset>
           <fieldset>
@@ -141,22 +135,21 @@ export const CandidateForm = ({ data }: CandidatesFormProps) => {
               errorMessage={form.formState.errors.academicEducation?.message}
               labelPlacement="outside"
               {...form.register('academicEducation')}
-              isReadOnly
+              readOnly
             />
           </fieldset>
           <fieldset>
             <Input
               type="number"
-              startContent={<PriceIcon />}
+              startContent={<PriceIcon />}
               label={'Salário pretendido'}
               placeholder={'Informe o salário pretendido'}
               errorMessage={form.formState.errors.intendedSalary?.message}
               labelPlacement="outside"
               {...form.register('intendedSalary')}
-              isReadOnly
+              readOnly
             />
           </fieldset>
-          <JobOpportunitiesSelect form={form} />
           <fieldset>
             <Input
               label={'Cargo Pretendido'}
@@ -197,8 +190,8 @@ export const CandidateForm = ({ data }: CandidatesFormProps) => {
               {...form.register('companyContact')}
               isReadOnly
             />
-          </fieldset>
-        <JobOpportunitiesSelect form={form} />
+     </fieldset>
+        </GridLayout>
       </GridLayout>
       <SubmitButton
         isEdit={!!data}

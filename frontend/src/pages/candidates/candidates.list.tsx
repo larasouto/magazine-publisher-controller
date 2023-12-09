@@ -3,10 +3,10 @@ import { useFetch } from '@/hooks/useFetch'
 import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
-import { CandidateToolbar } from './candidates.toolbar'
 import { CandidateColumns, columns } from './table/candidates.columns'
+import { CandidateToolbar } from './candidates.toolbar'
 
-export const CandidatesListPage = () => {
+export const CandidateListPage = () => {
   const { breadcrumb } = usePageUtils('candidates')
 
   const { list, removeMany } = useFetch<CandidateColumns[]>({

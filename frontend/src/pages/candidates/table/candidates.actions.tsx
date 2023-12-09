@@ -14,6 +14,7 @@ import {
 } from '@nextui-org/react'
 import { Copy, FileSignature, MoreHorizontal, Trash } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { CandidateColumns } from './candidates.columns'
 
 type CandidatesActionsProps = {
   row: CandidateColumns

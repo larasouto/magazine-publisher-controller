@@ -82,6 +82,13 @@ export const routes = {
     edit: '/jobOpportunities/:id/edit',
     delete: '/jobOpportunities/:id/delete'
   },
+  candidates: {
+    index: '/candidates',
+    new: '/candidates',
+    edit: '/candidates',
+    delete: '/candidates',
+    list: '/candidates'
+  }
 }
 
 export const backend = {
@@ -122,5 +129,8 @@ export const backend = {
   },
   jobOpportunities: {
     baseUrl: '/jobOpportunities'
+  },
+  candidates: {
+    baseUrl: '/candidates'
   }
 }
