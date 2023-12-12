@@ -14,7 +14,7 @@ type TableTopContentProps = {
 }
 
 export function TableTopContent({ toolbar }: TableTopContentProps) {
-  const { filter, table, asyncFn } = useDataTable()
+  const { t, filter, table, asyncFn, internalLogicFn } = useDataTable()
 
   /**
    * Deleta os itens selecionados. Esse método só irá funcionar
@@ -25,9 +25,15 @@ export function TableTopContent({ toolbar }: TableTopContentProps) {
     const originalRows = rows.map((row) => row.original as { _id: string })
     const ids = originalRows.map((row) => row._id)
 
+    if (internalLogicFn) {
+      for (const id of ids) {
+        internalLogicFn(id)
+      }
+    }
+
     await asyncFn?.(ids)
     table.toggleAllPageRowsSelected(false)
-  }, [asyncFn, table])
+  }, [asyncFn, internalLogicFn, table])
 
   const filters = useCallback(() => {
     return [
@@ -38,15 +44,9 @@ export function TableTopContent({ toolbar }: TableTopContentProps) {
           <DebouncedInput
             id="search-debounced-input"
             startContent={<Search className="text-foreground-500 w-5 h-5" />}
-            placeholder={'Procurar por'}
-            classNames={{
-              inputWrapper: 'flex-grow w-full h-fit',
-              input: 'w-full min-w-96 lg:w-72'
-            }}
+            placeholder={t('filter.search_by')}
             value={table.getState().globalFilter}
             onChange={(value) => table.setGlobalFilter(String(value))}
-            onClear={() => table.setGlobalFilter('')}
-            debounce={150}
             autoComplete="off"
             isClearable
           />
@@ -68,7 +68,7 @@ export function TableTopContent({ toolbar }: TableTopContentProps) {
         )
       }
     ]
-  }, [table, filter.search, filter.visibility, asyncFn, handleDelete])
+  }, [t, table, filter.search, filter.visibility, asyncFn, handleDelete])
 
   return (
     <>

@@ -56,6 +56,7 @@ export const DataTableColumnHeader = <TData, TValue>({
         >
           <DropdownItem
             key="asc"
+            textValue="asc"
             onPress={() => column.toggleSorting(false)}
             startContent={<ArrowUp className="h-4 w-4 text-foreground-500" />}
           >
@@ -63,6 +64,7 @@ export const DataTableColumnHeader = <TData, TValue>({
           </DropdownItem>
           <DropdownItem
             key="desc"
+            textValue="desc"
             onPress={() => column.toggleSorting(true)}
             startContent={<ArrowDown className="h-4 w-4 text-foreground-500" />}
           >
@@ -70,6 +72,7 @@ export const DataTableColumnHeader = <TData, TValue>({
           </DropdownItem>
           <DropdownItem
             key="hide-column"
+            textValue="hide-column"
             onPress={() => column.toggleVisibility(false)}
             startContent={<EyeOff className="h-4 w-4 text-foreground-500" />}
           >

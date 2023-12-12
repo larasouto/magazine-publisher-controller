@@ -39,7 +39,7 @@ export const MyPurchasesPage = () => {
       })}
     >
       <section className="flex flex-col gap-3">
-        {list.data?.length === 0 && (
+        {list?.data?.length === 0 && (
           <div className="flex flex-col items-center justify-center border p-3 border-dashed rounded-lg border-foreground-300 gap-2">
             <h1 className="text-2xl font-bold">Nenhuma compra</h1>
             <p className="text-default-500 text-center">
@@ -47,7 +47,7 @@ export const MyPurchasesPage = () => {
             </p>
           </div>
         )}
-        {list.data?.map((order) => (
+        {list?.data?.map((order) => (
           <div key={order.id} className="flex flex-col gap-3">
             {order.orderItems.map((item) => (
               <div
