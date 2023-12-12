@@ -13,7 +13,8 @@ export const routes = {
   },
   home: {
     index: '/home',
-    editions: '/home/editions/:id'
+    editions: '/home/editions/:id',
+    subscriptions: '/home/subscriptions/:id'
   },
   categories: {
     index: '/categories',
@@ -99,6 +100,9 @@ export const routes = {
     },
     'my-purchases': {
       index: '/profile/my-purchases'
+    },
+    'my-subscriptions': {
+      index: '/profile/my-subscriptions'
     }
   },
   orders: {
