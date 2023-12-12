@@ -1,5 +1,6 @@
 import { configs } from '@/configs'
 import {
+  CircularProgress,
   Table,
   TableBody,
   TableCell,
@@ -20,34 +21,48 @@ import {
   useReactTable
 } from '@tanstack/react-table'
 import { useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { TableBottomContent } from './TableBottomContent'
 import { TableTopContent } from './TableTopContent'
 import {
   DataTableContext,
   DataTableProvider
 } from './context/DataTableProvider'
+import { DataTableError } from './errors/DataTableError'
 
 type DataTableProps<TData, TValue> = Pick<
   DataTableContext<TData>,
-  'asyncFn'
+  'asyncFn' | 'internalLogicFn'
 > & {
   columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  data?: TData[]
+  hiddenColumns?: Extract<keyof TData, string>[]
 } & {
   toolbar?: React.ReactNode
+  isLoading?: boolean
+  isError?: boolean
+  ns?: string[]
 }
 
 export const DataTable = <TData, TValue>({
   columns,
-  data,
+  data = [],
   toolbar,
-  asyncFn
+  ns,
+  asyncFn,
+  internalLogicFn,
+  isLoading = false,
+  isError = false,
+  hiddenColumns
 }: DataTableProps<TData, TValue>) => {
+  const { t } = useTranslation('table')
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState({})
   const [globalFilter, setGlobalFilter] = useState('')
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
+    ...hiddenColumns?.reduce((acc, column) => ({ ...acc, [column]: false }), {})
+  })
   const [{ pageIndex, pageSize }, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10
@@ -85,8 +100,16 @@ export const DataTable = <TData, TValue>({
     debugTable: configs.debugTable
   })
 
+  if (isError) {
+    return <DataTableError />
+  }
+
+  if (isLoading) {
+    return <CircularProgress color="primary" aria-label="loading..." />
+  }
+
   return (
-    <DataTableProvider value={{ table, asyncFn }}>
+    <DataTableProvider value={{ ns, table, asyncFn, internalLogicFn }}>
       <Table
         aria-label="list table"
         isHeaderSticky
@@ -96,7 +119,8 @@ export const DataTable = <TData, TValue>({
         bottomContentPlacement="outside"
         className="min-h-unit-24"
         classNames={{
-          tr: 'data-[selected=true]:bg-default-100 hover:bg-default-100',
+          th: 'bg-default-100 dark:bg-default-200 min-w-max',
+          tr: 'data-[selected=true]:bg-default-100 hover:bg-default-100 dark:data-[selected=true]:bg-default-200 dark:hover:bg-default-200',
           td: 'group-data-[first=true]:first:rounded-tl-lg group-data-[first=true]:last:rounded-tr-lg group-data-[last=true]:first:rounded-bl-lg group-data-[last=true]:last:rounded-br-lg'
         }}
       >
@@ -116,7 +140,7 @@ export const DataTable = <TData, TValue>({
               ))
             )}
         </TableHeader>
-        <TableBody emptyContent={'Sem conteúdo'}>
+        <TableBody emptyContent={t('table.no_content')}>
           {table.getRowModel().rows?.map((row) => (
             <TableRow
               key={row.id}

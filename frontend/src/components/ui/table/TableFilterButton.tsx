@@ -9,13 +9,7 @@ import { Settings2 } from 'lucide-react'
 import { useDataTable } from './context/DataTableProvider'
 
 export const TableFilterButton = () => {
-  const { filter, toggleFilter } = useDataTable()
-
-  const keyToLabel = {
-    search: 'Pesquisar',
-    visibility: 'Colunas',
-    pagination: 'Paginação'
-  }
+  const { t, filter, toggleFilter } = useDataTable()
 
   return (
     <>
@@ -37,7 +31,7 @@ export const TableFilterButton = () => {
           aria-label="Select the type of filter"
         >
           {Object.keys(filter).map((key) => (
-            <DropdownItem key={key}>{keyToLabel[key]}</DropdownItem>
+            <DropdownItem key={key}>{t(`filter.toggle.${key}`)}</DropdownItem>
           ))}
         </DropdownMenu>
       </Dropdown>
