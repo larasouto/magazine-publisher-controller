@@ -7,6 +7,7 @@ import { adaptMiddleware } from '@/core/infra/adapters/express-middleware-adapte
 import { makeEnsureAuthenticated } from '../factories/controllers/auth/makeEnsureAuthenticated'
 import { makeForgotPasswordController } from '../factories/controllers/user/makeForgotPasswordController'
 import { makeResetPasswordController } from '../factories/controllers/user/makeResetPasswordController'
+import { makeChangePasswordController } from '../factories/controllers/user/makeChangePasswordController'
 
 export const auth = Router()
 
@@ -19,3 +20,4 @@ auth.get(
 )
 auth.post('/forgot-password', adaptRoute(makeForgotPasswordController()))
 auth.post('/reset-password', adaptRoute(makeResetPasswordController()))
+auth.post('/change-password', adaptRoute(makeChangePasswordController()))
