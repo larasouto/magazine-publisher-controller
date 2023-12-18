@@ -42,9 +42,9 @@ export const columns = [
    * Name
    */
   helper.accessor((row) => row.name, {
-    id: 'name',
+    id: 'Nome',
     header: () => t('magazines:form.name.label'),
-    cell: ({ row }) => row.getValue('name'),
+    cell: ({ row }) => row.getValue('Nome'),
     enableSorting: true,
     enableHiding: true
   }),
@@ -52,9 +52,9 @@ export const columns = [
    * Description
    */
   helper.accessor((row) => row.description, {
-    id: 'description',
+    id: 'Descrição',
     header: () => t('magazines:form.description.label'),
-    cell: ({ row }) => row.getValue('description'),
+    cell: ({ row }) => row.getValue('Descrição'),
     enableSorting: true,
     enableHiding: true
   }),
@@ -62,10 +62,10 @@ export const columns = [
    * Year founded
    */
   helper.accessor((row) => row.yearFounded, {
-    id: 'yearFounded',
+    id: 'Ano de fundação',
     header: () => t('magazines:form.year_founded.label'),
     cell: ({ row }) => (
-      <Chip color="default">{row.getValue('yearFounded')}</Chip>
+      <Chip color="default">{row.getValue('Ano de fundação')}</Chip>
     ),
     enableSorting: true,
     enableHiding: true
@@ -74,10 +74,10 @@ export const columns = [
    * Publication Period
    */
   helper.accessor((row) => row.publicationPeriod, {
-    id: 'publicationPeriod',
+    id: 'Período de publicação',
     header: () => t('magazines:form.publication_period.label'),
     cell: ({ row }) => {
-      const status = row.getValue('publicationPeriod') as PublicationPeriod
+      const status = row.getValue('Período de publicação') as PublicationPeriod
 
       const colors = {
         WEEKLY: 'primary',

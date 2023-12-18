@@ -41,6 +41,7 @@ export const MagazinesSelect = ({ form }: ThemesSelectProps) => {
         isLoading={list.isLoading}
         disallowEmptySelection
         errorMessage={form.formState.errors.magazineId?.message}
+        description={list.data?.length === 0 && 'Não há revistas cadastradas.'}
         isRequired
       >
         {(magazine) => (

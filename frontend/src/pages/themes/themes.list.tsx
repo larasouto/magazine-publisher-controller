@@ -9,7 +9,7 @@ import { ThemesToolbar } from './themes.toolbar'
 export const ThemesListPage = () => {
   const { title, breadcrumb } = usePageUtils('themes')
 
-  const { list } = useFetch<ThemesColumns[]>({
+  const { list, removeMany } = useFetch<ThemesColumns[]>({
     baseUrl: backend.themes.baseUrl,
     query: ['themes'],
     fetch: {
@@ -27,6 +27,7 @@ export const ThemesListPage = () => {
         columns={columns}
         data={list?.data ?? []}
         toolbar={<ThemesToolbar />}
+        asyncFn={removeMany.mutateAsync}
       />
     </PageLayout>
   )

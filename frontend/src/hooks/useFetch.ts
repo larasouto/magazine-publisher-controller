@@ -19,6 +19,7 @@ type FetchProps = {
     me?: boolean | UseQueryOptions
   }
   redirectTo?: string
+  removeManyKey?: string
 }
 
 type RemoveProps<T> = T & {
@@ -38,7 +39,8 @@ export const useFetch = <T>({
   baseUrl,
   query,
   fetch,
-  redirectTo
+  redirectTo,
+  removeManyKey = 'ids'
 }: FetchProps) => {
   const { promise } = useMutate()
   const queryClient = useQueryClient()
@@ -190,7 +192,9 @@ export const useFetch = <T>({
     ) => {
       const _data = Array.isArray(data) ? data : [data.id]
       await data.asyncFn?.()
-      return await promise(api.delete(baseUrl, { params: { ids: _data } }))
+      return await promise(
+        api.delete(baseUrl, { params: { [removeManyKey]: _data } })
+      )
     },
     {
       onSuccess: async () => {

@@ -2,7 +2,6 @@ import { useFetch } from '@/hooks/useFetch'
 import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend, routes } from '@/routes/routes'
-import { useEffect } from 'react'
 import { AddressesForm } from './addresses.form'
 import { AddressesDataWithId } from './addresses.schema'
 
@@ -16,10 +15,6 @@ export const AddressesPage = () => {
       id,
       get: true
     }
-  })
-
-  useEffect(() => {
-    console.log(get.data)
   })
 
   return (

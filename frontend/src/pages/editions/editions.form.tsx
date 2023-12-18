@@ -138,16 +138,11 @@ export const EditionsForm = ({ data }: EditionsFormProps) => {
               name="publicationDate"
               render={({ field }) => (
                 <DatePicker
-                  field={field}
                   label={t('form.publication_date.label')}
                   errorMessage={form.formState.errors.publicationDate?.message}
                   mode="single"
                   selected={field.value}
                   onSelect={field.onChange}
-                  disabled={(date) =>
-                    date > new Date() || date < new Date('1900-01-01')
-                  }
-                  initialFocus
                   isRequired
                 />
               )}

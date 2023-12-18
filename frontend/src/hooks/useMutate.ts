@@ -33,7 +33,10 @@ export const useMutate = () => {
       {
         success: (data) => data?.message ?? t('no_message'),
         loading: t('promise.loading'),
-        error: (err) => err.response?.data?.message ?? err.message
+        error: (err) => {
+          console.error(err.response?.data.message ?? err.message)
+          return 'Item vinculado a outro registro.'
+        }
       }
     )
   }

@@ -4,7 +4,7 @@ import { useFetch } from '@/hooks/useFetch'
 import { backend, routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@nextui-org/react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { ThemeForm, ThemesFormWithId, ThemesSchema } from './themes.schema'
 
@@ -46,22 +46,38 @@ export const ThemesForm = ({ data }: ThemesFormProps) => {
     >
       <GridLayout cols="1">
         <fieldset>
-          <Input
-            label={t('form.name.label')}
-            placeholder={t('form.name.placeholder')}
-            errorMessage={form.formState.errors.name?.message}
-            labelPlacement="outside"
-            {...form.register('name')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="name"
+            render={({ field: { value, onChange, ...rest } }) => (
+              <Input
+                label={t('form.name.label')}
+                placeholder={t('form.name.placeholder')}
+                errorMessage={form.formState.errors.name?.message}
+                labelPlacement="outside"
+                value={String(value ?? '')}
+                onValueChange={onChange}
+                {...rest}
+                isRequired
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            label={t('form.description.label')}
-            placeholder={t('form.description.placeholder')}
-            errorMessage={form.formState.errors.description?.message}
-            labelPlacement="outside"
-            {...form.register('description')}
+          <Controller
+            control={form.control}
+            name="description"
+            render={({ field: { value, onChange, ...rest } }) => (
+              <Input
+                label={t('form.description.label')}
+                placeholder={t('form.description.placeholder')}
+                errorMessage={form.formState.errors.description?.message}
+                labelPlacement="outside"
+                value={String(value ?? '')}
+                onValueChange={onChange}
+                {...rest}
+              />
+            )}
           />
         </fieldset>
       </GridLayout>

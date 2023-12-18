@@ -9,7 +9,7 @@ import { MagazineColumns, columns } from './table/magazines.columns'
 export const MagazinesListPage = () => {
   const { title, breadcrumb } = usePageUtils('magazines')
 
-  const { list } = useFetch<MagazineColumns[]>({
+  const { list, removeMany } = useFetch<MagazineColumns[]>({
     baseUrl: backend.magazines.baseUrl,
     query: ['magazines'],
     fetch: {
@@ -27,6 +27,7 @@ export const MagazinesListPage = () => {
         columns={columns}
         data={list?.data ?? []}
         toolbar={<MagazineToolbar />}
+        asyncFn={removeMany.mutateAsync}
       />
     </PageLayout>
   )

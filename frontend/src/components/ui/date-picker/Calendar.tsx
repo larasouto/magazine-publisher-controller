@@ -36,7 +36,7 @@ export const Calendar = ({
           { 'rounded-lg': props.mode === 'single' }
         ),
         day_today:
-          'bg-primary-200 text-foreground rounded-lg aria-selected:rounded-none outline-none',
+          'bg-primary-200 text-foreground !rounded-lg aria-selected:rounded-none outline-none',
         day_outside: 'text-foreground-500 !opacity-50',
         day_disabled: 'text-foreground-500 opacity-50 cursor-not-allowed',
         day_range_start:
