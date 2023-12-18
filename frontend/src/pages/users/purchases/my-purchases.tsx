@@ -1,14 +1,24 @@
-import { Format } from '@/components/ui/label/Format'
 import { useFetch } from '@/hooks/useFetch'
 import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
-import { Button, Image } from '@nextui-org/react'
+import { Chip } from '@nextui-org/react'
+import { EditionItem } from './Edition'
+
+type OrderItem = {
+  id: string
+  addressId: string
+  cardId: string
+  orderItems: {
+    editionId: string
+    quantity: number
+  }[]
+}
 
 export const MyPurchasesPage = () => {
   const { breadcrumb } = usePageUtils()
 
-  const { list } = useFetch({
+  const { list } = useFetch<OrderItem[]>({
     baseUrl: backend.orders.baseUrl,
     query: ['orders'],
     fetch: {
@@ -29,39 +39,29 @@ export const MyPurchasesPage = () => {
       })}
     >
       <section className="flex flex-col gap-3">
-        <div className="flex flex-col gap-3">
-          <div className="bg-default-50 rounded-lg p-5">
-            <div className="flex gap-3">
-              <Image src="/revista1.jpg" width={100} height={100} />
-              <div className="flex flex-col gap-1.5 max-w-lg">
-                <div className="flex flex-col">
-                  <label className="tracking-wide text-tiny text-default-500">
-                    Título
-                  </label>
-                  <h1 className="font-bold line-clamp-1">Revista 1</h1>
-                </div>
-                <div className="flex flex-col">
-                  <label className="tracking-wide text-tiny text-default-500">
-                    Descrição
-                  </label>
-                  <p className="line-clamp-2">Revista 2</p>
-                </div>
-                <div className="flex flex-col">
-                  <label className="tracking-wide text-tiny text-default-500">
-                    Valor pago
-                  </label>
-                  <p className="line-clamp-1">
-                    <Format text={'49.90'} size="sm" type="price" />
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="flex gap-3 mt-5">
-              <Button color="primary">Comprar novamente</Button>
-              <Button>Comentar</Button>
-            </div>
+        {list?.data?.length === 0 && (
+          <div className="flex flex-col items-center justify-center border p-3 border-dashed rounded-lg border-foreground-300 gap-2">
+            <h1 className="text-2xl font-bold">Nenhuma compra</h1>
+            <p className="text-default-500 text-center">
+              Você ainda não fez nenhuma compra
+            </p>
           </div>
-        </div>
+        )}
+        {list?.data?.map((order) => (
+          <div key={order.id} className="flex flex-col gap-3">
+            {order.orderItems.map((item) => (
+              <div
+                key={item.editionId}
+                className="bg-default-50 rounded-lg p-5"
+              >
+                <h1 className="flex justify-end">
+                  <Chip size="sm">{order.id.substring(0, 8)}</Chip>
+                </h1>
+                <EditionItem {...item} />
+              </div>
+            ))}
+          </div>
+        ))}
       </section>
     </PageLayout>
   )

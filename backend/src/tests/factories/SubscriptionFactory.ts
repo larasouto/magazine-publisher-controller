@@ -1,9 +1,9 @@
-import { Subscription } from '@/application/subscriptions/domain/subscription'
+import { Subscription } from '@/application/subscriptions/admin/domain/subscription'
 import {
   SubscriptionProps,
   SubscriptionType,
   SubscriptionFrequency,
-} from '@/application/subscriptions/domain/subscription.schema'
+} from '@/application/subscriptions/admin/domain/subscription.schema'
 
 type SubscriptionOverrides = {
   name?: string

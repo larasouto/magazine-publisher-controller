@@ -1,6 +1,6 @@
 import { useToken } from '@/hooks/useToken'
 import { routes } from '@/routes/routes'
-import { useEffect, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 type GuestGuardProps = {
@@ -8,20 +8,16 @@ type GuestGuardProps = {
 }
 
 export const GuestGuard = ({ children }: GuestGuardProps) => {
-  const isMounted = useRef(false)
+  const [isMounted, setMounted] = useState(false)
   const { token } = useToken()
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (isMounted.current) {
-      return
-    }
-    isMounted.current = true
-
     if (token) {
       navigate(routes.home.index)
     }
+    setMounted(true)
   }, [token, navigate])
 
-  return <>{children}</>
+  return <>{isMounted && children}</>
 }

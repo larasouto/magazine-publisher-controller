@@ -1,83 +1,86 @@
 import { routes } from '@/routes/routes'
-import i18next, { TOptions } from 'i18next'
 import { Shapes, Workflow } from 'lucide-react'
 
 type MenuProps = {
   id: string
   icon?: React.ReactNode
-  title: () => string
-  description: () => string
+  title: string
+  description: string
   border: string
   link: string
-}
-
-const t = (key: string, options?: TOptions) => {
-  return () => i18next.t(key, { ns: 'menu', ...options })
 }
 
 export const items: MenuProps[] = [
   {
     id: 'categories',
     icon: <Shapes />,
-    title: t('item.categories.title', { ns: 'menu' }),
-    description: t('item.categories.description', { ns: 'menu' }),
+    title: 'Categorias',
+    description: 'Gerencie as categorias das suas reportagens.',
     border: 'border-sky-600',
     link: routes.categories.index
   },
   {
     id: 'themes',
     icon: <Workflow />,
-    title: t('item.themes.title', { ns: 'menu' }),
-    description: t('item.themes.description', { ns: 'menu' }),
+    title: 'Temas',
+    description: 'Gerencie os temas das suas revistas.',
     border: 'border-green-600',
     link: routes.themes.index
   },
   {
     id: 'magazines',
     icon: <Workflow />,
-    title: t('Revistas', { ns: 'menu' }),
-    description: t('item.themes.description', { ns: 'menu' }),
+    title: 'Revistas',
+    description: 'Gerencie as suas revistas.',
     border: 'border-violet-600',
     link: routes.magazines.index
   },
   {
     id: 'editions',
     icon: <Shapes />,
-    title: t('item.editions.title', { ns: 'menu' }),
-    description: t('item.editions.description', { ns: 'menu' }),
+    title: 'Edições',
+    description: 'Gerencie as diferentes edições das suas revistas.',
     border: 'border-amber-600',
     link: routes.editions.index
   },
   {
-    id: 'test-2',
+    id: 'articles',
     icon: <Shapes />,
-    title: t('item.categories.title', { ns: 'menu' }),
-    description: t('item.categories.description', { ns: 'menu' }),
+    title: 'Reportagens',
+    description: 'Crie e edite reportagens envolventes.',
     border: 'border-rose-800',
-    link: routes.categories.index
+    link: routes.articles.index
   },
   {
-    id: 'test-3',
+    id: 'advertisings',
     icon: <Shapes />,
-    title: t('item.categories.title', { ns: 'menu' }),
-    description: t('item.categories.description', { ns: 'menu' }),
+    title: 'Propagandas',
+    description: 'Gerencie as propagandas das suas revistas.',
     border: 'border-amber-900',
-    link: routes.categories.index
+    link: routes.advertisings.admin.index
   },
   {
-    id: 'test-4',
+    id: 'photographers',
     icon: <Shapes />,
-    title: t('item.categories.title', { ns: 'menu' }),
-    description: t('item.categories.description', { ns: 'menu' }),
+    title: 'Fotógrafos',
+    description: 'Gerencie sua equipe de fotógrafos.',
     border: 'border-zinc-600',
-    link: routes.categories.index
+    link: routes.photographers.index
   },
   {
-    id: 'test-5',
+    id: 'reporters',
     icon: <Shapes />,
-    title: t('item.categories.title', { ns: 'menu' }),
-    description: t('item.categories.description', { ns: 'menu' }),
+    title: 'Repórteres',
+    description: 'Gerencie sua equipe de repórteres.',
     border: 'border-emerald-600',
-    link: routes.categories.index
+    link: routes.reporters.index
+  },
+  {
+    id: 'subscriptions',
+    icon: <Shapes />,
+    title: 'Assinaturas',
+    description: 'Gerencie as assinaturas dos seus clientes.',
+    border: 'border-emerald-600',
+    link: routes.subscriptions.index
   }
 ]

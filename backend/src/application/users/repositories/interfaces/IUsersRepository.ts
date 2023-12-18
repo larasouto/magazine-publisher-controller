@@ -7,4 +7,5 @@ export interface IUsersRepository {
   exists(email: string): Promise<boolean>
   create(user: User): Promise<void>
   getDetails(id: string): Promise<UserDetails | null>
+  update(user: User): Promise<void>
 }

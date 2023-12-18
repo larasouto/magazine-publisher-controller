@@ -34,7 +34,7 @@ export const Menu = ({
   const filtered =
     search.trim().length > 0
       ? items.filter((item) =>
-          item.title().toLowerCase().includes(search.toLowerCase())
+          item.title.toLowerCase().includes(search.toLowerCase())
         )
       : items
 
@@ -119,11 +119,11 @@ export const Menu = ({
                           <CardHeader className="px-5">
                             <h3 className="flex gap-2 items-center text-xl">
                               {item.icon}
-                              {item.title()}
+                              {item.title}
                             </h3>
                           </CardHeader>
                           <CardBody className="pt-1">
-                            {item.description()}
+                            {item.description}
                           </CardBody>
                         </Card>
                       </Link>

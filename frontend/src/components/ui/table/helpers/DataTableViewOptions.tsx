@@ -9,7 +9,7 @@ import { Columns } from 'lucide-react'
 import { useDataTable } from '../context/DataTableProvider'
 
 export const DataTableViewOptions = () => {
-  const { t, table } = useDataTable()
+  const { t, ns, table } = useDataTable()
 
   const selectedColumns = () =>
     table.getAllColumns().filter((column) => column.getIsVisible())
@@ -22,7 +22,7 @@ export const DataTableViewOptions = () => {
           startContent={<Columns className="h-5 w-5" />}
           className="ml-auto gap-2 bg-default-100 hover:bg-default-200 text-foreground-500"
         >
-          Colunas
+          {t('filter.toggle.visibility')}
         </Button>
       </DropdownTrigger>
       <DropdownMenu
@@ -35,7 +35,9 @@ export const DataTableViewOptions = () => {
           .getAllColumns()
           .filter((column) => column.getCanHide())
           .map((column) => (
-            <DropdownItem key={column.id}>{t(column.id)}</DropdownItem>
+            <DropdownItem key={column.id}>
+              {t(`${column.id}.label`, { ns })}
+            </DropdownItem>
           ))}
       </DropdownMenu>
     </Dropdown>

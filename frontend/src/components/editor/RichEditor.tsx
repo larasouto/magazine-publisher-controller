@@ -25,6 +25,7 @@ type EditorProps = Omit<EditorContentProps, 'editor' | 'ref' | 'value'> & {
   errorMessage?: string
   value?: string | number | null
   onChange?: (content: string) => void
+  noChars?: boolean
 }
 
 const getSizeTextarea = ({ as }: Pick<EditorProps, 'as'>) => {
@@ -48,6 +49,7 @@ export const RichEditor = forwardRef<HTMLInputElement, EditorProps>(
       label,
       errorMessage,
       limit = 1000,
+      noChars = false,
       ...props
     },
     ref
@@ -153,7 +155,7 @@ export const RichEditor = forwardRef<HTMLInputElement, EditorProps>(
         <div className="relative">
           {editor && (
             <>
-              <RichEditorChars editor={editor} limit={limit} />
+              {!noChars && <RichEditorChars editor={editor} limit={limit} />}
               <input
                 {...props}
                 id={id}

@@ -40,4 +40,12 @@ export class InMemoryUsersRepository implements IUsersRepository {
   async create(user: User): Promise<void> {
     this.users.push(user)
   }
+
+  async update(workspace: User): Promise<void> {
+    const index = this.users.findIndex(
+      (userItem) => userItem.id === workspace.id,
+    )
+
+    this.users[index] = workspace
+  }
 }

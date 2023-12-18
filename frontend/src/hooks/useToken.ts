@@ -1,10 +1,12 @@
 import { useCallback } from 'react'
 
 export const useToken = () => {
-  const token = localStorage.getItem('token')
+  const token = sessionStorage.getItem('token') || localStorage.getItem('token')
 
   const parseJwt = useCallback((text?: string | null) => {
-    if (!text) return null
+    if (!text) {
+      return false
+    }
 
     const base64Url = text.split('.')[1]
     const base64 = base64Url.replace('-', '+').replace('_', '/')
@@ -18,7 +20,15 @@ export const useToken = () => {
   }, [])
 
   const isExpired = (token?: string | null) => {
-    const { exp } = parseJwt(token ?? localStorage.getItem('token'))
+    const parsed = parseJwt(
+      token ??
+        (sessionStorage.getItem('token') || localStorage.getItem('token'))
+    )
+    const { exp } = parsed
+
+    if (!parsed) {
+      return true
+    }
 
     const old = new Date(exp * 1000)
     const now = new Date()

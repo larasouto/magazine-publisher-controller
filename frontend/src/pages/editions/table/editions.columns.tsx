@@ -115,7 +115,7 @@ export const columns = [
         type="date"
         options={{
           date: {
-            dateStyle: 'short'
+            month: '2-digit'
           }
         }}
       />

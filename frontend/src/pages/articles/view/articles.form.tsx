@@ -43,7 +43,6 @@ export const ArticleForm = ({ data }: ArticlesFormProps) => {
     defaultValues: data
   })
 
-
   const onSubmit = async (form: ArticleData) => {
     setOutput(JSON.stringify(form, null, 2))
     if (data) {
@@ -145,6 +144,7 @@ export const ArticleForm = ({ data }: ArticlesFormProps) => {
             <CategoriesSelect form={form} />
             <ReportersSelect form={form} />
             <PhotographersSelect form={form} />
+            RJC
           </GridLayout>
           <pre>{output}</pre>
         </GridLayout>

@@ -16,6 +16,7 @@ export class EditionMapper {
         numberOfCopies: raw.number_of_copies,
         numberOfPages: raw.number_of_pages,
         magazineId: raw.magazine_id,
+        isTopSeller: raw.is_top_seller,
       },
       raw.id,
     )
@@ -40,6 +41,7 @@ export class EditionMapper {
       number_of_copies: edition.props.numberOfCopies,
       number_of_pages: edition.props.numberOfPages,
       magazine_id: edition.props.magazineId,
+      is_top_seller: edition.props.isTopSeller,
     }
   }
 }

@@ -16,6 +16,8 @@ export class PrismaOrdersRepository implements IOrderRepository {
       return null
     }
 
+    console.log(order)
+
     return OrderMapper.toDomain(
       order,
       order.order_items.map((item) => ({
@@ -49,8 +51,18 @@ export class PrismaOrdersRepository implements IOrderRepository {
   }
 
   async list(): Promise<Order[]> {
-    const orders = await prismaClient.order.findMany()
-    return orders.map((order) => OrderMapper.toDomain(order))
+    const orders = await prismaClient.order.findMany({
+      include: { order_items: true },
+    })
+    return orders.map((order) =>
+      OrderMapper.toDomain(
+        order,
+        order.order_items.map((item) => ({
+          editionId: item.edition_id,
+          quantity: item.quantity,
+        })),
+      ),
+    )
   }
 
   async updateStatus(id: string, newStatus: number): Promise<void> {

@@ -53,7 +53,7 @@ export const CartItems = () => {
                         {t('cart.item.price.label')}
                       </label>
                       <p className="line-clamp-1">
-                        <Format text={item.price} type="price" />
+                        <Format text={String(item.price)} type="price" />
                       </p>
                     </div>
                   </div>

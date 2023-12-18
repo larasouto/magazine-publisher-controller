@@ -9,8 +9,8 @@ export enum OrderStatus {
 export const OrderSchema = z.object({
   totalValue: z.coerce.number().positive(),
   status: z.nativeEnum(OrderStatus),
-  addressId: z.string().uuid(),
-  cardId: z.string().uuid(),
+  addressId: z.string().uuid().optional(),
+  cardId: z.string().uuid().optional(),
   customerId: z.string().uuid(),
   orderItems: z
     .array(

@@ -27,6 +27,7 @@ type DropdownProps<T extends FieldValues, K extends FieldPath<T>> = {
   placeholder?: string
   isLoading?: boolean
   afterChange?: ControllerRenderProps['onChange']
+  textValue?: string
 }
 
 export const Combobox = <T extends FieldValues, K extends FieldPath<T>>({

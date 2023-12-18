@@ -5,6 +5,9 @@ import { makeCreateUserController } from '../factories/controllers/user/makeCrea
 import { makeGetUserDetailsController } from '../factories/controllers/user/makeGetUserDetails'
 import { adaptMiddleware } from '@/core/infra/adapters/express-middleware-adapter'
 import { makeEnsureAuthenticated } from '../factories/controllers/auth/makeEnsureAuthenticated'
+import { makeForgotPasswordController } from '../factories/controllers/user/makeForgotPasswordController'
+import { makeResetPasswordController } from '../factories/controllers/user/makeResetPasswordController'
+import { makeChangePasswordController } from '../factories/controllers/user/makeChangePasswordController'
 
 export const auth = Router()
 
@@ -15,3 +18,6 @@ auth.get(
   adaptMiddleware(makeEnsureAuthenticated()),
   adaptRoute(makeGetUserDetailsController()),
 )
+auth.post('/forgot-password', adaptRoute(makeForgotPasswordController()))
+auth.post('/reset-password', adaptRoute(makeResetPasswordController()))
+auth.post('/change-password', adaptRoute(makeChangePasswordController()))

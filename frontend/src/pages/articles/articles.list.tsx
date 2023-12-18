@@ -28,8 +28,8 @@ export const ArticlesListPage = () => {
       <DataTable
         columns={columns}
         data={list?.data ?? []}
-        toolbarButtons={<ArticleToolbar />}
-        fn={removeMany.mutateAsync}
+        toolbar={<ArticleToolbar />}
+        asyncFn={removeMany.mutateAsync}
       />
     </PageLayout>
   )

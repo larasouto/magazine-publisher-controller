@@ -62,4 +62,19 @@ export class PrismaUsersRepository implements IUsersRepository {
       data,
     })
   }
+
+  async update(user: User): Promise<void> {
+    const data = await UserMapper.toPersistence(user)
+
+    await prismaClient.user
+      .update({
+        where: { id: user.id },
+        data: {
+          ...data,
+        },
+      })
+      .catch(() => {
+        throw new Error('Error on update user')
+      })
+  }
 }

@@ -9,42 +9,57 @@ datasource db {
 }
 
 model User {
-  id                    String                @id
-  name                  String
-  email                 String                @unique
-  password              String
-  phone                 String?
-  role                  Int                   @default(0)
-  created_at            DateTime              @default(now())
-  updated_at            DateTime              @updatedAt
-  addresses             Address[]
-  cards                 Card[]
-  subscriptions         Subscription[]
-  orders                Order[]
-  payment_subscriptions PaymentSubscription[]
-  payment_advertisings  PaymentAdvertising[]
-  reviews               Review[]
-  advertisings          Advertising[]
+  id                     String                 @id
+  name                   String
+  email                  String                 @unique
+  password               String
+  phone                  String?
+  role                   Int                    @default(0)
+  created_at             DateTime               @default(now())
+  updated_at             DateTime               @updatedAt
+  addresses              Address[]
+  cards                  Card[]
+  subscriptions          Subscription[]
+  orders                 Order[]
+  payment_subscriptions  PaymentSubscription[]
+  payment_advertisings   PaymentAdvertising[]
+  reviews                Review[]
+  advertisings           Advertising[]
+  customer_subscriptions CustomerSubscription[]
 
   @@map("users")
 }
 
 model Subscription {
-  id                    String                @id
-  name                  String
-  description           String
-  type                  Int
-  frequency             Int
-  price                 Float
-  magazine              Magazine              @relation(fields: [magazine_id], references: [id])
-  magazine_id           String
-  created_at            DateTime              @default(now())
-  updated_at            DateTime              @updatedAt
-  user                  User                  @relation(fields: [user_id], references: [id])
-  user_id               String
-  payment_subscriptions PaymentSubscription[]
+  id                     String                 @id
+  name                   String
+  description            String
+  type                   Int
+  frequency              Int
+  price                  Float
+  magazine               Magazine               @relation(fields: [magazine_id], references: [id])
+  magazine_id            String
+  created_at             DateTime               @default(now())
+  updated_at             DateTime               @updatedAt
+  user                   User                   @relation(fields: [user_id], references: [id])
+  user_id                String
+  payment_subscriptions  PaymentSubscription[]
+  customer_subscriptions CustomerSubscription[]
 
   @@map("subscriptions")
+}
+
+model CustomerSubscription {
+  id              String       @id
+  subscription    Subscription @relation(fields: [subscription_id], references: [id])
+  subscription_id String
+  status          Int
+  user        User         @relation(fields: [user_id], references: [id])
+  user_id     String
+  created_at      DateTime     @default(now())
+  updated_at      DateTime     @updatedAt
+
+  @@map("customer_subscriptions")
 }
 
 model Card {
@@ -187,6 +202,7 @@ model Edition {
   reviews          Review[]
   GraphicsOrder    GraphicsOrder[]
   articles         Article[]
+  is_top_seller    Boolean         @default(false)
 
   @@map("editions")
 }
