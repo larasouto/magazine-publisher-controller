@@ -2,12 +2,10 @@ import { IAddressesRepository } from '@/application/addresses/repositories/inter
 import { PrismaAddressesRepository } from '@/application/addresses/repositories/prisma/PrismaAddressesRepository'
 import { ICardsRepository } from '@/application/cards/repositories/interfaces/ICardsRepository'
 import { PrismaCardsRepository } from '@/application/cards/repositories/prisma/PrismaCardsRepository'
-import { IEditionRepository } from '@/application/editions/repositories/interfaces/IEditionRepository'
 import { PrismaEditionsRepository } from '@/application/editions/repositories/prisma/PrismaEditionsRepository'
 import { IMagazineRepository } from '@/application/magazines/repositories/interfaces/IMagazineRepository'
 import { PrismaMagazinesRepository } from '@/application/magazines/repositories/prisma/PrismaMagazinesRepository'
-import { Subscription } from '@/application/subscriptions/domain/subscription'
-import { ISubscriptionsRepository } from '@/application/subscriptions/repositories/interfaces/ISubscriptionsRepository'
+import { ISubscriptionsRepository } from '@/application/subscriptions/admin/repositories/interfaces/ISubscriptionsRepository'
 import { IThemeRepository } from '@/application/themes/repositories/interfaces/IThemeRepository'
 import { PrismaThemesRepository } from '@/application/themes/repositories/prisma/PrismaThemesRepository'
 import { IUsersRepository } from '@/application/users/repositories/interfaces/IUsersRepository'
@@ -40,7 +38,7 @@ describe('Create paymentSubscription (end-to-end)', () => {
   const magazine = MagazineFactory.create({ themeId: theme.id })
   const edition = EditionFactory.create({ magazineId: magazine.id })
   const card = CardFactory.create({ userId: user.id })
-  const subscription = SubscriptionFactory.create({ magazineId: magazine.id })
+  const subscription = SubscriptionFactory.create({ magazineId: magazine.id, userId: user.id })
 
   beforeAll(async () => {
     usersRepository = new PrismaUsersRepository()

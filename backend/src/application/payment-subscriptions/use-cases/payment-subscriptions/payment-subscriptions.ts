@@ -5,7 +5,7 @@ import { IUsersRepository } from '@/application/users/repositories/interfaces/IU
 import { CustomerNotFoundError } from './errors/CustomerNotFoundError'
 import { IAddressesRepository } from '@/application/addresses/repositories/interfaces/IAddressesRepository'
 import { AddressNotFoundError } from './errors/AddressNotFoundError'
-import { ISubscriptionsRepository } from '@/application/subscriptions/repositories/interfaces/ISubscriptionsRepository'
+import { ISubscriptionsRepository } from '@/application/subscriptions/admin/repositories/interfaces/ISubscriptionsRepository'
 import { SubscriptionNotFoundError } from './errors/SubscriptionNotFoundError'
 import { PaymentSubscriptionStatus } from '../../domain/payment-subscription.schema'
 import { ICardsRepository } from '@/application/cards/repositories/interfaces/ICardsRepository'
