@@ -16,13 +16,6 @@ export class InMemoryMagazinesRepository implements IMagazineRepository {
     this.magazines.push(magazine)
   }
 
-  async delete(id: string): Promise<void> {
-    const magazineIndex = this.magazines.findIndex(
-      (magazine) => magazine.id === id,
-    )
-    this.magazines.splice(magazineIndex, 1)
-  }
-
   async deleteMany(ids: string[]): Promise<void> {
     ids.forEach((id) => {
       const magazineIndex = this.magazines.findIndex(

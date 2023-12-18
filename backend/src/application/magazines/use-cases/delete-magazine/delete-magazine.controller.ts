@@ -1,12 +1,12 @@
 import { Controller } from '@/core/infra/controller'
 import { HttpResponse, clientError, ok } from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
-import { t } from 'i18next'
 import { DeleteMagazine } from './delete-magazine'
 import { MagazineNotFoundError } from './errors/MagazineNotFoundError'
+import { OneOrMoreMagazineNotFoundError } from './errors/OneOrMoreMagazineNotFoundError'
 
 type DeleteMagazineControllerRequest = {
-  magazineId: string
+  ids: string[]
 }
 
 export class DeleteMagazineController implements Controller {
@@ -31,12 +31,18 @@ export class DeleteMagazineController implements Controller {
 
       switch (error.constructor) {
         case MagazineNotFoundError:
+        case OneOrMoreMagazineNotFoundError:
           return clientError(error)
         default:
           return clientError(error)
       }
     }
 
-    return ok({ message: t('magazine.deleted') })
+    const message =
+      request.ids?.length > 1
+        ? 'Uma ou mais revistas foram deletadas com sucesso'
+        : 'Revista deletada com sucesso'
+
+    return ok({ message })
   }
 }
