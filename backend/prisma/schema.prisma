@@ -54,8 +54,8 @@ model CustomerSubscription {
   subscription    Subscription @relation(fields: [subscription_id], references: [id])
   subscription_id String
   status          Int
-  user        User         @relation(fields: [user_id], references: [id])
-  user_id     String
+  user            User         @relation(fields: [user_id], references: [id])
+  user_id         String
   created_at      DateTime     @default(now())
   updated_at      DateTime     @updatedAt
 
@@ -203,6 +203,7 @@ model Edition {
   GraphicsOrder    GraphicsOrder[]
   articles         Article[]
   is_top_seller    Boolean         @default(false)
+  edition_offers   EditionOffer[]
 
   @@map("editions")
 }
@@ -432,4 +433,28 @@ model ReporterArticle {
 
   @@id([article_id, reporter_id])
   @@map("article_reporter")
+}
+
+model EditionOffer {
+  id         String   @id
+  edition    Edition  @relation(fields: [edition_id], references: [id])
+  edition_id String
+  offer      Offer    @relation(fields: [offer_id], references: [id])
+  offer_id   String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("edition_offers")
+}
+
+model Offer {
+  id                  String         @id
+  discount_percentage Int
+  from                DateTime
+  to                  DateTime
+  edition_offers      EditionOffer[]
+  created_at          DateTime       @default(now())
+  updated_at          DateTime       @updatedAt
+
+  @@map("offers")
 }
