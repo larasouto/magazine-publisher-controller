@@ -1,12 +1,12 @@
 import { Controller } from '@/core/infra/controller'
-import { HttpResponse, clientError, ok } from '@/core/infra/http-response'
+import { HttpResponse, clientError, fail, ok } from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
-import { t } from 'i18next'
 import { DeleteSubtitle } from './delete-subtitle'
+import { OneOrMoreSubtitleNotFoundError } from './errors/OneOrMoreSubtitleNotFoundError'
 import { SubtitleNotFoundError } from './errors/SubtitleNotFoundError'
 
 type DeleteSubtitleControllerRequest = {
-  subtitleId: string
+  ids: string[]
 }
 
 export class DeleteSubtitleController implements Controller {
@@ -31,12 +31,18 @@ export class DeleteSubtitleController implements Controller {
 
       switch (error.constructor) {
         case SubtitleNotFoundError:
-          return clientError({ type: 'info', message: error.message })
+        case OneOrMoreSubtitleNotFoundError:
+          return clientError(error)
         default:
           return clientError(error)
       }
     }
 
-    return ok({ message: t('subtitle.deleted') })
+    const message =
+      request.ids?.length > 1
+        ? 'Um ou mais subtítulos de capa deletados'
+        : 'Subtítulo de capa deletado'
+
+    return ok({ message })
   }
 }

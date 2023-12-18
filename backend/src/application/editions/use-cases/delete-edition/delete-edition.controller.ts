@@ -1,38 +1,47 @@
-import { Either, left, right } from '@/core/logic/either'
+import { Controller } from '@/core/infra/controller'
+import {
+  HttpResponse,
+  clientError,
+  fail,
+  notFound,
+  ok,
+} from '@/core/infra/http-response'
+import { Validator } from '@/core/infra/validator'
+import { DeleteEdition } from './delete-edition'
 import { EditionNotFoundError } from './errors/EditionNotFoundError'
-import { IEditionRepository } from '../../repositories/interfaces/IEditionRepository'
 import { OneOrMoreEditionNotFoundError } from './errors/OneOrMoreEditonNotFoundError'
 
-type DeleteEditionRequest = {
+type DeleteEditionControllerRequest = {
   ids: string[]
 }
 
-type DeleteEditionResponse = Either<EditionNotFoundError, null>
+export class DeleteEditionController implements Controller {
+  constructor(
+    private readonly validator: Validator<DeleteEditionControllerRequest>,
+    private deleteEdition: DeleteEdition,
+  ) {}
 
-export class DeleteEdition {
-  constructor(private editionsRepository: IEditionRepository) {}
+  async handle(request: DeleteEditionControllerRequest): Promise<HttpResponse> {
+    const validated = this.validator.validate(request)
 
-  async execute({
-    ids: editionId,
-  }: DeleteEditionRequest): Promise<DeleteEditionResponse> {
-    const editionOrEditions = Array.isArray(editionId) ? editionId : [editionId]
-
-    const editionPromises = editionOrEditions
-      .filter((editionId) => editionId)
-      .map((editionId) => this.editionsRepository.findById(editionId))
-
-    const editions = await Promise.all(editionPromises)
-
-    if (editions.some((edition) => edition === null)) {
-      return left(
-        editions.length > 1
-          ? new OneOrMoreEditionNotFoundError()
-          : new EditionNotFoundError(),
-      )
+    if (validated.isLeft()) {
+      return clientError(validated.value)
     }
 
-    await this.editionsRepository.deleteMany(editionOrEditions)
+    const result = await this.deleteEdition.execute(request)
 
-    return right(null)
+    if (result.isLeft()) {
+      const error = result.value
+
+      switch (error.constructor) {
+        case EditionNotFoundError:
+        case OneOrMoreEditionNotFoundError:
+          return notFound(error)
+        default:
+          return clientError(error)
+      }
+    }
+
+    return ok({ message: 'Edição deletada com sucesso' })
   }
 }

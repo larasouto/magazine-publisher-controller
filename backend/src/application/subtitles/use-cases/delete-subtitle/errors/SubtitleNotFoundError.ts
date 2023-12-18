@@ -1,8 +1,6 @@
-import { t } from 'i18next'
-
 export class SubtitleNotFoundError extends Error {
   constructor() {
-    super(t('subtitle.not_found'))
+    super('Subtítulo não encontrado')
     this.name = 'SubtitleNotFoundError'
   }
 }

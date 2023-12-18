@@ -1,48 +1,40 @@
-import { Controller } from '@/core/infra/controller'
-import { HttpResponse, clientError, ok } from '@/core/infra/http-response'
-import { Validator } from '@/core/infra/validator'
-import { DeleteMagazine } from './delete-magazine'
+import { Either, left, right } from '@/core/logic/either'
+import { IMagazineRepository } from '../../repositories/interfaces/IMagazineRepository'
 import { MagazineNotFoundError } from './errors/MagazineNotFoundError'
 import { OneOrMoreMagazineNotFoundError } from './errors/OneOrMoreMagazineNotFoundError'
 
-type DeleteMagazineControllerRequest = {
+type DeleteMagazineRequest = {
   ids: string[]
 }
 
-export class DeleteMagazineController implements Controller {
-  constructor(
-    private readonly validator: Validator<DeleteMagazineControllerRequest>,
-    private deleteMagazine: DeleteMagazine,
-  ) {}
+type DeleteMagazineResponse = Either<MagazineNotFoundError, null>
 
-  async handle(
-    request: DeleteMagazineControllerRequest,
-  ): Promise<HttpResponse> {
-    const validated = this.validator.validate(request)
+export class DeleteMagazine {
+  constructor(private magazinesRepository: IMagazineRepository) {}
 
-    if (validated.isLeft()) {
-      return clientError(validated.value)
+  async execute({
+    ids: magazineId,
+  }: DeleteMagazineRequest): Promise<DeleteMagazineResponse> {
+    const magazineOrMagazines = Array.isArray(magazineId)
+      ? magazineId
+      : [magazineId]
+
+    const magazinePromises = magazineOrMagazines
+      .filter((magazineId) => magazineId)
+      .map((magazineId) => this.magazinesRepository.findById(magazineId))
+
+    const magazines = await Promise.all(magazinePromises)
+
+    if (magazines.some((magazine) => magazine === null)) {
+      return left(
+        magazines.length > 1
+          ? new OneOrMoreMagazineNotFoundError()
+          : new MagazineNotFoundError(),
+      )
     }
 
-    const result = await this.deleteMagazine.execute(request)
+    await this.magazinesRepository.deleteMany(magazineOrMagazines)
 
-    if (result.isLeft()) {
-      const error = result.value
-
-      switch (error.constructor) {
-        case MagazineNotFoundError:
-        case OneOrMoreMagazineNotFoundError:
-          return clientError(error)
-        default:
-          return clientError(error)
-      }
-    }
-
-    const message =
-      request.ids?.length > 1
-        ? 'Uma ou mais revistas foram deletadas com sucesso'
-        : 'Revista deletada com sucesso'
-
-    return ok({ message })
+    return right(null)
   }
 }
