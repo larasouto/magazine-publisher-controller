@@ -1,40 +1,48 @@
-import { Either, left, right } from '@/core/logic/either'
-import { IMagazineRepository } from '../../repositories/interfaces/IMagazineRepository'
+import { Controller } from '@/core/infra/controller'
+import {
+  HttpResponse,
+  clientError,
+  fail,
+  notFound,
+  ok,
+} from '@/core/infra/http-response'
+import { Validator } from '@/core/infra/validator'
+import { t } from 'i18next'
+import { DeleteMagazine } from './delete-magazine'
 import { MagazineNotFoundError } from './errors/MagazineNotFoundError'
 import { OneOrMoreMagazineNotFoundError } from './errors/OneOrMoreMagazineNotFoundError'
 
-type DeleteMagazineRequest = {
+type DeleteMagazineControllerRequest = {
   ids: string[]
 }
 
-type DeleteMagazineResponse = Either<MagazineNotFoundError, null>
+export class DeleteMagazineController implements Controller {
+  constructor(
+    private readonly validator: Validator<DeleteMagazineControllerRequest>,
+    private deleteMagazine: DeleteMagazine,
+  ) {}
 
-export class DeleteMagazine {
-  constructor(private magazinesRepository: IMagazineRepository) {}
+  async handle(request: DeleteMagazineControllerRequest): Promise<HttpResponse> {
+    const validated = this.validator.validate(request)
 
-  async execute({
-    ids: magazineId,
-  }: DeleteMagazineRequest): Promise<DeleteMagazineResponse> {
-    const magazineOrMagazines = Array.isArray(magazineId)
-      ? magazineId
-      : [magazineId]
-
-    const magazinePromises = magazineOrMagazines
-      .filter((magazineId) => magazineId)
-      .map((magazineId) => this.magazinesRepository.findById(magazineId))
-
-    const magazines = await Promise.all(magazinePromises)
-
-    if (magazines.some((magazine) => magazine === null)) {
-      return left(
-        magazines.length > 1
-          ? new OneOrMoreMagazineNotFoundError()
-          : new MagazineNotFoundError(),
-      )
+    if (validated.isLeft()) {
+      return clientError(validated.value)
     }
 
-    await this.magazinesRepository.deleteMany(magazineOrMagazines)
+    const result = await this.deleteMagazine.execute(request)
 
-    return right(null)
+    if (result.isLeft()) {
+      const error = result.value
+
+      switch (error.constructor) {
+        case MagazineNotFoundError:
+        case OneOrMoreMagazineNotFoundError:
+          return notFound(error)
+        default:
+          return clientError(error)
+      }
+    }
+
+    return ok({ message: t('magazine.deleted') })
   }
 }
