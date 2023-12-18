@@ -6,10 +6,20 @@ import {
   DropdownTrigger
 } from '@nextui-org/react'
 import { Settings2 } from 'lucide-react'
+import { useMemo } from 'react'
 import { useDataTable } from './context/DataTableProvider'
 
 export const TableFilterButton = () => {
-  const { t, filter, toggleFilter } = useDataTable()
+  const { filter, toggleFilter } = useDataTable()
+
+  const filterMessage = useMemo(
+    () => ({
+      search: 'Pesquisar',
+      pagination: 'Paginação',
+      visibility: 'Colunas'
+    }),
+    []
+  )
 
   return (
     <>
@@ -31,7 +41,7 @@ export const TableFilterButton = () => {
           aria-label="Select the type of filter"
         >
           {Object.keys(filter).map((key) => (
-            <DropdownItem key={key}>{t(`filter.toggle.${key}`)}</DropdownItem>
+            <DropdownItem key={key}>{filterMessage[key]}</DropdownItem>
           ))}
         </DropdownMenu>
       </Dropdown>

@@ -1,7 +1,6 @@
 import { Button, useDisclosure } from '@nextui-org/react'
 import { Trash } from 'lucide-react'
 import { AlertModal } from '../AlertModal'
-import { useDataTable } from './context/DataTableProvider'
 
 type TableDeleteButton = {
   isDisabled: boolean
@@ -9,7 +8,6 @@ type TableDeleteButton = {
 }
 
 export const TableDeleteButton = ({ isDisabled, handleDelete }) => {
-  const { t } = useDataTable()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   return (
@@ -24,12 +22,15 @@ export const TableDeleteButton = ({ isDisabled, handleDelete }) => {
         <Trash className="w-5 h-5" />
       </Button>
       <AlertModal
-        title={t('generic_delete.title')}
+        title={'Você tem certeza?'}
         onAction={handleDelete}
         isOpen={isOpen}
         onOpenChange={onOpenChange}
       >
-        {t('generic_delete.description')}
+        Você tem certeza que deseja excluir os itens selecionados?{' '}
+        <span className="underline underline-offset-4 text-danger/70">
+          Esta ação não poderá ser desfeita.
+        </span>
       </AlertModal>
     </>
   )

@@ -42,7 +42,7 @@ export const DataTableColumnHeader = <TData, TValue>({
 
   return (
     <div className={cn('flex items-center space-x-2 min-w-max', className)}>
-      <Dropdown placement="bottom-end">
+      <Dropdown placement="bottom">
         <DropdownTrigger>
           <Button variant="light" radius="sm" className="px-1">
             <span className="text-tiny text-foreground-500">{header}</span>

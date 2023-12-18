@@ -8,7 +8,6 @@ import {
   ModalProps
 } from '@nextui-org/react'
 import { AlertCircle } from 'lucide-react'
-import { useTranslation } from 'react-i18next'
 
 type AlertModal = ModalProps & {
   title: string
@@ -28,8 +27,6 @@ export const AlertModal = ({
   icon = <AlertCircle className="h-6 w-6" />,
   ...props
 }: AlertModal) => {
-  const { t } = useTranslation()
-
   return (
     <Modal backdrop="blur" {...props}>
       <ModalContent>
@@ -42,7 +39,7 @@ export const AlertModal = ({
             <ModalBody>{children}</ModalBody>
             <ModalFooter>
               <Button color="danger" variant="light" onPress={onClose}>
-                {textClose ?? t('btn.modal.on_close')}
+                {textClose ?? 'Fechar'}
               </Button>
               <Button
                 color="primary"
@@ -51,7 +48,7 @@ export const AlertModal = ({
                   onClose()
                 }}
               >
-                {textAction ?? t('btn.modal.on_action')}
+                {textAction ?? 'Continuar'}
               </Button>
             </ModalFooter>
           </>
