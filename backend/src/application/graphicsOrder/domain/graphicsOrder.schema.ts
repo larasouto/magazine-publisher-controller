@@ -1,9 +1,9 @@
 import { z } from 'zod'
 export enum Status {
-  onHold = 'on hold',
-  inPreparation = 'in preparation',
-  onMyWay = 'on my way',
-  deliv = 'delivered',
+  emEspera= 'em espera', // em espera
+  emPreparacao = ' em preparação', // em preparação
+  estaACaminho = 'esta a caminho', // esta a caminho
+  entregue = 'entregue' // entregue
 }
 
 export const GraphicsOrderSchema = z.object({

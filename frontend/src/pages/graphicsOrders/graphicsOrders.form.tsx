@@ -39,7 +39,7 @@ export const GraphicsOrdersForm = ({ data }: GraphicsOrdersFormProps) => {
     resolver: zodResolver(GraphicsOrdersSchema),
     defaultValues: {
       ...data,
-      status: Status.onHold,
+      status: Status.emEspera,
       price: 0,
       receiptDate: null,
     }

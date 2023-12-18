@@ -2,12 +2,13 @@ import { Checkbox, Chip } from '@nextui-org/react'
 import { createColumnHelper } from '@tanstack/react-table'
 import { t } from 'i18next'
 import { DistributorActions } from './distributor.actions'
+import { Region } from '../distributor.schema'
 
 export type DistributorColumns = {
   id: string
   address: string
   name: string
-  region: string
+  region: Region
 }
 
 const helper = createColumnHelper<DistributorColumns>()

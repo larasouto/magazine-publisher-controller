@@ -39,7 +39,7 @@ export const columns = [
    */
     helper.accessor((row) => row.id, {
       id: 'id',
-      header: () => t('graphicsOnDistributor:form.id.label'),
+      header: () => t('Id'),
       cell: ({ row }) => row.getValue('id'),
       enableSorting: true,
       enableHiding: true
@@ -49,7 +49,7 @@ export const columns = [
    */
   helper.accessor((row) => row.distributorId, {
     id: 'distributorId',
-    header: () => t('graphicsOnDistributor:form.distributorId.label'),
+    header: () => t('Distribuidora'),
     cell: ({ row }) => row.getValue('distributorId'),
     enableSorting: true,
     enableHiding: true
@@ -59,7 +59,7 @@ export const columns = [
    */
   helper.accessor((row) => row.graphicsId, {
     id: 'graphicsId',
-    header: () => t('graphicsOnDistributor:form.graphicsId.label'),
+    header: () => t('Grafica'),
     cell: ({ row }) => row.getValue('graphicsId'),
     enableSorting: true,
     enableHiding: true

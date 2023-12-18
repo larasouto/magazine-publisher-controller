@@ -94,7 +94,7 @@ export const columns = [
  */
 helper.accessor((row) => row.status, {
   id: 'status',
-  header: () => t('Status do pedido'),
+  header: () => t('Status'),
   cell: ({ row }) => {
     const status = row.getValue('status') as string
 
@@ -104,14 +104,7 @@ helper.accessor((row) => row.status, {
       onMyWay: 'default',
       deliv: 'secondary'
     }
-
-    const statusColor = colors[status] || 'default' // Padrão para status desconhecidos
-
-    return (
-      <Chip color={statusColor}>
-        {t(`status do pedido.${status.toLowerCase()}`)}
-      </Chip>
-    )
+    return <Chip color={colors[status]}>{t(`${status.toLowerCase()}`)}</Chip>
   },
   enableSorting: true,
   enableHiding: true
