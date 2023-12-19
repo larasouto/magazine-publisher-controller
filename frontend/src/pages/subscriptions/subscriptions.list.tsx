@@ -7,7 +7,7 @@ import { SubscriptionToolbar } from './subscriptions.toolbar'
 import { SubscriptionColumns, columns } from './table/subscriptions.columns'
 
 export const SubscriptionsListPage = () => {
-  const { title, breadcrumb } = usePageUtils('subscriptions')
+  const { breadcrumb } = usePageUtils('subscriptions')
 
   const { list, removeMany } = useFetch<SubscriptionColumns[]>({
     baseUrl: backend.subscriptions.baseUrl,
@@ -19,9 +19,11 @@ export const SubscriptionsListPage = () => {
 
   return (
     <PageLayout
-      title={title()}
+      title={'Assinaturas'}
       isLoading={list.isLoading}
-      breadcrumb={breadcrumb()}
+      breadcrumb={breadcrumb({
+        segments: [{ label: 'Assinaturas' }]
+      })}
     >
       <DataTable
         columns={columns}

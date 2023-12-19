@@ -5,9 +5,10 @@ import { useFetch } from '@/hooks/useFetch'
 import { backend, routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input, Select, SelectItem } from '@nextui-org/react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { MagazinesSelect } from './magazines/magazines-select'
+import { subscriptionFrequency, subscriptionType } from './mappers'
 import {
   SubscriptionData,
   SubscriptionDataWithId,
@@ -54,82 +55,113 @@ export const SubscriptionForm = ({ data }: SubscriptionsFormProps) => {
     >
       <GridLayout cols="3">
         <fieldset>
-          <Input
-            label={t('form.name.label')}
-            placeholder={t('form.name.placeholder')}
-            errorMessage={form.formState.errors.name?.message}
-            labelPlacement="outside"
-            {...form.register('name')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <Input
+                label={'Nome'}
+                placeholder={'Informe o nome da assinatura'}
+                errorMessage={form.formState.errors.name?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            label={t('form.description.label')}
-            placeholder={t('form.description.placeholder')}
-            errorMessage={form.formState.errors.description?.message}
-            labelPlacement="outside"
-            {...form.register('description')}
+          <Controller
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <Input
+                label={'Descrição'}
+                placeholder={'Informe a descrição da assinatura'}
+                errorMessage={form.formState.errors.description?.message}
+                labelPlacement="outside"
+                {...field}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Select
-            label={t('form.subscription_frequency.label')}
-            placeholder={t('form.subscription_frequency.placeholder')}
-            labelPlacement="outside"
-            defaultSelectedKeys={[String(data?.frequency ?? 1)]}
-            {...form.register('frequency')}
-            errorMessage={form.formState.errors.frequency?.message}
-            disallowEmptySelection
-            isRequired
-          >
-            {Object.values(SubscriptionFrequency)
-              .filter((value) => !isNaN(+value))
-              .map((value) => (
-                <SelectItem key={value} value={value}>
-                  {t(
-                    `form.subscription_frequency.options.${SubscriptionFrequency[
-                      value
-                    ].toLowerCase()}`
-                  )}
-                </SelectItem>
-              ))}
-          </Select>
+          <Controller
+            control={form.control}
+            name="frequency"
+            render={({ field }) => (
+              <Select
+                label={'Período de inscrição'}
+                placeholder={'Selecione o período de inscrição'}
+                labelPlacement="outside"
+                errorMessage={form.formState.errors.frequency?.message}
+                disallowEmptySelection
+                isRequired
+                {...field}
+                selectionMode="single"
+                defaultSelectedKeys={String(field.value)}
+                selectedKeys={field.value ? String(field.value) : undefined}
+                onSelectionChange={field.onChange}
+              >
+                {Object.values(SubscriptionFrequency)
+                  .filter((value) => !isNaN(+value))
+                  .map((value) => (
+                    <SelectItem key={value} value={value}>
+                      {subscriptionFrequency[SubscriptionFrequency[value]]}
+                    </SelectItem>
+                  ))}
+              </Select>
+            )}
+          />
         </fieldset>
         <fieldset>
-          <Select
-            label={t('form.subscription_type.label')}
-            placeholder={t('form.subscription_type.placeholder')}
-            labelPlacement="outside"
-            defaultSelectedKeys={[String(data?.type ?? 1)]}
-            {...form.register('type')}
-            errorMessage={String(form.formState.errors.type?.message)}
-            disallowEmptySelection
-            isRequired
-          >
-            {Object.values(SubscriptionType)
-              .filter((value) => !isNaN(+value))
-              .map((value) => (
-                <SelectItem key={value} value={value}>
-                  {t(
-                    `form.subscription_frequency.options.${SubscriptionType[
-                      value
-                    ].toLowerCase()}`
-                  )}
-                </SelectItem>
-              ))}
-          </Select>
+          <Controller
+            control={form.control}
+            name="type"
+            render={({ field }) => (
+              <Select
+                label={'Tipo de inscrição'}
+                placeholder={'Selecione o tipo de inscrição'}
+                labelPlacement="outside"
+                errorMessage={form.formState.errors.type?.message}
+                isRequired
+                {...field}
+                selectionMode="single"
+                defaultSelectedKeys={String(field.value) ?? 1}
+                selectedKeys={field.value ? String(field.value) : undefined}
+                onSelectionChange={field.onChange}
+              >
+                {Object.values(SubscriptionType)
+                  .filter((value) => !isNaN(+value))
+                  .map((value) => (
+                    <SelectItem key={value} value={value}>
+                      {subscriptionType[SubscriptionType[value]]}
+                    </SelectItem>
+                  ))}
+              </Select>
+            )}
+          />
         </fieldset>
         <fieldset>
-          <Input
-            type="number"
-            startContent={<PriceIcon />}
-            label={t('form.price.label')}
-            placeholder={t('form.price.placeholder')}
-            errorMessage={form.formState.errors.price?.message}
-            labelPlacement="outside"
-            {...form.register('price')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="price"
+            render={({ field }) => (
+              <Input
+                type="number"
+                startContent={<PriceIcon />}
+                label={'Preço'}
+                placeholder={'Informe o preço da assinatura'}
+                errorMessage={form.formState.errors.price?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <MagazinesSelect form={form} />

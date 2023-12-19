@@ -1,6 +1,7 @@
 import { Checkbox, Chip } from '@nextui-org/react'
 import { createColumnHelper } from '@tanstack/react-table'
 import { t } from 'i18next'
+import { subscriptionFrequency, subscriptionType } from '../mappers'
 import {
   SubscriptionFrequency,
   SubscriptionType
@@ -11,10 +12,10 @@ export type SubscriptionColumns = {
   id: string
   name: string
   description: string
-  type: number
+  type: string
   frequency: string
   magazineId: string
-  price: number
+  price: string
 }
 
 const helper = createColumnHelper<SubscriptionColumns>()
@@ -46,9 +47,9 @@ export const columns = [
    * Name
    */
   helper.accessor((row) => row.name, {
-    id: 'name',
-    header: () => t('subscriptions:form.name.label'),
-    cell: ({ row }) => row.getValue('name'),
+    id: 'Nome',
+    header: () => 'Nome',
+    cell: ({ row }) => row.getValue('Nome'),
     enableSorting: true,
     enableHiding: true
   }),
@@ -56,9 +57,9 @@ export const columns = [
    * Description
    */
   helper.accessor((row) => row.description, {
-    id: 'description',
-    header: () => t('subscriptions:form.description.label'),
-    cell: ({ row }) => row.getValue('description'),
+    id: 'Descrição',
+    header: () => 'Descrição',
+    cell: ({ row }) => row.getValue('Descrição'),
     enableSorting: true,
     enableHiding: true
   }),
@@ -66,10 +67,10 @@ export const columns = [
    * Subscription Type
    */
   helper.accessor((row) => row.type, {
-    id: 'type',
-    header: () => t('subscriptions:form.subscription_type.label'),
+    id: 'Tipo',
+    header: () => 'Tipo',
     cell: ({ row }) => {
-      const status = row.getValue('type') as SubscriptionType
+      const status = row.getValue('Tipo') as SubscriptionType
 
       const colors = {
         PREMIUM: 'primary',
@@ -79,11 +80,7 @@ export const columns = [
 
       return (
         <Chip color={colors[status]}>
-          {t(
-            `subscriptions:form.subscription_type.options.${SubscriptionType[
-              status
-            ].toLowerCase()}`
-          )}
+          {subscriptionType[SubscriptionType[status]]}
         </Chip>
       )
     },
@@ -94,10 +91,10 @@ export const columns = [
    * Subscription Frequency
    */
   helper.accessor((row) => row.frequency, {
-    id: 'frequency',
-    header: () => t('subscriptions:form.frequency.label'),
+    id: 'Frequência',
+    header: () => 'Frequência',
     cell: ({ row }) => {
-      const status = row.getValue('frequency') as SubscriptionFrequency
+      const status = row.getValue('Frequência') as SubscriptionFrequency
 
       const colors = {
         WEEKLY: 'primary',
@@ -108,11 +105,7 @@ export const columns = [
 
       return (
         <Chip color={colors[status]}>
-          {t(
-            `subscriptions:form.frequency.options.${SubscriptionFrequency[
-              status
-            ].toLowerCase()}`
-          )}
+          {subscriptionFrequency[SubscriptionFrequency[status]]}
         </Chip>
       )
     },
