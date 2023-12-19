@@ -55,7 +55,9 @@ export const DatePickerButton = ({
       return `${selected.length} datas selecionadas`
     }
 
-    return formatDate(new Date(selected as Date))
+    return selected
+      ? formatDate(new Date(selected as Date))
+      : 'Selecione uma data'
   }, [selected, dateStyle, placeholder, t, formatDate])
 
   return (
