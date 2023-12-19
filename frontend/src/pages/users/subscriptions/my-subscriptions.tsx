@@ -2,8 +2,7 @@ import { useFetch } from '@/hooks/useFetch'
 import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
-import { Fragment } from 'react'
-import { SubscriptionsDetails } from './SubscriptionDetails'
+import { useEffect } from 'react'
 
 type SubscriptionItem = {
   id: string
@@ -16,12 +15,16 @@ export const MySubscriptionPage = () => {
   const { breadcrumb } = usePageUtils()
 
   const { list } = useFetch<SubscriptionItem[]>({
-    baseUrl: backend.subscriptions.payment.baseUrl,
-    query: ['payment-subscriptions'],
+    baseUrl: backend.subscriptions['my-subscriptions'].baseUrl,
+    query: ['my-subscriptions'],
     fetch: {
       list: true
     }
   })
+
+  useEffect(() => {
+    console.log(list.data)
+  }, [])
 
   if (list.isLoading) {
     return <div>Carregando...</div>
@@ -44,11 +47,13 @@ export const MySubscriptionPage = () => {
             </p>
           </div>
         )}
-        {list.data?.map((subscription) => (
-          <Fragment key={subscription.id}>
-            <SubscriptionsDetails id={subscription.subscriptionId} />
-          </Fragment>
-        ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {/* {list.data?.map((subscription) => (
+            <Fragment key={subscription.id}>
+              <SubscriptionsDetails id={subscription.subscriptionId} />
+            </Fragment>
+          ))} */}
+        </div>
       </section>
     </PageLayout>
   )
