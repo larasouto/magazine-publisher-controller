@@ -133,6 +133,7 @@ export const SignUpForm = () => {
                     selectionMode="single"
                     defaultSelectedKeys={['0']}
                     {...field}
+                    description="Ao selecionar banca, valor mínimo de compra será aplicado."
                   >
                     <SelectItem key={'0'}>Usuário</SelectItem>
                     <SelectItem key={'2'}>Banca</SelectItem>

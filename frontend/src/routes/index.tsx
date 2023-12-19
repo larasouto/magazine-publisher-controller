@@ -1,4 +1,5 @@
 import { UserDetailsProvider } from '@/contexts/user-details-provider'
+import { AuthorizationGuard } from '@/utils/guard/AuthorizationGuard'
 import { createBrowserRouter } from 'react-router-dom'
 import { AdPricesRoutes } from './pages/ad-prices.routes'
 import { AdvertisingsRoutes } from './pages/advertisings.routes'
@@ -35,31 +36,43 @@ export const router = createBrowserRouter([
     path: '/',
     element: <UserDetailsProvider />,
     children: [
-      AuthRoutes,
-      HomeRoutes,
-      CategoriesRoutes,
-      ReportersRoutes,
-      PhotographersRoutes,
-      ThemesRoutes,
-      MagazineRoutes,
-      EditionsRoutes,
-      SubscriptionRoutes,
-      AddressesRoutes,
-      CardsRoutes,
-      OrdersRoutes,
-      AdvertisingsRoutes,
-      BookstoresRoutes,
-      GraphicsRoutes,
-      DistributorRoutes,
-      GraphocsOnDistributorsRoutes,
-      GraphicsOrdersRoutes,
-      GraphicsOrdersReturnsRoutes,
-      ArticlesRoutes,
-      AdPricesRoutes,
-      MyPurchasesRoutes,
-      MySubscriptionRoutes,
-      OffersRoutes,
-      CouponsRoutes
+      {
+        path: '/',
+        element: <AuthorizationGuard role="all" />,
+        children: [
+          AuthRoutes,
+          HomeRoutes,
+          AddressesRoutes,
+          CardsRoutes,
+          OrdersRoutes,
+          AdvertisingsRoutes,
+          BookstoresRoutes,
+          MyPurchasesRoutes,
+          MySubscriptionRoutes
+        ]
+      },
+      {
+        path: '/',
+        element: <AuthorizationGuard role="admin" />,
+        children: [
+          CategoriesRoutes,
+          ReportersRoutes,
+          PhotographersRoutes,
+          ThemesRoutes,
+          MagazineRoutes,
+          EditionsRoutes,
+          SubscriptionRoutes,
+          GraphicsRoutes,
+          DistributorRoutes,
+          GraphocsOnDistributorsRoutes,
+          GraphicsOrdersRoutes,
+          GraphicsOrdersReturnsRoutes,
+          ArticlesRoutes,
+          AdPricesRoutes,
+          OffersRoutes,
+          CouponsRoutes
+        ]
+      }
     ]
   }
 ])

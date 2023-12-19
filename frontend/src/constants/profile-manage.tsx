@@ -1,5 +1,11 @@
 import { routes } from '@/routes/routes'
-import { Shapes, ShoppingBag, Wallet, Warehouse } from 'lucide-react'
+import {
+  Shapes,
+  ShoppingBag,
+  SquareAsterisk,
+  Wallet,
+  Warehouse
+} from 'lucide-react'
 
 type ProfileManage = {
   id: string
@@ -45,6 +51,12 @@ export const profile: ProfileManage[] = [
         description: () => 'Gerencie suas assinaturas',
         icon: <Shapes className="w-5 h-5" />,
         link: routes.profile['my-subscriptions'].index
+      },
+      {
+        id: 'settings',
+        title: () => 'Configurações',
+        description: () => 'Gerencie suas configs',
+        icon: <SquareAsterisk className="w-5 h-5" />
       }
     ]
   }
