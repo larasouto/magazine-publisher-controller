@@ -5,8 +5,10 @@ import { DistributorActions } from './distributor.actions'
 
 export type DistributorColumns = {
   id: string
-  address: string
   name: string
+  street: string
+  city: string
+  state: string
   region: string
 }
 
@@ -36,31 +38,51 @@ export const columns = [
     enableHiding: false
   }),
   /**
-   * address
+   * Name
    */
-  helper.accessor((row) => row.address, {
-    id: 'address',
-    header: () => t('graphics:form.address.label'),
-    cell: ({ row }) => row.getValue('address'),
+    helper.accessor((row) => row.name, {
+      id: 'name',
+      header: () => 'Nome',
+      cell: ({ row }) => row.getValue('name'),
+      enableSorting: true,
+      enableHiding: true
+    }),
+  /**
+   * Street
+   */
+  helper.accessor((row) => row.street, {
+    id: 'street',
+    header: () => 'Rua',
+    cell: ({ row }) => row.getValue('street'),
     enableSorting: true,
     enableHiding: true
   }),
   /**
-   * name
+   * City
    */
-  helper.accessor((row) => row.name, {
-    id: 'name',
-    header: () => t('graphics:form.name.label'),
-    cell: ({ row }) => row.getValue('name'),
+  helper.accessor((row) => row.city, {
+    id: 'city',
+    header: () => 'Cidade',
+    cell: ({ row }) => row.getValue('city'),
     enableSorting: true,
     enableHiding: true
   }),
   /**
-   * region
+   * State
+   */
+  helper.accessor((row) => row.state, {
+    id: 'state',
+    header: () => 'Estado',
+    cell: ({ row }) => row.getValue('state'),
+    enableSorting: true,
+    enableHiding: true
+  }),
+  /**
+   * Region
    */
   helper.accessor((row) => row.region, {
     id: 'region',
-    header: () => t('graphics:form.region.label'),
+    header: () => t('Região de atuação'),
     cell: ({ row }) => row.getValue('region'),
     enableSorting: true,
     enableHiding: true

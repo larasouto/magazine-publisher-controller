@@ -11,8 +11,6 @@ export type OffersColumns = {
     from: string
     to: string
   }
-  from: string
-  to: string
   editions: string
 }
 
@@ -54,42 +52,30 @@ export const columns = [
   /**
    * From
    */
-  helper.accessor((row) => row.from, {
+  helper.accessor((row) => row.dates.from, {
     id: 'from',
-    header: () => 'De',
+    header: () => 'Período',
     cell: ({ row }) => (
-      <Text format={{ 
-          as: 'date',
-          text: row.getValue('from')
-        }} 
-      />
+      <span className='flex gap-0.5'><Text format={{ 
+        as: 'date',
+        text: row.getValue('from'),
+        options: {
+          date: {
+            dateStyle: 'short'
+          }
+        }
+      }} 
+    /> ~ <Text format={{ 
+      as: 'date',
+      text: row.original.dates.to,
+      options: {
+        date: {
+          dateStyle: 'short'
+        }
+      }
+    }} 
+  /></span>
     ),
-    enableSorting: true,
-    enableHiding: true
-  }),
-  /**
-   * To
-   */
-  helper.accessor((row) => row.to, {
-    id: 'to',
-    header: () => 'Até',
-    cell: ({ row }) => (
-      <Text format={{ 
-          as: 'date',
-          text: row.getValue('to')
-        }} 
-      />
-    ),
-    enableSorting: true,
-    enableHiding: true
-  }),
-  /**
-   * Editions
-   */
-  helper.accessor((row) => row.editions, {
-    id: 'editions',
-    header: () => 'Edições',
-    cell: ({ row }) => row.getValue('editions'),
     enableSorting: true,
     enableHiding: true
   }),

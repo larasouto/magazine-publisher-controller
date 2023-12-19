@@ -1,10 +1,10 @@
 import { useFetch } from '@/hooks/useFetch'
+import { DistributorsFormWithId } from '@/pages/distributors/distributor.schema'
 import { backend } from '@/routes/routes'
 import { Select, SelectItem } from '@nextui-org/react'
 import { UseFormReturn } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { GraphocsOnDistributorForm } from '../graphicsOnDistributor.schema'
-import { DistributorsFormWithId } from '@/pages/distributor/distributor.schema'
 
 type DistributorSelectProps = {
   form: UseFormReturn<GraphocsOnDistributorForm>

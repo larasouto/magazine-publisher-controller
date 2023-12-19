@@ -25,8 +25,8 @@ export const DistributorActions = ({ row }: DistributorActionsProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   const { remove } = useFetch<DistributorColumns>({
-    baseUrl: backend.distributor.baseUrl,
-    query: ['distributor']
+    baseUrl: backend.distributors.baseUrl,
+    query: ['distributors']
   })
 
   const handleDelete = async () => {
@@ -45,7 +45,7 @@ export const DistributorActions = ({ row }: DistributorActionsProps) => {
           <DropdownSection title={t('table.actions')}>
             <DropdownItem textValue="edit">
               <Link
-                href={replaceParams(routes.distributor.edit, [row.id])}
+                href={replaceParams(routes.distributors.edit, [row.id])}
                 color="foreground"
                 className="flex gap-2"
               >

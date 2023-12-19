@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const OffersSchema = z.object({
-  discountPercentage: z.number().positive().max(100),
+  discountPercentage: z.coerce.number().positive().max(100),
   dates: z.object({
     from: z.coerce.date(),
     to: z.coerce.date(),
