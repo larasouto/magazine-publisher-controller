@@ -55,7 +55,11 @@ export const CardsSelect = ({ form }: AddressSelectProps) => {
           list?.data?.map((card) => (
             <SelectItem
               key={card.id}
-              textValue={`${card.holder} - ${card.number}`}
+              textValue={`${card.holder} - ${
+                card?.number.slice(0, 4) +
+                ' **** **** ' +
+                card?.number.slice(-4)
+              }`}
             >
               <div className="flex gap-2 items-center">
                 <div className="flex flex-col">
