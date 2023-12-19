@@ -4,7 +4,7 @@ import { useFetch } from '@/hooks/useFetch'
 import { backend, routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@nextui-org/react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import {
   AdPriceForm,
@@ -49,65 +49,113 @@ export const AdPricesForm = ({ data }: AdPricesFormProps) => {
       className="flex flex-col gap-3"
       noValidate
     >
-      <GridLayout cols="1">
+      <GridLayout cols="3">
         <fieldset>
-          <Input
-            label={'Preço do banner'}
-            placeholder={'R$ 0,00'}
-            errorMessage={form.formState.errors.bannerPrice?.message}
-            labelPlacement="outside"
-            {...form.register('bannerPrice')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="bannerPrice"
+            render={({ field }) => (
+              <Input
+                label={'Preço do banner'}
+                placeholder={'R$ 0,00'}
+                errorMessage={form.formState.errors.bannerPrice?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            label={'Preço da página inteira'}
-            placeholder={'R$ 0,00'}
-            errorMessage={form.formState.errors.wholePagePrice?.message}
-            labelPlacement="outside"
-            {...form.register('wholePagePrice')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="wholePagePrice"
+            render={({ field }) => (
+              <Input
+                label={'Preço da página inteira'}
+                placeholder={'R$ 0,00'}
+                errorMessage={form.formState.errors.wholePagePrice?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            label={'Preço da página dupla'}
-            placeholder={'R$ 0,00'}
-            errorMessage={form.formState.errors.doublePagePrice?.message}
-            labelPlacement="outside"
-            {...form.register('doublePagePrice')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="doublePagePrice"
+            render={({ field }) => (
+              <Input
+                label={'Preço da página dupla'}
+                placeholder={'R$ 0,00'}
+                errorMessage={form.formState.errors.doublePagePrice?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            label={'Preço começo da revista'}
-            placeholder={'R$ 0,00'}
-            errorMessage={form.formState.errors.beginningPrice?.message}
-            labelPlacement="outside"
-            {...form.register('beginningPrice')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="beginningPrice"
+            render={({ field }) => (
+              <Input
+                label={'Preço começo da revista'}
+                placeholder={'R$ 0,00'}
+                errorMessage={form.formState.errors.beginningPrice?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            label={'Preço meio da revista'}
-            placeholder={'R$ 0,00'}
-            errorMessage={form.formState.errors.middlePrice?.message}
-            labelPlacement="outside"
-            {...form.register('middlePrice')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="middlePrice"
+            render={({ field }) => (
+              <Input
+                label={'Preço meio da revista'}
+                placeholder={'R$ 0,00'}
+                errorMessage={form.formState.errors.middlePrice?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            label={'Preço final da revista'}
-            placeholder={'R$ 0,00'}
-            errorMessage={form.formState.errors.endPrice?.message}
-            labelPlacement="outside"
-            {...form.register('endPrice')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="endPrice"
+            render={({ field }) => (
+              <Input
+                label={'Preço final da revista'}
+                placeholder={'R$ 0,00'}
+                errorMessage={form.formState.errors.endPrice?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <MagazinesSelect form={form} />

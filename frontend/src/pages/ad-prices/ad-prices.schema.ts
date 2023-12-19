@@ -1,13 +1,13 @@
 import { z } from 'zod'
 
 export const AdPricesSchema = z.object({
-  bannerPrice: z.coerce.number().nonnegative(),
-  wholePagePrice: z.coerce.number().nonnegative(),
-  doublePagePrice: z.coerce.number().nonnegative(),
-  beginningPrice: z.coerce.number().nonnegative(),
-  middlePrice: z.coerce.number().nonnegative(),
-  endPrice: z.coerce.number().nonnegative(),
-  magazineId: z.string().uuid()
+  bannerPrice: z.coerce.number().positive(),
+  wholePagePrice: z.coerce.number().positive(),
+  doublePagePrice: z.coerce.number().positive(),
+  beginningPrice: z.coerce.number().positive(),
+  middlePrice: z.coerce.number().positive(),
+  endPrice: z.coerce.number().positive(),
+  magazineId: z.string().uuid({ message: 'Obrigatório' })
 })
 
 export type AdPriceForm = z.infer<typeof AdPricesSchema>

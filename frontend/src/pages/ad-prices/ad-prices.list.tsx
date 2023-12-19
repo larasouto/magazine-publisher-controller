@@ -7,7 +7,7 @@ import { AdPricesToolbar } from './ad-prices.toolbar'
 import { AdPricesColumns, columns } from './table/ad-prices.columns'
 
 export const AdPricesListPage = () => {
-  const { title, breadcrumb } = usePageUtils('adPrices')
+  const { breadcrumb } = usePageUtils('adPrices')
 
   const { list } = useFetch<AdPricesColumns[]>({
     baseUrl: backend.adPrices.baseUrl,
@@ -19,9 +19,11 @@ export const AdPricesListPage = () => {
 
   return (
     <PageLayout
-      title={title()}
+      title={'Preços'}
       isLoading={list.isLoading}
-      breadcrumb={breadcrumb()}
+      breadcrumb={breadcrumb({
+        segments: [{ label: 'Preços' }]
+      })}
     >
       <DataTable
         columns={columns}
