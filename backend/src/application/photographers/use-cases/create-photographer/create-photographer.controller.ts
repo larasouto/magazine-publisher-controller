@@ -42,6 +42,6 @@ export class CreatePhotographerController implements Controller {
       }
     }
 
-    return created({ message: t('item.created') })
+    return created({ message: 'Fotógrafo criado com sucesso' })
   }
 }

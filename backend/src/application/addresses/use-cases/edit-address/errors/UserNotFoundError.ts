@@ -1,8 +1,6 @@
-import { t } from 'i18next'
-
 export class UserNotFoundError extends Error {
   constructor() {
-    super(t('user.not_found'))
+    super('Usuário não encontrado')
     this.name = 'UserNotFoundError'
   }
 }

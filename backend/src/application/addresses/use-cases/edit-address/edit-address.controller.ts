@@ -44,6 +44,6 @@ export class EditAddressController implements Controller {
       }
     }
 
-    return ok({ message: t('address.updated') })
+    return ok({ message: 'Endereço atualizado com sucesso' })
   }
 }

@@ -11,6 +11,7 @@ type SubmitReviewRequest = {
   review: string
   rating: number
   editionId: string
+  articles: string[]
   userId: string
 }
 

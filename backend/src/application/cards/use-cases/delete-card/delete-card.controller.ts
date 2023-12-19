@@ -43,6 +43,6 @@ export class DeleteCardController implements Controller {
       }
     }
 
-    return ok({ message: t('card.deleted') })
+    return ok({ message: 'Cartão deletado com sucesso' })
   }
 }

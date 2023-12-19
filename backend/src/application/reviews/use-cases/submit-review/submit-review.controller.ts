@@ -12,6 +12,7 @@ type SubmitReviewControllerRequest = {
   rating: number
   date: Date
   editionId: string
+  articles: string[]
   userId: string
 }
 

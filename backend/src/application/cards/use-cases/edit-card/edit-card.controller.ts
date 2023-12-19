@@ -44,6 +44,6 @@ export class EditCardController implements Controller {
       }
     }
 
-    return ok({ message: t('card.updated') })
+    return ok({ message: 'Cartão atualizado com sucesso' })
   }
 }

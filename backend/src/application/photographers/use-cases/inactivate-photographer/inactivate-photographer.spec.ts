@@ -1,4 +1,3 @@
-import { InMemoryReportersRepository } from '@/application/reporters/repositories/in-memory/InMemoryReportersRepository'
 import { v4 as uuid } from 'uuid'
 import { beforeAll, describe, expect, test } from 'vitest'
 import { IPhotographerRepository } from '../../repositories/interfaces/IPhotographersRepository'

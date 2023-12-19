@@ -44,6 +44,6 @@ export class CreateCardController implements Controller {
       }
     }
 
-    return created({ message: t('item.created') })
+    return created({ message: 'Cartão criado com sucesso' })
   }
 }

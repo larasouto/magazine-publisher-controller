@@ -43,6 +43,6 @@ export class EditReporterController implements Controller {
       }
     }
 
-    return ok({ message: t('reporter.updated') })
+    return ok({ message: 'Repórter atualizado com sucesso' })
   }
 }

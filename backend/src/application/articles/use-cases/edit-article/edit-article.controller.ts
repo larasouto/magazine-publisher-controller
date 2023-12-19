@@ -54,6 +54,6 @@ export class EditArticleController implements Controller {
       }
     }
 
-    return ok({ message: t('article.updated') })
+    return ok({ message: 'Reportagem atualizada com sucesso' })
   }
 }
