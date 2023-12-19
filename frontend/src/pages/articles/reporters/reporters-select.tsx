@@ -1,7 +1,7 @@
 import { useFetch } from '@/hooks/useFetch'
 import { ReporterColumns } from '@/pages/reporters/table/reporters.columns'
-import { backend } from '@/routes/routes'
-import { Select, SelectItem } from '@nextui-org/react'
+import { backend, routes } from '@/routes/routes'
+import { Link, Select, SelectItem, cn } from '@nextui-org/react'
 import { Controller, UseFormReturn } from 'react-hook-form'
 import { ArticleData } from '../articles.schema'
 
@@ -39,6 +39,23 @@ export const ReportersSelect = ({ form }: ReportersSelectProps) => {
             errorMessage={form.formState.errors.reporters?.message}
             isRequired
             {...rest}
+            description={
+              list.data?.length === 0 && (
+                <span>
+                  Não há repórteres cadastrados.{' '}
+                  <Link
+                    href={routes.reporters.new}
+                    target="_blank"
+                    className="text-xs hover:underline"
+                  >
+                    Cadastre um!
+                  </Link>
+                </span>
+              )
+            }
+            classNames={{
+              label: cn({ 'pb-2': list.data?.length === 0 })
+            }}
           >
             {(reporter) => (
               <SelectItem key={reporter.id} textValue={reporter.name}>

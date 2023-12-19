@@ -25,7 +25,10 @@ export const AddressesPage = () => {
       breadcrumb={breadcrumb({
         home: { label: 'Perfil' },
         segments: [
-          { label: t('page.title'), link: routes.profile.addresses.index }
+          {
+            label: t('page.title'),
+            link: routes.profile.addresses.index
+          }
         ]
       })}
     >

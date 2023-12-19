@@ -14,6 +14,6 @@ articles.use(adaptMiddleware(makeEnsureAuthenticated()))
 
 articles.post('/new', adaptRoute(makeCreateArticlesController()))
 articles.put('/:articleId/edit', adaptRoute(makeEditArticlesController()))
-articles.delete('/:articleId', adaptRoute(makeDeleteArticlesController()))
+articles.delete('/', adaptRoute(makeDeleteArticlesController()))
 articles.get('/', adaptRoute(makeListArticlesController()))
 articles.get('/:articleId', adaptRoute(makeGetArticleController()))

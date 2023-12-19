@@ -1,7 +1,7 @@
 import { useFetch } from '@/hooks/useFetch'
 import { ThemesColumns } from '@/pages/themes/table/themes.columns'
-import { backend } from '@/routes/routes'
-import { Autocomplete, AutocompleteItem } from '@nextui-org/react'
+import { backend, routes } from '@/routes/routes'
+import { Autocomplete, AutocompleteItem, Link } from '@nextui-org/react'
 import { Controller, UseFormReturn } from 'react-hook-form'
 import { MagazineForm } from '../magazines.schema'
 
@@ -37,6 +37,20 @@ export const ThemesSelect = ({ form }: ThemesSelectProps) => {
             selectedKey={String(value)}
             onSelectionChange={(value) => onChange(String(value ?? ''))}
             {...rest}
+            description={
+              list.data?.length === 0 && (
+                <span>
+                  Não há temas cadastrados.{' '}
+                  <Link
+                    href={routes.themes.new}
+                    target="_blank"
+                    className="text-xs hover:underline"
+                  >
+                    Cadastre um!
+                  </Link>
+                </span>
+              )
+            }
             isRequired
           >
             {(item) => (

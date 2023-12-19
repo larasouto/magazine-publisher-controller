@@ -25,8 +25,8 @@ export const CardsActions = ({ row }: CardsActionsProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   const { removeMany } = useFetch({
-    baseUrl: backend.profile.addresses.baseUrl,
-    query: ['addresses']
+    baseUrl: backend.profile.cards.baseUrl,
+    query: ['cards']
   })
 
   const handleDelete = async () => {

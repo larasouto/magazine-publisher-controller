@@ -1,8 +1,8 @@
 import { useFetch } from '@/hooks/useFetch'
 import { CardType } from '@/pages/users/cards/cards.schema'
 import { CardsColumns } from '@/pages/users/cards/table/cards.columns'
-import { backend } from '@/routes/routes'
-import { Select, SelectItem } from '@nextui-org/react'
+import { backend, routes } from '@/routes/routes'
+import { Link, Select, SelectItem, cn } from '@nextui-org/react'
 import { UseFormReturn } from 'react-hook-form'
 import { OrdersData } from '../orders.schema'
 
@@ -33,6 +33,23 @@ export const CardsSelect = ({ form }: AddressSelectProps) => {
         disallowEmptySelection
         errorMessage={form.formState.errors.cardId?.message}
         isRequired
+        description={
+          list.data?.length === 0 && (
+            <span>
+              Não há cartão de crédito cadastrado.{' '}
+              <Link
+                href={routes.profile.cards.new}
+                target="_blank"
+                className="text-xs hover:underline"
+              >
+                Cadastre um!
+              </Link>
+            </span>
+          )
+        }
+        classNames={{
+          label: cn({ 'pb-2': list.data?.length === 0 })
+        }}
       >
         {list.data ? (
           list?.data?.map((card) => (
@@ -42,11 +59,15 @@ export const CardsSelect = ({ form }: AddressSelectProps) => {
             >
               <div className="flex gap-2 items-center">
                 <div className="flex flex-col">
-                  <span className="text-small">
-                    {card.holder} - {CardType[card.type]}
-                  </span>
+                  <span className="text-small">{card.holder}</span>
                   <span className="text-tiny text-default-500">
-                    {card.number} - {card.billingAddress}
+                    {card.billingAddress} -{' '}
+                    <span className="text-primary">
+                      {card?.number.slice(0, 4) +
+                        ' **** **** ' +
+                        card?.number.slice(-4)}{' '}
+                    </span>
+                    ({CardType[card.type]})
                   </span>
                 </div>
               </div>

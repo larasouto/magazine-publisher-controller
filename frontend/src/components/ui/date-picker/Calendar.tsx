@@ -29,14 +29,18 @@ export const Calendar = ({
         head_cell:
           'text-foreground-600 rounded-lg w-full font-normal text-[0.8rem]',
         row: 'flex w-full mt-1.5',
-        cell: 'text-center text-sm p-0 relative focus-within:relative focus-within:z-20 hover:rounded-lg',
+        cell: cn(
+          'text-center text-sm p-0 relative focus-within:relative focus-within:z-20 hover:rounded-lg',
+          { 'px-0.5': props.mode === 'multiple' }
+        ),
         day: 'hover:bg-primary hover:rounded-lg hover:text-foreground hover:!text-white h-9 w-9 p-0 font-normal aria-selected:opacity-100',
         day_selected: cn(
           'bg-primary !text-foreground hover:!bg-primary hover:text-foreground focus:bg-primary focus:text-foreground',
-          { 'rounded-lg': props.mode === 'single' }
+          { 'rounded-lg': props.mode === 'single' },
+          { '!rounded-lg !bg-primary': props.mode === 'multiple' }
         ),
         day_today:
-          'bg-primary-200 text-foreground !rounded-lg aria-selected:rounded-none outline-none',
+          'bg-default text-foreground !rounded-lg aria-selected:rounded-none outline-none',
         day_outside: 'text-foreground-500 !opacity-50',
         day_disabled: 'text-foreground-500 opacity-50 cursor-not-allowed',
         day_range_start:

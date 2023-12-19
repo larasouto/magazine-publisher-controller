@@ -42,9 +42,20 @@ export const columns = [
    * Name
    */
   helper.accessor((row) => row.street, {
-    id: 'street',
-    header: () => t('reporters:form.street.label'),
-    cell: ({ row }) => row.getValue('street') as string,
+    id: 'Endereço',
+    header: () => 'Endereço',
+    cell: ({ row }) => {
+      const street = row.getValue('Endereço') as string
+      const number = row.original.number
+
+      return (
+        <div className="flex flex-col gap-1">
+          <span>
+            {street}, {number}
+          </span>
+        </div>
+      )
+    },
     enableSorting: true,
     enableHiding: true
   }),

@@ -58,78 +58,134 @@ export const EditionsForm = ({ data }: EditionsFormProps) => {
         />
         <GridLayout cols="3">
           <fieldset>
-            <Input
-              label={t('form.title.label')}
-              placeholder={t('form.title.placeholder')}
-              errorMessage={form.formState.errors.title?.message}
-              labelPlacement="outside"
-              {...form.register('title')}
-              isRequired
+            <Controller
+              control={form.control}
+              name="title"
+              render={({ field: { value, onChange, ...rest } }) => (
+                <Input
+                  label={t('form.title.label')}
+                  placeholder={t('form.title.placeholder')}
+                  errorMessage={form.formState.errors.title?.message}
+                  labelPlacement="outside"
+                  value={String(value ?? '')}
+                  onValueChange={onChange}
+                  {...rest}
+                  isRequired
+                />
+              )}
             />
           </fieldset>
           <fieldset>
-            <Input
-              label={t('form.description.label')}
-              placeholder={t('form.description.placeholder')}
-              errorMessage={form.formState.errors.description?.message}
-              labelPlacement="outside"
-              {...form.register('description')}
+            <Controller
+              control={form.control}
+              name="description"
+              render={({ field: { value, onChange, ...rest } }) => (
+                <Input
+                  label={t('form.description.label')}
+                  placeholder={t('form.description.placeholder')}
+                  errorMessage={form.formState.errors.description?.message}
+                  labelPlacement="outside"
+                  value={String(value ?? '')}
+                  onValueChange={onChange}
+                  {...rest}
+                />
+              )}
             />
           </fieldset>
           <fieldset>
-            <Input
-              type="number"
-              startContent={<PriceIcon />}
-              label={t('form.price.label')}
-              placeholder={t('form.price.placeholder')}
-              errorMessage={form.formState.errors.price?.message}
-              labelPlacement="outside"
-              {...form.register('price')}
-              isRequired
+            <Controller
+              control={form.control}
+              name="price"
+              render={({ field: { value, onChange, ...rest } }) => (
+                <Input
+                  type="number"
+                  startContent={<PriceIcon />}
+                  label={t('form.price.label')}
+                  placeholder={t('form.price.placeholder')}
+                  errorMessage={form.formState.errors.price?.message}
+                  labelPlacement="outside"
+                  isRequired
+                  value={String(value ?? '')}
+                  onValueChange={onChange}
+                  {...rest}
+                />
+              )}
             />
           </fieldset>
           <fieldset>
-            <Input
-              type="number"
-              label={t('form.year.label')}
-              placeholder={t('form.year.placeholder')}
-              errorMessage={form.formState.errors.year?.message}
-              labelPlacement="outside"
-              {...form.register('year')}
-              isRequired
+            <Controller
+              control={form.control}
+              name="year"
+              render={({ field: { value, onChange, ...rest } }) => (
+                <Input
+                  type="number"
+                  label={t('form.year.label')}
+                  placeholder={t('form.year.placeholder')}
+                  errorMessage={form.formState.errors.year?.message}
+                  labelPlacement="outside"
+                  isRequired
+                  value={String(value ?? '')}
+                  onValueChange={onChange}
+                  {...rest}
+                />
+              )}
             />
           </fieldset>
           <fieldset>
-            <Input
-              type="number"
-              label={t('form.number.label')}
-              placeholder={t('form.number.placeholder')}
-              errorMessage={form.formState.errors.number?.message}
-              labelPlacement="outside"
-              {...form.register('number')}
-              isRequired
+            <Controller
+              control={form.control}
+              name="number"
+              render={({ field: { value, onChange, ...rest } }) => (
+                <Input
+                  type="number"
+                  label={t('form.number.label')}
+                  placeholder={t('form.number.placeholder')}
+                  errorMessage={form.formState.errors.number?.message}
+                  labelPlacement="outside"
+                  isRequired
+                  value={String(value ?? '')}
+                  onValueChange={onChange}
+                  {...rest}
+                />
+              )}
             />
           </fieldset>
           <fieldset>
-            <Input
-              type="number"
-              label={t('form.number_of_copies.label')}
-              placeholder={t('form.number_of_copies.placeholder')}
-              errorMessage={form.formState.errors.numberOfCopies?.message}
-              labelPlacement="outside"
-              {...form.register('numberOfCopies')}
-              isRequired
+            <Controller
+              control={form.control}
+              name="numberOfCopies"
+              render={({ field: { value, onChange, ...rest } }) => (
+                <Input
+                  type="number"
+                  label={t('form.number_of_copies.label')}
+                  placeholder={t('form.number_of_copies.placeholder')}
+                  errorMessage={form.formState.errors.numberOfCopies?.message}
+                  labelPlacement="outside"
+                  value={String(value ?? '')}
+                  onValueChange={onChange}
+                  {...rest}
+                  isRequired
+                />
+              )}
             />
           </fieldset>
           <fieldset>
-            <Input
-              type="number"
-              label={t('form.number_of_pages.label')}
-              placeholder={t('form.number_of_pages.placeholder')}
-              errorMessage={form.formState.errors.numberOfPages?.message}
-              labelPlacement="outside"
-              {...form.register('numberOfPages')}
-              isRequired
+            <Controller
+              control={form.control}
+              name="numberOfPages"
+              render={({ field: { value, onChange, ...rest } }) => (
+                <Input
+                  type="number"
+                  label={t('form.number_of_pages.label')}
+                  placeholder={t('form.number_of_pages.placeholder')}
+                  errorMessage={form.formState.errors.numberOfPages?.message}
+                  labelPlacement="outside"
+                  value={String(value ?? '')}
+                  onValueChange={onChange}
+                  {...rest}
+                  isRequired
+                />
+              )}
             />
           </fieldset>
           <fieldset>

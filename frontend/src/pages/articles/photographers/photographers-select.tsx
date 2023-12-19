@@ -1,7 +1,7 @@
 import { useFetch } from '@/hooks/useFetch'
 import { PhotographerColumns } from '@/pages/photographers/table/photographers.columns'
-import { backend } from '@/routes/routes'
-import { Select, SelectItem } from '@nextui-org/react'
+import { backend, routes } from '@/routes/routes'
+import { Link, Select, SelectItem, cn } from '@nextui-org/react'
 import { Controller, UseFormReturn } from 'react-hook-form'
 import { ArticleData } from '../articles.schema'
 
@@ -39,6 +39,23 @@ export const PhotographersSelect = ({ form }: PhotographersSelectProps) => {
             errorMessage={form.formState.errors.photographers?.message}
             isRequired
             {...rest}
+            description={
+              list.data?.length === 0 && (
+                <span>
+                  Não há fotógrafos cadastrados.{' '}
+                  <Link
+                    href={routes.magazines.new}
+                    target="_blank"
+                    className="text-xs hover:underline"
+                  >
+                    Cadastre um!
+                  </Link>
+                </span>
+              )
+            }
+            classNames={{
+              label: cn({ 'pb-2': list.data?.length === 0 })
+            }}
           >
             {(photographer) => (
               <SelectItem key={photographer.id} textValue={photographer.name}>

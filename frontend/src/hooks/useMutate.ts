@@ -1,4 +1,5 @@
 import { api } from '@/services/api'
+import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 
@@ -11,6 +12,7 @@ type MutateProps<T> = {
 }
 
 export const useMutate = () => {
+  const [isError, setError] = useState(false)
   const { t } = useTranslation()
 
   const mutate = <T>({ url, data, method }: MutateProps<T>) => {
@@ -34,9 +36,13 @@ export const useMutate = () => {
         success: (data) => data?.message ?? t('no_message'),
         loading: t('promise.loading'),
         error: (err) => {
+          setError(true)
           console.error(err.response?.data.message ?? err.message)
           return 'Item vinculado a outro registro.'
         }
+      },
+      {
+        id: isError ? 'promise-error' : 'promise-handler'
       }
     )
   }

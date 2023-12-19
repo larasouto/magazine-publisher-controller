@@ -42,6 +42,23 @@ export const MyPurchasesPage = () => {
             </p>
           </div>
         )}
+        {list.data?.map((subscription) => (
+          <div key={subscription.id} className="flex flex-col gap-3">
+            <div
+              key={subscription.subscriptionId}
+              className="bg-default-50 rounded-lg p-5"
+            >
+              <h1 className="flex justify-end">
+                <span className="text-default-500 text-sm">
+                  {subscription.id.substring(0, 8)}
+                </span>
+              </h1>
+              <h1 className="text-2xl font-bold">
+                {subscription.subscriptionId}
+              </h1>
+            </div>
+          </div>
+        ))}
       </section>
     </PageLayout>
   )

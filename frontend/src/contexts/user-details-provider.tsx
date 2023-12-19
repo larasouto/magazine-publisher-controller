@@ -1,3 +1,5 @@
+import { useAuth } from '@/hooks/useAuth'
+import { useToken } from '@/hooks/useToken'
 import { api } from '@/services/api'
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -27,8 +29,10 @@ type UserDetails = {
 
 export const UserDetailsProvider = () => {
   const [user, setUser] = useState<UserDetails | null>(null)
+  const { signOut } = useAuth()
   const [isLoading, setLoading] = useState(true)
   const location = useLocation()
+  const { token } = useToken()
 
   const isGuestPage = useMemo(() => {
     return ['/', '/sign-in', '/sign-up'].includes(location.pathname)
@@ -41,13 +45,16 @@ export const UserDetailsProvider = () => {
         .then((res) => setUser(res.data.dto))
         .catch(() => {
           setUser(null)
-          toast.error('Não foi possível carregar os dados do usuário', {
-            id: 'error-user-details'
-          })
+          toast.dismiss('promisse-error')
+          toast.error(
+            'Não foi possível carregar os dados do usuário. Por favor, entre novamente.',
+            { id: 'error-user-details' }
+          )
+          signOut()
         })
         .finally(() => setLoading(false))
     }
-  }, [user, isGuestPage])
+  }, [token, user, isGuestPage, signOut])
 
   const roles = {
     isAdmin: () => user?.role === UserRole.ADMIN,

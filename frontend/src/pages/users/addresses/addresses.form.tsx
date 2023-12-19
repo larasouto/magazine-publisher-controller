@@ -5,7 +5,7 @@ import { backend, routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@nextui-org/react'
 import { InputMask } from '@react-input/mask'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useTabs } from '../context/address.context'
 import {
@@ -56,64 +56,102 @@ export const AddressesForm = ({ data }: AddressesFormProps) => {
     >
       <GridLayout cols="2">
         <fieldset>
-          <Input
-            type="text"
-            label={t('form.street.label')}
-            placeholder={t('form.street.placeholder')}
-            errorMessage={form.formState.errors.street?.message}
-            labelPlacement="outside"
-            {...form.register('street')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="street"
+            render={({ field }) => (
+              <Input
+                type="text"
+                label={t('form.street.label')}
+                placeholder={t('form.street.placeholder')}
+                errorMessage={form.formState.errors.street?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <InputMask
-            mask="_____"
-            replacement={{ _: /\d/ }}
-            component={Input}
-            label={t('form.number.label')}
-            placeholder={t('form.number.placeholder')}
-            errorMessage={form.formState.errors.number?.message}
-            labelPlacement="outside"
-            {...form.register('number')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="number"
+            render={({ field }) => (
+              <InputMask
+                mask="_____"
+                replacement={{ _: /\d/ }}
+                component={Input}
+                label={t('form.number.label')}
+                placeholder={t('form.number.placeholder')}
+                errorMessage={form.formState.errors.number?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            type="text"
-            label={t('form.city.label')}
-            placeholder={t('form.city.placeholder')}
-            errorMessage={form.formState.errors.city?.message}
-            labelPlacement="outside"
-            {...form.register('city')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="city"
+            render={({ field }) => (
+              <Input
+                type="text"
+                label={t('form.city.label')}
+                placeholder={t('form.city.placeholder')}
+                errorMessage={form.formState.errors.city?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
           <SelectState form={form} />
         </fieldset>
         <fieldset>
-          <InputMask
-            mask="_____-___"
-            replacement={{ _: /\d/ }}
-            component={Input}
-            label={t('form.zip.label')}
-            placeholder={t('form.zip.placeholder')}
-            errorMessage={form.formState.errors.zip?.message}
-            labelPlacement="outside"
-            {...form.register('zip')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="zip"
+            render={({ field }) => (
+              <InputMask
+                mask="_____-___"
+                replacement={{ _: /\d/ }}
+                component={Input}
+                label={t('form.zip.label')}
+                placeholder={t('form.zip.placeholder')}
+                errorMessage={form.formState.errors.zip?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            type="text"
-            label={t('form.complement.label')}
-            placeholder={t('form.complement.placeholder')}
-            errorMessage={form.formState.errors.complement?.message}
-            labelPlacement="outside"
-            {...form.register('complement')}
+          <Controller
+            control={form.control}
+            name="complement"
+            render={({ field }) => (
+              <Input
+                type="text"
+                label={t('form.complement.label')}
+                placeholder={t('form.complement.placeholder')}
+                errorMessage={form.formState.errors.complement?.message}
+                labelPlacement="outside"
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
       </GridLayout>

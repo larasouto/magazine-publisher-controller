@@ -44,10 +44,10 @@ export const columns = [
    * Name
    */
   helper.accessor((row) => row.name, {
-    id: 'name',
+    id: 'Nome',
     header: () => t('reporters:form.name.label'),
     cell: ({ row }) => {
-      const name = row.getValue('name') as string
+      const name = row.getValue('Nome') as string
 
       return (
         <User name={name} description={row.original.email}>
@@ -62,9 +62,9 @@ export const columns = [
    * CPF
    */
   helper.accessor((row) => row.cpf, {
-    id: 'cpf',
+    id: 'CPF',
     header: () => t('reporters:form.cpf.label'),
-    cell: ({ row }) => row.getValue('cpf'),
+    cell: ({ row }) => row.getValue('CPF'),
     enableSorting: true,
     enableHiding: true
   }),
@@ -72,11 +72,11 @@ export const columns = [
    * Entry date
    */
   helper.accessor((row) => row.entryDate, {
-    id: 'entryDate',
+    id: 'Data de entrada',
     header: () => t('reporters:form.entry_date.label'),
     cell: ({ row }) => {
       const date = new Intl.DateTimeFormat(i18next.language)
-      return date.format(new Date(row.getValue('entryDate')))
+      return date.format(new Date(row.getValue('Data de entrada')))
     },
     enableSorting: true,
     enableHiding: true
@@ -85,13 +85,13 @@ export const columns = [
    * Departure date
    */
   helper.accessor((row) => row.departureDate, {
-    id: 'departureDate',
+    id: 'Data de saída',
     header: () => t('reporters:form.departure_date.label'),
     cell: ({ row }) => {
       const date = new Intl.DateTimeFormat(i18next.language)
-      const rowDate = row.getValue('departureDate')
+      const rowDate = row.getValue('Data de saída')
 
-      return rowDate && date.format(new Date(row.getValue('departureDate')))
+      return rowDate && date.format(new Date(row.getValue('Data de saída')))
     },
     enableSorting: true,
     enableHiding: true
@@ -100,10 +100,10 @@ export const columns = [
    * Status
    */
   helper.accessor((row) => row.status, {
-    id: 'status',
+    id: 'Status',
     header: () => t('reporters:form.status.label'),
     cell: ({ row }) => {
-      const status = row.getValue('status') as string
+      const status = row.getValue('Status') as string
 
       const colors = {
         ACTIVE: 'success',
