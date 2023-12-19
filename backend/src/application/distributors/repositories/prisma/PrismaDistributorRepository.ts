@@ -23,12 +23,6 @@ export class PrismaDistributorRepository implements IDistributorRepository {
     })
   }
 
-  async delete(id: string): Promise<void> {
-    await prismaClient.distributor.delete({
-      where: { id },
-    })
-  }
-
   async update(distributor: Distributor): Promise<void> {
     const data = await DistributorMapper.toPersistence(distributor)
 

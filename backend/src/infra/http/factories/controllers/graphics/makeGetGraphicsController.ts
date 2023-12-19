@@ -1,4 +1,4 @@
-import { PrismaGraphicsRepository } from '@/application/graphics/repositories/Prisma/PrismaGraphicsRepository'
+import { PrismaGraphicsRepository } from '@/application/graphics/repositories/prisma/PrismaGraphicsRepository'
 import { GetGraphics } from '@/application/graphics/use-case/get-graphics/get-graphics'
 import { GetGraphicsController } from '@/application/graphics/use-case/get-graphics/get-graphics.controller'
 import { Controller } from '@/core/infra/controller'

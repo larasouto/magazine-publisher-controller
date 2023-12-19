@@ -2,7 +2,7 @@ import { Controller } from '@/core/infra/controller'
 import { HttpResponse, clientError, ok } from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
 import { GetGraphics } from './get-graphics'
-import { GraphicsNotFoundError } from '../delete-graphcs/errors/GraphicsNotFoundError'
+import { GraphicsNotFoundError } from '../delete-graphics/errors/GraphicNotFoundError'
 
 type GetGraphicsControllerRequest = {
   graphicsId: string

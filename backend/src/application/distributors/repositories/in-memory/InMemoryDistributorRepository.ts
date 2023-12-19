@@ -1,12 +1,13 @@
-import { Distributor } from "../../domain/distributor"
-import { IDistributorRepository } from "../Interfaces/IDistributorRepository"
-
+import { Distributor } from '../../domain/distributor'
+import { IDistributorRepository } from '../Interfaces/IDistributorRepository'
 
 export class InMemoryDistributorsRepository implements IDistributorRepository {
   constructor(public distributor: Distributor[] = []) {}
 
   async findById(id: string): Promise<Distributor | null> {
-    const distributor = this.distributor.find((distributor) => distributor.id === id)
+    const distributor = this.distributor.find(
+      (distributor) => distributor.id === id,
+    )
 
     if (!distributor) {
       return null
@@ -17,14 +18,6 @@ export class InMemoryDistributorsRepository implements IDistributorRepository {
 
   async create(distributor: Distributor): Promise<void> {
     this.distributor.push(distributor)
-  }
-
-  async delete(id: string): Promise<void> {
-    const distributorIndex = this.distributor.findIndex(
-      (distributor) => distributor.id === id,
-    )
-
-    this.distributor.splice(distributorIndex, 1)
   }
 
   async deleteMany(ids: string[]): Promise<void> {

@@ -323,10 +323,15 @@ model Review {
   @@map("reviews")
 }
 
-model Graphics {
+model Graphic {
   id                    String                  @id
   name                  String
-  address               String
+  street                String
+  complement            String?
+  number                Int
+  city                  String
+  state                 String
+  zip                   String
   graphicsOnDistributor GraphicsOnDistributor[]
 
   @@map("graphics")
@@ -349,7 +354,7 @@ model Distributor {
 
 model GraphicsOnDistributor {
   id            String          @id @unique
-  graphics      Graphics        @relation(fields: [graphicsId], references: [id])
+  graphics      Graphic         @relation(fields: [graphicsId], references: [id])
   graphicsId    String
   distributor   Distributor     @relation(fields: [distributorId], references: [id])
   distributorId String

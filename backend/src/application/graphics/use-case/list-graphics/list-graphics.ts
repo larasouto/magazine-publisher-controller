@@ -1,7 +1,7 @@
-import { Graphics } from '../../domain/graphics'
+import { Graphic } from '../../domain/graphics'
 import { IGraphicsRepository } from '../../repositories/Interfaces/IGraphicsRepository'
 
-type ListGraphicsResponse = Graphics[]
+type ListGraphicsResponse = Graphic[]
 
 export class ListGraphics {
   constructor(private graphicsRepository: IGraphicsRepository) {}

@@ -5,7 +5,7 @@ import { StatusCodes } from 'http-status-codes'
 import request from 'supertest'
 import { v4 as uuid } from 'uuid'
 import { afterAll, describe, expect, test } from 'vitest'
-import { PrismaGraphicsRepository } from '../../repositories/Prisma/PrismaGraphicsRepository'
+import { PrismaGraphicsRepository } from '../../repositories/prisma/PrismaGraphicsRepository'
 
 const graphicsRepository = new PrismaGraphicsRepository()
 

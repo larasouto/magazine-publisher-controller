@@ -8,7 +8,7 @@ import { v4 as uuid } from 'uuid'
 
 describe('Create graphics (end-to-end)', () => {
   afterAll(async () => {
-    await prismaClient.graphics.deleteMany({
+    await prismaClient.graphic.deleteMany({
       where: { name: { contains: 'test-create' } },
     })
   })

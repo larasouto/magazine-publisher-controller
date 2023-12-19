@@ -6,9 +6,14 @@ import { GraphicsNotFoundError } from './errors/GraphicsNotFoundError'
 import { EditGraphics } from './edit-graphics'
 
 type EditGraphicsControllerRequest = {
-  graphicsId: string
+  graphicId: string
   name: string
-  address: string
+  street: string
+  number: number
+  city: string
+  state: string
+  zip: string
+  complement?: string
 }
 
 export class EditGraphicsController implements Controller {
@@ -37,6 +42,6 @@ export class EditGraphicsController implements Controller {
       }
     }
 
-    return ok({ message: t('graphics.updated') })
+    return ok({ message: 'Gráfica atualizada com sucesso' })
   }
 }

@@ -4,8 +4,8 @@ import { Distributor } from '../domain/distributor'
 
 export class DistributorMapper {
   static toDomain(raw: PersistenceDistributor) {
-    const distributor: Pick<Distributor, 'props'> = {
-      props: {
+    const distributorOrError = Distributor.create(
+      {
         name: raw.name,
         street: raw.street,
         number: raw.number,
@@ -15,9 +15,8 @@ export class DistributorMapper {
         complement: raw.complement,
         region: raw.region,
       },
-    }
-
-    const distributorOrError = Distributor.create(distributor.props, raw.id)
+      raw.id,
+    )
 
     if (distributorOrError.isLeft()) {
       throw new MapperError(distributorOrError.value.message)

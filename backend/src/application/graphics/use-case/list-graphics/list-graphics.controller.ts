@@ -1,4 +1,3 @@
-
 import { Controller } from '@/core/infra/controller'
 import { HttpResponse, ok } from '@/core/infra/http-response'
 import { ListGraphics } from './list-graphics'
