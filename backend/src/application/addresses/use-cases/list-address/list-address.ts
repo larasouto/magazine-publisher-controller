@@ -3,11 +3,17 @@ import { IAddressesRepository } from '../../repositories/interfaces/IAddressesRe
 
 type ListAddressesResponse = Address[]
 
+type ListAddressesRequest = {
+  userId: string
+}
+
 export class ListAddresses {
   constructor(private addressesRepository: IAddressesRepository) {}
 
-  async execute(): Promise<ListAddressesResponse> {
-    const addresses = await this.addressesRepository.list()
+  async execute({
+    userId,
+  }: ListAddressesRequest): Promise<ListAddressesResponse> {
+    const addresses = await this.addressesRepository.list(userId)
     return addresses
   }
 }

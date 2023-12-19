@@ -38,7 +38,7 @@ subscriptions.put(
 )
 
 subscriptions.get(
-  '/my-subscriptions',
+  '/my-subscriptions2',
   adaptRoute(makeListSubscriptionsByUserController()),
 )
 

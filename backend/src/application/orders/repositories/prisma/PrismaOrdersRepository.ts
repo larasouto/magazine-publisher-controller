@@ -50,10 +50,12 @@ export class PrismaOrdersRepository implements IOrderRepository {
     })
   }
 
-  async list(): Promise<Order[]> {
+  async list(userId: string): Promise<Order[]> {
     const orders = await prismaClient.order.findMany({
+      where: { customer_id: userId },
       include: { order_items: true },
     })
+
     return orders.map((order) =>
       OrderMapper.toDomain(
         order,

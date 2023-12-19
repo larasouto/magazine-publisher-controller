@@ -39,8 +39,10 @@ export class PrismaCardsRepository implements ICardsRepository {
     })
   }
 
-  async list(): Promise<Card[]> {
-    const cards = await prismaClient.card.findMany()
+  async list(userId: string): Promise<Card[]> {
+    const cards = await prismaClient.card.findMany({
+      where: { user_id: userId },
+    })
     return cards.map(CardMapper.toDomain)
   }
 }

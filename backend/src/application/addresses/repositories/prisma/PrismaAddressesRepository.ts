@@ -39,8 +39,10 @@ export class PrismaAddressesRepository implements IAddressesRepository {
     })
   }
 
-  async list(): Promise<Address[]> {
-    const addresses = await prismaClient.address.findMany()
+  async list(userId: string): Promise<Address[]> {
+    const addresses = await prismaClient.address.findMany({
+      where: { user_id: userId },
+    })
     return addresses.map(AddressMapper.toDomain)
   }
 }
