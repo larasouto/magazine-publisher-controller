@@ -4,12 +4,14 @@ import { ComponentProps } from 'react'
 type GridProps = ComponentProps<'div'> & {
   children: React.ReactNode
   cols?: '1' | '2' | '3' | '4'
+  sx?: string
 }
 
 export const GridLayout = ({
   children,
   cols,
   className,
+  sx,
   ...props
 }: GridProps) => {
   if (cols && className) {
@@ -27,7 +29,7 @@ export const GridLayout = ({
 
   return (
     <div
-      className={cn('grid gap-3', cols ? _cols[cols] : className)}
+      className={cn('grid gap-3', sx, cols ? _cols[cols] : className)}
       {...props}
     >
       {children}

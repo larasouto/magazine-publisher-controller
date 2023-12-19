@@ -19,7 +19,7 @@ export const AdvertisingPage = () => {
 
   return (
     <PageLayout
-      title={id ? 'Editar Propaganda' : 'Nova Propaganda'}
+      title={id ? 'Editar Propaganda' : 'Contratar Propaganda'}
       imageSrc="/banner.jpg"
       isLoading={get.isLoading}
       breadcrumb={breadcrumb({

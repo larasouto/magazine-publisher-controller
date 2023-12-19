@@ -1,7 +1,7 @@
 import { UserDetailsProvider } from '@/contexts/user-details-provider'
 import { createBrowserRouter } from 'react-router-dom'
-import { AdvertisingsRoutes } from './pages/advertisings.routes'
 import { AdPricesRoutes } from './pages/ad-prices.routes'
+import { AdvertisingsRoutes } from './pages/advertisings.routes'
 import { ArticlesRoutes } from './pages/articles.routes'
 import { AuthRoutes } from './pages/auth.routes'
 import { BookstoresRoutes } from './pages/bookstores.routes'
@@ -20,6 +20,7 @@ import { ThemesRoutes } from './pages/product/themes.routes'
 import { AddressesRoutes } from './pages/profile/addresses.routes'
 import { CardsRoutes } from './pages/profile/cards.routes'
 import { MyPurchasesRoutes } from './pages/profile/my-purchases.routes'
+import { MySubscriptionRoutes } from './pages/profile/my-subscriptions.routes'
 import { ReportersRoutes } from './pages/reporters.routes'
 import { SubscriptionRoutes } from './pages/subscriptions.routes'
 
@@ -53,7 +54,8 @@ export const router = createBrowserRouter([
       GraphicsOrdersReturnsRoutes,
       ArticlesRoutes,
       AdPricesRoutes,
-      MyPurchasesRoutes
+      MyPurchasesRoutes,
+      MySubscriptionRoutes
     ]
   }
 ])

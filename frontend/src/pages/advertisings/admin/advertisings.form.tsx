@@ -54,70 +54,70 @@ export const AdvertisingForm = ({ data }: AdvertisingsFormProps) => {
       className="flex flex-col gap-3"
       noValidate
     >
-      <GridLayout className="grid grid-cols-1 lg:grid-cols-[auto_1fr]">
+      <GridLayout cols="1">
         <AdvertisingsImage form={form} />
-        <GridLayout cols="3">
-          <fieldset>
-            <Input
-              label={'Título'}
-              placeholder={'Informe o título da propaganda'}
-              errorMessage={form.formState.errors.title?.message}
-              labelPlacement="outside"
-              value={data?.title}
-              isReadOnly
-            />
-          </fieldset>
-          <fieldset>
-            <Input
-              label={'Descrição'}
-              placeholder={'Informe a descrição da propaganda'}
-              errorMessage={form.formState.errors.description?.message}
-              labelPlacement="outside"
-              value={data?.description ?? ''}
-              isReadOnly
-            />
-          </fieldset>
-          <fieldset>
-            <Input
-              label={'Tipo'}
-              placeholder={'Selecione o tipo da propaganda'}
-              labelPlacement="outside"
-              value={AdvertisingType[data?.type ?? 1]}
-              isReadOnly
-            />
-          </fieldset>
-          <fieldset>
-            <Input
-              label={'Categoria'}
-              placeholder={'Selecione a categoria da propaganda'}
-              labelPlacement="outside"
-              value={AdvertisingCategory[data?.category ?? 1]}
-              isReadOnly
-            />
-          </fieldset>
-          <fieldset>
-            <Input
-              type="number"
-              startContent={<PriceIcon />}
-              label={'Preço'}
-              placeholder={'Informe o preço da propaganda'}
-              labelPlacement="outside"
-              value={String(data?.price ?? '0')}
-              isReadOnly
-            />
-          </fieldset>
-          <MagazinesSelect form={form} />
-          <fieldset>
-            <Input
-              className="hidden"
-              label={'Imagem'}
-              placeholder={'Informe a imagem da propaganda'}
-              errorMessage={form.formState.errors.imagePath?.message}
-              labelPlacement="outside"
-              {...form.register('imagePath')}
-            />
-          </fieldset>
-        </GridLayout>
+      </GridLayout>
+      <GridLayout cols="3" sx="mt-2">
+        <fieldset>
+          <Input
+            label={'Título'}
+            placeholder={'Informe o título da propaganda'}
+            errorMessage={form.formState.errors.title?.message}
+            labelPlacement="outside"
+            value={data?.title}
+            isReadOnly
+          />
+        </fieldset>
+        <fieldset>
+          <Input
+            label={'Descrição'}
+            placeholder={'Informe a descrição da propaganda'}
+            errorMessage={form.formState.errors.description?.message}
+            labelPlacement="outside"
+            value={data?.description ?? ''}
+            isReadOnly
+          />
+        </fieldset>
+        <fieldset>
+          <Input
+            label={'Tipo'}
+            placeholder={'Selecione o tipo da propaganda'}
+            labelPlacement="outside"
+            value={AdvertisingType[data?.type ?? 1]}
+            isReadOnly
+          />
+        </fieldset>
+        <fieldset>
+          <Input
+            label={'Categoria'}
+            placeholder={'Selecione a categoria da propaganda'}
+            labelPlacement="outside"
+            value={AdvertisingCategory[data?.category ?? 1]}
+            isReadOnly
+          />
+        </fieldset>
+        <fieldset>
+          <Input
+            type="number"
+            startContent={<PriceIcon />}
+            label={'Preço'}
+            placeholder={'Informe o preço da propaganda'}
+            labelPlacement="outside"
+            value={String(data?.price ?? '0')}
+            isReadOnly
+          />
+        </fieldset>
+        <MagazinesSelect form={form} />
+        <fieldset>
+          <Input
+            className="hidden"
+            label={'Imagem'}
+            placeholder={'Informe a imagem da propaganda'}
+            errorMessage={form.formState.errors.imagePath?.message}
+            labelPlacement="outside"
+            {...form.register('imagePath')}
+          />
+        </fieldset>
       </GridLayout>
       {data?.status === 0 ? (
         <div className="flex gap-2">
