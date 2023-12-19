@@ -6,6 +6,7 @@ import { makeSubmitReviewsController } from '../factories/controllers/reviews/ma
 import { makeDeleteReviewsController } from '../factories/controllers/reviews/makeDeleteReviewsController'
 import { makeEditReviewsController } from '../factories/controllers/reviews/makeEditReviewsController'
 import { makeGetReviewController } from '../factories/controllers/reviews/makeGetReviewController'
+import { makeListReviewsController } from '../factories/controllers/reviews/makeListReviewsController'
 
 export const reviews = Router()
 
@@ -15,3 +16,4 @@ reviews.post('/new', adaptRoute(makeSubmitReviewsController()))
 reviews.delete('/:reviewId', adaptRoute(makeDeleteReviewsController()))
 reviews.put('/:reviewId/edit', adaptRoute(makeEditReviewsController()))
 reviews.get('/:reviewId', adaptRoute(makeGetReviewController()))
+reviews.get('/', adaptRoute(makeListReviewsController()))
