@@ -7,11 +7,11 @@ import { DistributorToolbar } from './distributor.toolbar'
 import { DistributorColumns, columns } from './table/distributor.columns'
 
 export const DistributorListPage = () => {
-  const { title, breadcrumb } = usePageUtils('distributor')
+  const { breadcrumb } = usePageUtils('distributor')
 
-  const { list } = useFetch<DistributorColumns[]>({
-    baseUrl: backend.distributor.baseUrl,
-    query: ['distributor'],
+  const { list, removeMany } = useFetch<DistributorColumns[]>({
+    baseUrl: backend.distributors.baseUrl,
+    query: ['distributors'],
     fetch: {
       list: true
     }
@@ -19,11 +19,15 @@ export const DistributorListPage = () => {
 
   return (
     <PageLayout
-      title={title()}
+      title={'Distribuidoras'}
       isLoading={list.isLoading}
-      breadcrumb={breadcrumb()}
+      breadcrumb={breadcrumb({
+        segments: [{ label: 'Distribuidoras', link: backend.distributors.baseUrl }]
+      })
+    }
     >
       <DataTable
+         asyncFn={removeMany.mutateAsync}
         columns={columns}
         data={list?.data ?? []}
         toolbar={<DistributorToolbar />}

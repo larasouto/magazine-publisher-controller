@@ -3,40 +3,36 @@ import { GridLayout } from '@/components/ui/Grid'
 import { useFetch } from '@/hooks/useFetch'
 import { backend, routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Input } from '@nextui-org/react'
+import { Input, Select, SelectItem } from '@nextui-org/react'
 import { InputMask } from '@react-input/mask'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import {
-  GraphicForm,
-  GraphicsFormWithId,
-  GraphicsSchema
-} from './graphics.schema'
+import { DistributorRegion, DistributorsForm, DistributorsFormWithId, DistributorsSchema } from './distributor.schema'
 import { SelectState } from './select/addresses.states'
 
-type GraphicsFormProps = {
-  data?: GraphicsFormWithId
+type DistributorFormProps = {
+  data?: DistributorsFormWithId
 }
 
-export const GraphicsForm = ({ data }: GraphicsFormProps) => {
-  const { t } = useTranslation('Graphics')
+export const DistributorForm = ({ data }: DistributorFormProps) => {
+  const { t } = useTranslation('Distributor')
 
-  const { create, update } = useFetch<GraphicForm>({
-    baseUrl: backend.graphics.baseUrl,
-    query: ['Graphics'],
-    redirectTo: routes.graphics.index,
+  const { create, update } = useFetch<DistributorsForm>({
+    baseUrl: backend.distributors.baseUrl,
+    query: ['Distributor'],
+    redirectTo: routes.distributors.index,
     fetch: {
       id: data?.id
     }
   })
 
-  const form = useForm<GraphicForm>({
+  const form = useForm<DistributorsForm>({
     mode: 'all',
-    resolver: zodResolver(GraphicsSchema),
+    resolver: zodResolver(DistributorsSchema),
     defaultValues: data
   })
 
-  const onSubmit = async (form: GraphicForm) => {
+  const onSubmit = async (form: DistributorsForm) => {
     if (data) {
       await update.mutateAsync(form)
       return
@@ -51,10 +47,10 @@ export const GraphicsForm = ({ data }: GraphicsFormProps) => {
       noValidate
     >
       <GridLayout cols="3">
-      <fieldset>
+        <fieldset>
           <Input
-            label={'Nome da gráfica'}
-            placeholder={'Informe o nome da gráfica'}
+            label={'Nome'}
+            placeholder={'Informe o nome da distribuidora'}
             errorMessage={form.formState.errors.name?.message}
             labelPlacement="outside"
             {...form.register('name')}
@@ -151,6 +147,30 @@ export const GraphicsForm = ({ data }: GraphicsFormProps) => {
               />
             )}
           />
+        </fieldset>
+        <fieldset>
+          <Select
+            label={'Região de atuação da distribuidora'}
+            placeholder={'Selecione a região de atuação'}
+            labelPlacement="outside"
+            defaultSelectedKeys={[String(data?.region ?? 1)]}
+            {...form.register('region')}
+            errorMessage={form.formState.errors.region?.message}
+            disallowEmptySelection
+            isRequired
+          >
+            {Object.values(DistributorRegion)
+              .filter((value) => !isNaN(+value))
+              .map((value) => (
+                <SelectItem key={value} value={value}>
+                  {t(
+                    `form.publication_period.options.${DistributorRegion[
+                      value
+                    ].toLowerCase()}`
+                  )}
+                </SelectItem>
+              ))}
+          </Select>
         </fieldset>
       </GridLayout>
       <SubmitButton

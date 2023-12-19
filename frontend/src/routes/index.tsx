@@ -7,7 +7,7 @@ import { ArticlesRoutes } from './pages/articles.routes'
 import { AuthRoutes } from './pages/auth.routes'
 import { BookstoresRoutes } from './pages/bookstores.routes'
 import { CouponsRoutes } from './pages/coupons.routes'
-import { DistributorRoutes } from './pages/distributor.routes'
+import { DistributorsRoutes } from './pages/distributors.routes'
 import { GraphicsRoutes } from './pages/graphics.routes'
 import { GraphocsOnDistributorsRoutes } from './pages/graphicsOnDistributor.routes'
 import { GraphicsOrdersRoutes } from './pages/grapihcsOrders.routes'
@@ -63,7 +63,7 @@ export const router = createBrowserRouter([
           EditionsRoutes,
           SubscriptionRoutes,
           GraphicsRoutes,
-          DistributorRoutes,
+          DistributorsRoutes,
           GraphocsOnDistributorsRoutes,
           GraphicsOrdersRoutes,
           GraphicsOrdersReturnsRoutes,

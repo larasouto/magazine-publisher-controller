@@ -3,14 +3,14 @@ import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend, routes } from '@/routes/routes'
 import { DistributorForm } from './distributor.form'
-import { DistributorsForm } from './distributor.schema'
+import { DistributorsFormWithId } from './distributor.schema'
 
 export const DistributorPage = () => {
-  const { id, t, title, breadcrumb } = usePageUtils('distributor')
+  const { id, breadcrumb } = usePageUtils('distributor')
 
-  const { get } = useFetch<DistributorsForm>({
-    baseUrl: backend.distributor.baseUrl,
-    query: ['distributor'],
+  const { get } = useFetch<DistributorsFormWithId>({
+    baseUrl: backend.distributors.baseUrl,
+    query: ['distributors'],
     fetch: {
       id,
       get: true
@@ -19,14 +19,15 @@ export const DistributorPage = () => {
 
   return (
     <PageLayout
-      title={title({ dynamic: true })}
+      title={id ? 'Editar distribuidora' : 'Nova distribuidora'}
       imageSrc="/banner.jpg"
       isLoading={get.isLoading}
       breadcrumb={breadcrumb({
-        segments: [{ label: t('page.title'), link: routes.distributor.index }]
+        segments: [{ label: 'Distribuidoras', link: routes.distributors.index }]
       })}
     >
       <DistributorForm data={get.data} />
     </PageLayout>
   )
 }
+

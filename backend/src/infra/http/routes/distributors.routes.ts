@@ -8,14 +8,14 @@ import { makeEditDistributorController } from '../factories/controllers/distribu
 import { makeGetDistributorController } from '../factories/controllers/distributor/makeGetDistributorController'
 import { makeListDistributorController } from '../factories/controllers/distributor/makeListDistributorController'
 
-export const distributor = Router()
+export const distributors = Router()
 
-distributor.use(adaptMiddleware(makeEnsureAuthenticated()))
-distributor.post('/new', adaptRoute(makeCreateDistributorController()))
-distributor.put(
+distributors.use(adaptMiddleware(makeEnsureAuthenticated()))
+distributors.post('/new', adaptRoute(makeCreateDistributorController()))
+distributors.put(
   '/:distributorId/edit',
   adaptRoute(makeEditDistributorController()),
 )
-distributor.get('/:distributorId', adaptRoute(makeGetDistributorController()))
-distributor.delete('/', adaptRoute(makeDeleteDistributorController()))
-distributor.get('/', adaptRoute(makeListDistributorController()))
+distributors.get('/:distributorId', adaptRoute(makeGetDistributorController()))
+distributors.delete('/', adaptRoute(makeDeleteDistributorController()))
+distributors.get('/', adaptRoute(makeListDistributorController()))

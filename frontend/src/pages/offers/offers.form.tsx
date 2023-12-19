@@ -8,6 +8,7 @@ import { Input } from '@nextui-org/react'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { OfferForm, OffersFormWithId, OffersSchema } from './offers.schema'
+import { EditionsSelect } from './editions/editions-select'
 
 type OffersFormProps = {
   data?: OffersFormWithId
@@ -79,6 +80,7 @@ export const OffersForm = ({ data }: OffersFormProps) => {
             )}
           />
         </fieldset>
+        <EditionsSelect form={form} />
       </GridLayout>
       <SubmitButton
         isEdit={!!data}

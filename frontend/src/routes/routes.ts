@@ -135,12 +135,12 @@ export const routes = {
     edit: '/graphics/:id/edit',
     delete: '/graphics/:id/delete'
   },
-  distributor: {
-    index: '/distributor',
-    new: '/distributor/new',
-    list: '/distributor/list',
-    edit: '/distributor/:id/edit',
-    delete: '/distributor/:id/delete'
+  distributors: {
+    index: '/distributors',
+    new: '/distributors/new',
+    list: '/distributors/list',
+    edit: '/distributors/:id/edit',
+    delete: '/distributors/:id/delete'
   },
   graphicsOnDistributor: {
     index: '/graphicsOnDistributor',
@@ -225,8 +225,8 @@ export const backend = {
   graphics: {
     baseUrl: '/graphics'
   },
-  distributor: {
-    baseUrl: '/distributor'
+  distributors: {
+    baseUrl: '/distributors'
   },
   graphicsOrders: {
     baseUrl: '/graphicsOrders'

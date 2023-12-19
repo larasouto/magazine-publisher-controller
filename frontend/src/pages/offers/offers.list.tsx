@@ -7,7 +7,7 @@ import { OffersToolbar } from './offers.toolbar'
 import { OffersColumns, columns } from './table/offers.columns'
 
 export const OffersListPage = () => {
-  const { title, breadcrumb } = usePageUtils('offers')
+  const { breadcrumb } = usePageUtils('offers')
 
   const { list, removeMany } = useFetch<OffersColumns[]>({
     baseUrl: backend.offers.baseUrl,
@@ -17,9 +17,10 @@ export const OffersListPage = () => {
     }
   })
 
+
   return (
     <PageLayout
-      title={title()}
+      title={'Ofertas'}
       isLoading={list.isLoading}
       breadcrumb={breadcrumb()}
     >

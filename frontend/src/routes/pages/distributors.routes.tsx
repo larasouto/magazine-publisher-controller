@@ -1,11 +1,11 @@
 import { ComponentLayout } from '@/layout/ComponentLayout'
-import { DistributorListPage } from '@/pages/distributor/distributor.list'
+import { DistributorPage } from '@/pages/distributors/distributor'
+import { DistributorListPage } from '@/pages/distributors/distributor.list'
 import { AuthGuard } from '@/utils/guard'
 import { RouteObject } from 'react-router-dom'
 import { routes } from '../routes'
-import { DistributorPage } from '@/pages/distributor/distributor'
 
-export const DistributorRoutes: RouteObject = {
+export const DistributorsRoutes: RouteObject = {
   path: '/',
   children: [
     {
@@ -17,15 +17,15 @@ export const DistributorRoutes: RouteObject = {
       ),
       children: [
         {
-          path: routes.distributor.index,
+          path: routes.distributors.index,
           element: <DistributorListPage />
         },
         {
-          path: routes.distributor.new,
+          path: routes.distributors.new,
           element: <DistributorPage />
         },
         {
-          path: routes.distributor.edit,
+          path: routes.distributors.edit,
           element: <DistributorPage />
         }
       ]
