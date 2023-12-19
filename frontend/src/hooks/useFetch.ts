@@ -52,7 +52,7 @@ export const useFetch = <T>({
    * @returns Promise com o resultado da requisição.
    */
   const get = useQuery<T>(
-    query,
+    [...query],
     async () => {
       /**
        * Se não houver um id, possivelmente está entrando na
@@ -76,7 +76,7 @@ export const useFetch = <T>({
    * Método para buscar as informações do usuário logado.
    */
   const me = useQuery<T>(
-    query,
+    [...query],
     async () => {
       return await api
         .get(`auth/me`)

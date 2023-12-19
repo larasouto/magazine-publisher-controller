@@ -21,7 +21,7 @@ export const CategoriesForm = ({ data }: CategoriesFormProps) => {
 
   const { create, update } = useFetch<CategoryForm>({
     baseUrl: routes.categories.index,
-    query: ['categories'],
+    query: ['categories', data?.id ?? ''],
     fetch: {
       id: data?.id
     }
