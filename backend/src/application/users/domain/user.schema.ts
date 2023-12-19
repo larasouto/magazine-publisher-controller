@@ -1,12 +1,9 @@
 import { z } from 'zod'
-import { User } from './user'
-import { Address } from '@/application/addresses/domain/address'
-import { Card } from '@/application/cards/domain/card'
-import { Subscription } from '@/application/subscriptions/admin/domain/subscription'
 
 export enum UserRole {
   CUSTOMER = 0,
   ADMIN = 1,
+  BOOKSTORE = 2,
 }
 
 export const UserSchema = z.object({

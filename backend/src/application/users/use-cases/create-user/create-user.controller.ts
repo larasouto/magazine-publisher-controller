@@ -16,6 +16,7 @@ type CreateUserControllerRequest = {
   password: string
   confirmPassword: string
   phone?: string
+  role?: number
 }
 
 export class CreateUserController implements Controller {
