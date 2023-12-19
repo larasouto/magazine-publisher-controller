@@ -13,7 +13,7 @@ export const reviews = Router()
 reviews.use(adaptMiddleware(makeEnsureAuthenticated()))
 
 reviews.post('/new', adaptRoute(makeSubmitReviewsController()))
-reviews.delete('/:reviewId', adaptRoute(makeDeleteReviewsController()))
+reviews.delete('/', adaptRoute(makeDeleteReviewsController()))
 reviews.put('/:reviewId/edit', adaptRoute(makeEditReviewsController()))
 reviews.get('/:reviewId', adaptRoute(makeGetReviewController()))
 reviews.get('/', adaptRoute(makeListReviewsController()))

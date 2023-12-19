@@ -3,6 +3,7 @@ import toast from 'react-hot-toast'
 import { UseQueryOptions, useQuery } from 'react-query'
 
 type UserDetails = {
+  id: string
   email: string
   name: string
   role: number

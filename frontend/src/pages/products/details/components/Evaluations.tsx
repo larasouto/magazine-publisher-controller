@@ -1,6 +1,12 @@
+import { AlertModal } from '@/components/ui/AlertModal'
 import { useFetch } from '@/hooks/useFetch'
-import { Divider } from '@nextui-org/react'
+import { useMe } from '@/hooks/useMe'
+import { api } from '@/services/api'
+import { Button, Divider, useDisclosure } from '@nextui-org/react'
 import { Rating } from '@smastrom/react-rating'
+import { Trash } from 'lucide-react'
+import toast from 'react-hot-toast'
+import { useQueryClient } from 'react-query'
 
 type ReviewsProps = {
   id: string
@@ -12,6 +18,10 @@ type ReviewsProps = {
 }
 
 export const Evaluations = ({ editionId }: { editionId?: string }) => {
+  const { me } = useMe()
+  const { isOpen, onOpenChange, onOpen, onClose } = useDisclosure()
+  const queryClient = useQueryClient()
+
   const { list } = useFetch<ReviewsProps[]>({
     baseUrl: `/reviews?editionId=${editionId}`,
     query: ['reviews', editionId ?? ''],
@@ -24,10 +34,31 @@ export const Evaluations = ({ editionId }: { editionId?: string }) => {
     list.data?.reduce((acc, evaluation) => acc + evaluation.rating, 0) ?? 0
   const totalEvaluation = list.data?.length ?? 0
 
+  const handleDeleteComment = async (id?: string) => {
+    if (!id) return
+
+    await api
+      .delete(`/reviews`, {
+        params: {
+          ids: [id]
+        }
+      })
+      .then(() => {
+        toast.success('Comentário excluído com sucesso')
+        queryClient.invalidateQueries('reviews')
+      })
+      .catch(() => {
+        toast.error('Erro ao excluir comentário')
+      })
+      .finally(() => onClose())
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <div>
-        <h1 className="mt-5 text-2xl font-bold">Avaliações</h1>
+        <h1 className="mt-5 text-2xl font-bold">
+          Avaliações ({list.data?.length})
+        </h1>
         <div className="flex gap-2">
           <h3>Média das Avaliações</h3>
           <Rating
@@ -52,10 +83,35 @@ export const Evaluations = ({ editionId }: { editionId?: string }) => {
         {list.data?.map((evaluation) => (
           <div
             key={evaluation.id}
-            className="flex flex-col bg-default-50 rounded-lg p-5 gap-2"
+            className="relative flex flex-col bg-default-50 rounded-lg p-5 gap-2"
           >
+            {me.data?.id === evaluation.reviewerId && (
+              <>
+                <Button
+                  color="danger"
+                  className="absolute right-5 min-w-unit-7 w-unit-7 h-unit-7"
+                  onPress={onOpen}
+                  isIconOnly
+                >
+                  <Trash className="w-4 h-4" />
+                </Button>
+                <AlertModal
+                  title={'Você tem certeza?'}
+                  onAction={() => handleDeleteComment(evaluation.id)}
+                  isOpen={isOpen}
+                  onOpenChange={onOpenChange}
+                >
+                  Você tem certeza que deseja excluir esse comentário?{' '}
+                  <span className="underline underline-offset-4 text-danger/70">
+                    Esta ação não poderá ser desfeita.
+                  </span>
+                </AlertModal>
+              </>
+            )}
             <div className="flex flex-col gap-2">
-              <span className="font-bold">{evaluation.reviewerId}</span>
+              <span className="font-bold">
+                {evaluation.reviewerId.slice(0, 8)}
+              </span>
               <span className="flex gap-5">
                 <div className="flex flex-col gap-0.5">
                   <span className="text-small text-foreground-500">Título</span>
