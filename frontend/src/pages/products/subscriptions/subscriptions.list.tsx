@@ -9,7 +9,7 @@ import {
 } from './table/subscriptions.columns'
 
 export const SubscriptionPaymentListPage = () => {
-  const { title, breadcrumb } = usePageUtils('magazines')
+  const { breadcrumb } = usePageUtils('magazines')
 
   const { list } = useFetch<SubscriptionPaymentColumns[]>({
     baseUrl: backend.subscriptions.payment.baseUrl,
@@ -21,9 +21,11 @@ export const SubscriptionPaymentListPage = () => {
 
   return (
     <PageLayout
-      title={title()}
+      title={'Pagamentos de Assinaturas'}
       isLoading={list.isLoading}
-      breadcrumb={breadcrumb()}
+      breadcrumb={breadcrumb({
+        segments: [{ label: 'Pagamentos' }]
+      })}
     >
       <DataTable columns={columns} data={list?.data ?? []} />
     </PageLayout>

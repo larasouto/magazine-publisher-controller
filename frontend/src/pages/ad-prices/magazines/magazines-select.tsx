@@ -1,9 +1,8 @@
 import { useFetch } from '@/hooks/useFetch'
 import { MagazineColumns } from '@/pages/magazines/table/magazines.columns'
 import { backend } from '@/routes/routes'
-import { Select, SelectItem } from '@nextui-org/react'
+import { Select, SelectItem, cn } from '@nextui-org/react'
 import { UseFormReturn } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
 import { AdPriceForm } from '../ad-prices.schema'
 
 type MagazinesSelectProps = {
@@ -11,8 +10,6 @@ type MagazinesSelectProps = {
 }
 
 export const MagazinesSelect = ({ form }: MagazinesSelectProps) => {
-  const { t } = useTranslation('subscriptions')
-
   const { list } = useFetch<MagazineColumns[]>({
     baseUrl: backend.magazines.baseUrl,
     query: ['magazines'],
@@ -25,8 +22,8 @@ export const MagazinesSelect = ({ form }: MagazinesSelectProps) => {
     <fieldset>
       <Select
         items={list.data ?? []}
-        label={t('form.magazine.label')}
-        placeholder={t('form.magazine.placeholder')}
+        label={'Revista'}
+        placeholder={'Selecione uma revista'}
         labelPlacement="outside"
         {...form.register('magazineId')}
         defaultSelectedKeys={
@@ -38,6 +35,9 @@ export const MagazinesSelect = ({ form }: MagazinesSelectProps) => {
         disallowEmptySelection
         errorMessage={form.formState.errors.magazineId?.message}
         isRequired
+        classNames={{
+          label: cn({ 'pb-2.5': form.formState.errors.magazineId?.message })
+        }}
       >
         {(magazine) => (
           <SelectItem key={magazine.id} textValue={magazine.name}>

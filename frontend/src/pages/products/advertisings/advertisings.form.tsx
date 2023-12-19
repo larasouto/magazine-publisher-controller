@@ -10,7 +10,6 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useParams } from 'react-router-dom'
-//import { AdvertisingsDetails } from './advertisings.details'
 import { AdvertisingsDetails } from './advertisings.details'
 import {
   PaymentAdvertisingProps,

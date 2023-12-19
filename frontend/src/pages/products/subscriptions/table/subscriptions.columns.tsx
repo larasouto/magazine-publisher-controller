@@ -40,8 +40,8 @@ export const columns = [
    * Name
    */
   helper.accessor((row) => row.subscriptionId, {
-    id: 'subscriptionId',
-    header: () => 'ID da Assinatura',
+    id: 'Nome',
+    header: () => 'Nome',
     cell: ({ row }) => <GetSubscriptionName row={row.original} />,
     enableSorting: true,
     enableHiding: true
@@ -50,10 +50,10 @@ export const columns = [
    * Status
    */
   helper.accessor((row) => row.status, {
-    id: 'status',
+    id: 'Status',
     header: () => 'Status',
     cell: ({ row }) =>
-      PaymentSubscriptionStatus[row.getValue('status') as number],
+      PaymentSubscriptionStatus[row.getValue('Status') as number],
     enableSorting: true,
     enableHiding: true
   }),

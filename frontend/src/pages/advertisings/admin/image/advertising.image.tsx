@@ -32,26 +32,25 @@ export const AdvertisingsImage = ({ form }: AdvertisingsImageProps) => {
   return (
     <div className="relative">
       <div className="rounded-xl">
-        <Format text={'Propaganda Solicitada'} size="sm" />
+        <Format text={'Propaganda Solicitada'} size="md" />
         <Button
           id="image-button"
           type="button"
-          className="flex items-center justify-center w-56 h-full p-0 group"
+          className="flex items-center justify-center w-56 h-full py-3 group"
           onClick={onOpen}
+          color="primary"
         >
-          {preview && (
-            <Image
-              src={preview}
-              classNames={{
-                img: 'brightness-75 z-1 w-56 h-full rounded-none object-image'
-              }}
-            />
-          )}
+          Visualizar imagem
         </Button>
-        <Modal isOpen={isOpen} onOpenChange={onOpenChange} shouldBlockScroll>
+        <Modal
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+          shouldBlockScroll
+          size="sm"
+        >
           <ModalContent>
-            <ModalHeader className="pb-0">Propaganda Solicitada</ModalHeader>
-            <ModalBody className="py-0">
+            <ModalHeader className="text-xl">Propaganda solicitada</ModalHeader>
+            <ModalBody className="pb-7 mx-auto">
               {preview && (
                 <Image
                   src={preview}

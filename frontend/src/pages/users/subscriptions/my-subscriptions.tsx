@@ -2,6 +2,8 @@ import { useFetch } from '@/hooks/useFetch'
 import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend } from '@/routes/routes'
+import { Fragment } from 'react'
+import { SubscriptionsDetails } from './SubscriptionDetails'
 
 type SubscriptionItem = {
   id: string
@@ -10,7 +12,7 @@ type SubscriptionItem = {
   subscriptionId: string
 }
 
-export const MyPurchasesPage = () => {
+export const MySubscriptionPage = () => {
   const { breadcrumb } = usePageUtils()
 
   const { list } = useFetch<SubscriptionItem[]>({
@@ -43,21 +45,9 @@ export const MyPurchasesPage = () => {
           </div>
         )}
         {list.data?.map((subscription) => (
-          <div key={subscription.id} className="flex flex-col gap-3">
-            <div
-              key={subscription.subscriptionId}
-              className="bg-default-50 rounded-lg p-5"
-            >
-              <h1 className="flex justify-end">
-                <span className="text-default-500 text-sm">
-                  {subscription.id.substring(0, 8)}
-                </span>
-              </h1>
-              <h1 className="text-2xl font-bold">
-                {subscription.subscriptionId}
-              </h1>
-            </div>
-          </div>
+          <Fragment key={subscription.id}>
+            <SubscriptionsDetails id={subscription.subscriptionId} />
+          </Fragment>
         ))}
       </section>
     </PageLayout>

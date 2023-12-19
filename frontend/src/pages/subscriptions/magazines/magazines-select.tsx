@@ -1,9 +1,8 @@
 import { useFetch } from '@/hooks/useFetch'
 import { MagazineColumns } from '@/pages/magazines/table/magazines.columns'
 import { backend } from '@/routes/routes'
-import { Select, SelectItem } from '@nextui-org/react'
-import { UseFormReturn } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
+import { Autocomplete, AutocompleteItem } from '@nextui-org/react'
+import { Controller, UseFormReturn } from 'react-hook-form'
 import { SubscriptionData } from '../subscriptions.schema'
 
 type MagazinesSelectProps = {
@@ -11,8 +10,6 @@ type MagazinesSelectProps = {
 }
 
 export const MagazinesSelect = ({ form }: MagazinesSelectProps) => {
-  const { t } = useTranslation('subscriptions')
-
   const { list } = useFetch<MagazineColumns[]>({
     baseUrl: backend.magazines.baseUrl,
     query: ['magazines'],
@@ -23,35 +20,34 @@ export const MagazinesSelect = ({ form }: MagazinesSelectProps) => {
 
   return (
     <fieldset>
-      <Select
-        items={list?.data ?? []}
-        label={t('form.magazine.label')}
-        placeholder={t('form.magazine.placeholder')}
-        labelPlacement="outside"
-        {...form.register('magazineId')}
-        defaultSelectedKeys={
-          form.getValues('magazineId')
-            ? [form.getValues('magazineId')]
-            : undefined
-        }
-        isLoading={list.isLoading}
-        disallowEmptySelection
-        errorMessage={form.formState.errors.magazineId?.message}
-        isRequired
-      >
-        {(magazine) => (
-          <SelectItem key={magazine.id} textValue={magazine.name}>
-            <div className="flex gap-2 items-center">
-              <div className="flex flex-col">
-                <span className="text-small">{magazine.name}</span>
-                <span className="text-tiny text-default-500">
-                  {magazine.description}
-                </span>
-              </div>
-            </div>
-          </SelectItem>
+      <Controller
+        control={form.control}
+        name={'magazineId'}
+        render={({ field: { value, onChange, ...rest } }) => (
+          <Autocomplete
+            defaultItems={list.data ?? []}
+            label={'Revista'}
+            placeholder={'Selecione uma revista'}
+            labelPlacement="outside"
+            errorMessage={form.formState.errors.magazineId?.message}
+            selectedKey={String(value)}
+            onSelectionChange={(value) => onChange(String(value))}
+            {...rest}
+            isRequired
+          >
+            {(item) => (
+              <AutocompleteItem key={item.id} textValue={item.name}>
+                <div className="flex flex-col gap-1">
+                  {item.name}
+                  <span className="text-xs font-thin text=danger">
+                    {item.description}
+                  </span>
+                </div>
+              </AutocompleteItem>
+            )}
+          </Autocomplete>
         )}
-      </Select>
+      />
     </fieldset>
   )
 }

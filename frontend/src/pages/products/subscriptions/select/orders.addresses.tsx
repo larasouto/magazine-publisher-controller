@@ -1,7 +1,7 @@
 import { useFetch } from '@/hooks/useFetch'
 import { AddressesColumns } from '@/pages/users/addresses/table/addresses.columns'
-import { backend } from '@/routes/routes'
-import { Select, SelectItem } from '@nextui-org/react'
+import { backend, routes } from '@/routes/routes'
+import { Link, Select, SelectItem, cn } from '@nextui-org/react'
 import { UseFormReturn } from 'react-hook-form'
 import { PaymentSubscriptionProps } from '../subscriptions.schema'
 
@@ -34,6 +34,23 @@ export const AddressesSelect = ({ form }: AddressesSelectProps) => {
         disallowEmptySelection
         errorMessage={form.formState.errors.addressId?.message}
         isRequired
+        description={
+          list.data?.length === 0 && (
+            <span>
+              Não há endereços cadastrados.{' '}
+              <Link
+                href={routes.profile.addresses.new}
+                target="_blank"
+                className="text-xs hover:underline"
+              >
+                Cadastre um!
+              </Link>
+            </span>
+          )
+        }
+        classNames={{
+          label: cn({ 'pb-2': list.data?.length === 0 })
+        }}
       >
         {list.data ? (
           list.data.map((address) => (
