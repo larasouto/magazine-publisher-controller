@@ -11,6 +11,7 @@ import { makeListDistributorController } from '../factories/controllers/distribu
 export const distributors = Router()
 
 distributors.use(adaptMiddleware(makeEnsureAuthenticated()))
+
 distributors.post('/new', adaptRoute(makeCreateDistributorController()))
 distributors.put(
   '/:distributorId/edit',
