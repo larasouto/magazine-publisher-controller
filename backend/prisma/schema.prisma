@@ -26,6 +26,7 @@ model User {
   reviews                Review[]
   advertisings           Advertising[]
   customer_subscriptions CustomerSubscription[]
+  notifications          Notification[]
 
   @@map("users")
 }
@@ -45,6 +46,7 @@ model Subscription {
   user_id                String
   payment_subscriptions  PaymentSubscription[]
   customer_subscriptions CustomerSubscription[]
+  notifications          Notification[]
 
   @@map("subscriptions")
 }
@@ -232,6 +234,8 @@ model Order {
   status      Int
   created_at  DateTime    @default(now())
   updated_at  DateTime    @updatedAt
+  Coupon      Coupon?     @relation(fields: [couponId], references: [id])
+  couponId    String?
 
   @@map("orders")
 }
@@ -455,6 +459,42 @@ model Offer {
   edition_offers      EditionOffer[]
   created_at          DateTime       @default(now())
   updated_at          DateTime       @updatedAt
+  notifications       Notification[]
 
   @@map("offers")
+}
+
+model Coupon {
+  id                String         @id
+  coupon_code       String
+  discount_amount   Int
+  expiration_date   DateTime
+  type              Int
+  orders            Order[]
+  created_at        DateTime       @default(now())
+  updated_at        DateTime       @updatedAt
+  notifications     Notification[]
+  send_notification Boolean        @default(false)
+
+  @@map("coupons")
+}
+
+model Notification {
+  id              String        @id
+  subject         String
+  message         String
+  read            Boolean       @default(false)
+  send_date       DateTime
+  user            User          @relation(fields: [user_id], references: [id])
+  user_id         String
+  coupon          Coupon?       @relation(fields: [coupon_id], references: [id])
+  coupon_id       String?
+  offer           Offer?        @relation(fields: [offer_id], references: [id])
+  offer_id        String?
+  subscription    Subscription? @relation(fields: [subscription_id], references: [id])
+  subscription_id String?
+  created_at      DateTime      @default(now())
+  updated_at      DateTime      @updatedAt
+
+  @@map("notifications")
 }

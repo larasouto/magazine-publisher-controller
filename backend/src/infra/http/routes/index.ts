@@ -24,6 +24,8 @@ import { graphicsOrderRetur } from './graphicsOrderReturn.routes'
 import { graphicsOnDistributor } from './graphicsOnDistributor.routes'
 import { articles } from './articles.routes'
 import { offers } from './offers.routes'
+import { coupons } from './coupons.routes'
+import { notifications } from './notifications.routes'
 
 export const router = Router()
 
@@ -52,3 +54,5 @@ router.use('/graphicsOrderReturn', graphicsOrderRetur)
 router.use('/graphicsOnDistributor', graphicsOnDistributor)
 router.use('/articles', articles)
 router.use('/offers', offers)
+router.use('/coupons', coupons)
+router.use('/notifications', notifications)
