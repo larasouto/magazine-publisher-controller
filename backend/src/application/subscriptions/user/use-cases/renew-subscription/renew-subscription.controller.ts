@@ -39,6 +39,6 @@ export class RenewSubscriptionController implements Controller {
       }
     }
 
-    return ok({}, { message: 'Assinatura renovada' })
+    return ok({ message: 'Assinatura renovada com sucesso' })
   }
 }
