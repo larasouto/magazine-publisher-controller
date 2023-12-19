@@ -5,12 +5,14 @@ import { AdvertisingsRoutes } from './pages/advertisings.routes'
 import { ArticlesRoutes } from './pages/articles.routes'
 import { AuthRoutes } from './pages/auth.routes'
 import { BookstoresRoutes } from './pages/bookstores.routes'
+import { CouponsRoutes } from './pages/coupons.routes'
 import { DistributorRoutes } from './pages/distributor.routes'
 import { GraphicsRoutes } from './pages/graphics.routes'
 import { GraphocsOnDistributorsRoutes } from './pages/graphicsOnDistributor.routes'
 import { GraphicsOrdersRoutes } from './pages/grapihcsOrders.routes'
 import { GraphicsOrdersReturnsRoutes } from './pages/grapihcsOrdersReturns.routes'
 import { HomeRoutes } from './pages/home.routes'
+import { OffersRoutes } from './pages/offers.routes'
 import { PhotographersRoutes } from './pages/photographers.routes'
 import { CategoriesRoutes } from './pages/product/categories.routes'
 import { EditionsRoutes } from './pages/product/editions.routes'
@@ -55,7 +57,9 @@ export const router = createBrowserRouter([
       ArticlesRoutes,
       AdPricesRoutes,
       MyPurchasesRoutes,
-      MySubscriptionRoutes
+      MySubscriptionRoutes,
+      OffersRoutes,
+      CouponsRoutes
     ]
   }
 ])

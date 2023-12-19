@@ -77,6 +77,18 @@ export const routes = {
     edit: '/ad-prices/:id/edit',
     delete: '/ad-prices/:id/delete'
   },
+  offers: {
+    index: '/offers',
+    new: '/offers/new',
+    edit: '/offers/:id/edit',
+    delete: '/offers/:id/delete'
+  },
+  coupons: {
+    index: '/coupons',
+    new: '/coupons/new',
+    edit: '/coupons/:id/edit',
+    delete: '/coupons/:id/delete'
+  },
   articles: {
     index: '/articles',
     new: '/articles/new',
@@ -221,5 +233,11 @@ export const backend = {
   },
   graphicsOrderReturn: {
     baseUrl: '/graphicsOrderReturn'
+  },
+  offers: {
+    baseUrl: '/offers'
+  },
+  coupons: {
+    baseUrl: '/coupons'
   }
 }
