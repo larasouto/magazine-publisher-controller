@@ -15,7 +15,7 @@ export const SubscriptionsDetails = ({ id }: SubscriptionsDetailsProps) => {
     query: ['my-subscription', id],
     fetch: {
       id,
-      get: !!id
+      get: true
     }
   })
 

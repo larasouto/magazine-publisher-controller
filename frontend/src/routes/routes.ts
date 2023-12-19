@@ -178,7 +178,7 @@ export const backend = {
       baseUrl: '/payment-subscriptions'
     },
     'my-subscriptions': {
-      baseUrl: '/subscriptions/my-subscriptions2'
+      baseUrl: '/subscriptions/profile/my-subscriptions'
     }
   },
   advertisings: {
