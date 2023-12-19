@@ -1,7 +1,6 @@
 import { Controller } from '@/core/infra/controller'
 import { HttpResponse, clientError, ok } from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
-import { t } from 'i18next'
 import { DistributorNotFoundError } from '../delete-distributor/errors/DistributorNotFoundError'
 import { EditDistributor } from './edit-distributor'
 
@@ -40,6 +39,6 @@ export class EditDistributorController implements Controller {
       }
     }
 
-    return ok({ message: t('distributor.updated') })
+    return ok({ message: 'Distribuidora atualizada com sucesso' })
   }
 }

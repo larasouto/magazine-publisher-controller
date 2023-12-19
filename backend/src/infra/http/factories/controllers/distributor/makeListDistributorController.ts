@@ -1,6 +1,6 @@
-import { PrismaDistributorRepository } from '@/application/distributor/repositories/Prisma/PrismaDistributorRepository'
-import { ListDistributor } from '@/application/distributor/use-case/list-distributor/list-distributor'
-import { ListDistributorController } from '@/application/distributor/use-case/list-distributor/list-distributor.controller'
+import { PrismaDistributorRepository } from '@/application/distributors/repositories/prisma/PrismaDistributorRepository'
+import { ListDistributor } from '@/application/distributors/use-case/list-distributor/list-distributor'
+import { ListDistributorController } from '@/application/distributors/use-case/list-distributor/list-distributor.controller'
 import { Controller } from '@/core/infra/controller'
 
 export function makeListDistributorController(): Controller {

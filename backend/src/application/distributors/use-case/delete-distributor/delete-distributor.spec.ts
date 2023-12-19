@@ -25,7 +25,7 @@ describe('Delete a distributor', () => {
     expect(await DistributorRepository.findById(data.id)).toBeTruthy()
 
     const deletedDistributor = await deleteDistributor.execute({
-      distributorId: data.id,
+      ids: data.id,
     })
 
     expect(deletedDistributor.isRight()).toBeTruthy()
@@ -35,7 +35,7 @@ describe('Delete a distributor', () => {
     const nonExistingDistributorId = 'non-existing-id'
 
     const nonExistingDistributor = await deleteDistributor.execute({
-      distributorId: nonExistingDistributorId,
+      ids: nonExistingDistributorId,
     })
 
     expect(nonExistingDistributor).toBeTruthy()

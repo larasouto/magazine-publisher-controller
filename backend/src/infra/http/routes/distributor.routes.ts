@@ -12,7 +12,10 @@ export const distributor = Router()
 
 distributor.use(adaptMiddleware(makeEnsureAuthenticated()))
 distributor.post('/new', adaptRoute(makeCreateDistributorController()))
-distributor.put('/:distributorId/edit',adaptRoute(makeEditDistributorController()))
+distributor.put(
+  '/:distributorId/edit',
+  adaptRoute(makeEditDistributorController()),
+)
 distributor.get('/:distributorId', adaptRoute(makeGetDistributorController()))
-distributor.delete('/:distributorId',adaptRoute(makeDeleteDistributorController()))
+distributor.delete('/', adaptRoute(makeDeleteDistributorController()))
 distributor.get('/', adaptRoute(makeListDistributorController()))

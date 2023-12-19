@@ -7,7 +7,12 @@ export class DistributorMapper {
     const distributor: Pick<Distributor, 'props'> = {
       props: {
         name: raw.name,
-        address: raw.address,
+        street: raw.street,
+        number: raw.number,
+        city: raw.city,
+        state: raw.state,
+        zip: raw.zip,
+        complement: raw.complement,
         region: raw.region,
       },
     }
@@ -25,7 +30,12 @@ export class DistributorMapper {
     return {
       id: distributor.id,
       name: distributor.props.name,
-      address: distributor.props.address,
+      street: distributor.props.street,
+      number: distributor.props.number,
+      city: distributor.props.city,
+      state: distributor.props.state,
+      zip: distributor.props.zip,
+      complement: distributor.props.complement,
       region: distributor.props.region,
     }
   }

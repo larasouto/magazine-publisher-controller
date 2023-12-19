@@ -1,16 +1,20 @@
 import { Controller } from '@/core/infra/controller'
-import { HttpResponse, clientError, ok } from '@/core/infra/http-response'
+import {
+  HttpResponse,
+  clientError,
+  notFound,
+  ok,
+} from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
-import { t } from 'i18next'
-
-import { DistributorNotFoundError } from './errors/DistributorNotFoundError'
 import { DeleteDistributor } from './delete-distributor'
+import { DistributorNotFoundError } from './errors/DistributorNotFoundError'
+import { OneOrMoreDistributorNotFoundError } from './errors/OneOrMoreDistributorNotFoundError'
 
 type DeleteDistributorControllerRequest = {
-  distributorId: string
+  ids: string[]
 }
 
-export class DeleteDistributorontroller implements Controller {
+export class DeleteDistributorController implements Controller {
   constructor(
     private readonly validator: Validator<DeleteDistributorControllerRequest>,
     private deleteDistributor: DeleteDistributor,
@@ -32,12 +36,13 @@ export class DeleteDistributorontroller implements Controller {
 
       switch (error.constructor) {
         case DistributorNotFoundError:
-          return clientError({ type: 'info', message: error.message })
+        case OneOrMoreDistributorNotFoundError:
+          return notFound(error)
         default:
           return clientError(error)
       }
     }
 
-    return ok({ message: t('distributor.deleted') })
+    return ok({ message: 'Distribuidora deletada com sucesso' })
   }
 }

@@ -335,8 +335,13 @@ model Graphics {
 model Distributor {
   id                    String                  @id
   name                  String
-  address               String
-  region                String
+  street                String
+  complement            String?
+  number                Int
+  city                  String
+  state                 String
+  zip                   String
+  region                Int
   graphicsOnDistributor GraphicsOnDistributor[]
 
   @@map("distributor")

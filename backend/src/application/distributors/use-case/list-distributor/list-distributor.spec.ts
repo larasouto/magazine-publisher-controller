@@ -2,7 +2,7 @@ import { Distributor } from '@prisma/client'
 import { beforeEach, describe, expect, test } from 'vitest'
 import { IDistributorRepository } from '../../repositories/Interfaces/IDistributorRepository'
 import { InMemoryDistributorsRepository } from '../../repositories/in-memory/InMemoryDistributorRepository'
-import { CreateDistributor } from '../create-distributor/create-dsitributor'
+import { CreateDistributor } from '../create-distributor/create-distributor'
 import { ListDistributor } from './list-distributor'
 
 let listDistributor: ListDistributor

@@ -1,13 +1,17 @@
 import { Controller } from '@/core/infra/controller'
 import { HttpResponse, clientError, created } from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
-import { t } from 'i18next'
-import { CreateDistributor } from './create-dsitributor'
+import { CreateDistributor } from './create-distributor'
 
 type CreateDistributorControllerRequest = {
   name: string
-  address: string
-  region: string
+  street: string
+  number: number
+  city: string
+  state: string
+  zip: string
+  complement?: string
+  region: number
 }
 
 export class CreateDistributorController implements Controller {
@@ -36,6 +40,6 @@ export class CreateDistributorController implements Controller {
       }
     }
 
-    return created({ message: t('distributor.created') })
+    return created({ message: 'Distribuidora criada com sucesso' })
   }
 }

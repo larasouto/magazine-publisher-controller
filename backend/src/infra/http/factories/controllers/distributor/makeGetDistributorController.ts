@@ -1,6 +1,6 @@
-import { PrismaDistributorRepository } from '@/application/distributor/repositories/Prisma/PrismaDistributorRepository'
-import { GetDistributor } from '@/application/distributor/use-case/get-distributor/get-distributor'
-import { GetDistributorController } from '@/application/distributor/use-case/get-distributor/get-distributor.controller'
+import { PrismaDistributorRepository } from '@/application/distributors/repositories/prisma/PrismaDistributorRepository'
+import { GetDistributor } from '@/application/distributors/use-case/get-distributor/get-distributor'
+import { GetDistributorController } from '@/application/distributors/use-case/get-distributor/get-distributor.controller'
 import { Controller } from '@/core/infra/controller'
 import { ValidatorCompositor } from '@/infra/validation/ValidatorCompositor'
 

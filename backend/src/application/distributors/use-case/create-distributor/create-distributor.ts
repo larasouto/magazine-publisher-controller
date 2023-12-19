@@ -4,8 +4,13 @@ import { IDistributorRepository } from '../../repositories/Interfaces/IDistribut
 
 type CreateDistributorRequest = {
   name: string
-  address: string
-  region: string
+  street: string
+  number: number
+  city: string
+  state: string
+  zip: string
+  complement?: string
+  region: number
 }
 
 type CreateDistributorResponse = Either<Error, Distributor>
