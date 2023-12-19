@@ -7,7 +7,13 @@ import { Input, Select, SelectItem } from '@nextui-org/react'
 import { InputMask } from '@react-input/mask'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { DistributorRegion, DistributorsForm, DistributorsFormWithId, DistributorsSchema } from './distributor.schema'
+import { distributorRegion } from './constant/index'
+import {
+  DistributorRegion,
+  DistributorsForm,
+  DistributorsFormWithId,
+  DistributorsSchema
+} from './distributor.schema'
 import { SelectState } from './select/addresses.states'
 
 type DistributorFormProps = {
@@ -48,23 +54,39 @@ export const DistributorForm = ({ data }: DistributorFormProps) => {
     >
       <GridLayout cols="3">
         <fieldset>
-          <Input
-            label={'Nome'}
-            placeholder={'Informe o nome da distribuidora'}
-            errorMessage={form.formState.errors.name?.message}
-            labelPlacement="outside"
-            {...form.register('name')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <Input
+                label={'Nome'}
+                placeholder={'Informe o nome da distribuidora'}
+                errorMessage={form.formState.errors.name?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            label={'Rua'}
-            placeholder={'Informe o nome da rua'}
-            errorMessage={form.formState.errors.street?.message}
-            labelPlacement="outside"
-            {...form.register('street')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="street"
+            render={({ field }) => (
+              <Input
+                label={'Rua'}
+                placeholder={'Informe o nome da rua'}
+                errorMessage={form.formState.errors.street?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
@@ -163,11 +185,7 @@ export const DistributorForm = ({ data }: DistributorFormProps) => {
               .filter((value) => !isNaN(+value))
               .map((value) => (
                 <SelectItem key={value} value={value}>
-                  {t(
-                    `form.publication_period.options.${DistributorRegion[
-                      value
-                    ].toLowerCase()}`
-                  )}
+                  {distributorRegion[DistributorRegion[value]]}
                 </SelectItem>
               ))}
           </Select>
