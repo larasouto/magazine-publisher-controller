@@ -1,18 +1,19 @@
 import { Controller } from '@/core/infra/controller'
-import { ListSubscriptions } from './list-subscription'
 import { HttpResponse, ok } from '@/core/infra/http-response'
+import { ListSubscriptionsByUser } from './list-subscription'
 
 type ListSubscriptionsControllerRequest = {
   userId: string
 }
 
 export class ListSubscriptionsController implements Controller {
-  constructor(private listSubscriptions: ListSubscriptions) {}
+  constructor(private listSubscriptions: ListSubscriptionsByUser) {}
 
-  async handle({
-    userId,
-  }: ListSubscriptionsControllerRequest): Promise<HttpResponse> {
-    const result = await this.listSubscriptions.execute(userId)
+  async handle(
+    request: ListSubscriptionsControllerRequest,
+  ): Promise<HttpResponse> {
+    const result = await this.listSubscriptions.execute(request)
+    console.log('uashduashduahsd teste')
 
     return ok({
       dto: result.map((subscription) => subscription?.toResponseBody()),

@@ -3,11 +3,15 @@ import { IOrderRepository } from '../../repositories/interfaces/IOrdersRepositor
 
 type ListOrdersResponse = Order[]
 
+type ListOrdersRequest = {
+  userId: string
+}
+
 export class ListOrders {
   constructor(private ordersRepository: IOrderRepository) {}
 
-  async execute(): Promise<ListOrdersResponse> {
-    const orders = await this.ordersRepository.list()
+  async execute({ userId }: ListOrdersRequest): Promise<ListOrdersResponse> {
+    const orders = await this.ordersRepository.list(userId)
     return orders
   }
 }

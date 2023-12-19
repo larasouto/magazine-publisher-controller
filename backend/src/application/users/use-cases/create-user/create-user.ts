@@ -1,14 +1,15 @@
 import { Either, left, right } from '@/core/logic/either'
 import { User } from '../../domain/user'
+import { UserRole } from '../../domain/user.schema'
 import { IUsersRepository } from '../../repositories/interfaces/IUsersRepository'
 import { UserAlreadyExistsError } from './errors/UserAlreadyExistsError'
-import { UserRole } from '../../domain/user.schema'
 
 type CreateUserRequest = {
   email: string
   name: string
   password: string
   phone?: string
+  role?: number
 }
 
 type CreateUserResponse = Either<UserAlreadyExistsError, User>
@@ -21,13 +22,14 @@ export class CreateUser {
     name,
     password,
     phone,
+    role,
   }: CreateUserRequest): Promise<CreateUserResponse> {
     const userOrError = User.create({
       email,
       name,
       password,
       phone,
-      role: UserRole.CUSTOMER,
+      role: role || UserRole.CUSTOMER,
     })
 
     if (userOrError.isLeft()) {

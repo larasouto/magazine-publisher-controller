@@ -36,10 +36,9 @@ subscriptions.put(
   '/:subscriptionId/renew',
   adaptRoute(makeRenewSubscriptionsController()),
 )
-
 subscriptions.get(
-  '/my-subscriptions',
-  adaptRoute(makeListSubscriptionsByUserController()),
+  '/profile/my-subscriptions',
+  adaptRoute(makeListSubscriptionsController()),
 )
 
 subscriptions.get(

@@ -16,8 +16,8 @@ export const MySubscriptionPage = () => {
   const { breadcrumb } = usePageUtils()
 
   const { list } = useFetch<SubscriptionItem[]>({
-    baseUrl: backend.subscriptions.payment.baseUrl,
-    query: ['payment-subscriptions'],
+    baseUrl: backend.subscriptions['my-subscriptions'].baseUrl,
+    query: ['my-subscriptions'],
     fetch: {
       list: true
     }
@@ -44,11 +44,13 @@ export const MySubscriptionPage = () => {
             </p>
           </div>
         )}
-        {list.data?.map((subscription) => (
-          <Fragment key={subscription.id}>
-            <SubscriptionsDetails id={subscription.subscriptionId} />
-          </Fragment>
-        ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {list.data?.map((subscription) => (
+            <Fragment key={subscription.id}>
+              <SubscriptionsDetails id={subscription.id} />
+            </Fragment>
+          ))}
+        </div>
       </section>
     </PageLayout>
   )

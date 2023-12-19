@@ -10,10 +10,12 @@ import {
   Checkbox,
   Divider,
   Input,
-  Link
+  Link,
+  Select,
+  SelectItem
 } from '@nextui-org/react'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import { ToggleButton } from '../components/ToggleButton'
@@ -118,6 +120,24 @@ export const SignUpForm = () => {
                 errorMessage={form.formState.errors.confirmPassword?.message}
                 autoComplete="current-password"
                 isRequired
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <Controller
+                control={form.control}
+                name="role"
+                render={({ field }) => (
+                  <Select
+                    label={'Tipo de Usuário'}
+                    labelPlacement="outside"
+                    selectionMode="single"
+                    defaultSelectedKeys={['0']}
+                    {...field}
+                  >
+                    <SelectItem key={'0'}>Usuário</SelectItem>
+                    <SelectItem key={'2'}>Banca</SelectItem>
+                  </Select>
+                )}
               />
             </div>
             <Checkbox name="terms" color="primary" isRequired>
