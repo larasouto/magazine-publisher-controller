@@ -1,20 +1,20 @@
 import { Either, left, right } from '@/core/logic/either'
-import { GraphicsProps, GraphicsSchema } from './graphics.schema'
+import { GraphicProps, GraphicSchema } from './graphics.schema'
 import { ZodValidationError } from '@/core/domain/errors/ZodValidationError'
 import { Entity } from '@/core/domain/entity'
 
-export class Graphics extends Entity<GraphicsProps> {
-  private constructor(props: GraphicsProps, id?: string) {
+export class Graphic extends Entity<GraphicProps> {
+  private constructor(props: GraphicProps, id?: string) {
     super(props, id)
   }
 
-  static create(props: GraphicsProps, id?: string): Either<Error, Graphics> {
-    const result = GraphicsSchema.safeParse(props)
+  static create(props: GraphicProps, id?: string): Either<Error, Graphic> {
+    const result = GraphicSchema.safeParse(props)
 
     if (!result.success) {
       return left(new ZodValidationError(result.error))
     }
 
-    return right(new Graphics(result.data, id))
+    return right(new Graphic(result.data, id))
   }
 }

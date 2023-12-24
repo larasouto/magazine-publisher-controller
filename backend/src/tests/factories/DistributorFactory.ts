@@ -1,4 +1,4 @@
-import { Distributor } from '@/application/distributor/domain/distributor'
+import { Distributor } from '@/application/distributors/domain/distributor'
 
 type DistributorOverrides = {
   name?: string

@@ -6,7 +6,7 @@ import { SubscriptionForm } from './subscriptions.form'
 import { SubscriptionDataWithId } from './subscriptions.schema'
 
 export const SubscriptionPage = () => {
-  const { id, t, title, breadcrumb } = usePageUtils('subscriptions')
+  const { id, breadcrumb } = usePageUtils('subscriptions')
 
   const { get } = useFetch<SubscriptionDataWithId>({
     baseUrl: backend.subscriptions.baseUrl,
@@ -19,11 +19,11 @@ export const SubscriptionPage = () => {
 
   return (
     <PageLayout
-      title={title({ dynamic: true })}
+      title={id ? 'Editar Assinatura' : 'Nova Assinatura'}
       imageSrc="/banner.jpg"
       isLoading={get.isLoading}
       breadcrumb={breadcrumb({
-        segments: [{ label: t('page.title'), link: routes.subscriptions.index }]
+        segments: [{ label: 'Assinaturas', link: routes.subscriptions.index }]
       })}
     >
       <SubscriptionForm data={get.data} />

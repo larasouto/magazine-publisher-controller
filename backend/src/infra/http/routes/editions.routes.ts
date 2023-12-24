@@ -14,6 +14,6 @@ editions.use(adaptMiddleware(makeEnsureAuthenticated()))
 
 editions.post('/new', adaptRoute(makeCreateEditionsController()))
 editions.get('/', adaptRoute(makeListEditionsController()))
-editions.delete('/:editionId', adaptRoute(makeDeleteEditionsController()))
+editions.delete('/', adaptRoute(makeDeleteEditionsController()))
 editions.put('/:editionId/edit', adaptRoute(makeEditEditionsController()))
 editions.get('/:editionId', adaptRoute(makeGetEditionController()))

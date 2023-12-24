@@ -6,7 +6,12 @@ import { CreateGraphics } from './create-graphics'
 
 type CreateGraphicsControllerRequest = {
   name: string
-  address: string
+  street: string
+  number: number
+  city: string
+  state: string
+  zip: string
+  complement?: string
 }
 
 export class CreateGraphicsController implements Controller {
@@ -35,6 +40,6 @@ export class CreateGraphicsController implements Controller {
       }
     }
 
-    return created({ message: t('graphics.created') })
+    return created({ message: 'Gráfica criada com sucesso' })
   }
 }

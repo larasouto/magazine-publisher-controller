@@ -5,6 +5,6 @@ export interface IReviewsRepository {
   create(review: Review): Promise<void>
   update(review: Review): Promise<void>
   deleteMany(ids: string[]): Promise<void>
-  list(): Promise<Review[]>
+  list(editionId: string): Promise<Review[]>
   exists(id: string): Promise<boolean>
 }

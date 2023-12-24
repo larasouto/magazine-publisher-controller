@@ -1,8 +1,6 @@
-import { t } from 'i18next'
-
 export class SubscriptionNotFoundError extends Error {
   constructor() {
-    super(t('subscription.not_found'))
+    super('Assinatura não encontrada')
     this.name = 'SubscriptionNotFoundError'
   }
 }

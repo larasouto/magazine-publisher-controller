@@ -15,7 +15,7 @@ export const CardSchema = z.object({
   phone: z
     .string()
     .refine((phone) => Phone.validate(phone), {
-      message: 'Invalid phone number',
+      message: 'Número de telefone inválido',
     })
     .nullish(),
   type: z.nativeEnum(CardType),

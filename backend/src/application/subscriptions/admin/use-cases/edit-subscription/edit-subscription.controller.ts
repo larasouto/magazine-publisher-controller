@@ -44,6 +44,6 @@ export class EditSubscriptionController implements Controller {
       }
     }
 
-    return ok({ message: t('subscription.updated') })
+    return ok({ message: 'Assinatura editada com sucesso' })
   }
 }

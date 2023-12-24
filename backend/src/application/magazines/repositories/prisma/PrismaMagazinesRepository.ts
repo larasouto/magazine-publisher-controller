@@ -24,15 +24,13 @@ export class PrismaMagazinesRepository implements IMagazineRepository {
     })
   }
 
-  async delete(id: string): Promise<void> {
-    await prismaClient.magazine.delete({
-      where: { id },
-    })
-  }
-
   async deleteMany(ids: string[]): Promise<void> {
     await prismaClient.magazine.deleteMany({
-      where: { id: { in: ids } },
+      where: {
+        id: {
+          in: ids,
+        },
+      },
     })
   }
 

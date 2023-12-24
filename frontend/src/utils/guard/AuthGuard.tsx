@@ -11,11 +11,11 @@ export const AG_EXPIRED_TOKEN_ID = 'token-expired'
 
 export const AuthGuard = ({ children }: AuthGuardProps) => {
   const [isMounted, setMounted] = useState(false)
-  const { isExpired } = useToken()
+  const { token, isExpired } = useToken()
   const { signOut } = useAuth()
 
   useEffect(() => {
-    if (isExpired()) {
+    if (token && isExpired()) {
       toast.error('Sessão expirada. Por favor, entre novamente.', {
         id: AG_EXPIRED_TOKEN_ID,
         duration: Infinity
@@ -23,7 +23,7 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
       signOut()
     }
     setMounted(true)
-  }, [isExpired, signOut])
+  }, [token, isExpired, signOut])
 
   return <>{isMounted && children}</>
 }

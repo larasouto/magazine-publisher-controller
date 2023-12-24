@@ -1,8 +1,6 @@
-import { t } from 'i18next'
-
 export class MagazineNotFoundError extends Error {
   constructor() {
-    super(t('magazine.not_found'))
+    super('Revista não encontrada')
     this.name = 'MagazineNotFoundError'
   }
 }

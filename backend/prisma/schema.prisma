@@ -26,6 +26,7 @@ model User {
   reviews                Review[]
   advertisings           Advertising[]
   customer_subscriptions CustomerSubscription[]
+  notifications          Notification[]
 
   @@map("users")
 }
@@ -45,6 +46,7 @@ model Subscription {
   user_id                String
   payment_subscriptions  PaymentSubscription[]
   customer_subscriptions CustomerSubscription[]
+  notifications          Notification[]
 
   @@map("subscriptions")
 }
@@ -54,8 +56,8 @@ model CustomerSubscription {
   subscription    Subscription @relation(fields: [subscription_id], references: [id])
   subscription_id String
   status          Int
-  user        User         @relation(fields: [user_id], references: [id])
-  user_id     String
+  user            User         @relation(fields: [user_id], references: [id])
+  user_id         String
   created_at      DateTime     @default(now())
   updated_at      DateTime     @updatedAt
 
@@ -203,6 +205,7 @@ model Edition {
   GraphicsOrder    GraphicsOrder[]
   articles         Article[]
   is_top_seller    Boolean         @default(false)
+  edition_offers   EditionOffer[]
 
   @@map("editions")
 }
@@ -231,6 +234,8 @@ model Order {
   status      Int
   created_at  DateTime    @default(now())
   updated_at  DateTime    @updatedAt
+  Coupon      Coupon?     @relation(fields: [couponId], references: [id])
+  couponId    String?
 
   @@map("orders")
 }
@@ -318,10 +323,15 @@ model Review {
   @@map("reviews")
 }
 
-model Graphics {
+model Graphic {
   id                    String                  @id
   name                  String
-  address               String
+  street                String
+  complement            String?
+  number                Int
+  city                  String
+  state                 String
+  zip                   String
   graphicsOnDistributor GraphicsOnDistributor[]
 
   @@map("graphics")
@@ -330,8 +340,13 @@ model Graphics {
 model Distributor {
   id                    String                  @id
   name                  String
-  address               String
-  region                String
+  street                String
+  complement            String?
+  number                Int
+  city                  String
+  state                 String
+  zip                   String
+  region                Int
   graphicsOnDistributor GraphicsOnDistributor[]
 
   @@map("distributor")
@@ -339,7 +354,7 @@ model Distributor {
 
 model GraphicsOnDistributor {
   id            String          @id @unique
-  graphics      Graphics        @relation(fields: [graphicsId], references: [id])
+  graphics      Graphic         @relation(fields: [graphicsId], references: [id])
   graphicsId    String
   distributor   Distributor     @relation(fields: [distributorId], references: [id])
   distributorId String
@@ -432,4 +447,64 @@ model ReporterArticle {
 
   @@id([article_id, reporter_id])
   @@map("article_reporter")
+}
+
+model EditionOffer {
+  id         String   @id
+  edition    Edition  @relation(fields: [edition_id], references: [id])
+  edition_id String
+  offer      Offer    @relation(fields: [offer_id], references: [id])
+  offer_id   String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("edition_offers")
+}
+
+model Offer {
+  id                  String         @id
+  discount_percentage Int
+  from                DateTime
+  to                  DateTime
+  edition_offers      EditionOffer[]
+  created_at          DateTime       @default(now())
+  updated_at          DateTime       @updatedAt
+  notifications       Notification[]
+
+  @@map("offers")
+}
+
+model Coupon {
+  id                String         @id
+  coupon_code       String
+  discount_amount   Int
+  expiration_date   DateTime
+  type              Int
+  orders            Order[]
+  created_at        DateTime       @default(now())
+  updated_at        DateTime       @updatedAt
+  notifications     Notification[]
+  send_notification Boolean        @default(false)
+
+  @@map("coupons")
+}
+
+model Notification {
+  id              String        @id
+  subject         String
+  message         String
+  read            Boolean       @default(false)
+  send_date       DateTime
+  user            User          @relation(fields: [user_id], references: [id])
+  user_id         String
+  coupon          Coupon?       @relation(fields: [coupon_id], references: [id])
+  coupon_id       String?
+  offer           Offer?        @relation(fields: [offer_id], references: [id])
+  offer_id        String?
+  subscription    Subscription? @relation(fields: [subscription_id], references: [id])
+  subscription_id String?
+  created_at      DateTime      @default(now())
+  updated_at      DateTime      @updatedAt
+
+  @@map("notifications")
 }

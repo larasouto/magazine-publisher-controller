@@ -40,6 +40,6 @@ export class CreateSubscriptionController implements Controller {
       }
     }
 
-    return created({ message: t('item.created') })
+    return created({ message: 'Assinatura criada com sucesso' })
   }
 }

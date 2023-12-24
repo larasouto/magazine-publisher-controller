@@ -4,13 +4,15 @@ import { useFetch } from '@/hooks/useFetch'
 import { backend, routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@nextui-org/react'
-import { useForm } from 'react-hook-form'
+import { InputMask } from '@react-input/mask'
+import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import {
   GraphicForm,
   GraphicsFormWithId,
   GraphicsSchema
 } from './graphics.schema'
+import { SelectState } from './select/addresses.states'
 
 type GraphicsFormProps = {
   data?: GraphicsFormWithId
@@ -48,11 +50,11 @@ export const GraphicsForm = ({ data }: GraphicsFormProps) => {
       className="flex flex-col gap-3"
       noValidate
     >
-      <GridLayout cols="1">
+      <GridLayout cols="3">
       <fieldset>
           <Input
-            label={t('form.name.label')}
-            placeholder={t('form.name.placeholder')}
+            label={'Nome da gráfica'}
+            placeholder={'Informe o nome da gráfica'}
             errorMessage={form.formState.errors.name?.message}
             labelPlacement="outside"
             {...form.register('name')}
@@ -61,12 +63,93 @@ export const GraphicsForm = ({ data }: GraphicsFormProps) => {
         </fieldset>
         <fieldset>
           <Input
-            label={t('form.address.label')}
-            placeholder={t('form.address.placeholder')}
-            errorMessage={form.formState.errors.address?.message}
+            label={'Rua'}
+            placeholder={'Informe o nome da rua'}
+            errorMessage={form.formState.errors.street?.message}
             labelPlacement="outside"
-            {...form.register('address')}
+            {...form.register('street')}
             isRequired
+          />
+        </fieldset>
+        <fieldset>
+          <Controller
+            control={form.control}
+            name="number"
+            render={({ field }) => (
+              <InputMask
+                mask="_____"
+                replacement={{ _: /\d/ }}
+                component={Input}
+                label={'Número'}
+                placeholder={'Informe o número'}
+                errorMessage={form.formState.errors.number?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
+          />
+        </fieldset>
+        <fieldset>
+          <Controller
+            control={form.control}
+            name="city"
+            render={({ field }) => (
+              <Input
+                type="text"
+                label={'Cidade'}
+                placeholder={'Informe o nome da cidade'}
+                errorMessage={form.formState.errors.city?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                onValueChange={field.onChange}
+              />
+            )}
+          />
+        </fieldset>
+        <fieldset>
+          <SelectState form={form} />
+        </fieldset>
+        <fieldset>
+          <Controller
+            control={form.control}
+            name="zip"
+            render={({ field }) => (
+              <InputMask
+                mask="_____-___"
+                replacement={{ _: /\d/ }}
+                component={Input}
+                label={'CEP'}
+                placeholder={'Informe o CEP'}
+                errorMessage={form.formState.errors.zip?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
+          />
+        </fieldset>
+        <fieldset>
+          <Controller
+            control={form.control}
+            name="complement"
+            render={({ field }) => (
+              <Input
+                type="text"
+                label={'Complemento'}
+                placeholder={'Informe o complemento'}
+                errorMessage={form.formState.errors.complement?.message}
+                labelPlacement="outside"
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
       </GridLayout>

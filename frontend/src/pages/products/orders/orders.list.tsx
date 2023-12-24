@@ -6,7 +6,7 @@ import { backend } from '@/routes/routes'
 import { OrdersColumns, columns } from './table/orders.columns'
 
 export const OrdersListPage = () => {
-  const { title, breadcrumb } = usePageUtils('magazines')
+  const { breadcrumb } = usePageUtils('magazines')
 
   const { list } = useFetch<OrdersColumns[]>({
     baseUrl: backend.orders.baseUrl,
@@ -18,9 +18,11 @@ export const OrdersListPage = () => {
 
   return (
     <PageLayout
-      title={title()}
+      title={'Lista de Pedidos'}
       isLoading={list.isLoading}
-      breadcrumb={breadcrumb()}
+      breadcrumb={breadcrumb({
+        segments: [{ label: 'Pedidos' }]
+      })}
     >
       <DataTable columns={columns} data={list?.data ?? []} />
     </PageLayout>

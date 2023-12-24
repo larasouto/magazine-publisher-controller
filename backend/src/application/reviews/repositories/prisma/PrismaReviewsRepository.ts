@@ -47,8 +47,11 @@ export class PrismaReviewsRepository implements IReviewsRepository {
     return !!reviewExists
   }
 
-  async list(): Promise<Review[]> {
-    const reviews = await prismaClient.review.findMany()
-    return reviews.map(ReviewMapper.toDomain)
+  async list(editionId: string): Promise<Review[]> {
+    const review = await prismaClient.review.findMany({
+      where: { edition_id: editionId },
+    })
+
+    return review.map(ReviewMapper.toDomain)
   }
 }

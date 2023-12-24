@@ -9,6 +9,7 @@ type PageProps = {
   dynamic?: boolean
   title?: string
   home?: BreadcrumbItem | false
+  onClick?: () => void
 }
 
 export const usePageUtils = (ns?: string | string[]) => {
@@ -26,12 +27,15 @@ export const usePageUtils = (ns?: string | string[]) => {
   const breadcrumb = ({
     _default = true,
     home = { label: 'Home', link: routes.home.index },
-    segments
+    segments,
+    onClick
   }: PageProps = {}) => {
     const useHome = home ? [home] : []
 
     const content =
       _default && !segments ? [...useHome, { label: title() }] : [...useHome]
+
+    onClick?.()
 
     return !segments ? content : [...content, ...segments]
   }

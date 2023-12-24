@@ -1,13 +1,18 @@
 import { Either, left, right } from '@/core/logic/either'
 import { IGraphicsRepository } from '../../repositories/Interfaces/IGraphicsRepository'
-import { Graphics } from '../../domain/graphics'
+import { Graphic } from '../../domain/graphics'
 
 type CreateGraphicsRequest = {
   name: string
-  address: string
+  street: string
+  number: number
+  city: string
+  state: string
+  zip: string
+  complement?: string
 }
 
-type CreateGraphicsResponse = Either<Error, Graphics>
+type CreateGraphicsResponse = Either<Error, Graphic>
 
 export class CreateGraphics {
   constructor(private graphicsRepository: IGraphicsRepository) {}
@@ -15,7 +20,7 @@ export class CreateGraphics {
   async execute(
     request: CreateGraphicsRequest,
   ): Promise<CreateGraphicsResponse> {
-    const graphicseOrError = Graphics.create(request)
+    const graphicseOrError = Graphic.create(request)
 
     if (graphicseOrError.isLeft()) {
       return left(graphicseOrError.value)

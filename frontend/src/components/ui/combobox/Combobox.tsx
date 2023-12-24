@@ -9,7 +9,6 @@ import {
 import { ChevronsUpDown, Loader, SearchIcon } from 'lucide-react'
 import { useId, useState } from 'react'
 import { ControllerRenderProps, FieldPath, FieldValues } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
 import { DebouncedInput } from '../DebouncedInput'
 import { ComboboxItems } from './ComboboxItems'
 
@@ -41,7 +40,6 @@ export const Combobox = <T extends FieldValues, K extends FieldPath<T>>({
   afterChange
 }: DropdownProps<T, K>) => {
   const id = useId()
-  const { t } = useTranslation('default')
   const { isOpen, onOpenChange, onClose } = useDisclosure()
   const [search, setSearch] = useState('')
 
@@ -78,7 +76,7 @@ export const Combobox = <T extends FieldValues, K extends FieldPath<T>>({
           >
             {items.find((value) => value.key === field.value)?.value ??
               placeholder ??
-              t('combobox.search_for')}
+              'Pesquisar'}
             {!isLoading ? (
               <ChevronsUpDown className="h-4 w-4 opacity-50" />
             ) : (
@@ -94,7 +92,7 @@ export const Combobox = <T extends FieldValues, K extends FieldPath<T>>({
             startContent={
               <SearchIcon className="w-5 h-5 top-1 text-foreground-500" />
             }
-            placeholder={t('combobox.search_for')}
+            placeholder={'Procurar'}
             classNames={{
               inputWrapper: 'rounded-b-none !pl-5 !pr-3 h-unit-12'
             }}
@@ -113,9 +111,7 @@ export const Combobox = <T extends FieldValues, K extends FieldPath<T>>({
             onClose={onClose}
           />
           {filtered.length === 0 && (
-            <p className="py-5 text-center text-default-400">
-              {t('combobox.no_results')}
-            </p>
+            <p className="py-5 text-center text-default-400">Sem resultados</p>
           )}
         </PopoverContent>
       </Popover>

@@ -1,12 +1,18 @@
 import { Controller } from '@/core/infra/controller'
-import { HttpResponse, clientError, ok } from '@/core/infra/http-response'
+import {
+  HttpResponse,
+  clientError,
+  fail,
+  notFound,
+  ok,
+} from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
-import { t } from 'i18next'
 import { DeleteEdition } from './delete-edition'
 import { EditionNotFoundError } from './errors/EditionNotFoundError'
+import { OneOrMoreEditionNotFoundError } from './errors/OneOrMoreEditonNotFoundError'
 
 type DeleteEditionControllerRequest = {
-  editionId: string
+  ids: string[]
 }
 
 export class DeleteEditionController implements Controller {
@@ -15,9 +21,7 @@ export class DeleteEditionController implements Controller {
     private deleteEdition: DeleteEdition,
   ) {}
 
-  async handle(
-    request: DeleteEditionControllerRequest,
-  ): Promise<HttpResponse> {
+  async handle(request: DeleteEditionControllerRequest): Promise<HttpResponse> {
     const validated = this.validator.validate(request)
 
     if (validated.isLeft()) {
@@ -31,12 +35,13 @@ export class DeleteEditionController implements Controller {
 
       switch (error.constructor) {
         case EditionNotFoundError:
-          return clientError(error)
+        case OneOrMoreEditionNotFoundError:
+          return notFound(error)
         default:
           return clientError(error)
       }
     }
 
-    return ok({ message: t('edition.deleted') })
+    return ok({ message: 'Edição deletada com sucesso' })
   }
 }

@@ -9,7 +9,7 @@ import { EditionColumns, columns } from './table/editions.columns'
 export const EditionsListPage = () => {
   const { title, breadcrumb } = usePageUtils('editions')
 
-  const { list } = useFetch<EditionColumns[]>({
+  const { list, removeMany } = useFetch<EditionColumns[]>({
     baseUrl: backend.editions.baseUrl,
     query: ['editions'],
     fetch: {
@@ -27,6 +27,7 @@ export const EditionsListPage = () => {
         columns={columns}
         data={list?.data ?? []}
         toolbar={<EditionToolbar />}
+        asyncFn={removeMany.mutateAsync}
       />
     </PageLayout>
   )

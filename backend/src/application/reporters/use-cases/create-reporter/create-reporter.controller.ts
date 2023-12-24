@@ -41,6 +41,6 @@ export class CreateReporterController implements Controller {
       }
     }
 
-    return created({ message: t('item.created') })
+    return created({ message: 'Repórter criado com sucesso' })
   }
 }

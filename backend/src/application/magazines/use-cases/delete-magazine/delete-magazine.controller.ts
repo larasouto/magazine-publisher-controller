@@ -1,12 +1,19 @@
 import { Controller } from '@/core/infra/controller'
-import { HttpResponse, clientError, ok } from '@/core/infra/http-response'
+import {
+  HttpResponse,
+  clientError,
+  fail,
+  notFound,
+  ok,
+} from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
 import { t } from 'i18next'
 import { DeleteMagazine } from './delete-magazine'
 import { MagazineNotFoundError } from './errors/MagazineNotFoundError'
+import { OneOrMoreMagazineNotFoundError } from './errors/OneOrMoreMagazineNotFoundError'
 
 type DeleteMagazineControllerRequest = {
-  magazineId: string
+  ids: string[]
 }
 
 export class DeleteMagazineController implements Controller {
@@ -15,9 +22,7 @@ export class DeleteMagazineController implements Controller {
     private deleteMagazine: DeleteMagazine,
   ) {}
 
-  async handle(
-    request: DeleteMagazineControllerRequest,
-  ): Promise<HttpResponse> {
+  async handle(request: DeleteMagazineControllerRequest): Promise<HttpResponse> {
     const validated = this.validator.validate(request)
 
     if (validated.isLeft()) {
@@ -31,7 +36,8 @@ export class DeleteMagazineController implements Controller {
 
       switch (error.constructor) {
         case MagazineNotFoundError:
-          return clientError(error)
+        case OneOrMoreMagazineNotFoundError:
+          return notFound(error)
         default:
           return clientError(error)
       }

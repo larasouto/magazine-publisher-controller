@@ -21,9 +21,5 @@ export const GetSubscriptionName = ({ row }: GetSubscriptionName) => {
     return <span className="flex gap-2">{row.subscriptionId}</span>
   }
 
-  return (
-    <span className="flex gap-2">
-      {get.data?.name} - {row.subscriptionId}
-    </span>
-  )
+  return <span className="flex gap-2">{get.data?.name}</span>
 }

@@ -48,7 +48,7 @@ export const columns = [
    * Title
    */
   helper.accessor((row) => row.title, {
-    id: 'title',
+    id: 'Título',
     header: () => t('editions:info.label'),
     cell: ({ row }) => {
       return (
@@ -67,7 +67,7 @@ export const columns = [
                 {t('editions:form.title.label')}
               </label>
               <h1 className="font-bold line-clamp-1">
-                {row.getValue('title')}
+                {row.getValue('Título')}
               </h1>
             </div>
             <div className="flex flex-col">
@@ -87,9 +87,9 @@ export const columns = [
    * Price
    */
   helper.accessor((row) => row.price, {
-    id: 'price',
+    id: 'Preço',
     header: () => t('editions:form.price.label'),
-    cell: ({ row }) => <Format text={row.getValue('price')} type="price" />,
+    cell: ({ row }) => <Format text={row.getValue('Preço')} type="price" />,
     enableSorting: true,
     enableHiding: true
   }),
@@ -97,9 +97,9 @@ export const columns = [
    * Number of Pages
    */
   helper.accessor((row) => row.numberOfPages, {
-    id: 'numberOfPages',
+    id: 'Número de Páginas',
     header: () => t('editions:form.number_of_pages.label'),
-    cell: ({ row }) => <Format text={row.getValue('numberOfPages')} />,
+    cell: ({ row }) => <Format text={row.getValue('Número de Páginas')} />,
     enableSorting: true,
     enableHiding: true
   }),
@@ -107,11 +107,11 @@ export const columns = [
    * Publication Date
    */
   helper.accessor((row) => row.publicationDate, {
-    id: 'publicationDate',
+    id: 'Data de publicação',
     header: () => t('editions:form.publication_date.label'),
     cell: ({ row }) => (
       <Format
-        text={row.getValue('publicationDate')}
+        text={row.getValue('Data de publicação')}
         type="date"
         options={{
           date: {
@@ -127,9 +127,9 @@ export const columns = [
    * Year
    */
   helper.accessor((row) => row.year, {
-    id: 'year',
+    id: 'Ano',
     header: () => t('editions:form.year.label'),
-    cell: ({ row }) => <Format text={row.getValue('year')} />,
+    cell: ({ row }) => <Format text={row.getValue('Ano')} />,
     enableSorting: true,
     enableHiding: true
   }),

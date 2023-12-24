@@ -1,6 +1,6 @@
 import { Controller } from '@/core/infra/controller'
 import { HttpResponse, ok } from '@/core/infra/http-response'
-import { ListSubscriptions } from './list-subscription'
+import { ListSubscriptions } from './list-subscriptions'
 
 export class ListSubscriptionsController implements Controller {
   constructor(private listSubscriptions: ListSubscriptions) {}

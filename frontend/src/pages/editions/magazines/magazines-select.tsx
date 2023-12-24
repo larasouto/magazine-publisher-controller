@@ -1,7 +1,7 @@
 import { useFetch } from '@/hooks/useFetch'
 import { MagazineFormWithId } from '@/pages/magazines/magazines.schema'
-import { backend } from '@/routes/routes'
-import { Select, SelectItem } from '@nextui-org/react'
+import { backend, routes } from '@/routes/routes'
+import { Link, Select, SelectItem, cn } from '@nextui-org/react'
 import { UseFormReturn } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { EditionForm } from '../editions.schema'
@@ -41,6 +41,23 @@ export const MagazinesSelect = ({ form }: ThemesSelectProps) => {
         isLoading={list.isLoading}
         disallowEmptySelection
         errorMessage={form.formState.errors.magazineId?.message}
+        description={
+          list.data?.length === 0 && (
+            <span>
+              Não há revistas cadastradas.{' '}
+              <Link
+                href={routes.magazines.new}
+                target="_blank"
+                className="text-xs hover:underline"
+              >
+                Cadastre uma!
+              </Link>
+            </span>
+          )
+        }
+        classNames={{
+          label: cn({ 'pb-2': list.data?.length === 0 })
+        }}
         isRequired
       >
         {(magazine) => (

@@ -38,9 +38,9 @@ export const columns = [
    * Name
    */
   helper.accessor((row) => row.name, {
-    id: 'name',
+    id: 'Nome',
     header: () => t('categories:form.name.label'),
-    cell: ({ row }) => row.getValue('name'),
+    cell: ({ row }) => row.getValue('Nome'),
     enableSorting: true,
     enableHiding: true
   }),
@@ -48,9 +48,9 @@ export const columns = [
    * Description
    */
   helper.accessor((row) => row.description, {
-    id: 'description',
+    id: 'Descrição',
     header: () => t('categories:form.description.label'),
-    cell: ({ row }) => row.getValue('description'),
+    cell: ({ row }) => row.getValue('Descrição'),
     enableSorting: true,
     enableHiding: true
   }),

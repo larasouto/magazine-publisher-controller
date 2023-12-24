@@ -7,9 +7,9 @@ import { GraphicsToolbar } from './graphics.toolbar'
 import { GraphicsColumns, columns } from './table/graphics.columns'
 
 export const GraphicsListPage = () => {
-  const { title, breadcrumb } = usePageUtils('graphics')
+  const { breadcrumb } = usePageUtils('graphics')
 
-  const { list } = useFetch<GraphicsColumns[]>({
+  const { list, removeMany } = useFetch<GraphicsColumns[]>({
     baseUrl: backend.graphics.baseUrl,
     query: ['graphics'],
     fetch: {
@@ -19,11 +19,15 @@ export const GraphicsListPage = () => {
 
   return (
     <PageLayout
-      title={title()}
+      title={'Gráficas'}
       isLoading={list.isLoading}
-      breadcrumb={breadcrumb()}
+      breadcrumb={breadcrumb({
+        segments: [{ label: 'Gráficas', link: backend.graphics.baseUrl }]
+      })
+    }
     >
       <DataTable
+        asyncFn={removeMany.mutateAsync}
         columns={columns}
         data={list?.data ?? []}
         toolbar={<GraphicsToolbar />}

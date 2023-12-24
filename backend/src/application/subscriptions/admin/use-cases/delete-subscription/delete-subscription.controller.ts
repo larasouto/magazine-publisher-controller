@@ -1,7 +1,6 @@
 import { Controller } from '@/core/infra/controller'
 import { HttpResponse, clientError, ok } from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
-import { t } from 'i18next'
 import { DeleteSubscription } from './delete-subscription'
 import { OneOrMoreSubscriptionNotFoundError } from './errors/OneOrMoreSubscriptionNotFoundError'
 import { SubscriptionNotFoundError } from './errors/SubscriptionNotFoundError'
@@ -41,8 +40,8 @@ export class DeleteSubscriptionController implements Controller {
 
     const message =
       request.ids?.length > 1
-        ? t('subscription.deleted_many')
-        : t('subscription.deleted')
+        ? 'Uma ou mais assinaturas deletadas com sucesso'
+        : 'Assinatura deletada com sucesso'
 
     return ok({ message })
   }

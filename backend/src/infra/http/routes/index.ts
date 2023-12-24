@@ -17,12 +17,15 @@ import { paymentsAd } from './payment-advertisings.routes'
 import { reviews } from './reviews.routes'
 import { adPrices } from './ad-prices.routes'
 import { bookstore } from './bookstore.routes'
-import { distributor } from './distributor.routes'
+import { distributors } from './distributors.routes'
 import { graphics } from './graphics.routes'
 import { graphicsOrder } from './graphicsOrder.routes'
 import { graphicsOrderRetur } from './graphicsOrderReturn.routes'
 import { graphicsOnDistributor } from './graphicsOnDistributor.routes'
 import { articles } from './articles.routes'
+import { offers } from './offers.routes'
+import { coupons } from './coupons.routes'
+import { notifications } from './notifications.routes'
 
 export const router = Router()
 
@@ -41,12 +44,15 @@ router.use('/orders', orders)
 router.use('/advertisings', advertisings)
 router.use('/payment-subscriptions', payments)
 router.use('/payment-advertisings', paymentsAd)
-router.use('/editions/reviews', reviews)
+router.use('/reviews', reviews)
 router.use('/ad-prices', adPrices)
 router.use('/bookstores', bookstore)
-router.use('/distributor', distributor)
+router.use('/distributors', distributors)
 router.use('/graphics', graphics)
 router.use('/graphicsOrders', graphicsOrder)
 router.use('/graphicsOrderReturn', graphicsOrderRetur)
 router.use('/graphicsOnDistributor', graphicsOnDistributor)
 router.use('/articles', articles)
+router.use('/offers', offers)
+router.use('/coupons', coupons)
+router.use('/notifications', notifications)

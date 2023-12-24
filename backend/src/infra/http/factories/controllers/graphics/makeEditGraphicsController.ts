@@ -1,4 +1,4 @@
-import { PrismaGraphicsRepository } from '@/application/graphics/repositories/Prisma/PrismaGraphicsRepository'
+import { PrismaGraphicsRepository } from '@/application/graphics/repositories/prisma/PrismaGraphicsRepository'
 import { EditGraphics } from '@/application/graphics/use-case/edit-graphics/edit-graphics'
 import { EditGraphicsController } from '@/application/graphics/use-case/edit-graphics/edit-graphics.controller'
 

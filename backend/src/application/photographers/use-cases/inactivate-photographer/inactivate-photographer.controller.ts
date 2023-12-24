@@ -36,6 +36,6 @@ export class InactivatePhotographerController implements Controller {
       }
     }
 
-    return ok({}, { message: 'photographer.inactivated' })
+    return ok({}, { message: 'Fotógrafo inativado com sucesso' })
   }
 }

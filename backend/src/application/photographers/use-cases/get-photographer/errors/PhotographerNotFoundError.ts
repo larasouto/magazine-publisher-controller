@@ -1,8 +1,6 @@
-import { t } from 'i18next'
-
-export class ReporterNotFoundError extends Error {
+export class PhotographerNotFoundError extends Error {
   constructor() {
-    super(t('reporter.not_found'))
-    this.name = 'ReporterNotFoundError'
+    super('Fotógrafo não encontrado')
+    this.name = 'PhotographerNotFoundError'
   }
 }

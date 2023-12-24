@@ -2,7 +2,6 @@ import { useFetch } from '@/hooks/useFetch'
 import { usePageUtils } from '@/hooks/usePageTranslation'
 import { PageLayout } from '@/layout/PageLayout'
 import { backend, routes } from '@/routes/routes'
-import { useEffect } from 'react'
 import { AddressesForm } from './addresses.form'
 import { AddressesDataWithId } from './addresses.schema'
 
@@ -18,10 +17,6 @@ export const AddressesPage = () => {
     }
   })
 
-  useEffect(() => {
-    console.log(get.data)
-  })
-
   return (
     <PageLayout
       title={title({ dynamic: true })}
@@ -30,7 +25,10 @@ export const AddressesPage = () => {
       breadcrumb={breadcrumb({
         home: { label: 'Perfil' },
         segments: [
-          { label: t('page.title'), link: routes.profile.addresses.index }
+          {
+            label: t('page.title'),
+            link: routes.profile.addresses.index
+          }
         ]
       })}
     >

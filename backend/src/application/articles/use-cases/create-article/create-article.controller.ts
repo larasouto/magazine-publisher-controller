@@ -51,6 +51,6 @@ export class CreateArticleController implements Controller {
       }
     }
 
-    return created({ message: t('item.created') })
+    return created({ message: 'Reportagem criada com sucesso' })
   }
 }

@@ -1,6 +1,6 @@
 import { useSupabase } from '@/hooks/useSupabase'
 import { Input } from '@nextui-org/react'
-import { ChangeEvent, useMemo } from 'react'
+import { ChangeEvent, useCallback, useMemo } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { v4 as uuid } from 'uuid'
 import { ArticleData } from '../articles.schema'
@@ -17,23 +17,26 @@ export const ArticlesImage = ({ form, errorMessage }: ArticlesImageProps) => {
     return form.getValues('imagePath')?.[0]?.split('/')?.[1] ?? uuid()
   }, [form])
 
-  const handleFile = async (e: ChangeEvent<HTMLInputElement>) => {
-    const target = e.target.files
+  const handleFile = useCallback(
+    async (e: ChangeEvent<HTMLInputElement>) => {
+      const target = e.target.files
 
-    if (!target) {
-      return
-    }
+      if (!target) {
+        return
+      }
 
-    for (const file of target) {
-      await uploadImage({
-        file,
-        path: 'articles/' + filePath + '/' + file.name
-      })
-    }
+      for (const file of target) {
+        await uploadImage({
+          file,
+          path: 'articles/' + filePath + '/' + file.name
+        })
+      }
 
-    form.setValue('imagePath', filePath)
-    form.trigger('imagePath')
-  }
+      form.setValue('imagePath', filePath)
+      form.trigger('imagePath')
+    },
+    [form, filePath, uploadImage]
+  )
 
   return (
     <>
@@ -46,6 +49,9 @@ export const ArticlesImage = ({ form, errorMessage }: ArticlesImageProps) => {
         multiple
         accept="image/*"
         onChange={handleFile}
+        classNames={{
+          innerWrapper: 'pt-1.5'
+        }}
       />
       <div className="p-1 text-tiny text-danger">{errorMessage}</div>
     </>

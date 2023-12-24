@@ -3,6 +3,7 @@ import toast from 'react-hot-toast'
 import { UseQueryOptions, useQuery } from 'react-query'
 
 type UserDetails = {
+  id: string
   email: string
   name: string
   role: number
@@ -18,8 +19,9 @@ export const useMe = (options?: UseQueryOptions) => {
         .catch((err) => toast.error(err.message))
     },
     {
-      cacheTime: 1000 * 60 * 5,
-      staleTime: 1000 * 60 * 5,
+      cacheTime: 1000 * 60 * 15, // 15 minutes,
+      staleTime: 1000 * 60 * 15, // 15 minutes,
+      refetchInterval: 1000 * 60 * 30, // 30 minutes,
       ...(options as UseQueryOptions<UserDetails>)
     }
   )

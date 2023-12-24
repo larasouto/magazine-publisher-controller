@@ -43,6 +43,6 @@ export class DeleteArticleController implements Controller {
       }
     }
 
-    return ok({ message: t('article.deleted') })
+    return ok({ message: 'Reportagem deletada com sucesso' })
   }
 }

@@ -11,6 +11,7 @@ import { makeGetSubscriptionController } from '../factories/controllers/subscrip
 import { makeEditSubscriptionsController } from '../factories/controllers/subscriptions/admin/makeEditSubscriptionController'
 import { makeCancelSubscriptionsController } from '../factories/controllers/subscriptions/user/makeRenewSubscriptionController'
 import { makeRenewSubscriptionsController } from '../factories/controllers/subscriptions/user/makeCancelSubscriptionController'
+import { makeListSubscriptionsByUserController } from '../factories/controllers/subscriptions/user/makeListSubscriptionByUser'
 
 export const subscriptions = Router()
 
@@ -35,10 +36,9 @@ subscriptions.put(
   '/:subscriptionId/renew',
   adaptRoute(makeRenewSubscriptionsController()),
 )
-
 subscriptions.get(
-  '/my-subscriptions',
-  adaptRoute(makeListUserSubscriptionsController()),
+  '/profile/my-subscriptions',
+  adaptRoute(makeListSubscriptionsController()),
 )
 
 subscriptions.get(

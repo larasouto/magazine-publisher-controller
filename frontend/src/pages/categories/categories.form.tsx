@@ -4,7 +4,7 @@ import { useFetch } from '@/hooks/useFetch'
 import { routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@nextui-org/react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import {
   CategoryForm,
@@ -21,7 +21,7 @@ export const CategoriesForm = ({ data }: CategoriesFormProps) => {
 
   const { create, update } = useFetch<CategoryForm>({
     baseUrl: routes.categories.index,
-    query: ['categories'],
+    query: ['categories', data?.id ?? ''],
     fetch: {
       id: data?.id
     }
@@ -49,22 +49,38 @@ export const CategoriesForm = ({ data }: CategoriesFormProps) => {
     >
       <GridLayout cols="1">
         <fieldset>
-          <Input
-            label={t('form.name.label')}
-            placeholder={t('form.name.placeholder')}
-            errorMessage={form.formState.errors.name?.message}
-            labelPlacement="outside"
-            {...form.register('name')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="name"
+            render={({ field: { value, onChange, ...rest } }) => (
+              <Input
+                label={'Nome'}
+                placeholder={'Digite o nome da categoria'}
+                errorMessage={form.formState.errors.name?.message}
+                labelPlacement="outside"
+                value={value ?? ''}
+                onValueChange={onChange}
+                {...rest}
+                isRequired
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            label={t('form.description.label')}
-            placeholder={t('form.description.placeholder')}
-            errorMessage={form.formState.errors.description?.message}
-            labelPlacement="outside"
-            {...form.register('description')}
+          <Controller
+            control={form.control}
+            name="description"
+            render={({ field: { value, onChange, ...rest } }) => (
+              <Input
+                label={'Descrição'}
+                placeholder={'Digite a descrição da categoria'}
+                errorMessage={form.formState.errors.description?.message}
+                labelPlacement="outside"
+                value={value ?? ''}
+                onValueChange={onChange}
+                {...rest}
+              />
+            )}
           />
         </fieldset>
       </GridLayout>

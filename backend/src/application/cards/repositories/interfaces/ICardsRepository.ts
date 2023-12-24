@@ -5,5 +5,5 @@ export interface ICardsRepository {
   create(card: Card): Promise<void>
   update(card: Card): Promise<void>
   deleteMany(ids: string[]): Promise<void>
-  list(): Promise<Card[]>
+  list(userId: string): Promise<Card[]>
 }

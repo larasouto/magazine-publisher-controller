@@ -37,6 +37,6 @@ export class DeleteAddressController implements Controller {
       }
     }
 
-    return ok({ message: t('address.deleted') })
+    return ok({ message: 'Endereço deletado com sucesso' })
   }
 }

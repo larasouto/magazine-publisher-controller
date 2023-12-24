@@ -39,6 +39,6 @@ export class CancelSubscriptionController implements Controller {
       }
     }
 
-    return ok({}, { message: 'Assinatura cancelada' })
+    return ok({ message: 'Assinatura cancelada com sucesso' })
   }
 }

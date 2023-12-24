@@ -1,9 +1,11 @@
 import { Either, left, right } from '@/core/logic/either'
 import { IMagazineRepository } from '../../repositories/interfaces/IMagazineRepository'
 import { MagazineNotFoundError } from './errors/MagazineNotFoundError'
+import { OneOrMoreMagazineNotFoundError } from './errors/OneOrMoreMagazineNotFoundError'
+
 
 type DeleteMagazineRequest = {
-  magazineId: string
+  ids: string[]
 }
 
 type DeleteMagazineResponse = Either<MagazineNotFoundError, null>
@@ -12,15 +14,27 @@ export class DeleteMagazine {
   constructor(private magazinesRepository: IMagazineRepository) {}
 
   async execute({
-    magazineId,
+    ids: magazineId,
   }: DeleteMagazineRequest): Promise<DeleteMagazineResponse> {
-    const magazineExists = await this.magazinesRepository.findById(magazineId)
+    const magazineOrMagazines = Array.isArray(magazineId)
+      ? magazineId
+      : [magazineId]
 
-    if (!magazineExists) {
-      return left(new MagazineNotFoundError())
+    const magazinePromises = magazineOrMagazines
+      .filter((magazineId) => magazineId)
+      .map((magazineId) => this.magazinesRepository.findById(magazineId))
+
+    const magazines = await Promise.all(magazinePromises)
+
+    if (magazines.some((magazine) => magazine === null)) {
+      return left(
+        magazines.length > 1
+          ? new OneOrMoreMagazineNotFoundError()
+          : new MagazineNotFoundError(),
+      )
     }
 
-    await this.magazinesRepository.delete(magazineId)
+    await this.magazinesRepository.deleteMany(magazineOrMagazines)
 
     return right(null)
   }

@@ -52,59 +52,95 @@ export const PhotographersForm = ({ data }: PhotographerFormProps) => {
     >
       <GridLayout cols="3">
         <fieldset>
-          <Input
-            label={t('form.name.label')}
-            placeholder={t('form.name.placeholder')}
-            errorMessage={form.formState.errors.name?.message}
-            labelPlacement="outside"
-            {...form.register('name')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <Input
+                label={t('form.name.label')}
+                placeholder={t('form.name.placeholder')}
+                errorMessage={form.formState.errors.name?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            type="email"
-            label={t('form.email.label')}
-            placeholder={t('form.email.placeholder')}
-            errorMessage={form.formState.errors.email?.message}
-            labelPlacement="outside"
-            {...form.register('email')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <Input
+                type="email"
+                label={t('form.email.label')}
+                placeholder={t('form.email.placeholder')}
+                errorMessage={form.formState.errors.email?.message}
+                labelPlacement="outside"
+                {...field}
+                onValueChange={field.onChange}
+                isRequired
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <InputMask
-            mask="___.___.___-__"
-            replacement={{ _: /\d/ }}
-            component={Input}
-            label={t('form.cpf.label')}
-            placeholder={t('form.cpf.placeholder')}
-            errorMessage={form.formState.errors.cpf?.message}
-            labelPlacement="outside"
-            {...form.register('cpf')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="cpf"
+            render={({ field }) => (
+              <InputMask
+                mask="___.___.___-__"
+                replacement={{ _: /\d/ }}
+                component={Input}
+                label={t('form.cpf.label')}
+                placeholder={t('form.cpf.placeholder')}
+                errorMessage={form.formState.errors.cpf?.message}
+                labelPlacement="outside"
+                {...field}
+                onValueChange={field.onChange}
+                isRequired
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <InputMask
-            mask="(__) _.____-____"
-            replacement={{ _: /\d/ }}
-            component={Input}
-            label={t('form.phone.label')}
-            placeholder={t('form.phone.placeholder')}
-            errorMessage={form.formState.errors.phone?.message}
-            labelPlacement="outside"
-            {...form.register('phone')}
+          <Controller
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <InputMask
+                mask="(__) _.____-____"
+                replacement={{ _: /\d/ }}
+                component={Input}
+                label={t('form.phone.label')}
+                placeholder={t('form.phone.placeholder')}
+                errorMessage={form.formState.errors.phone?.message}
+                labelPlacement="outside"
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            label={t('form.specialty.label')}
-            placeholder={t('form.specialty.placeholder')}
-            errorMessage={form.formState.errors.specialty?.message}
-            labelPlacement="outside"
-            {...form.register('specialty')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="specialty"
+            render={({ field }) => (
+              <Input
+                label={t('form.specialty.label')}
+                placeholder={t('form.specialty.placeholder')}
+                errorMessage={form.formState.errors.specialty?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
@@ -130,16 +166,12 @@ export const PhotographersForm = ({ data }: PhotographerFormProps) => {
             name="entryDate"
             render={({ field }) => (
               <DatePicker
-                field={field}
                 label={t('form.entry_date.label')}
                 errorMessage={form.formState.errors.entryDate?.message}
                 mode="single"
                 selected={field.value}
                 onSelect={field.onChange}
-                disabled={(date) =>
-                  date > new Date() || date < new Date('1900-01-01')
-                }
-                initialFocus
+                shouldDisableAfterToday
                 isRequired
               />
             )}
@@ -152,15 +184,10 @@ export const PhotographersForm = ({ data }: PhotographerFormProps) => {
               name="departureDate"
               render={({ field }) => (
                 <DatePicker
-                  field={field}
                   label={t('form.departure_date.label')}
                   mode="single"
                   selected={field.value ?? undefined}
                   onSelect={field.onChange}
-                  disabled={(date) =>
-                    date > new Date() || date < new Date('1900-01-01')
-                  }
-                  initialFocus
                   isRequired
                 />
               )}

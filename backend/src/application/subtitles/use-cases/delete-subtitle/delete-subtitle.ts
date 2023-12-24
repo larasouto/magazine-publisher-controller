@@ -1,26 +1,46 @@
 import { Either, left, right } from '@/core/logic/either'
-import { ISubtitleRepository } from '../../repositories/interfaces/ISubtitleRepository'
 import { SubtitleNotFoundError } from './errors/SubtitleNotFoundError'
+import { OneOrMoreSubtitleNotFoundError } from './errors/OneOrMoreSubtitleNotFoundError'
+import { ISubtitleRepository } from '../../repositories/interfaces/ISubtitleRepository'
 
 type DeleteSubtitleRequest = {
-  subtitleId: string
+  ids: string[]
 }
 
-type DeleteSubtitleResponse = Either<SubtitleNotFoundError, null>
+type DeleteSubtitleResponse = Either<
+  SubtitleNotFoundError | OneOrMoreSubtitleNotFoundError,
+  null
+>
 
 export class DeleteSubtitle {
   constructor(private subtitlesRepository: ISubtitleRepository) {}
 
   async execute({
-    subtitleId,
+    ids: subtitleId,
   }: DeleteSubtitleRequest): Promise<DeleteSubtitleResponse> {
-    const subtitleExists = await this.subtitlesRepository.findById(subtitleId)
+    const subtitleOrSubtitles = Array.isArray(subtitleId)
+      ? subtitleId
+      : [subtitleId]
 
-    if (!subtitleExists) {
-      return left(new SubtitleNotFoundError())
+    if (subtitleOrSubtitles.length === 0) {
+      return left(new OneOrMoreSubtitleNotFoundError())
     }
 
-    await this.subtitlesRepository.delete(subtitleId)
+    const subtitlePromises = subtitleOrSubtitles
+      .filter((subtitleId) => subtitleId)
+      .map((subtitleId) => this.subtitlesRepository.findById(subtitleId))
+
+    const subtitles = await Promise.all(subtitlePromises)
+
+    if (subtitles.some((subtitle) => subtitle === null)) {
+      return left(
+        subtitles.length > 1
+          ? new OneOrMoreSubtitleNotFoundError()
+          : new SubtitleNotFoundError(),
+      )
+    }
+
+    await this.subtitlesRepository.deleteMany(subtitleOrSubtitles)
 
     return right(null)
   }

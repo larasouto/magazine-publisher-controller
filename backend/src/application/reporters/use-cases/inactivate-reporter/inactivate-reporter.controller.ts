@@ -36,6 +36,6 @@ export class InactivateReporterController implements Controller {
       }
     }
 
-    return ok({}, { message: 'reporter.inactivated' })
+    return ok({}, { message: 'Repórter inativado com sucesso' })
   }
 }

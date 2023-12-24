@@ -1,8 +1,8 @@
 import { Controller } from '@/core/infra/controller'
 import { HttpResponse, clientError, ok } from '@/core/infra/http-response'
 import { Validator } from '@/core/infra/validator'
-import { PhotographerNotFoundError } from '../edit-photographer/errors/PhotographerNotFoundError'
 import { GetPhotographer } from './get-photographer'
+import { PhotographerNotFoundError } from './errors/PhotographerNotFoundError'
 
 type GetPhotographerControllerRequest = {
   photographerId: string

@@ -39,7 +39,11 @@ export class InMemoryReviewsRepository implements IReviewsRepository {
     return !!review
   }
 
-  async list(): Promise<Review[]> {
-    return this.reviews
+  async list(editionId: string): Promise<Review[]> {
+    const reviews = this.reviews.filter(
+      (review) => review.props.editionId === editionId,
+    )
+
+    return reviews
   }
 }

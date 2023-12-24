@@ -24,13 +24,13 @@ export const ThemesActions = ({ row }: ThemesActionsProps) => {
   const { t } = useTranslation()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
-  const { remove } = useFetch<ThemesColumns>({
+  const { removeMany } = useFetch<ThemesColumns>({
     baseUrl: backend.themes.baseUrl,
     query: ['themes']
   })
 
   const handleDelete = async () => {
-    await remove.mutateAsync(row)
+    await removeMany.mutateAsync(row)
   }
 
   return (

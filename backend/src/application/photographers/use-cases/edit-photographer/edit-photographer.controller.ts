@@ -45,6 +45,6 @@ export class EditPhotographerController implements Controller {
       }
     }
 
-    return ok({ message: t('photographer.updated') })
+    return ok({ message: 'Fotógrafo atualizado com sucesso' })
   }
 }

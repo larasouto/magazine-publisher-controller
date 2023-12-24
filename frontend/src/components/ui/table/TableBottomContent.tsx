@@ -3,15 +3,13 @@ import { DefaultAnimate } from '../animation/DefaultAnimate'
 import { useDataTable } from './context/DataTableProvider'
 
 export const TableBottomContent = () => {
-  const { t, table, filter } = useDataTable()
+  const { table, filter } = useDataTable()
 
   return (
     <div className="py-2 px-2 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-4 justify-center items-center">
       <span className="flex justify-center xs:justify-start items-center text-small text-default-400">
-        {t('table.rows_selected', {
-          rows: table.getFilteredSelectedRowModel().rows.length,
-          max_rows: table.getFilteredRowModel().rows.length
-        })}
+        {table.getFilteredSelectedRowModel().rows.length} de{' '}
+        {table.getFilteredRowModel().rows.length} selecionados
       </span>
       <DefaultAnimate>
         {filter.pagination && (

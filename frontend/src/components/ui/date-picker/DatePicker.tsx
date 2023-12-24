@@ -9,8 +9,8 @@ import { DatePickerLabel, DatePickerLabelProps } from './DatePickerLabel'
 import { DatePickerMessage, DatePickerMessageProps } from './DatePickerMessage'
 
 type DatePickerBaseProps = Pick<
-  DatePickerLabelProps & DatePickerMessageProps,
-  'label' | 'isRequired' | 'errorMessage' | 'description'
+  DatePickerLabelProps & DatePickerMessageProps & DatePickerButtonProps,
+  'label' | 'isRequired' | 'errorMessage' | 'description' | 'placeholder'
 >
 
 type DatePickerProps = CalendarProps &
@@ -34,14 +34,11 @@ export const DatePicker = ({
   labelProps,
   shouldDisableAfterToday = false,
   shouldCloseOnSelect = false,
+  placeholder,
   ...props
 }: DatePickerProps) => {
   const id = useId()
   const { isOpen, onClose, onOpenChange } = useDisclosure()
-
-  if (props.mode === 'multiple') {
-    throw new Error('DatePicker does not support multiple mode yet')
-  }
 
   return (
     <div role="group">
@@ -56,7 +53,12 @@ export const DatePicker = ({
         onOpenChange={onOpenChange}
         triggerScaleOnOpen={false}
       >
-        <DatePickerButton id={id} selected={props.selected} {...buttonProps} />
+        <DatePickerButton
+          id={id}
+          selected={props.selected}
+          placeholder={placeholder}
+          {...buttonProps}
+        />
         <PopoverContent className="p-0">
           <Calendar
             locale={i18next.language === 'en-US' ? enUS : ptBR}

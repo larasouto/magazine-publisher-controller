@@ -6,9 +6,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Input, Select, SelectItem } from '@nextui-org/react'
 import { InputMask } from '@react-input/mask'
 import { useMemo } from 'react'
-import { useForm } from 'react-hook-form'
-import { CardData, CardDataWithId, CardSchema, CardType } from './cards.schema'
+import { Controller, useForm } from 'react-hook-form'
 import { useTabs } from '../context/address.context'
+import { CardData, CardDataWithId, CardSchema, CardType } from './cards.schema'
 
 type CardsFormProps = {
   data?: CardDataWithId
@@ -57,73 +57,119 @@ export const CardsForm = ({ data }: CardsFormProps) => {
     >
       <GridLayout cols="2">
         <fieldset>
-          <Input
-            type="text"
-            label={'Nome do titular'}
-            placeholder={'Carlos Eduardo da Silva'}
-            errorMessage={form.formState.errors.holder?.message}
-            labelPlacement="outside"
-            {...form.register('holder')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="holder"
+            render={({ field }) => (
+              <Input
+                type="text"
+                label={'Nome do titular'}
+                placeholder={'Carlos Eduardo da Silva'}
+                errorMessage={form.formState.errors.holder?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <InputMask
-            mask="____ ____ ____ ____"
-            replacement={{ _: /\d/ }}
-            component={Input}
-            label={'Número do cartão'}
-            placeholder={'1234 5678 9101 1121'}
-            errorMessage={form.formState.errors.number?.message}
-            labelPlacement="outside"
-            {...form.register('number')}
+          <Controller
+            control={form.control}
+            name="number"
+            render={({ field }) => (
+              <InputMask
+                mask="____ ____ ____ ____"
+                replacement={{ _: /\d/ }}
+                component={Input}
+                label={'Número do cartão'}
+                placeholder={'1234 5678 9101 1121'}
+                errorMessage={form.formState.errors.number?.message}
+                labelPlacement="outside"
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <InputMask
-            mask="__/____"
-            replacement={{ _: /\d/ }}
-            component={Input}
-            label={'Data de expiração'}
-            placeholder={'MM/AAAA'}
-            errorMessage={form.formState.errors.expirationDate?.message}
-            labelPlacement="outside"
-            {...form.register('expirationDate')}
+          <Controller
+            control={form.control}
+            name="expirationDate"
+            render={({ field }) => (
+              <InputMask
+                mask="__/____"
+                replacement={{ _: /\d/ }}
+                component={Input}
+                label={'Data de expiração'}
+                placeholder={'MM/AAAA'}
+                errorMessage={form.formState.errors.expirationDate?.message}
+                labelPlacement="outside"
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <InputMask
-            mask="___"
-            replacement={{ _: /\d/ }}
-            component={Input}
-            label={'Código de Segurança (CVV)'}
-            placeholder={'123'}
-            errorMessage={form.formState.errors.securityCode?.message}
-            labelPlacement="outside"
-            {...form.register('securityCode')}
+          <Controller
+            control={form.control}
+            name="securityCode"
+            render={({ field }) => (
+              <InputMask
+                mask="___"
+                replacement={{ _: /\d/ }}
+                component={Input}
+                label={'Código de Segurança (CVV)'}
+                placeholder={'123'}
+                errorMessage={form.formState.errors.securityCode?.message}
+                labelPlacement="outside"
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            type="text"
-            label={'Endereço de cobrança'}
-            placeholder={'Rua das Flores, 123'}
-            errorMessage={form.formState.errors.billingAddress?.message}
-            labelPlacement="outside"
-            {...form.register('billingAddress')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="billingAddress"
+            render={({ field }) => (
+              <Input
+                type="text"
+                label={'Endereço de cobrança'}
+                placeholder={'Rua das Flores, 123'}
+                errorMessage={form.formState.errors.billingAddress?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <InputMask
-            mask="(__) _.____-____"
-            replacement={{ _: /\d/ }}
-            component={Input}
-            label={'Telefone'}
-            placeholder={'(11) 9.1234-5678'}
-            errorMessage={form.formState.errors.phone?.message}
-            labelPlacement="outside"
-            {...form.register('phone')}
+          <Controller
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <InputMask
+                mask="(__) _.____-____"
+                replacement={{ _: /\d/ }}
+                component={Input}
+                label={'Telefone'}
+                placeholder={'(11) 9.1234-5678'}
+                errorMessage={form.formState.errors.phone?.message}
+                labelPlacement="outside"
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>

@@ -26,14 +26,14 @@ export const EditionsActions = ({ row }: EditionsActionsProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const { removeImages } = useSupabase()
 
-  const { remove } = useFetch<EditionColumns>({
+  const { removeMany } = useFetch<EditionColumns>({
     baseUrl: backend.editions.baseUrl,
     query: ['editions']
   })
 
   const handleDelete = async () => {
     await removeImages({ path: [row.coverPath] })
-    await remove.mutateAsync(row)
+    await removeMany.mutateAsync(row)
   }
 
   return (

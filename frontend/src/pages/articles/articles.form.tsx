@@ -61,23 +61,37 @@ export const ArticleForm = ({ data }: ArticlesFormProps) => {
       />
       <GridLayout cols="2">
         <fieldset>
-          <Input
-            label={'Título'}
-            placeholder={'Informe o título da reportagem'}
-            errorMessage={form.formState.errors.title?.message}
-            labelPlacement="outside"
-            {...form.register('title')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <Input
+                label={'Título'}
+                placeholder={'Informe o título da reportagem'}
+                errorMessage={form.formState.errors.title?.message}
+                labelPlacement="outside"
+                {...field}
+                onValueChange={field.onChange}
+                isRequired
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            label={'Subtítulo'}
-            placeholder={'Informe o subtítulo da reportagem'}
-            errorMessage={form.formState.errors.subtitle?.message}
-            labelPlacement="outside"
-            {...form.register('subtitle')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="subtitle"
+            render={({ field }) => (
+              <Input
+                label={'Subtítulo'}
+                placeholder={'Informe o subtítulo da reportagem'}
+                errorMessage={form.formState.errors.subtitle?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
       </GridLayout>
@@ -102,36 +116,59 @@ export const ArticleForm = ({ data }: ArticlesFormProps) => {
       </GridLayout>
       <GridLayout cols="2">
         <fieldset>
-          <Input
-            type="number"
-            label={'Número de páginas'}
-            placeholder={'Informe o número de páginas da reportagem'}
-            errorMessage={form.formState.errors.numberOfPages?.message}
-            labelPlacement="outside"
-            {...form.register('numberOfPages')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="numberOfPages"
+            render={({ field }) => (
+              <Input
+                type="number"
+                label={'Número de páginas'}
+                placeholder={'Informe o número de páginas da reportagem'}
+                errorMessage={form.formState.errors.numberOfPages?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            type="number"
-            label={'Página inicial'}
-            placeholder={'Informe a página incial da reportagen'}
-            errorMessage={form.formState.errors.initialPage?.message}
-            labelPlacement="outside"
-            {...form.register('initialPage')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="initialPage"
+            render={({ field }) => (
+              <Input
+                type="number"
+                label={'Página inicial'}
+                placeholder={'Informe a página inicial da reportagen'}
+                errorMessage={form.formState.errors.initialPage?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                value={String(field.value ?? '')}
+                onValueChange={field.onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            type="number"
-            label={'Página final'}
-            placeholder={'Informe a página final da reportagem'}
-            errorMessage={form.formState.errors.finalPage?.message}
-            labelPlacement="outside"
-            {...form.register('finalPage')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="finalPage"
+            render={({ field }) => (
+              <Input
+                type="number"
+                label={'Página final'}
+                placeholder={'Informe a página final da reportagem'}
+                errorMessage={form.formState.errors.finalPage?.message}
+                labelPlacement="outside"
+                isRequired
+                {...field}
+                value={String(field.value ?? '')}
+              />
+            )}
           />
         </fieldset>
         <EditionsSelect form={form} />
@@ -149,7 +186,8 @@ export const ArticleForm = ({ data }: ArticlesFormProps) => {
               render={({ field }) => (
                 <Checkbox
                   checked={field.value}
-                  onChange={(e) => field.onChange(e.target.checked)}
+                  onValueChange={(e) => field.onChange(e)}
+                  defaultSelected={field.value}
                 >
                   Reportagem de Capa
                 </Checkbox>

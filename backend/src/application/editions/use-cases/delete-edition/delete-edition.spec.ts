@@ -47,7 +47,7 @@ describe('Delete a edition', () => {
     expect(await editionsRepository.findById(edition.id)).toBeTruthy()
 
     const deletedEdition = await deleteEdition.execute({
-      editionId: edition.id,
+      ids: edition.id,
     })
 
     expect(deletedEdition.isRight()).toBeTruthy()
@@ -57,7 +57,7 @@ describe('Delete a edition', () => {
     const nonExistingEditionId = 'non-existing-id'
 
     const nonExistingEdition = await deleteEdition.execute({
-      editionId: nonExistingEditionId,
+      ids: nonExistingEditionId,
     })
 
     expect(nonExistingEdition).toBeTruthy()

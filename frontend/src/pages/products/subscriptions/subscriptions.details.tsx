@@ -33,9 +33,9 @@ export const SubscriptionsDetails = () => {
             <div className="flex justify-between items-center">
               <h1
                 className={cn('text-xl font-extrabold', {
-                  'text-blue-500': get.data?.type === 0,
-                  'text-green-600': get.data?.type === 1,
-                  'text-yellow-600': get.data?.type === 2
+                  'text-blue-500': Number(get.data?.type) === 0,
+                  'text-green-600': Number(get.data?.type) === 1,
+                  'text-yellow-600': Number(get.data?.type) === 2
                 })}
               >
                 {get.data?.name}
@@ -46,9 +46,9 @@ export const SubscriptionsDetails = () => {
               size="md"
               color={
                 cn({
-                  primary: get.data?.type === 0,
-                  success: get.data?.type === 1,
-                  warning: get.data?.type === 2
+                  primary: Number(get.data?.type) === 0,
+                  success: Number(get.data?.type) === 1,
+                  warning: Number(get.data?.type) === 2
                 }) as any
               }
               variant="bordered"

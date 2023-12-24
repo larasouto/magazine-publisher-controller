@@ -62,7 +62,7 @@ export const SubscriptionsPayment = () => {
         </h1>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col gap-3"
+          className="flex flex-col gap-3 px-7 pt-5"
           noValidate
         >
           <GridLayout cols="3">

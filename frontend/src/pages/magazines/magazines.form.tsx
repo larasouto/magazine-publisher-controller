@@ -4,7 +4,7 @@ import { useFetch } from '@/hooks/useFetch'
 import { backend, routes } from '@/routes/routes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input, Select, SelectItem } from '@nextui-org/react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import {
   MagazineForm,
@@ -52,33 +52,57 @@ export const MagazinesForm = ({ data }: MagazinesFormProps) => {
     >
       <GridLayout cols="3">
         <fieldset>
-          <Input
-            label={t('form.name.label')}
-            placeholder={t('form.name.placeholder')}
-            errorMessage={form.formState.errors.name?.message}
-            labelPlacement="outside"
-            {...form.register('name')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="name"
+            render={({ field: { value, onChange, ...rest } }) => (
+              <Input
+                label={t('form.name.label')}
+                placeholder={t('form.name.placeholder')}
+                errorMessage={form.formState.errors.name?.message}
+                labelPlacement="outside"
+                {...rest}
+                value={value ?? ''}
+                onChange={onChange}
+                isRequired
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            label={t('form.description.label')}
-            placeholder={t('form.description.placeholder')}
-            errorMessage={form.formState.errors.description?.message}
-            labelPlacement="outside"
-            {...form.register('description')}
+          <Controller
+            control={form.control}
+            name="description"
+            render={({ field: { value, onChange, ...rest } }) => (
+              <Input
+                label={t('form.description.label')}
+                placeholder={t('form.description.placeholder')}
+                errorMessage={form.formState.errors.description?.message}
+                labelPlacement="outside"
+                {...rest}
+                value={value ?? ''}
+                onChange={onChange}
+              />
+            )}
           />
         </fieldset>
         <fieldset>
-          <Input
-            type="number"
-            label={t('form.year_founded.label')}
-            placeholder={t('form.year_founded.placeholder')}
-            errorMessage={form.formState.errors.yearFounded?.message}
-            labelPlacement="outside"
-            {...form.register('yearFounded')}
-            isRequired
+          <Controller
+            control={form.control}
+            name="yearFounded"
+            render={({ field: { value, onChange, ...rest } }) => (
+              <Input
+                type="number"
+                label={t('form.year_founded.label')}
+                placeholder={t('form.year_founded.placeholder')}
+                errorMessage={form.formState.errors.yearFounded?.message}
+                labelPlacement="outside"
+                isRequired
+                value={String(value ?? '')}
+                onValueChange={onChange}
+                {...rest}
+              />
+            )}
           />
         </fieldset>
         <fieldset>

@@ -26,9 +26,29 @@ export class PrismaSubscriptionsRepository implements ISubscriptionsRepository {
     return !!subscriptionExists
   }
 
-  async list(): Promise<Subscription[]> {
+  async list(
+    userId?: string,
+    mySubscription?: boolean,
+  ): Promise<Subscription[]> {
+    if (userId && mySubscription) {
+      const subscriptions = await prismaClient.customerSubscription.findMany({
+        where: { user_id: userId },
+      })
+      return subscriptions.map(SubscriptionMapper.toDomain)
+    }
+
     const subscriptions = await prismaClient.customerSubscription.findMany()
     return subscriptions.map(SubscriptionMapper.toDomain)
+  }
+
+  async listByUser(userId: string): Promise<Subscription[]> {
+    const subscriptions = await prismaClient.subscription.findMany({
+      where: { user_id: userId },
+    })
+
+    console.log(subscriptions)
+
+    return []
   }
 
   async inactivate(id: string): Promise<void> {

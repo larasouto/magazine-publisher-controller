@@ -25,7 +25,7 @@ export const CategoryListPage = () => {
     >
       <DataTable
         columns={columns}
-        data={list?.data ?? []}
+        data={list?.data}
         asyncFn={removeMany.mutateAsync}
         toolbar={<CategoriesToolbar />}
       />

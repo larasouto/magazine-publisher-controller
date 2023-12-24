@@ -47,9 +47,8 @@ export const EditionShow = () => {
             <DetailsButtons data={data} />
           </div>
         </div>
-        <section></section>
         <section>
-          <Evaluations />
+          <Evaluations editionId={data?.id} />
         </section>
       </section>
     </PageLayout>
